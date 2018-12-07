@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<script src="../../lib/js/mui.min.js"></script>
+		<link href="../../lib/css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../../css/index.css" />
+		<link rel="stylesheet" type="text/css" href="../../lib/css/reset.css" />
+		<style type="text/css">
+			#header {
+				padding: 0;
+				margin: 0;
+				height: 97px;
+				color: #FFFFFF;
+				font-size: 18px;
+			}
+
+			#itemName {
+				height: 44px;
+				line-height: 44px;
+				background: #FFFFFF;
+				text-align: center;
+				color: #000000;
+			}
+
+		#headerItem {
+			height: 53px;
+			background: url(../../img/sssss_02.jpg) no-repeat;
+			background-size: 100% 100%;
+		}
+			#headerItem>h1 {
+				color: #FFFFFF;
+				font-size: 18px;
+				line-height: 53px;
+			}
+
+			.mui-icon-left-nav {
+				top: 20px;
+				margin-left: 10px;
+			}
+
+			#imgsize {
+				width: 18px;
+				height: 17px;
+				margin-right: 10px;
+				margin-top: 13px;
+			}
+
+			.mui-pull-right {
+				width: 40px;
+				margin-top: 5px;
+			}
+			#headerItem>a{
+				margin-left: 0px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header id="header" class="mui-bar mui-bar-nav">
+			<div id="headerItem">
+				<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+				<h1 class="mui-title"></h1>
+			</div>
+		</header>
+		<script type="text/javascript" charset="utf-8">
+			mui.plusReady(function() {
+				// 字体白色(light)的沉浸栏 
+				plus.navigator.setStatusBarStyle("light"); //dark 字体为黑色的沉浸栏
+				plus.navigator.setStatusBarBackground('#000000'); //改变沉浸栏背景颜色的 
+				var self = plus.webview.currentWebview();
+				initial(self.detailId,self.query,self.taskId,self.special,self.specialtext)
+			})
+
+			function initial(detailId,query,taskId,special,specialtext) {
+				var detailId = detailId
+				console.log(detailId)
+				mui.init({
+					subpages: [{
+						url: 'detailsPageChild.html', //子页面HTML地址，支持本地地址和网络地址
+						id: 'detailsPageChild.html', //子页面标志
+						styles: {
+							top: '53px', //子页面顶部位置
+							bottom: '0', //子页面底部位置
+						},
+						extras: {
+							detailId: detailId,
+							query:query,
+							taskId:taskId,
+							special:special,
+							specialtext:specialtext
+						}
+					}]
+				})
+			}
+			window.addEventListener("changeCityitemghbone", function() {
+				mui.back()
+			});
+		</script>
+</html>

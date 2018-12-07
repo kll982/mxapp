@@ -1,0 +1,84 @@
+		#middlePopover {
+           position: relative;
+		   
+        }
+
+        .mui-content {
+            padding: 10px;
+        }
+
+			#middlePopover{
+				width: calc(100% - 28px);
+				/* height: 332px; */
+				/* margin-top: 100px; */
+			}
+			.mui-table-view>li{
+				height:50px ;
+				padding-left: 15px;
+			}
+			.rightuser{
+				float: right;
+				/* margin-right: 15px; */
+			}
+			#middlePopover .mui-popover-arrow::after{
+				height: 0;
+			}
+			#backgroundimg{
+				/* background: url(../img/diwen.png) no-repeat; */
+				height:80px ;
+				background-size: 100% 100%;
+				color: #FFFFFF;
+				padding-top: 20px;
+			}
+			.imgsize{
+				width: 18px;
+				height: 18px;
+			}
+			#headerText{
+				font-size: 20px;
+		        /* background: red; */
+			}
+			.twomthn{
+				margin-top: 20px;
+			}
+			#submitItem{
+				top: 10px;
+				height: 40px;
+				width:100%;
+	            background: linear-gradient(to right, #48A9F6, #2985E8);
+				left: 10px;
+				border-radius: 30px;
+				font-size: 18px;
+				color: #FFFFFF;
+				letter-spacing: 5px;
+			}
+			
+			.hrItem{
+				border: none;
+				background-color: #E6E6E6;
+				height: 1px;
+				margin-left: 25px;
+			}
+			#villagesB,#villagesC{
+				border: none;
+				width: 170px;
+				padding: 0;
+				margin: 0;
+				height: 35px;
+				text-align: right;
+				padding-right: 10px;
+			}
+			#villagesB{
+				margin-top: -6px;
+				padding-right: 0;
+			}
+			#villagesC{
+				margin-top: -16px;
+				position: relative;
+			}
+			.mui-popover{
+			}
+			.displayTime{
+				display: none;
+			}
+		

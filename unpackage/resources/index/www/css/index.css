@@ -1,0 +1,90 @@
+.mui-action-back {
+	color: white;
+}
+
+#submitFather {
+	background: #FFFFFF;
+	` height: 55px;
+	line-height: 55px;
+	border: none;
+	bottom: 0;
+	width: 100%;
+}
+
+#submit {
+	width: 94%;
+	left: 3%;
+	background: linear-gradient(to right, #48A9F6, #2985E8);
+	line-height: 32px;
+	margin-top: 5px;
+	color: #FFFFFF;
+	letter-spacing: 2px;
+	font-size: 18px;
+	border: none;
+}
+
+#bodyAll {
+	background: linear-gradient(to right, #48A9F6, #2985E8) no-repeat;
+	background-size: 100% 50px;
+	margin-bottom: 68px;
+}
+
+#headername {
+	/* background: yellow; */
+	width: calc(100% - 20px);
+	margin-left: 10px;
+	box-shadow: 2px 2px 1px 0px #F3F3F3;
+	border-radius: 10px;
+	background: #FFFFFF;
+}
+
+#head {
+	font-size: 18px;
+	padding-left: 18px;
+	/* position: relative; */
+	/* width: 100%; */
+}
+
+#headnumber {
+	display: inline-block;
+	width: 84%;
+	text-align: justify;
+	padding-bottom: 10px;
+	color: #4D4D4D;
+	padding-top: 10px;
+}
+
+#imgSize {
+	width: 22px;
+	height: 22px;
+}
+
+.mui-bar-nav {
+	box-shadow: none;
+}
+
+#btn>span {
+	margin: 0 3px;
+
+}
+
+#btn {
+	margin-top: 10px;
+	text-align: center;
+	padding-bottom: 10px;
+}
+
+.btnimg {
+	height: 28px;
+	width: 63px;
+}
+
+.btnimgA {
+	height: 28px;
+	width: 123px;
+}
+
+.btnimgB {
+	height: 28px;
+	width: 123px;
+}

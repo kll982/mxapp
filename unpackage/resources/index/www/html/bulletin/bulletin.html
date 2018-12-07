@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<script src="../../lib/js/mui.min.js"></script>
+		<script src="../../lib/js/jquery1.9.1.min.js"></script>
+		<link href="../../lib/css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../../css/index.css" />
+		<link rel="stylesheet" type="text/css" href="../../lib/css/reset.css" />
+		<style type="text/css">
+			body{
+				background: #FFFFFF;
+			}
+			#header {
+				background: linear-gradient(to right, #48A9F6, #2985E8);
+				padding: 0;
+				margin: 0;
+				height: 53px;
+				color: #FFFFFF;
+				font-size: 18px;
+			}
+
+			#headerItem>a {
+				top: 7px;
+			}
+
+			#headerItem>h1 {
+				color: #FFFFFF;
+				font-size:18px;
+				line-height: 53px;
+			}
+
+			.textelement>img {
+				width: 100%
+			}
+
+			.textelement>p {
+				margin-bottom: 10px;
+				letter-spacing: 1px;
+				text-align: justify;
+				text-justify: inter-ideograph;
+				text-indent: 37px;
+				color: #404040;
+				line-height: 24px;
+				padding-left: 5px;
+				padding-right: 5px;
+			}
+
+			#bodytext {
+				width: calc(100% - 40px);
+				margin-left: 20px;
+			}
+
+			#headerText {
+				font-size: 22px;
+				line-height: 34px;
+				margin-bottom: 7px;
+			}
+
+			#area {
+				font-size: 14px;
+			}
+
+			#timenum {
+				font-size: 14px;
+				margin-left: 20px;
+			}
+			##headerItem{
+				margin-top: 80px;
+			}
+			#nameP{
+				margin-bottom: 10px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header id="header" class="mui-bar mui-bar-nav">
+			<div id="headerItem">
+				<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+				<h1 class="mui-title">快报</h1>
+			</div>
+		</header>
+		<div style="height: 60px;"></div>
+		<div id="bodytext">
+			<h1 id="headerText"></h1>
+			<p id="nameP"><span id="area"></span> <span id="timenum"></span></p>
+			<div id="mainBody"></div>
+		</div>
+
+		<script type="text/javascript" charset="utf-8">
+			var url = window.localStorage.getItem('url')
+			mui.plusReady(function() {
+				// 字体白色(light)的沉浸栏 
+				plus.navigator.setStatusBarStyle("light"); //dark 字体为黑色的沉浸栏
+				plus.navigator.setStatusBarBackground('#000000'); //改变沉浸栏背景颜色的 
+						var self = plus.webview.currentWebview();
+				                detailId = self.detailId;
+								// console.log(detailId)
+								nameitem(detailId) 
+			})
+			// 
+			mui.init({
+
+			});
+		function nameitem(detailId) {
+			mui.ajax({
+				type: 'get',
+				url: url + '/article/detail',
+				data: {
+					id:detailId
+				},
+				dataType: "jsonp",
+				jsonp: "jsoncallback",
+				timeout: 5000,
+				success: function(data) {
+					var res = JSON.parse(data)
+					var string = ''
+					var info = res.data.response.info
+					$('#headerText').text(info.title)
+					$('#area').text(info.author.msaName)
+					if (info.updateTime == '' || info.updateTime == null) {
+						getDate(info.createTime)
+					} else {
+						getDate(info.updateTime)
+					}
+					for (var index = 0; index < info.contentList.length; index++) {
+						var imgUrl = info.contentList[index].imageUrl == null ? '' : info.contentList[index].imageUrl;
+						var textpage = info.contentList[index].textContent == null ? '' : info.contentList[index].textContent
+						string = string + '<div  class="textelement" ><img src=' + imgUrl + '><p>' + textpage + '</p><div>'
+					}
+					$('#mainBody').html(string)
+				},
+				error: function(err) {
+					console.log(err)
+				}
+			})
+		}
+		
+
+			function add0(m) {
+				return m < 10 ? '0' + m : m
+			}
+
+			function getDate(shijianchuo) {
+				//shijianchuo是整数，否则要parseInt转换
+				var time = new Date(shijianchuo);
+				var y = time.getFullYear();
+				var m = time.getMonth() + 1;
+				var d = time.getDate();
+				var h = time.getHours();
+				var mm = time.getMinutes();
+				var s = time.getSeconds();
+				var nameTime = y + '-' + add0(m) + '-' + add0(d) + ' ' + add0(h) + ':' + add0(mm) + ':' + add0(s);
+				$('#timenum').text(nameTime)
+			}
+		</script>
+</html>

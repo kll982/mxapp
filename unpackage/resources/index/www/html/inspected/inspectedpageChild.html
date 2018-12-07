@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link href="../../lib/css/mui.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../../lib/css/mui.picker.min.css" />
+		<style type="text/css">
+			body {
+				background: #FFFFFF;
+			}
+
+			#bodyAll {
+				background: linear-gradient(to right, #48A9F6, #2985E8) no-repeat;
+				background-size: 100% 50px;
+				margin-bottom: 68px;
+			}
+
+			#headername {
+				/* background: yellow; */
+				width: calc(100% - 20px);
+				margin-left: 10px;
+				box-shadow: 2px 2px 1px 0px #F3F3F3;
+				border-radius: 10px;
+				background: #FFFFFF;
+			}
+
+			#head {
+				line-height: 26px;
+				padding-left: 10px;
+			}
+
+			#head>span {
+				width: 30px;
+				height: 30px;
+				font-size: 18px;
+				margin-top: 12px;
+				margin-left: 15px;
+			}
+
+			#headnumber {
+				display: inline-block;
+				width: 84%;
+				text-align: justify;
+				padding-bottom: 10px;
+				color: #4D4D4D;
+				padding-top: 10px;
+			}
+
+			#imgSize {
+				width: 22px;
+				height: 22px;
+			}
+
+			#headtext {
+				text-align: justify;
+				padding: 0 30px;
+				color: #808080;
+				background: #fdfdfd;
+				padding-top: 10px;
+				font-size: 16px;
+				padding-bottom: 10px;
+			}
+
+			.btnimg {
+				height: 28px;
+				width: 63px;
+			}
+
+			.btnimgA {
+				height: 28px;
+				width: 123px;
+			}
+
+			.btnimgB {
+				height: 28px;
+				width: 123px;
+			}
+
+			#btn {
+				margin-top: 10px;
+				text-align: center;
+				padding-bottom: 10px;
+			}
+
+			#btn>span {
+				margin: 0 3px;
+			}
+
+			#camera {
+				padding-left: 20px;
+				font-size: 18px;
+			}
+
+			#disnow {
+				padding-top: 22px;
+			}
+
+			#cameraItem {
+				margin-top: 14px;
+				padding-bottom: 10px;
+				position: relative;
+				padding-left: 5px;
+			}
+
+			#photoItemname {
+				position: absolute;
+				top: 0px;
+			}
+
+			.photoItem {
+				display: inline-block;
+				margin-left: 75px;
+
+			}
+
+			.photoItemchild {
+				display: inline-block;
+				width: 75px;
+				height: 75px;
+				background: #F5F5F5;
+				float: left;
+				margin-left: 4px;
+				margin-top: 4px;
+				text-align: center;
+			}
+
+			#textareaItem>textarea {
+				width: calc(100% - 5px);
+				margin-left: 5px;
+			}
+
+			#itermtext {
+				width: calc(100% - 40px);
+				margin-left: 20px;
+			}
+
+			.xinhao {
+				color: red;
+			}
+
+			#inputfont {
+				width: calc(100% - 5px);
+				margin-left: 5px;
+			}
+
+			#inputfontA {
+				padding-bottom: 10px;
+			}
+
+			#inputfontA>textarea {
+				width: calc(100% - 5px);
+				margin-left: 5px;
+			}
+
+			#inputfontC {
+				padding-bottom: 65px;
+				position: relative;
+			}
+
+			#inputfontE {
+				position: absolute;
+				top: 7px;
+				left: 5px;
+			}
+
+			.lefttop {
+				margin-bottom: 5px;
+				display: inline-block;
+			}
+
+			#head {
+				font-size: 18px;
+				padding-left: 18px;
+				position: relative;
+			}
+
+			#inputfontB {
+				width: 74%;
+				float: right;
+			}
+
+			#inputfontD {
+				margin-left: 5px;
+				padding-bottom: 20px;
+				display: flex;
+				align-items: flex-start
+			}
+
+			.xinhaoitem {
+				color: #737373;
+			}
+
+			#submitFather {
+				height: 55px;
+				line-height: 55px;
+				border: none;
+				bottom: 0;
+				width: 100%;
+			}
+
+			#submit {
+				width: 94%;
+				left: 3%;
+				background: linear-gradient(to right, #48A9F6, #2985E8);
+				line-height: 32px;
+				margin-top: 5px;
+				color: #FFFFFF;
+				letter-spacing: 2px;
+				font-size: 18px;
+				border: none;
+			}
+
+			#imgtimerng {
+				height: 40px;
+				/* background: red; */
+				display: inline-block;
+				width: 60px;
+				position: absolute;
+				right: 0px;
+				line-height: 48px;
+				border-left: 1px solid #D9D9D9;
+			}
+
+			#imgtimerng>img {
+				width: 20px;
+				height: 20px;
+				margin-left: 18px;
+			}
+
+			textarea {
+				color: #808080;
+				border: 1px solid #D9D9D9;
+			}
+
+			input:disabled {
+				color: #979797;
+				padding-left: 10px;
+				border: 1px solid #979797;
+			}
+
+			#xinhaoA {
+				position: absolute;
+				top: 7px;
+				display: inline-block;
+			}
+
+			#submitFather {
+				background: #FFFFFF;
+			}
+
+			#geographicimg {
+				width: 12px;
+				height: 14px;
+				margin-left: 5px;
+			}
+
+			#geographic {
+				color: #B3B3B3;
+				font-size: 15px;
+				display: inline-block;
+			}
+
+			#geographictext {
+				display: inline-block;
+				width: 109px;
+				/* background: red; */
+			}
+
+			#imgtextitesl {
+				/* height: 30px; */
+				margin: 0 5px;
+				display: inline-block;
+				/* background: red; */
+
+			}
+
+			.photooneimgsize {
+				width: 75px;
+				height: 75px;
+			}
+
+			#photoone>img {
+				margin-top: 27px;
+				width: 24px;
+				height: 18px;
+			}
+
+			.photoItemchilditem {
+				position: relative;
+			}
+
+			.photoItemchilditemimg {
+				position: absolute;
+				height: 20px;
+				width: 20px;
+				right: -2px;
+				top: -1px;
+			}
+
+			.photoItemchilditemimg>img {
+				width: 16px;
+				height: 16px;
+			}
+
+			/* 选择器的颜色 */
+			/* 确定 */
+			.mui-btn-blue,
+			.mui-btn-primary,
+			input[type="submit"] {
+				color: #404040;
+				border: none;
+				background: none;
+			}
+
+			.mui-dtpicker-header button {
+				font-size: 16px;
+			}
+
+			/* 取消 */
+			.mui-btn,
+			button,
+			input[type="button"],
+			input[type="reset"],
+			input[type="submit"] {
+				font-size: 16px;
+				color: #404040;
+				border: none;
+				background: none;
+			}
+
+
+
+			.mui-picker-inner {
+				background: #FFFFFF;
+			}
+
+			.mui-dtpicker-title h5 {
+				background: #FFFFFF;
+			}
+
+			.mui-dtpicker-header {
+				background: #FFFFFF;
+			}
+
+			.mui-poppicker-header {
+				background: #FFFFFF;
+			}
+
+			.mui-poppicker-btn-ok {
+				font-size: 40px;
+			}
+
+			.mui-picker {
+				background-color: #FFFFFF;
+			}
+
+			.mui-poppicker-header .mui-btn {
+				font-size: 18px !important;
+
+			}
+
+			/* 结束 */
+			.photoItem>.appendImgWrap {
+				width: 75px;
+				height: 75px;
+				position: relative;
+				overflow: hidden;
+				background: #007AFF;
+				float: left;
+				display: block;
+				margin-left: 4px;
+				margin-top: 4px;
+			}
+
+			.appendImg {
+				width: 75px;
+				height: 75px;
+				display: inline-block;
+			}
+
+			/* 图片删除 */
+			.deleteImg {
+				width: 16px;
+				height: 16px;
+				position: absolute;
+				top: 0;
+				right: 0;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="bodyAll">
+			<div id="headername">
+				<div id="head">
+					<div id="headnumber"></div> <span id="headtextdis"><img id="imgSize" src="../../img/nobufuhe.png"></span>
+				</div>
+				<div id="headtext" style="display: none;"></div>
+				<div id="btn">
+					<span class="imgitemtime" id="imgitemA"><img class="btnimg imgitemtimeimg" src="../../img/dfdf.png"></span>
+					<span class="imgitemtime" id="imgitemB"><img class="btnimgA imgitemtimeimg" src="../../img/DCJZ.png"></span>
+					<span class="imgitemtime" id="imgitemC"><img class="btnimgB imgitemtimeimg" src="../../img/XQZG.png"></span>
+				</div>
+			</div>
+
+			<!-- 不符合限期整改 -->
+			<div id="disnow" style="display: none;">
+				<div id="camera">
+					检查信息
+				</div>
+				<div id="itermtext">
+					<div id="cameraItem">
+						<span id="photoItemname" class="xinhaoitem">现场照片</span>
+						<span class="photoItem">
+							<span class="photoItemchild" id="photoone">
+								<img src="../../img/zhiengadgjsadg-43.png">
+							</span>
+							<!-- <span class="appendImgWrap">
+								<img class="appendImg" src="/var/mobile/Containers/Data/Application/83270403-0560-40E7-9088-179D4EBA8668/Documents/Pandora/apps/HBuilder/doc/head.png?version=1542194098942" />
+								<img class="deleteImg" src="../../img/zudexiaochu13.png">
+							</span> -->
+							<!-- <span style="" class="photoItemchild photoItemchilditem">
+								<img style="" class="photooneimgsize" src="/var/mobile/Containers/Data/Application/83270403-0560-40E7-9088-179D4EBA8668/Documents/Pandora/apps/HBuilder/doc/head.png?version=1542194098942" />
+								<span class="photoItemchilditemimg">
+									<img src="../../img/zudexiaochu13.png">
+								</span>
+							</span> -->
+						</span>
+
+					</div>
+					<div id="textareaItem">
+						<span><span class="xinhao">*</span><span class="lefttop xinhaoitem">检查描述</span></span>
+						<textarea rows="2" cols="" id="textareaone" onfocus="onfocusintex()" onfocusout="onfocusoutitexnt()"></textarea>
+					</div>
+					<div id="nameite">
+						<div id="inputfontA">
+							<span><span class="xinhao">*</span><span class="lefttop xinhaoitem">整改要求</span></span>
+							<textarea rows="2" id="textareatwo" cols="" onfocus="onfocusintextwo()" onfocusout="onfocusoutitexnttwo()"></textarea>
+						</div>
+						<div id="inputfontC">
+							<span><span class="xinhao" id="xinhaoA">*</span><span id="inputfontE" class="xinhaoitem">复查时间</span><input type="text"
+								 disabled="disabled" id="inputfontB" /><span data-options='{"type":"date"}' class="btn" id="imgtimerng"><img
+									 src="../../img/timexianqi_03.png"></span></span>
+						</div>
+					</div>
+					<div id="inputfontD">
+						<span id="geographictext" class="xinhaoitem">定&#x3000;&#x3000;位</span>
+						<span id="imgtextitesl"><img id="geographicimg" src="../../img/diliweizhi.png"></span>
+						<span id="geographic"></span>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- 		<div id="submitFather">
+			<button type="button" id="submit">确认</button>
+		</div> -->
+		<nav id="submitFather" class="mui-bar mui-bar-tab" id='navbarA'>
+			<button id="submit">确认</button>
+		</nav>
+	</body>
+	<script src="../../lib/js/mui.min.js"></script>
+	<script src="../../lib/js/jquery1.9.1.min.js"></script>
+	<script src="../../js/uploadImg.js"></script>
+	<script src="../../lib/js/mui.picker.min.js"></script>
+	<script src="../../js/index.js"></script>
+	<script type="text/javascript" charset="utf-8">
+		var carryOne = false;
+		var url = window.localStorage.getItem('url')
+		var headtextdis = false
+		var listId, detailId, Lon, Lat, orderId, address,arr=[];
+		mui.plusReady(function() {
+			// 字体白色(light)的沉浸栏 
+			plus.navigator.setStatusBarStyle("light"); //dark 字体为黑色的沉浸栏
+			plus.navigator.setStatusBarBackground('#000000'); //改变沉浸栏背景颜色的 
+			var self = plus.webview.currentWebview();
+			listId = self.listId;
+			detailId = self.detailId;
+			orderId = self.orderId;
+			pageitemone(self.listId, self.detailId, self.orderId)
+			plus.geolocation.getCurrentPosition(MapPoint, function(e) {
+				mui.toast("error:" + e.message);
+			})
+		})
+
+		function pageitemone(index, detailId, orderId) {
+			mui.ajax({
+				type: 'get',
+				url: url + '/checklist/listOrder',
+				data: {
+					detailId: detailId
+				},
+				timeout: 10000,
+				success: function(data) {
+					if (data.code == 200) {
+						valueList = data.data.response.list;
+						for (var num = 0; num < valueList.length; num++) {
+							if (valueList[num].id == index) {
+								$('#headnumber').append(valueList[num].three)
+								$('#headtext').html(valueList[num].stipulate)
+							}
+						}
+					}
+				},
+				error: function() {}
+			})
+			mui.ajax({
+				type: 'get',
+				url: url + '/checklist/getOrderById',
+				data: {
+					orderId: orderId
+				},
+				timeout: 10000,
+				success: function(data) {
+					// console.log(JSON.stringify(data));
+					if (data.code == 200) {
+						var valueListA = data.data.response.checklistOrder;
+						console.log(JSON.stringify(valueListA))
+						if (valueListA.optionId == 1) {
+							imgitemone = $('.imgitemtimeimg').eq(0).attr('src', '../../img/sdfsdf.png')
+						} else if (valueListA.optionId == 2) {
+							$('#disnow').css('display', 'block')
+							$('#nameite').css('display', 'none')
+							imgitemone = $('.imgitemtimeimg').eq(1).attr('src', '../../img/DCJZ IN.png')
+						} else if (valueListA.optionId == 3) {
+							$('#disnow').css('display', 'block')
+							$('#nameite').css('display', 'block')
+							imgitemone = $('.imgitemtimeimg').eq(2).attr('src', '../../img/XQZG IN.png')
+						}
+						if (valueListA.troubleDescribe != '' || valueListA.troubleDescribe != null) {
+							$('#textareaone').val(valueListA.troubleDescribe)
+						}
+						if (valueListA.reviewRequire != '' || valueListA.reviewRequire != null) {
+							$('#textareatwo').val(valueListA.reviewRequire)
+						}
+						if (valueListA.reviewTime != '' || valueListA.reviewTime != null) {
+							$('#inputfontB').val(valueListA.reviewTime)
+						}
+						if (valueListA.picUrl != '' || valueListA.picUrl != null) {
+							arr = valueListA.picUrl.split(',')
+							for (var i in arr) {
+								console.log(arr[i]);
+								var imgWrap = document.createElement("span");
+								imgWrap.className = "appendImgWrap";
+								imgWrap.setAttribute("class", "appendImgWrap");
+								imgWrap.style.position = "relative";
+								imgWrap.style.margin = "4px 0px 0px 4px";
+								var imgContent = document.createElement("img");
+								imgContent.setAttribute("src", arr[i]);
+								imgContent.className = "appendImg";
+								imgWrap.setAttribute("class", "appendImg")
+								var imgDelete = document.createElement("img");
+								imgDelete.setAttribute("url", arr[i])
+								imgDelete.setAttribute("src", "../../img/zudexiaochu13.png");
+								imgDelete.className = "deleteImg";
+								imgDelete.setAttribute("class", "deleteImg");
+								imgWrap.appendChild(imgContent);
+								imgWrap.appendChild(imgDelete);
+								$('.photoItem').append(imgWrap);
+
+								imgDelete.onclick = function() {
+									for (var i in arr) {
+										if (arr[i] == this.getAttribute("url")) {
+											arr.splice(i, 1);
+											this.parentNode.style.display = "none";
+										}
+									}
+									console.log(arr);
+								}
+							}
+						}
+					}
+				},
+				error: function() {}
+			})
+		}
+		mui.init({});
+		$('#headtextdis').click(function() {
+			if (headtextdis) {
+				$('#headtext').css('display', 'none')
+				headtextdis = false
+			} else {
+				$('#headtext').css('display', 'block')
+				headtextdis = true
+			}
+
+		})
+		$('#imgitemA').click(function() {
+			$('.btnimg').eq(0).attr('src', '../../img/dfdf.png')
+			$('.btnimgA').eq(0).attr('src', '../../img/DCJZ.png')
+			$('.btnimgB').eq(0).attr('src', '../../img/XQZG.png')
+			this.firstElementChild.setAttribute('src', '../../img/sdfsdf.png')
+			$('#disnow').css('display', 'none')
+		})
+		$('#imgitemB').click(function() {
+			$('.btnimg').eq(0).attr('src', '../../img/dfdf.png')
+			$('.btnimgA').eq(0).attr('src', '../../img/DCJZ.png')
+			$('.btnimgB').eq(0).attr('src', '../../img/XQZG.png')
+			this.firstElementChild.setAttribute('src', '../../img/DCJZ IN.png')
+			$('#disnow').css('display', 'block')
+			$('#nameite').css('display', 'none')
+		})
+		$('#imgitemC').click(function() {
+			$('.btnimg').eq(0).attr('src', '../../img/dfdf.png')
+			$('.btnimgA').eq(0).attr('src', '../../img/DCJZ.png')
+			$('.btnimgB').eq(0).attr('src', '../../img/XQZG.png')
+			this.firstElementChild.setAttribute('src', '../../img/XQZG IN.png')
+			$('#disnow').css('display', 'block')
+			$('#nameite').css('display', 'block')
+		})
+
+		// 获取当前的位置信息
+		function MapPoint(position) {
+			Lon = position.coords.longitude; //获取经度
+			Lat = position.coords.latitude; //获取纬度
+			address = ' ' + position.address.province + "," + position.address.city + "," + position.address.district + "," +
+				position.address.street;
+			console.log(Lon, Lat)
+			$('#geographic').html(address)
+		}
+
+		// 获取当前的时间
+		$('#imgtimerng').click(function() {
+
+		})
+
+		function onfocusintex() {
+			$('#textareaone').css({
+				'border': '1px solid #48A9F6'
+			})
+		}
+
+		function onfocusoutitexnt() {
+			$('#textareaone').css({
+				'border': '1px solid #D9D9D9'
+			})
+		}
+
+		function onfocusintextwo() {
+			$('#textareatwo').css({
+				'border': '1px solid #48A9F6'
+			})
+		}
+
+		function onfocusoutitexnttwo() {
+			$('#textareatwo').css({
+				'border': '1px solid #D9D9D9'
+			})
+		}
+		$('#submit').click(function() {
+			var imgitemone = $('.imgitemtimeimg').eq(0).attr('src'),
+				imgitemtwo = $('.imgitemtimeimg').eq(1).attr('src'),
+				imgitemthree = $('.imgitemtimeimg').eq(2).attr('src');
+			if (imgitemone == '../../img/sdfsdf.png') {
+				console.log()
+				present({
+					itemId: listId,
+					orderId: orderId,
+					optionId: "1",
+					lng: Lon, // 经度
+					lat: Lat, //纬度
+					location: address
+				})
+			} else if (imgitemtwo == '../../img/DCJZ IN.png') {
+				if ($('#textareaone').val().trim().length > 0) {
+					// console.log(urls);
+					present({
+						itemId: listId,
+						orderId: orderId,
+						optionId: "2",
+						picUrl: urls.concat(arr).join(","),
+						describe: $('#textareaone').val(),
+						lng: Lon, // 经度
+						lat: Lat, //纬度
+						location: address
+					})
+					// present(1)
+				} else {
+					mui.toast('检查描述未填写')
+				}
+			} else if (imgitemthree == '../../img/XQZG IN.png') {
+				if ($('#textareaone').val().trim().length > 0) {
+					if ($('#textareatwo').val().trim().length > 0) {
+						if ($('#inputfontB').val().length > 0) {
+							present({
+								itemId: listId,
+								orderId: orderId,
+								optionId: "3",
+								picUrl: urls.concat(arr).join(","),
+								describe: $('#textareaone').val(),
+								lng: Lon, // 经度
+								lat: Lat, //纬度
+								location: address,
+								reviewRequire: $('#textareatwo').val(),
+								reviewTime: $('#inputfontB').val(),
+							})
+							// present(2)
+						} else {
+							mui.toast('复查时间未选择')
+
+						}
+					} else {
+						mui.toast('整改要求未填写')
+
+					}
+				} else {
+					mui.toast('检查描述未填写')
+
+				}
+			} else {
+				mui.toast('未判断是否符合')
+			}
+		})
+
+		function present(data) {
+			console.log(data);
+			mui.ajax({
+				type: 'post',
+				url: localStorage.getItem("url") + '/checklist/updateOrder',
+				data: data,
+				timeout: 10000,
+				success: function(res) {
+					console.log(JSON.stringify(res));
+					if (res.code == 200) {
+						console.log()
+						// var orderId = res.data.response.orderId;
+						mui.toast(res.message);
+						var main = plus.webview.getWebviewById("../check/check.html");
+						mui.fire(main, 'changeCitytimeone', {
+							// cityName: twoArr
+						})
+
+						mui.back();
+						// valueList = data.data.response.list;
+
+					} else {
+						mui.toast(res.message);
+					}
+				},
+				error: function() {}
+			})
+		}
+	</script>
+</html>

@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title></title>
+    <link href="../../lib/css/mui.css" rel="stylesheet"/>
+	<link rel="stylesheet" type="text/css" href="../../css/index.css"/>
+	<style type="text/css">
+		#header {
+						background: linear-gradient(to right, #48A9F6, #2985E8);
+						height: 53px;
+					}
+					#header>h1 {
+						line-height: 53px;
+						color: white;
+						display: inline-block;
+						font-size:18px;
+					}
+					#imgsize{
+						width: 18px;
+						height: 17px;
+						margin-right: 10px;
+						margin-top: 19px;
+					}
+					#header>a{
+						top: 7px;
+					}
+	</style>
+</head>
+<body>
+	<header id="header" class="mui-bar mui-bar-nav">
+		<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		<h1 class="mui-title">渡口设置</h1>
+		<span id="imgsizephoto" class=" mui-pull-right"><img id="imgsize" src="../../img/phototime.png" ></span>
+	</header>
+</body>
+ <script src="../../lib/js/mui.min.js"></script>
+<script src="../../lib/js/jquery1.9.1.min.js"></script>
+
+ <script type="text/javascript" charset="utf-8">
+var indexitem ;
+var url = window.localStorage.getItem('url')
+ mui.plusReady(function() {
+		// 字体白色(light)的沉浸栏 
+		 plus.navigator.setStatusBarStyle("light"); //dark 字体为黑色的沉浸栏
+		 plus.navigator.setStatusBarBackground('#000000'); //改变沉浸栏背景颜色的 
+		 var self = plus.webview.currentWebview();
+		 if(self.two.length>8){
+			 $('.mui-title').text(self.two.substring(0,7)+'...')
+		 }else{
+			 $('.mui-title').text(self.two)
+		 }
+		  pageitem(self.detailId)
+			// indexitem = self.detailId
+			indexitem = self.companyId
+	 }) 
+ function pageitem(index){
+		var index = index
+			mui.init({
+				subpages: [{
+					url: 'dangerspagechilde.html', //子页面HTML地址，支持本地地址和网络地址
+					id: 'dangerspagechilde.html', //子页面标志
+					styles: {
+						top: '53px', //子页面顶部位置
+						bottom: '0', //子页面底部位置
+					},
+					extras:{
+						detailId:index
+					} //额外扩展参数
+				}]
+			});
+// 			mui.ajax({
+// 				type: 'get',
+// 				url: url + '/checklist/listOrder',
+// 				data: {
+// 				detailId: 90
+// 				},
+// 				timeout: 10000,
+// 				success: function(data) {
+// 					if (data.code == 200) {
+// 							valueList = data.data.response.list;
+//               for(var num = 0 ;num<valueList.length;num++){
+// 								if(valueList.id == index){
+// 									
+// 								}
+// 							}
+// 					} 
+// 				},
+// 				error: function() {}
+// 			})
+		}
+
+$('#imgsizephoto').click(function(){
+	
+		mui.ajax({
+			type: 'get',
+			url: url + '/checklist/getCompanyInfo',
+			data: {
+				companyId:indexitem
+			},
+			timeout: 10000,
+			success: function(data) {
+				if (data.code == 200) {
+					valueList = data.data.response.companyInfo;
+                  var phone= valueList.operatorPhone ;
+									var text = '确认拨打'+valueList.name+'运营人'
+									var btnArray=['拨打','取消'];
+	                var name = valueList.operator
+									if(phone == null){
+										mui.toast('暂无联系人电话')
+									}else{
+										if(name==null){
+												mui.confirm(text+'电话'+phone+'?',btnArray,function(e){
+														if(e.index == 0){
+																plus.device.dial(phone,false);
+														}
+												});
+										}else{
+											mui.confirm(text+'-'+name+'电话'+phone+'?',btnArray,function(e){
+													if(e.index == 0){
+															plus.device.dial(phone,false);
+													}
+											});
+										}
+									}
+				
+				}
+			},
+			error: function() {}
+		})
+	
+// 	var btnArray=['拨打','取消'];
+// 	var phone="13122222222";
+// 	var text = ''
+// 	mui.confirm(phone+'?',btnArray,function(e){
+// 			if(e.index == 0){
+// 					plus.device.dial(phone,false);
+// 			}
+// 	});
+})
+    </script>
+</html>

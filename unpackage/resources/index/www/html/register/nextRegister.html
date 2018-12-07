@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>注册</title>
+		<script src="../../lib/js/mui.min.js"></script>
+		<script src="../../lib/js/mui.picker.min.js" type="text/javascript" charset="utf-8"></script>
+		<link href="../../lib/css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../../lib/css/mui.picker.min.css" />
+		<link rel="stylesheet" type="text/css" href="../home/public.css" />
+		<style type="text/css">
+			/* 选择器的颜色 */
+						/* 确定 */
+						.mui-btn-blue,
+						.mui-btn-primary,
+						input[type="submit"] {
+							color: #404040;
+							border: none;
+							background: none;
+						}
+			
+						.mui-dtpicker-header button {
+							font-size: 16px;
+						}
+			
+						/* 取消 */
+						.mui-btn,
+						button,
+						/* input[type="button"], */
+						input[type="reset"],
+						input[type="submit"] {
+							font-size: 16px;
+							/* color: #404040; */
+							border: none;
+							/* background: none; */
+						}
+			
+			
+			
+						.mui-picker-inner {
+							background: #FFFFFF;
+						}
+			
+						.mui-dtpicker-title h5 {
+							background: #FFFFFF;
+						}
+			
+						.mui-dtpicker-header {
+							background: #FFFFFF;
+						}
+			
+						.mui-poppicker-header {
+							background: #FFFFFF;
+						}
+			
+						.mui-poppicker-btn-ok {
+							font-size: 40px;
+						}
+			
+						.mui-picker {
+							background-color: #FFFFFF;
+						}
+			
+						.mui-poppicker-header .mui-btn {
+							font-size: 18px !important;
+						}
+			
+						/* 结束 */
+						
+						
+		</style>
+		<script type="text/javascript" charset="utf-8">
+			mui.init();
+			var self, tel, code;
+			mui.plusReady(function() {
+				self = plus.webview.currentWebview();
+				tel = self.tel;
+				// code = self.code;
+			});
+			localStorage.setItem("login", "http://passport.moxiang1.com");
+			localStorage.setItem("url", "http://api.moxiang1.com");
+			// 注册 跳转 登录
+			function GoLogin() {
+				var name = document.getElementById("userName");
+				var pass = document.getElementById("registerPassword");
+				var nameReg = /^[\u4E00-\u9FA5]{2,18}$/;
+				if (name.value.length < 2 || !nameReg.test(name.value)) {
+					mui.toast("请输入你的中文名字")
+					return
+				}
+				if (pass.value.length < 8) {
+					mui.toast("密码长度应大于8位")
+					return
+				}
+				if (msaId == (null || "")) {
+					mui.toast("请选择部门")
+					return
+				}
+				mui.ajax(localStorage.getItem("login") + "/regMobile", {
+					data: {
+						mobile: tel,
+						nickName: name.value,
+						password: pass.value,
+						password1: pass.value,
+						// mobileCode: code,
+						msaId: msaId,
+					},
+					type: "get",
+					dataType: "jsonp",
+					// jsonp: "jsoncallback",
+					timeout: 10000,
+					success: function(res) {
+						var res = JSON.parse(res);
+						if (res.code == 200) {
+							mui.openWindow({
+								url: "../login/login.html",
+								id: "login",
+								styles: {
+									top: 0, //新页面顶部位置
+									bottom: 0, //新页面底部位置
+								},
+							})
+						} else {
+							mui.toast(res.message);
+						}
+					}
+				})
+			}
+		</script>
+	</head>
+	<body class="background-fff">
+		<div class="mui-content background-transparent">
+			<i class="mui-action-back mui-icon mui-icon-left-nav color-999 back"></i>
+			<p id="title" class="title font-size20 color-404040 float-left">注册</p>
+			<div class="inputGronp hidden full">
+				<span>姓名</span>
+				<input type="text" name="" id="userName" class="resetInput background-transparent" maxlength="20" oninput="if(value.length>18)value=value.slice(0,20)"
+				 placeholder="姓名" />
+			</div>
+			<div class="inputGronp hidden full">
+				<span>密码</span>
+				<input type="password" name="" id="registerPassword" class="resetInput background-transparent" maxlength="16"
+				 oninput="if(value.length>16)value=value.slice(0,16)" placeholder="密码" />
+			</div>
+			<div class="inputGronp hidden full">
+				<span>所属</span>
+				<button class="margin-4-auto padding-10-5 font-size16 line-height1-5 three-fourths mui-text-left color-404040 mui-pull-left border0"
+				 id="showCityPicker3" type="button">所属部门</button>
+			</div>
+			<button type="button" class="mui-btn background-48A9F6to2985E8 mui-btn-block color-fff capsule50" onclick="GoLogin()">完成</button>
+		</div>
+
+		<!-- 模态窗 -->
+		<div id="model-wrap" class="fixed full hidden model-wrap">
+			<div class="model">
+				<!-- <div id="model-title" class="model-title color-fff">
+					title
+				</div> -->
+				<div id="model-center" class="model-center">
+				</div>
+			</div>
+			<span id="model-close" class="model-close inline-block color-fff" onclick="personalCenter.closemodle()"></span>
+		</div>
+
+	</body>
+	<script type="text/javascript" src="../personalCenter/js/personalCenter.js"></script>
+	<script type="text/javascript" src="js/login.js"></script>
+	<script type="text/javascript">
+		var msaId = "";
+		mui.getJSON("../../lib/js/city.json", {},
+			function(res) {
+				console.log(JSON.stringify(res));
+				var children = res;
+				var cityPicker3 = new mui.PopPicker({
+					layer: 3
+				});
+				cityPicker3.setData(children);
+				var showCityPickerButton = document.getElementById("showCityPicker3");
+				var cityResult3 = document.getElementById("cityResult3");
+				showCityPickerButton.addEventListener("tap", function(event) {
+					cityPicker3.show(function(items) {
+						if (items[2].text == " " && items[1].text == " ") {
+							showCityPickerButton.innerText = items[0].text;
+						} else if (items[2].text == " " && items[1].text != " ") {
+							showCityPickerButton.innerText = items[1].text;
+						} else {
+							showCityPickerButton.innerText = items[2].text;
+						}
+						msaId = items[2].value;
+					});
+				}, false);
+			});
+	</script>
+</html>

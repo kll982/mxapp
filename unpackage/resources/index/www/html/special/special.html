@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<!-- special -->
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>专项检查</title>
+		<script src="../../lib/js/mui.min.js"></script>
+		<link href="../../lib/css/mui.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../../lib/css/public.css" />
+		<link rel="stylesheet" type="text/css" href="../home/public.css" />
+		<script src="../../lib/js/jquery1.9.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<link rel="stylesheet" type="text/css" href="http://at.alicdn.com/t/font_916083_m6v3tzt4odk.css">
+		<script type="text/javascript" charset="utf-8">
+			var pages = 1;
+			mui.init({
+				pullRefresh: {
+					container: '#card-wrap', //待刷新区域标识，querySelector能定位的css选择器均可，比如：id、.class等
+					auto: true, // 可选,默认false.自动上拉加载一次
+					height: 50,
+					up: {
+						callback: function() {
+							pages++; //页数
+							add(pages); //ajax函数
+							mui('#card-wrap').pullRefresh().endPullupToRefresh();
+						} //必选，刷新函数，根据具体业务来编写，比如通过ajax从服务器获取新数据；
+					}
+
+				}
+			});
+			mui.plusReady(function() {
+				var self = plus.webview.currentWebview();
+				// var div = document.getElementsByTagName("div")[0];
+				// div.innerHTML = self.title;
+			});
+		</script>
+		<style type="text/css">
+			.background-48A9F6to2985E8 {
+				box-shadow: none;
+			}
+
+			header {
+				height: 53px !important;
+				font-size: 18px;
+				line-height: 53px !important;
+			}
+
+			.mui-title {
+				height: 53px !important;
+				font-size: 18px;
+				line-height: 53px !important;
+			}
+
+			.special-header {
+				width: 100%;
+				padding-top: 25px;
+				height: 103px;
+				position: relative;
+			}
+
+			.special-datum {
+				width: calc(100% - 25px);
+				background: #fff;
+				margin: 0 auto;
+				border-radius: 5px;
+				margin-bottom: 10px;
+			}
+
+			.special-tag {
+				width: 73px;
+				right: 10px;
+				top: -2px;
+				border-bottom-right-radius: 4px;
+				border-bottom-left-radius: 4px;
+				padding: 2px;
+				text-align: center;
+			}
+			
+			
+		</style>
+	</head>
+	<body class="background-f3f3f3">
+		<div class="special-header background-48A9F6to2985E8">
+			<header class="mui-bar mui-bar-nav background-48A9F6to2985E8 color-fff">
+				<a class=" mui-icon mui-icon-left-nav mui-pull-left color-fff" id="mui-action-back" style="color: #FFFFFF;"></a>
+				<h1 class="mui-title color-fff font-size18">专项检查</h1>
+			</header>
+			<!-- card-group -->
+			<div id="card-wrap" style="padding-top:45px;" >
+				<!-- card -->
+				<!-- <div class="special-datum hidden bottom-shadow-e0e0e0 padding-20-20-10 relative">
+					<span class="inline-block color-fff mui-pull-right absolute font-size12 special-tag background-299DFF">正在进行</span>
+					<h3 class="mui-pull-left full color-4D4D4D font-size18 font-weight500" style="margin-bottom:20px;">水上安全检查</h3>
+					<div class="full">
+						<p class="full color-999 font-size14 font-weight500 line-height1-2">
+							<span>检查对象:</span>
+							<b class="font-weight500">游览经营公司</b>
+						</p>
+						<p class="full color-999 font-size14 font-weight500 line-height1-2">
+							<span>发布单位:</span>
+							<b class="font-weight500">江苏省地方海事局</b>
+						</p>
+						<p class="full color-999 font-size14 font-weight500 line-height1-2">
+							<span>检查时间:</span>
+							<b class="font-weight500">2018年10月1日-2018年10月20日</b>
+						</p>
+					</div>
+				</div> -->
+				<!-- background-d9d9d9 -->
+				<!-- background-95ccfa -->
+
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript">
+		function add(pages) {
+			console.log(pages)
+			mui.ajax(localStorage.getItem("url") + "/checklist/listSpecialOrderInfo", {
+				data: {
+					pageNum: pages
+				},
+				success: function(res) {
+					if (res.code == 200) {
+						var list = res.data.response.list;
+						if(list==null || list==''){
+							console.log('是的')
+							$('body').css({
+								'background': 'url(../../img/nowzhuanxiang_02.jpg) no-repeat',
+								'background-size': '100%',
+								'background-position': '100% 190px',
+							})
+						}else{
+							$('body').css({
+								'background': '#F3F3F3'
+							})
+						}
+						if (list != null && list.length > 0) {
+
+							for (var i in list) {
+								var card = document.createElement("div");
+								card.className = "special-datum  bottom-shadow-e0e0e0 padding-20-20-10 relative";
+								card.setAttribute("class", "special-datum  bottom-shadow-e0e0e0 padding-20-20-10 relative");
+								card.setAttribute("detailId", list[i].id);
+								card.setAttribute("title", list[i].checklistTitle);
+								card.setAttribute("checkSortId", list[i].checkSortId);
+								card.setAttribute("specialOrderType", list[i].specialOrderType);
+								// 标签
+								var kind = document.createElement("span");
+								var tag;
+								if (list[i].specialOrderType == 1) {
+									// 已结束
+									kind.className = "inline-block color-fff mui-pull-right absolute font-size12 special-tag background-d9d9d9";
+									kind.setAttribute("class",
+										"inline-block color-fff mui-pull-right absolute font-size12 special-tag background-d9d9d9");
+									tag = document.createTextNode("已结束");
+								} else if (list[i].specialOrderType == 2) {
+									// 未开始
+									kind.className = "inline-block color-fff mui-pull-right absolute font-size12 special-tag background-95ccfa";
+									kind.setAttribute("class",
+										"inline-block color-fff mui-pull-right absolute font-size12 special-tag background-95ccfa");
+									tag = document.createTextNode("未开始");
+								} else if (list[i].specialOrderType == 3) {
+									// 正在进行
+									kind.className = "inline-block color-fff mui-pull-right absolute font-size12 special-tag background-299DFF";
+									kind.setAttribute("class",
+										"inline-block color-fff mui-pull-right absolute font-size12 special-tag background-299DFF");
+									tag = document.createTextNode("正在进行");
+								}
+								kind.appendChild(tag);
+								// title
+								var title = document.createElement("h3");
+								title.className = "mui-pull-left full color-4D4D4D font-size18 font-weight500 line-height1-2";
+								title.setAttribute("class", "mui-pull-left full color-4D4D4D font-size18 font-weight500 line-height1-2");
+								title.style.marginBottom = "20px";
+								var titleText = document.createTextNode(list[i].checklistTitle);
+								title.appendChild(titleText);
+								// 子项
+								var wrap = document.createElement("div");
+								wrap.className = "full";
+								wrap.setAttribute("class", "full");
+								// 检查对象
+								var checkObject = document.createElement("p");
+								checkObject.className = "full color-999 font-size14 font-weight500 line-height1-2";
+								checkObject.setAttribute("class", "full color-999 font-size14 font-weight500 line-height1-2");
+								var checkObjectLeft = document.createElement("span");
+								var checkObjectLeftText = document.createTextNode("检查对象：");
+								var checkObjectRight = document.createElement("b");
+								var checkObjectRightText = document.createTextNode(list[i].checkSortName);
+								checkObjectRight.className = "font-weight500";
+								checkObjectRight.setAttribute("class", "font-weight500");
+
+								wrap.appendChild(checkObject);
+								checkObjectLeft.appendChild(checkObjectLeftText);
+								checkObject.appendChild(checkObjectLeft);
+								checkObjectRight.appendChild(checkObjectRightText);
+								checkObject.appendChild(checkObjectRight);
+								// 发布单位
+								var release = document.createElement("p");
+								release.className = "full color-999 font-size14 font-weight500 line-height1-2";
+								release.setAttribute("class", "full color-999 font-size14 font-weight500 line-height1-2");
+								var releaseLeft = document.createElement("span");
+								var releaseLeftText = document.createTextNode("发布单位：");
+								var releaseRight = document.createElement("b");
+								var releaseRightText = document.createTextNode(list[i].createMsaName);
+								releaseRight.className = "font-weight500";
+								releaseRight.setAttribute("class", "font-weight500");
+
+								wrap.appendChild(release);
+								releaseLeft.appendChild(releaseLeftText);
+								release.appendChild(releaseLeft);
+								releaseRight.appendChild(releaseRightText);
+								release.appendChild(releaseRight);
+
+								// 检查时间
+								var checkTime = document.createElement("p");
+								checkTime.className = "full color-999 font-size14 font-weight500 line-height1-2";
+								checkTime.setAttribute("class", "full color-999 font-size14 font-weight500 line-height1-2");
+								var checkTimeLeft = document.createElement("span");
+								var checkTimeLeftText = document.createTextNode("检查时间：");
+								var checkTimeRight = document.createElement("b");
+								var checkTimeRightText = document.createTextNode(list[i].startDay + " 至 " + list[i].endDay);
+								checkTimeRight.className = "font-weight500";
+								checkTimeRight.setAttribute("class", "font-weight500");
+								wrap.appendChild(checkTime);
+								checkTimeLeft.appendChild(checkTimeLeftText);
+								checkTime.appendChild(checkTimeLeft);
+								checkTimeRight.appendChild(checkTimeRightText);
+								checkTime.appendChild(checkTimeRight);
+
+								card.appendChild(kind);
+								card.appendChild(title);
+								card.appendChild(wrap);
+								document.getElementById('card-wrap').appendChild(card);
+								
+								
+
+								
+								card.onclick = function() {
+									if (this.getAttribute("specialOrderType") != 2) {
+										var nameId = window.localStorage.getItem('nameId')
+										var namevalue = window.localStorage.getItem('namevalue')
+										var parId = window.localStorage.getItem('parId')
+										if (this.getAttribute("title").length > 6) {
+											var specialtext = this.getAttribute("title").substring(0, 6) + '...'
+										} else {
+											var specialtext = this.getAttribute("title")
+										}
+										// alert(parId)
+										mui.openWindow({
+											id: 'html/browse/browse.html',
+											url: '../browse/browse.html',
+											extras: {
+												// taskId : this.getAttribute("detailId"),
+												level: nameId,
+												taskId: this.getAttribute("detailId"),
+												namevalue: namevalue,
+												parId: parId,
+												query: this.getAttribute("checkSortId") * 1,
+												special: 1,
+												specialtext: specialtext,
+											} //额外扩展参数
+										})
+									} else {
+										mui.toast("还未开始检查，请选择其他检查单")
+									}
+								}
+							}
+							mui('#card-wrap').pullRefresh().endPullupToRefresh(false); //禁止刷新
+						} else {
+							mui('#card-wrap').pullRefresh().endPullupToRefresh(true); //启动刷新
+						}
+					} else {
+						mui('#card-wrap').pullRefresh().endPullupToRefresh(true); //启动刷新
+					}
+
+				}
+			})
+		}
+		window.onload = function() {
+			add(pages);
+		}
+		
+		$('#mui-action-back').click(function(){
+			// console.log('000000')
+		var main = plus.webview.getWebviewById("HBuilder");
+		mui.fire(main, 'changeCityIndex', {
+			
+		})
+		mui.back()
+// 		mui.openWindow({
+// 			id:'../../index.html',
+// 			url:'../../index.html',
+// 		})
+		})
+	</script>
+</html>

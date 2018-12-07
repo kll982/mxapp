@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<!-- Inspected -->
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>已检项目</title>
+		<link rel="stylesheet" type="text/css" href="../../lib/css/mui.min.css" />
+		<link rel="stylesheet" type="text/css" href="../home/public.css" />
+		<link rel="stylesheet" type="text/css" href="http://at.alicdn.com/t/font_916083_m6v3tzt4odk.css">
+		<style type="text/css">
+			.icon-more {
+				font-size: 20px;
+			}
+
+			.box-wrap {
+				padding: 13px 10px 0px 11px;
+				border-radius: 5px;
+				box-shadow: 0px 1px 5px 0px #D8D8D8;
+				
+				/* margin-bottom: 10px; */
+			}
+
+			.box-item {
+				position: relative;
+				margin-left: 8px;
+				padding: 19px 18px 25px 18px;
+				text-align: justify;
+			}
+
+			.box-item:before {
+				position: absolute;
+				content: "";
+				width: 1px;
+				background: #E6E6E6;
+				left: 0;
+				top: 5px;
+				bottom: -22px;
+			}
+
+			.thirdTitle {
+				display: inline-block;
+				/* width: calc(100% - 18px - 25px); */
+			}
+		</style>
+	</head>
+	<body class="background-F2F2F2">
+		<header class="mui-bar mui-bar-nav background-48A9F6to2985E8 color-fff">
+			<a class=" mui-icon mui-icon-left-nav mui-pull-left color-fff" id="mui-action-backitem"></a>
+			<h1 class="mui-title color-fff header font-size18">已检项目</h1>
+			<!-- <i class="mui-pull-right iconfont icon-more"></i> -->
+		</header>
+		<div class="mui-content background-F2F2F2" id="body"></div>
+	</body>
+	<script src="../../lib/js/mui.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../lib/js/jquery1.9.1.min.js"></script>
+	<script type="text/javascript">
+		mui.init();
+		var detailId,
+			first;
+		mui.plusReady(function() {
+			var self = plus.webview.currentWebview();
+			detailId = self.detailId;
+			console.log(detailId);
+			first = self.one;
+			onload();
+		})
+
+
+		function onload() {
+			// 列表 
+			mui.ajax(localStorage.getItem("url") + "/checklist/listOrder", {
+				data: {
+					detailId: detailId
+				},
+				success: function(res) {
+					if (res.code == 200) {
+						var order = res.data.response.orders;
+						var list = res.data.response.list;
+						var arrItem = [];
+						// 选取已检项题目
+						for (var i in order) {
+							for (var j in list) {
+								if (order[i].itemId == list[j].id) {
+									arrItem.push({
+										title: list[j].one,
+										children: [{
+											title: list[j].two,
+											children: [{
+												accord: order[i].optionId,
+												checkSortId: order[i].checkSortId,
+												orderId: order[i].id,
+												taskId: order[i].taskId,
+												title: list[j].three,
+												itemId:order[i].itemId
+											}]
+										}]
+									})
+								}
+							}
+						}
+						// 已检项题目去重
+						if (arrItem.length > 1) {
+							// 一级去重
+							for (var i = 1; i < arrItem.length; i++) {
+								if (arrItem[i].title == arrItem[i - 1].title) {
+									for (var l in arrItem[i].children) {
+										arrItem[i - 1].children.push(arrItem[i].children[l]);
+									}
+									arrItem.splice(i, 1);
+									i--;
+								}
+								if (arrItem[i].children.length > 1) {
+									// 二级去重
+									for (var j = 1; j < arrItem[i].children.length; j++) {
+										if (arrItem[i].children[j].title == arrItem[i].children[j - 1].title) {
+											for (var l in arrItem[i].children[j].children) {
+												arrItem[i].children[j - 1].children.push(arrItem[i].children[j].children[l]);
+											}
+											arrItem[i].children.splice(j, 1);
+											j--;
+										}
+									}
+								}
+							}
+						} else {
+
+						}
+
+						document.getElementById("body").innerHTML = "";
+						// 一级
+						for (var i in arrItem) {
+							if (arrItem[i].title == first) {
+								// arrItem[i].title.substring(0,14)
+								var H1Title;
+								if (arrItem[i].title.length > 14) {
+									H1Title = arrItem[i].title.substring(0, 14) + '...'
+								} else {
+									H1Title = arrItem[i].title
+								}
+								document.getElementById("body").innerHTML +=
+									"<h1 class='background-fff margin0 font-size18 font-weight500 mui-text-center color-404040 padding-14 first'>" +
+									H1Title + "</h1>";
+								// 二级
+								for (var j in arrItem[i].children) {
+									var wrap = document.createElement("div");
+									wrap.className = 'padding-10-10-0 hidden';
+									wrap.setAttribute("class", "padding-10-10-0 hidden");
+									var selcondTitle = document.createElement("div");
+									selcondTitle.className = "background-fff box-wrap color-4D4D4D hidden font-size18";
+									selcondTitle.setAttribute("class", "background-fff box-wrap color-4D4D4D hidden font-size18");
+									var selcondTitleText = document.createTextNode(arrItem[i].children[j].title);
+									selcondTitle.appendChild(selcondTitleText);
+									wrap.appendChild(selcondTitle);
+									// 三级
+									for (var k in arrItem[i].children[j].children) {
+										var div = document.createElement("div");
+										div.className = 'box-item font-size16 color-404040';
+										div.setAttribute("class", "box-item font-size16 color-404040");
+										div.setAttribute("orderId", arrItem[i].children[j].children[k].orderId);
+										div.setAttribute("taskId", arrItem[i].children[j].children[k].taskId);
+										div.setAttribute("checkSortId", arrItem[i].children[j].children[k].checkSortId);
+										div.setAttribute("accord", arrItem[i].children[j].children[k].accord);
+										div.setAttribute("itemId", arrItem[i].children[j].children[k].itemId);
+										div.onclick = function() {
+											// 											console.log("跳转");
+											mui.openWindow({
+												url:'inspectedpage.html',
+												id:'inspectedpage.html',
+												extras:{
+													listId:this.getAttribute("itemId"),
+													detailId:detailId,
+													orderId:this.getAttribute("orderId")
+												}
+											})
+										}
+										var img = document.createElement("img");
+										img.className = "width20 absolute";
+										img.setAttribute("class", "width20 absolute");
+										img.style.left = "-10px";
+										img.style.top = "20px";
+										// 1 符合 2 不符合(当场纠正) 3 不符合(限期整改)
+										if (arrItem[i].children[j].children[k].accord == 1) {
+											img.setAttribute("src", "../../img/success.png");
+										} else if (arrItem[i].children[j].children[k].accord == 2) {
+											img.setAttribute("src", "../../img/info.png");
+										} else if (arrItem[i].children[j].children[k].accord == 3) {
+											img.setAttribute("src", "../../img/error.png");
+										}
+
+										var span = document.createElement("span");
+										var text = document.createTextNode(arrItem[i].children[j].children[k].title);
+										span.appendChild(text);
+										span.className = "inline-block thirdTitle";
+										span.setAttribute("class", "inline-block thirdTitle");
+										// span.className = "inline-block ";
+										// span.style.width = "calc(100% - 18px - 10px)";
+										var DeleteBtn = document.createElement("a");
+										DeleteBtn.className = "mui-pull-right color-999 delete line-height1 margin-top-6";
+										DeleteBtn.setAttribute("class", "mui-pull-right color-999 delete line-height1 margin-top-6");
+										DeleteBtn.setAttribute("href", "javascript:void(0);");
+										// DeleteBtn.style.right = 0 + "px";
+										// DeleteBtn.style.top = 22 + "px";
+										DeleteBtn.style.marginBottom = 20 + "px";
+										DeleteBtn.setAttribute("orderId", arrItem[i].children[j].children[k].orderId);
+										var Delete = document.createTextNode("删除");
+										DeleteBtn.appendChild(Delete);
+										div.appendChild(img);
+										div.appendChild(span);
+										div.appendChild(DeleteBtn);
+										selcondTitle.appendChild(div);
+										DeleteBtn.onclick = function(e) {
+											console.log("删除");
+
+											mui.ajax(localStorage.getItem("url") + "/checklist/removeOrder", {
+												data: {
+													orderId: this.getAttribute("orderId")
+												},
+												success: function(res) {
+													if (res.code == 200) {
+														mui.toast("删除成功");
+														setTimeout(function() {
+															location.reload();
+															if (arrItem.length == 0) {
+																window.history.back();
+															}
+														}, 1500)
+													}
+												}
+											})
+											e.stopPropagation();
+											e.cancelBubble = true;
+										}
+									}
+									document.getElementById("body").appendChild(wrap);
+								}
+							}
+						}
+						// 					var arrFirst = [];
+						// 					// 添加一级项
+						// 					for (var i in list) {
+						// 						arrFirst.push({
+						// 							first: list[i].one,
+						// 							children: [],
+						// 						})
+						// 					}
+						// 					// 一级去重
+						// 					for (var i = 1; i < arrFirst.length; i++) {
+						// 						if (arrFirst[i].first == arrFirst[i - 1].first) {
+						// 							arrFirst.splice(i, 1);
+						// 							i--;
+						// 						}
+						// 					}
+						// 					// 添加二级项
+						// 					for (var i in list) {
+						// 						for (var j = 0; j < arrFirst.length; j++) {
+						// 							if (arrFirst[j].first == list[i].one) {
+						// 								arrFirst[j].children.push({
+						// 									second: list[i].two,
+						// 									children: [],
+						// 								});
+						// 							}
+						// 						}
+						// 					}
+						// 					// 二级去重
+						// 					for (var i in arrFirst) {
+						// 						for (var j = 1; j < arrFirst[i].children.length; j++) {
+						// 							if (arrFirst[j].second == list[j].second) {
+						// 								arrFirst[i].children.splice(j, 1);
+						// 								j--;
+						// 							}
+						// 						}
+						// 					}
+						// 					// 添加三级项
+						// 					for (var i in list) {
+						// 						for (var j = 0; j < arrFirst.length; j++) {
+						// 							for (var k in arrFirst[j].children) {
+						// 								if (arrFirst[j].children[k].second == list[i].two) {
+						// 									arrFirst[j].children[k].children.push({
+						// 										third: list[i].three,
+						// 									});
+						// 								}
+						// 							}
+						// 						}
+						// 					}
+						// 三级去重
+					}
+
+				}
+			})
+		}
+
+		$('#mui-action-backitem').click(function() {
+			var main = plus.webview.getWebviewById("../check/check.html");
+			mui.fire(main, 'changeCitytimeone', {
+				// cityName: twoArr
+			})
+			mui.back()
+		})
+	</script>
+</html>

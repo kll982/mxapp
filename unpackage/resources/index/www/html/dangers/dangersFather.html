@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link href="../../lib/css/mui.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../../css/index.css" />
+		<link rel="stylesheet" type="text/css" href="../../lib/css/mui.picker.min.css" />
+		<style type="text/css">
+			#header {
+				background: linear-gradient(to right, #48A9F6, #2985E8);
+				height: 53px;
+				/* border: none; */
+				color: #FFFFFF;
+				z-index: 400;
+			}
+
+			body {
+				background: #FFFFFF;
+			}
+
+			#header>h1 {
+				line-height: 53px;
+				color: white;
+				display: inline-block;
+				font-size: 18px;
+			}
+
+			#imgsize {
+				width: 8px;
+				height: 8px;
+				margin-right: 10px;
+				margin-top: 14px;
+				margin-left: 3px;
+			}
+
+			#header>a {
+				top: 7px;
+			}
+
+			#segmentedControlnext {
+				margin-top: 15px;
+				text-align: center;
+			}
+
+			/* 		#segmentedControlnext>button {
+				margin: 0 1px;
+			} */
+
+			.allitem {
+				background: #1B66B7;
+				color: #FFFFFF;
+				border: none;
+				border-radius: 30px;
+			}
+
+			#segmentedControlFather {
+				background: linear-gradient(to right, #48A9F6, #2985E8);
+				color: #FFFFFF;
+			}
+
+			.mui-bar-nav {
+				box-shadow: none;
+				-webkit-box-shadow: none
+			}
+
+			.chang,
+			.zhuan {
+				width: 22px;
+				height: 22px;
+				position: absolute;
+				z-index: 100;
+				margin-top: 15px;
+				margin-left: 5px;
+			}
+
+			.mui-table-view-cell {
+				border-radius: 12px;
+				width: calc(100% - 30px);
+				left: 15px;
+				padding: 0;
+				padding-top: 15px;
+				box-shadow: 1px 2px 12px 2px #ebeff1;
+				background: #FFFFFF;
+				margin-bottom: 12px;
+
+			}
+
+			/* title */
+			.checklistTitle {
+				font-size: 18px;
+				color: #404040;
+				padding-left:19px;
+				padding-right:17px;
+				box-sizing: border-box;
+				text-align: justify;
+
+				display: inline-block;
+				width: 100%;
+
+			}
+
+			.checklistTitleAllitem {
+				font-size: 15px;
+				margin-bottom: 20px;
+				padding-left: 5px;
+				padding-right: 10px;
+			}
+
+			/* title wrap */
+			.checklistTitleAll {
+				margin-bottom: 12px;
+
+			}
+
+			/* 下拉箭头 */
+			.imglogo {
+				width: 10px;
+				height: 10px;
+			}
+
+			/* button */
+			.hiddendanger {
+				background: #F4BD29;
+				font-size: 12px;
+				color: #FFFFFF;
+				float: right;
+				margin-right: 10px;
+				padding: 0 5px;
+				border-radius: 4px;
+				float: right;
+/* font-size: 14px; */
+				box-sizing: border-box;
+			}
+
+			.mui-table-view-cell::after {
+				height: 0;
+			}
+
+			.two {
+				color: #4D4D4D;
+				display: inline-block;
+				float: right;
+				font-size: 15px;
+				width:calc(100% - 14px);
+				box-sizing: border-box;
+				text-align: justify;
+			}
+
+			.longstring {
+				font-size: 12px;
+				color: #999999;
+				display: inline-block;
+				width: 10px;
+				vertical-align: top;
+				text-align: center;
+			}
+
+			.msaName,
+			.uploadTime {
+				color: #999999;
+				font-size: 12px;
+			}
+			.msaName{
+				margin-left:15px;
+			}
+
+			.reviewDescribe {
+				position: relative;
+				color: #999999;
+				padding: 5px 0px 5px 0px;
+				margin: 0px 0px 0px 14px;
+				display: inline-block;
+				font-size: 17px;
+				color: #666666;
+				word-wrap: break-word;
+				/* letter-spacing: 2px; */
+				text-align: justify;
+				
+				
+
+			}
+
+			.reviewTime {
+				color: #40B4F0;
+				font-size: 14px;
+			}
+
+			.reviewTimeall {
+				float: right;
+				margin-top: 10px;
+
+			}
+
+			#city {
+				font-size: 14px;
+			}
+
+			#cityitemselect {
+				/* background: red; */
+				margin-top: 11px;
+				z-index: 200;
+				height: 40px;
+				position: absolute;
+				right: 0;
+			}
+
+			/* 选择器的颜色 */
+			/* 确定 */
+			.mui-btn-blue,
+			.mui-btn-primary,
+			input[type="submit"] {
+				color: #404040;
+				border: none;
+				background: none;
+			}
+
+			/* 取消 */
+			.mui-btn,
+			button,
+			input[type="button"],
+			input[type="reset"],
+			input[type="submit"] {
+				color: #404040;
+				border: none;
+				background: none;
+			}
+
+			.mui-picker-inner {
+				background: #FFFFFF;
+			}
+
+			.mui-poppicker-header {
+				background: #FFFFFF;
+			}
+
+			.mui-poppicker-btn-ok {
+				font-size: 40px;
+			}
+
+			.mui-picker {
+				background-color: #FFFFFF;
+			}
+
+			.mui-poppicker-header .mui-btn {
+				font-size: 18px !important;
+			}
+
+			/* 结束 */
+
+			.grayItem {
+				background: #F7F7F7;
+				color: #999999;
+				padding-top: 6px;
+				padding-bottom: 10px;
+				display: none;
+				
+			}
+
+			.setting {
+				/* background: #2985E8; */
+				margin-top: 5px;
+				padding: 10px 23px;
+				padding-bottom: 30px;
+			}
+
+			.mui-activeitem {
+				background: #FFFFFF;
+				color: #1B66B7;
+			}
+
+			.mui-segmented-control.mui-segmented-control-inverted .mui-control-item.mui-active {
+				color: #FFFFFF;
+				border-bottom: none;
+			}
+
+			.item1lue {
+				background-image: url(../../img/suanjisfsfsfjgag_03.jpg);
+				background-repeat: no-repeat;
+				background-size: 100% 38px;
+			}
+
+			.mui-table-view::before,
+			.mui-table-view::after {
+				height: 0;
+			}
+
+			.yinhuanpaichaa_07 {
+				width: 16px;
+				height: 16px;
+				margin-right: 6px;
+				margin-top: 2px;
+				margin-left:-8px;
+				float: left;
+			}
+
+			.huandehuashi_03 {
+				width: 8px;
+				height: 8px;
+				margin-left: 4px;
+			}
+
+			#mui-activecome {
+				font-size: 18px;
+				font-weight: 440;
+			}
+
+			.imgitamgrau {
+				border: none;
+				height: 1px;
+				background-color: #ebebeb;
+			}
+
+			.imgitamgrau:last-of-type {
+				border: none;
+				height: 0px;
+				background-color: transparent;
+			}
+
+			.mui-table-view-cell.mui-active {
+				background: #FFFFFF;
+			}
+
+			/* 	body{
+				background: url(../../img/ui-sousuoyeme_10.jpg) no-repeat;
+				background-size: 100% ;
+				background-position:100% 190px ;
+			} */
+		</style>
+	</head>
+	<body>
+		<header id="header" class="mui-bar mui-bar-nav">
+			<a class="mui-icon mui-icon-left-nav mui-pull-left" id="mui-action-back" style="color: #FFFFFF;"></a>
+			<h1 class="mui-title">隐患整改</h1>
+			<span id="cityitemselect" class=" mui-pull-right"><span id="city"></span><img id="imgsize" src="../../img/ui-qiyesousuoxia_03.png"></span>
+		</header>
+		<div class="mui-content">
+			<div style="padding: 10px 10px;" id="segmentedControlFather">
+				<div id="segmentedControl" class="mui-segmented-control  mui-segmented-control-inverted ">
+					<a id="mui-activecome" class="mui-control-item mui-active" href="#item1">全部隐患<span class="underline" style="height:2px;width:40px;background: #FFFFFF;display:block;margin: 0 auto;"></span></a>
+
+					<a class="mui-control-item" href="#item2">逾期未查隐患<span class="underline" style="height:2px;width:40px;background: #FFFFFF;display:block;margin: 0 auto;display: none;"></a>
+
+					<a class="mui-control-item" href="#item3">未到期隐患<span class="underline" style="height:2px;width:40px;background: #FFFFFF;display:block;margin: 0 auto; display: none;"></a>
+
+				</div>
+				<div id="segmentedControlnext">
+					<button type="button" class="allitem mui-activeitem" onclick="onChange(' ')">全部</button>
+					<button type="button" class="allitem" onclick="onChange(1)">渡口渡船</button>
+					<button type="button" class="allitem" onclick="onChange(2)">游览经营公司</button>
+					<button disabled="disabled" type="button" class="allitem" onclick="onChange(3)">航运公司</button>
+				</div>
+			</div>
+			<div id="itemall">
+				<div id="item1" class="mui-control-content mui-active">
+					<ul class="mui-table-view item1lue" id="item1lu">
+					</ul>
+				</div>
+				<div id="item2" class="mui-control-content ">
+					<ul class="mui-table-view item1lue" id="nameeeeeee">
+					</ul>
+				</div>
+				<div id="item3" class="mui-control-content ">
+					<ul class="mui-table-view item1lue">
+					</ul>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script src="../../lib/js/mui.min.js"></script>
+	<script src="../../lib/js/jquery1.9.1.min.js"></script>
+	<script src="../../js/index.js"></script>
+	<script src="../../js/linkage.js"></script>
+	<script src="../../lib/js/mui.picker.min.js"></script>
+	<script src="../../js/city.js"></script>
+	<script type="text/javascript" charset="utf-8">
+		var url = window.localStorage.getItem('url')
+		var level,
+			namevalue,
+			checkSortId,
+			parId,
+			list=[],
+			jnum = -1,
+			htmltext = 0,
+			isOverdue = '';
+		mui.plusReady(function() {
+			// 字体白色(light)的沉浸栏 
+			// 			plus.navigator.setStatusBarStyle("light"); //dark 字体为黑色的沉浸栏
+			// 			plus.navigator.setStatusBarBackground('#000000'); //改变沉浸栏背景颜色的 
+			var self = plus.webview.currentWebview();
+			// 			console.log(self.namevalue) //城市
+			// 			console.log(self.level) // 城市等级
+			// 			console.log(self.parId)
+			level = self.level
+			namevalue = self.namevalue
+			parId = self.parId
+			// pageitem(self.listId)
+			$('#city').text(self.namevalue)
+			firstDom(0)
+		})
+		// 				font-size: 18px;
+		// 				color: #FFFFFF;
+		// 				border-bottom: none;
+		// 				/* border-bottom-width: 5px; */
+		// 				font-weight: 440;
+		mui('#segmentedControl').on('tap', 'a', function() {
+			var text = this.text;
+			if (text == '全部隐患') {
+				$('#segmentedControl>a').css({
+					'font-size': '16px',
+					'font-weight': '300',
+
+				})
+				$('.underline').css({
+					'display': 'none'
+				})
+				$('#segmentedControl>a').eq(0).css({
+						'font-size': '18px',
+						'font-weight': '440',
+
+					}),
+					$('.underline').eq(0).css({
+						'display': 'block'
+					})
+				Stylechangge()
+				isOverdue = ''
+				htmltext = 0
+				firstDom(1)
+			} else if (text == '逾期未查隐患') {
+				$('#segmentedControl>a').css({
+					'font-size': '16px',
+					'font-weight': '300',
+
+				})
+				$('.underline').css({
+					'display': 'none'
+				})
+
+				$('#segmentedControl>a').eq(1).css({
+						'font-size': '18px',
+						'font-weight': '440',
+					}),
+					$('.underline').eq(1).css({
+						'display': 'block'
+					})
+
+				Stylechangge()
+				htmltext = 1
+				isOverdue = 1
+				firstDom(1)
+			} else if (text == '未到期隐患') {
+				$('#segmentedControl>a').css({
+					'font-size': '16px',
+					'font-weight': '300',
+				})
+				$('.underline').css({
+					'display': 'none'
+				})
+
+				$('#segmentedControl>a').eq(2).css({
+						'font-size': '18px',
+						'font-weight': '440',
+					}),
+					$('.underline').eq(2).css({
+						'display': 'block'
+					})
+
+				Stylechangge()
+				htmltext = 2
+				isOverdue = 2
+				firstDom(1)
+			}
+		})
+
+		function firstDom(indexnumget) {
+			if (indexnumget == 0) {
+				Stylechangge()
+				$('#segmentedControl>a').css({
+					'font-size': '16px',
+					'font-weight': '300',
+
+				})
+				$('.underline').css({
+					'display': 'none'
+				})
+				$('#segmentedControl>a').eq(0).css({
+						'font-size': '18px',
+						'font-weight': '440',
+
+					}),
+					$('.underline').eq(0).css({
+						'display': 'block'
+					})
+			}
+			
+			var array = [{
+				msaId: level
+			}, {
+				msaId: level,
+				isOverdue: isOverdue
+			}, {
+				msaId: level,
+				isOverdue: isOverdue,
+				checkSortId: checkSortId
+			}]
+
+			mui.ajax({
+				type: 'get',
+				url: url + '/checklist/listReviewByConditional',
+				data: array[indexnumget],
+				timeout: 10000,
+				success: function(data) {
+					// console.log(JSON.stringify(data))
+					if (data.code == 200) {
+						 list = data.data.response.list
+						// console.log(JSON.stringify(list))
+						var stringAll = ''
+						arrayItem = []
+
+						for (var index = 0; index < list.length; index++) {
+							arrayItem.push(list[index].uploadTime)
+						}
+						arrayItem = unique1(arrayItem) 
+						
+						// arrayItem = [78]
+					
+						for (var j = 0; j < arrayItem.length; j++) {
+							var string = ''
+							var addition = 0
+							var checkType;
+
+							for (var i = 0; i < list.length; i++) {
+								var msa ;
+								 // num = 0;
+								if(list[i].msaName.length>5){
+									msa = list[i].msaName.substring(0,5)+"...";
+								}else{
+									msa = list[i].msaName;
+								}
+								if (i != list.length - 1) {
+									if (arrayItem[j] == list[i].uploadTime) {
+										if (list[i].checkType == 1) {
+											checkType = 'chang'
+										} else {
+											checkType = 'zhuan'
+										}
+
+										addition = addition + 1
+										var num = i;
+										string = string + '<div class="setting" onClick="subpage(event,' + list[i].reviewId +
+											',' + list[i].companyId +','+i+
+											')">  <div><span><img class="yinhuanpaichaa_07" src="../../img/yinhuanpaichaa_07.png"></span><span class="two">' +
+											list[i].two +
+											'</span></div>  <div ><p class="reviewDescribe">' + list[i].reviewDescribe +
+											'</p></div>   <div class="reviewTimeall"> <span></span> <span class="reviewTime">复查时间：<span class="imgtime">' +
+											list[i].reviewTime +
+											'</span><img class="huandehuashi_03" src="../../img/huandehuashi_03.png"></span></div> </div><hr class="imgitamgrau">'
+									}
+								} else {
+                                      if(num == ''||num==null){
+										  num=0
+									  }
+									var uploadTime = timeTrans(list[num].uploadTime)
+									
+									if (arrayItem[j] == list[i].uploadTime) {
+										jnum++
+										if (list[i].checkType == 1) {
+											checkType = 'chang'
+										} else {
+											checkType = 'zhuan'
+										}
+										addition = addition + 1
+										string = string + '<div class="setting" onClick="subpage(event,' + list[i].reviewId +
+											',' + list[i].companyId + ','+i+
+											')">  <div><span><img class="yinhuanpaichaa_07" src="../../img/yinhuanpaichaa_07.png"></span><span class="two">' +
+											list[i].two +
+											'</span></div>  <div ><p class="reviewDescribe">' + list[i].reviewDescribe +
+											'</p></div>   <div  class="reviewTimeall"> <span></span> <span class="reviewTime">复查时间：<span class="imgtime">' +
+											list[i].reviewTime +
+											'</span><img class="huandehuashi_03" src="../../img/huandehuashi_03.png"></span></div> </div><hr class="imgitamgrau">'
+
+										stringAll = stringAll + '<img class="' + checkType +
+											'" src=""><li onClick="dispalyItem(' + jnum +
+											')" class="mui-table-view-cell"> <div class="checklistTitleAll"><span></span><span class="checklistTitle">' +
+											list[num].checklistTitle +
+											'<span></span></div> <div class="checklistTitleAllitem"><span class="msaName">' +
+											msa + '</span><span class="longstring">|</span><span class="uploadTime">' + uploadTime +
+											'</span><span><span class="hiddendanger">隐患数量: ' + addition +
+											' <span><img  id="img' + jnum +
+											'"  class="imglogo" src="../../img/ui-qiyesousuoxia_ejsf03.png"></span></span></div><div id="jnum' + jnum +
+											'"  class="grayItem">' + string + ' </div> </li>'
+										// 											<span class="hiddendanger">隐患数量: ' + addition +
+										// 											' <span><img  id="img' + jnum +
+										// 											'"  class="imglogo" src="../../img/ui-qiyesousuoxia_ejsf03.png"></span>
+									} else {
+										jnum++
+										stringAll = stringAll + '<img class="' + checkType +
+											'"  src=""><li  onClick="dispalyItem(' + jnum +
+											')"   class="mui-table-view-cell"> <div class="checklistTitleAll"><span></span><span class="checklistTitle">' +
+											list[num].checklistTitle + '</div> <div class="checklistTitleAllitem"><span class="msaName">' +
+											msa + '</span><span class="longstring">|</span><span class="uploadTime">' + uploadTime +
+											'</span><span><span class="hiddendanger">隐患数量: ' + addition +
+											' <span><img  id="img' + jnum +
+											'"  class="imglogo" src="../../img/ui-qiyesousuoxia_ejsf03.png"></span></span></div><div id="jnum' + jnum +
+											'" class="grayItem">' + string + '</div> </li>'
+
+									}
+
+								}
+							}
+						}
+
+						if (stringAll != '') {
+							$('body').css({
+								'background': '#FFFFFF'
+							})
+							$('.mui-table-view').eq(htmltext).html(stringAll)
+						} else {
+							$('body').css({
+								'background': 'url(../../img/ui-sousuoyeme_10.png) no-repeat',
+								'background-size': '100%',
+								'background-position': '100% 190px',
+							})
+							$('.mui-table-view').eq(htmltext).html('')
+						}
+
+						doumentitem()
+					}
+				},
+				error: function() {}
+			})
+		}
+
+		// 去重
+		function unique1(arr) {
+			var newArr = []; //新建一个数组
+			for (var i = 0, len = arr.length; i < len; i++) {
+				if (newArr.indexOf(arr[i]) == -1) { //若新数组中未包含该项则将其存入新数组
+					newArr.push(arr[i]);
+				}
+			}
+			newArr.sort(function(a,b){return b-a});
+           
+			return newArr;
+		}
+		// 时间的转化
+		function doumentitem() {
+			for (var index = 0; index < $('.imgtime').length; index++) {
+				// console.log($('.imgtime').eq(index).text())
+				var date = new Date($('.imgtime').eq(index).text())
+				var datanow = Date.parse(new Date());
+				var time3 = Date.parse(date)-8*60*60*1000 ;
+				if (datanow < time3) {
+					// 灰的
+					$('.imgtime').eq(index).parent('.reviewTime').css({
+						'color': '#AFAFAF'
+					})
+					$('.imgtime').eq(index).next().attr('src', '../../img/oneghkdfhgdkf.png')
+
+				} else {
+
+				}
+			}
+			//../../img/ui-qiyesousuoxia_ejsf03.png
+			$('.chang').attr('src', '../../img/richazhuanxiang_03.png')
+			$('.zhuan').attr('src', '../../img/zhuanxiang_10.png')
+		}
+
+		// 渡口渡船的判断
+		function onChange(index) {
+			$('.allitem').css({
+				'background': '#1B66B7',
+				"color": ' #FFFFFF'
+			});
+			if (index == ' ') {
+				$('.allitem').eq(0).css({
+					'background': '#FFFFFF',
+					"color": '#1B66B7'
+				})
+			} else {
+				$('.allitem').eq(index).css({
+					'background': '#FFFFFF',
+					"color": '#1B66B7'
+				})
+			}
+			checkSortId = index
+			// console.log(index)
+			firstDom(2)
+		}
+
+		// 样式的改变
+		function Stylechangge() {
+			$('.allitem').css({
+				'background': '#1B66B7',
+				"color": ' #FFFFFF'
+			});
+			$('.allitem').eq(0).css({
+				'background': '#FFFFFF',
+				"color": '#1B66B7'
+			})
+		}
+		// 城市的选择
+		$('#cityitemselect').click(function() {
+
+			// console.log('成功')
+			linkage()
+		})
+
+		function dispalyItem(event) {
+			// console.log(event)
+			var id = '#jnum' + event;
+			var idimg = '#img' + event;
+			// console.log($('.grayItem').eq(event).css('display'))
+			// $('.grayItem').eq(event).css('background','red')
+			if ($(id).css('display') == 'none') {
+				$(id).css('display', 'block')
+				$(idimg).attr('src', '../../img/ui-qiyesousuoxia_ejsf03.png')
+			} else if ($(id).css('display') == 'block') {
+				$(id).css('display', 'none')
+				$(idimg).attr('src', '../../img/ui-qiyesousuoxia_03.png')
+			}
+		}
+window.addEventListener('changeCity',function(){
+	firstDom(0)
+})
+		function subpage(event, index, companyId,i) {
+			console.log(index)
+			console.log(companyId)
+			event.stopPropagation()
+			var index = index;
+			var two = list[i].two 
+			mui.openWindow({
+				id: 'dangerspage.html',
+				url: 'dangerspage.html',
+				extras: {
+					detailId: index,
+					companyId: companyId,
+					two:two
+				}
+			})
+		}
+		// 		$('.allitem').css({
+		// 			'background': '#1B66B7',
+		// 			"color": ' #FFFFFF'
+		// 		});
+		// 		$('#segmentedControl>a').css({
+		// 			'font-size': '16px'
+		// 		})
+		// 		
+		// 						$('#segmentedControl>a').css({
+		// 							'font-size': '16px',
+		// 							'font-weight': '300',
+		// 		
+		// 						})
+		// 						$('.underline').css({'display':'none'})
+		// 						$('#segmentedControl>a').eq(0).css({
+		// 								'font-size': '18px',
+		// 								'font-weight': '440',
+		// 		
+		// 							}),
+		// 							$('.underline').eq(0).css({'display':'block'})
+		// 		$('#segmentedControl>a').eq(0).css({
+		// 				'font-size': '18px'
+		// 			}),
+		// 			$('.allitem').eq(0).css({
+		// 				'background': '#FFFFFF',
+		// 				"color": '#1B66B7'
+		// 			})
+		// 		function pageitem(index) {
+		// 			mui.init({
+		// 				subpages: [{
+		// 					url: 'checkPage.html', //子页面HTML地址，支持本地地址和网络地址
+		// 					id: 'checkPage.html', //子页面标志
+		// 					styles: {
+		// 						top: '53px', //子页面顶部位置
+		// 						bottom: '0', //子页面底部位置
+		// 					},
+		// 					extras: {
+		// 						listId: index
+		// 					} //额外扩展参数
+		// 				}]
+		// 			});
+		// 			// 			mui.ajax({
+		// 			// 				type: 'get',
+		// 			// 				url: url + '/checklist/listOrder',
+		// 			// 				data: {
+		// 			// 				detailId: 90
+		// 			// 				},
+		// 			// 				timeout: 10000,
+		// 			// 				success: function(data) {
+		// 			// 					if (data.code == 200) {
+		// 			// 							valueList = data.data.response.list;
+		// 			//               for(var num = 0 ;num<valueList.length;num++){
+		// 			// 								if(valueList.id == index){
+		// 			// 									
+		// 			// 								}
+		// 			// 							}
+		// 			// 					} 
+		// 			// 				},
+		// 			// 				error: function() {}
+		// 			// 			})
+		// 		}
+		
+		
+		$('#mui-action-back').click(function(){
+			console.log('000000')
+		var main = plus.webview.getWebviewById("HBuilder");
+		mui.fire(main, 'changeCityIndex', {
+			
+		})
+		mui.back()
+// 		mui.openWindow({
+// 			id:'../../index.html',
+// 			url:'../../index.html',
+// 		})
+		})
+		
+	</script>
+</html>

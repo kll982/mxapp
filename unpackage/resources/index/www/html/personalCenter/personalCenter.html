@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<!-- personalCenter -->
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>个人中心</title>
+		<script src="../../lib/js/mui.min.js"></script>
+		<link href="../../lib/css/mui.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../home/public.css" />
+		<script type="text/javascript" charset="utf-8">
+			mui.init();
+		</script>
+		<style type="text/css">
+			.bottom-shadow-f6f6f6{
+				box-shadow: 0 2px 5px #ebebeb;
+			}
+		</style>
+	</head>
+	<body class="background-F3F3F3">
+		<div class="personalCenter-header background-48A9F6to2985E8">
+			<i class="mui-action-back mui-icon mui-icon-left-nav color-fff back"></i>
+			<div class="personalCenter-datum hidden bottom-shadow-f6f6f6">
+				<img class="circular header-pointer float-left" src="../../img/header-pointer.png">
+				<span class="line-height1-2 inline-block margin-top-28">
+					<span class="color-404040 font-size18 margin-left-4" id="userName"></span><br>
+					<span class="color-595959 font-size12 margin-left-4" id="userMsa"></span>
+				</span>
+				<span class="background-48A9F6to2985E8 flag color-fff inline-block float-right bottom-shadow-b7b7b7" id="userKind"></span>
+			</div>
+		</div>
+		<div class="margin-top28 padding10-0">
+			<ul class="mui-table-view margin-bottom-10">
+				<li class="mui-table-view-cell">
+					<i class="mui-icon width20 float-left">
+						<img class="width20" src="../../img/ReleaseRecords.png">
+					</i>
+					<span class="margin-left-14 line-height1-5">发布记录</span>
+					<span class="mui-badge mui-badge-inverted">暂未开通，敬请期待</span>
+				</li>
+			</ul>
+			<ul class="mui-table-view margin-bottom-10">
+				<li class="mui-table-view-cell full">
+					<i class="mui-icon width20 float-left">
+						<img class="width20" src="../../img/phone.png">
+					</i>
+					<span class="margin-left-14 line-height1-5">手机</span>
+					<span class="mui-badge mui-badge-none color-404040 font-size16" id="userPhone"></span>
+				</li>
+				<li class="mui-table-view-cell" onclick="personalCenter.resetPassword()">
+					<a class="mui-navigate-right">
+						<i class="mui-icon width20 float-left">
+							<img class="width20" src="../../img/password.png">
+						</i>
+						<span class="margin-left-14 line-height1-5">重置密码</span>
+					</a>
+				</li>
+				<li class="mui-table-view-cell" onclick="personalCenter.checkNew()">
+
+					<a class="mui-navigate-right">
+						<i class="mui-icon width20 float-left">
+							<img class="width20" src="../../img/checkNew.png">
+						</i>
+						<span class="margin-left-14 line-height1-5">检查更新</span>
+						<span class="mui-badge mui-badge-inverted"></span>
+					</a>
+				</li>
+			</ul>
+		</div>
+		<button type="button" class="mui-btn mui-btn-block color-f00 border-e6e6e6" onclick="personalCenter.logout()">退出登录</button>
+		
+		<!-- 模态窗 -->
+		<div id="model-wrap" class="fixed full hidden model-wrap">
+			<div class="model">
+				<div id="model-title" class="model-title color-fff"></div>
+				<div id="model-center" class="model-center"></div>
+			</div>
+			<span id="model-close" class="model-close inline-block color-fff" onclick="personalCenter.closemodle()"></span>
+		</div>
+
+	</body>
+	<script type="text/javascript" src="../password/personalCenter.js"></script>
+	<script type="text/javascript">
+		window.onload = function() {
+			mui.ajax(localStorage.getItem("url") + "/checklist/getUserInfo", {
+				data: {},
+				success: function(res) {
+					// console.log(JSON.stringify(res))
+					if (res.code == 200) {
+						mui("#userName")[0].textContent = res.data.response.userInfo.name;
+						mui("#userMsa")[0].textContent = res.data.response.userInfo.departmentName;
+						mui("#userKind")[0].textContent = res.data.response.userInfo.roleName;
+						mui("#userPhone")[0].textContent = res.data.response.userInfo.mobile;
+					}
+				}
+			})
+		}
+	</script>
+</html>

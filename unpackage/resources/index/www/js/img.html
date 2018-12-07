@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="../lib/css/mui.min.css" />
+		<link rel="stylesheet" type="text/css" href="../lib/css/reset.css" />
+		<link rel="stylesheet" type="text/css" href="../html/home/public.css" />
+		<script src="../lib/js/mui.min.js" type="text/javascript" charset="utf-8"></script>
+		<style type="text/css">
+			html,body{
+				height:100%;
+			}
+			body {
+				background: rgba(14,14,14,0.9);
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+				align-items: center;
+			}
+			.rotate90{
+				transform: rotate(90deg);
+			}
+		</style>
+	</head>
+	<body>
+		<!-- <img src="javascript:void(0)" /> -->
+	</body>
+	<script type="text/javascript">
+		mui.init();
+		var img;
+		mui.plusReady(function() {
+			main = plus.webview.currentWebview().opener();
+			var self = plus.webview.currentWebview();
+			imgSrc = self.img;
+			origin = self.origin;
+			var imgwrap = document.createElement("img");
+			imgwrap.src = imgSrc;
+			imgwrap.style.width = screen.availWidth;
+			imgwrap.style.height = screen.availHeight;
+			window.onclick = imgwrap.onclick = function() {
+				mui.back();
+			}
+			document.body.appendChild(imgwrap);
+		})
+	</script>
+</html>

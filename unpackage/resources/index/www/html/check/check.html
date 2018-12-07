@@ -1,0 +1,702 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../lib/css/mui.css" rel="stylesheet" />
+		<!-- <link rel="stylesheet" type="text/css" href="../../css/tankuang.css" /> -->
+		<style type="text/css">
+			#header {
+				padding: 0;
+				margin: 0;
+				height: 97px;
+				color: #FFFFFF;
+				font-size: 18px;
+			}
+
+			#itemName {
+				height: 44px;
+				line-height: 44px;
+				background: #FFFFFF;
+				color: #000000;
+				z-index: 900;
+				position: absolute;
+				text-align: center;
+				width: 100%;
+			}
+
+			#headerItem {
+				height: 53px;
+				background: url(../../img/navheaer.png) no-repeat;
+				background-size: 100% 100%;
+			}
+
+			#headerItem>h1 {
+				color: #FFFFFF;
+				font-size: 18px;
+				line-height: 53px;
+			}
+
+			.mui-icon-left-nav {
+				top: 5px;
+			}
+
+			#imgsize {
+				width: 18px;
+				height: 17px;
+				margin-right: 10px;
+				margin-top: 13px;
+			}
+
+			.mui-pull-right {
+				width: 40px;
+				/* background: red; */
+				margin-top: 5px;
+			}
+
+
+			.mui-bar-tab,
+			.mui-bar: {
+				border-top: none;
+				/* background: red; */
+				color: red;
+			}
+
+			.mui-tab-item {
+				border: none;
+			}
+
+			#navbarA {
+				height: 50px;
+				line-height: 50px;
+				z-index: 300;
+			}
+
+			#name {
+				width: calc(100% - 20px);
+				height: 40px;
+				left: 10px;
+				top: 5px;
+				background: linear-gradient(to right, #48A9F6, #2985E8);
+				background-size: 100% 100%;
+				background: #48A9F6;
+				border-radius: 6px;
+				color: #FFFFFF;
+				font-size: 16px;
+				letter-spacing: 3px;
+			}
+
+
+			/* 	.mui-backdrop {
+				position: fixed;
+				top: 0;
+				right: 0;
+				bottom: 50px;
+				left: 0;
+				z-index: 998;
+				background-color: rgba(0, 0, 0, .3);
+			} */
+
+			.muiRight {
+				position: absolute;
+				right: 14px;
+				display: inline-block;
+				height: 40px;
+				bottom: 1px;
+				width: 50px;
+				padding-top: 9px;
+				font-size: 13px;
+				text-align: right;
+				padding-right: 20px;
+				/* background: yellow; */
+			}
+
+			. mui-media {
+				position: relative;
+			}
+
+			#itemback {
+				height: 7px;
+				background: #F3F3F3;
+			}
+
+			.muiRightimg {
+				margin-right: 3px;
+				width: 14px;
+				height: 14px;
+				margin-top: 2px;
+				z-index: 200;
+				float: right;
+			}
+
+			.mui-table-view-cell {
+				color: #595959;
+			}
+
+			.mui-table-view {
+				/* background: red; */
+				margin-bottom: 10px;
+			}
+
+			.mui-scroll-wrapper {
+				top: -20px;
+			}
+
+			.basic {
+				height: 16px;
+				width: 16px;
+				margin-right: 5px;
+				position: relative;
+				top: 2px;
+			}
+
+			.mui-bar-nav {
+				box-shadow: none;
+			}
+
+			.mui-backdrop {
+				position: fixed;
+				z-index: 998;
+				background-color: rgba(0, 0, 0, .3);
+			}
+
+		/* 	.muiRightimg {
+				position: relative;
+				margin-top: 1px;
+				display: inline-block;
+				z-index: -110;
+				
+			} */
+
+			.mui-icon-left-nav {
+				display: inline-block;
+				color: #FFFFFF;
+			}
+			#submitFather {
+				background: #FFFFFF;
+				height: 55px;
+				line-height: 55px;
+				border: none;
+				bottom: 0;
+				width: 100%;
+			}
+			/* 取消 */
+			.mui-btn,
+			button,
+			input[type="button"],
+			input[type="reset"],
+			input[type="submit"] {
+				font-size: 16px;
+				color: #404040;
+				border: none;
+				background: none;
+			}
+			.mui-table-view-cell::after{
+				right: 14px;
+			}
+		</style>
+	</head>
+	<body>
+		<header id="header" class="mui-bar mui-bar-nav">
+			<div id="headerItem">
+				<a class=" mui-icon mui-icon-left-nav mui-pull-left" style="margin-left: 0px;" id="muiback"></a>
+				<h1 class="mui-title">日常检查</h1>
+				<span id="openPopover" class="mui-pull-right"><img src="../../img/shuaxin_07.png" id="imgsize"></span>
+			</div>
+			<div id="itemName"><span id="itemNameitem"></span> <span id="itemNameitemchuo"></span></div>
+		</header>
+		<span style="height: 87px;display: inline-block;"></span>
+		<div id="topPopover" class="mui-popover" style="width: 120px;z-index: 100000;">
+			<ul class="mui-table-view">
+				<li id="middlePopoveritem" class="mui-table-view-cell" style="height: 49px;padding-top: 12px;"><a><img class="basic"
+						 src="../../img/shuxiangadgjsaitem.png">基本信息</a></li>
+				<li id="doublecheck" class="mui-table-view-cell" style="height: 49px;padding-top: 12px;"><a href="#"><img class="basic"
+						 src="../../img/shuxiangadgjsa.png">重新检查</a></li>
+			</ul>
+		</div>
+
+		<div id="itemback"></div>
+		<div id="mobile"></div>
+		<nav id="submitFather"  class="mui-bar mui-bar-tab" id='navbarA'>
+			<button id="name">发布检查单</button>
+		</nav>
+		<!-- 弹框 -->
+
+	</body>
+	<script src="../../lib/js/mui.min.js"></script>
+	<script src="../../lib/js/jquery1.9.1.min.js"></script>
+	<script type="text/javascript">
+		var detailId;
+		var detailIdA;
+		var query;
+		var main, menu, mask = mui.createMask(_closeMenu);
+		var showMenu = false,
+			mode = 'main-move';
+		var newArr = [],
+			twoArr = [],
+			threeRrr = [],
+			valueItem = []
+		url = window.localStorage.getItem('url')
+		var key = '4';
+		mui.plusReady(function() {
+			// 字体白色(light)的沉浸栏 
+			plus.navigator.setStatusBarStyle("light"); //dark 字体为黑色的沉浸栏
+			plus.navigator.setStatusBarBackground('#0F0F0F'); //改变沉浸栏背景颜色的
+			main = plus.webview.currentWebview();
+			detailId = main.detailId
+			query = main.query
+			detailIdA = main.detailIdA
+			special = main.special
+			specialtext = main.specialtext
+			$('#itemNameitem').text(main.towanitemnameitem)
+			if (query == 1) {
+				$('#itemNameitemchuo').text('渡口渡船检查')
+			} else {
+				$('#itemNameitemchuo').text('游览经营检查')
+
+			}
+
+			if (special == 1) {
+				$('.mui-title').text('专项检查')
+			} else {
+				$('.mui-title').text('日常检查')
+			}
+			// 			console.log(specialtext)
+			// 			console.log(specialtext)
+			if (specialtext != null || specialtext != '') {
+// 				if(specialtext.length > 6){
+// 					$('#itemNameitemchuo').text(specialtext.substring(0,6)+'...')
+// 				}else{
+					$('#itemNameitemchuo').text(specialtext)
+				// }
+				
+			}
+			onepage(detailIdA)
+			// 			console.log(detailId)
+			// 			console.log(query)
+			//setTimeout的目的是等待窗体动画结束后，再执行create webview操作，避免资源竞争，导致窗口动画不流畅；
+			setTimeout(function() {
+				menu = mui.preload({
+					id: 'checkChild.html',
+					url: 'checkChild.html',
+					styles: {
+						left: "27%",
+						width: '73%',
+						zindex: 9997
+					},
+					extras: {
+						level: twoArr,
+						detailId: detailIdA
+					}
+				});
+			}, 300);
+		})
+		window.addEventListener("changeCitytimeone", function(e) {
+			onepage(detailIdA)
+		})
+
+		function onepage(valueId) {
+			// console.log(valueId)
+			$('#mobile').html('')
+			mui.ajax(url + '/checklist/listOrder', {
+				data: {
+					detailId: valueId
+				},
+				type: 'get',
+				dataType: "jsonp",
+				jsonp: "jsoncallback",
+				timeout: 10000,
+				success: function(data) {
+					// console.log(data)
+					// 一级目录数组
+					var res = JSON.parse(data);
+					var value = res.data.response.list;
+					var countA = res.data.response.count;
+					var orders = res.data.response.orders;
+					// console.log(value[0].one)
+					if (orders.length == 0) {
+						$('#name').attr('disabled', 'disabled')
+					} else {
+						$('#name').attr('disabled', false)
+					}
+					var string = ''
+					for (var i = 0; i < value.length; i++) {
+						if (newArr.indexOf(value[i].one) == -1) {
+								newArr.push(value[i].one)
+						}
+					}
+					// 					console.log(newArr)
+					// 					console.log(ordersArray)
+					valueItem = value
+					// 					for (var j = 0; j < ordersArray.length; j++) {
+					// 						for (var num = 0; num < newArr.length; num++) {
+					// 							if (ordersArray[j] == newArr[num]) {
+					// 								newArr.splice(num, 1)
+					// 							}
+					// 						}
+					// 					}
+
+					// console.log(newArr)
+					var string = ''
+					for (var indexA = 0; indexA < newArr.length; indexA++) {
+						var stringnum = newArr[indexA]
+						if(newArr[indexA].length>12){
+						var	stringnumA = newArr[indexA].substring(0,12)+'...'
+						}else{
+						var stringnumA = stringnum
+						}
+								
+						string = string + '<li class="mui-table-view-cell mui-table-view-cellitem mui-media" onClick=leftItem(' +
+							indexA + ')>' + stringnumA +
+							'<span class="muiRight" id="srctext" onClick=rightItem(event,' + indexA + ')>' + countA[stringnum] +
+							'</span>' + '<img class="muiRightimg" onClick=rightItem(event,' + indexA + ') src="../../img/yijian_03.png" id="srcimg"/>' + '</li>'
+					}
+					var itemPrsmise = new Promise(function(resolve, reject) {
+
+						$('#mobile').html($('<ul class="mui-table-view"></ul>').append(string))
+						$('#mobile').append('<div style="clear: both"></div>')
+						resolve(1)
+					})
+					itemPrsmise.then(function(value) {
+						percentage()
+					})
+
+				},
+				error: function() {}
+			})
+		}
+
+		function percentage() {
+			for (var index = 0; index < $('.muiRight').length; index++) {
+				var value = $('.muiRight')[index].textContent
+				var valueA = value.split('/')[0]
+				if (valueA != '0') {
+					document.getElementsByClassName('muiRightimg')[index].setAttribute('src', '../../img/yijian_07.png')
+				} else {
+					$('.muiRight')[index].onclick = document.getElementsByClassName('muiRightimg')[index].onclick = function() {
+						mui.toast("该项暂无已检内容");
+						event.stopPropagation()
+					}
+				}
+
+			}
+		}
+		mui.init({
+			swipeBack: false,
+			beforeback: back,
+
+		})
+
+
+
+		// 右侧点击事件
+		function rightItem(event, index) {
+			var one = newArr[index] 
+			event.stopPropagation()
+			mui.openWindow({
+				url: '../inspected/inspected.html',
+				id: '../inspected/inspected.html',
+				extras: {
+					detailId: detailIdA,
+					one: one,
+				}
+			})
+			// openMenu(3)
+		}
+		// 左侧点击事件
+		function leftItem(e) {
+			var value = newArr[e]
+			var twovalue = []
+			$('#openPopover').css('display', 'none')
+			for (var index = 0; index < $('.mui-table-view-cellitem').length; index++) {
+				$('.mui-table-view-cellitem').eq(index).css({
+					'background': ' #FFFFFF',
+					'color': '#5C5C5C'
+				})
+			}
+			$('.mui-table-view-cellitem').eq(e).css({
+				'background': 'linear-gradient(to right, #48A9F6, #2985E8)',
+				'color': '#FFFFFF'
+			})
+			for (var i = 0; i < valueItem.length; i++) {
+				if (valueItem[i].one == value) {
+					twovalue.push(valueItem[i])
+				}
+			}
+			var twoArr = []
+
+			for (var i = 0; i < twovalue.length; i++) {
+				if (twoArr.indexOf(twovalue[i].two) == -1) {
+					twoArr.push(twovalue[i].two)
+				}
+			}
+			var main = plus.webview.getWebviewById("checkChild.html");
+			mui.fire(main, 'changeCity', {
+				cityName: twoArr,
+				value: value
+			})
+			// 		  var maintiem = plus.webview.getWebviewById("../check/checkFather.html");
+			// 				mui.fire(maintiem, 'changeCitynacheck', {
+			// 						// cityName: twoArr
+			// 					}),
+			// window.localStorage.setItem('textValue', twoArr)
+			window.localStorage.setItem('textTwoValue', value)
+			openMenu(3)
+		}
+
+		// 监听二级菜单的返回的
+		window.addEventListener("changeCityitem", function(e) {
+			closeMenu()
+		});
+		var maskitem = mui.createMask(function() {
+			mui('#topPopover').popover('hide');
+		})
+		$('#openPopover').click(function() {
+			mui('#topPopover').popover('show', document.getElementById("openPopover"));
+			$('.mui-backdrop').css('display', 'none')
+			maskitem.show()
+		})
+
+		$('#middlePopoveritem').click(function() {
+
+			maskitem.close()
+			mui('#topPopover').popover('hide');
+			mui('#middlePopover').popover('toggle', document.getElementById("middlePopoveritem"));
+			if (query == 1) {
+				// console.log('yes')
+				mui.openWindow({
+					url: '../browse/ferry.html',
+					id: '../browse/ferry.html',
+					extras: {
+						detailId: detailId
+					}
+				})
+			} else if (query == 2 || query == 3 || query == 4) {
+				// alert(query)
+				mui.openWindow({
+					url: 'units.html',
+					id: 'units.html',
+					extras: {
+						detailId: detailId
+					}
+				})
+			}
+
+
+		})
+
+		$('#mobile').click(function() {
+			menu.setStyle({
+				left: '100%',
+				zindex: 9999
+			});
+			mode = 'menu-move';
+		})
+
+		// document.getElementById("mobile").addEventListener('tap', openMenu);
+		function back() {
+			if (showMenu) {
+				//菜单处于显示状态，返回键应该先关闭菜单,阻止主窗口执行mui.back逻辑；
+				closeMenu();
+				return false;
+			} else {
+				//菜单处于隐藏状态，执行返回时，要先close菜单页面，然后继续执行mui.back逻辑关闭主窗口；
+				menu.close('none');
+				return true;
+			}
+		}
+
+		function closeMenu() {
+			//窗体移动
+			_closeMenu();
+           
+			//关闭遮罩
+			mask.close();
+			
+							
+		}
+
+		/*
+		 * 显示菜单菜单
+		 */
+		function openMenu(index) {
+			if (!showMenu) {
+				//解决android 4.4以下版本webview移动时，导致fixed定位元素错乱的bug;
+				if (mui.os.android && parseFloat(mui.os.version) < 4.4) {
+					document.querySelector("header.mui-bar").style.position = "static";
+					//同时需要修改以下.mui-contnt的padding-top，否则会多出空白；
+					document.querySelector(".mui-bar-nav~.mui-content").style.paddingTop = "0px";
+				}
+
+				//侧滑菜单处于隐藏状态，则立即显示出来；
+				//显示完毕后，根据不同动画效果移动窗体；
+				menu.show('none', 0, function() {
+					menu.setStyle({
+						left: '35%',
+						top: "97px",
+						bottom: '56px',
+						transition: {
+							duration: 150
+						}
+					});
+
+				});
+				//显示主窗体遮罩
+				mask.show();
+				
+				// $('.mui-media').
+				// $('.mui-media').removeAttr('onclick')
+				$('.mui-backdrop').eq(0).css({
+					'top': '97px'
+				})
+				showMenu = true;
+
+			}
+		}
+
+
+		/**
+		 * 关闭侧滑菜单(业务部分)
+		 */
+		function _closeMenu() {
+			for (var index = 0; index < $('.mui-table-view-cellitem').length; index++) {
+				$('.mui-table-view-cellitem').eq(index).css({
+					'background': '#FFFFFF',
+					'color': '#5C5C5C'
+				})
+			}
+			var main = plus.webview.getWebviewById("checkChild.html");
+			mui.fire(main, 'xintian', {
+			})
+			
+			if (showMenu) {
+				//解决android 4.4以下版本webview移动时，导致fixed定位元素错乱的bug;
+				if (mui.os.android && parseFloat(mui.os.version) < 4.4) {
+					document.querySelector("header.mui-bar").style.position = "fixed";
+					//同时需要修改以下.mui-contnt的padding-top，否则会多出空白；
+					document.querySelector(".mui-bar-nav~.mui-content").style.paddingTop = "44px";
+				}
+				menu.setStyle({
+					left: '100%',
+					transition: {
+						duration: 150
+					}
+				});
+				//等窗体动画结束后，隐藏菜单webview，节省资源；
+				setTimeout(function() {
+					menu.hide();
+				}, 300);
+				showMenu = false;
+				$('#openPopover').css('display', 'block')
+			}
+		}
+
+
+		//点击侧滑图标，打开侧滑菜单；
+		// document.querySelector('.mui-action-menu').addEventListener('tap', openMenu);
+		//在android4.4中的swipe事件，需要preventDefault一下，否则触发不正常
+		//故，在dragleft，dragright中preventDefault
+		window.addEventListener('dragright', function(e) {
+			e.detail.gesture.preventDefault();
+		});
+		window.addEventListener('dragleft', function(e) {
+			e.detail.gesture.preventDefault();
+		});
+		//主界面向左滑动，若菜单未显示，则显示菜单；否则不做任何操作；
+		window.addEventListener("swipeleft", openMenu);
+		//主界面向右滑动，若菜单已显示，则关闭菜单；否则，不做任何操作；
+		window.addEventListener("swiperight", closeMenu);
+		//menu页面向右滑动，关闭菜单；
+		window.addEventListener("menu:swiperight", closeMenu);
+
+		//重写mui.menu方法，Android版本menu按键按下可自动打开、关闭侧滑菜单；
+		mui.menu = function() {
+			if (showMenu) {
+				closeMenu();
+			} else {
+				openMenu();
+			}
+		}
+
+		$('#doublecheck').click(function() {
+			mui.ajax({
+				type: 'get',
+				url: url + '/checklist/recheck',
+				data: {
+					detailId: detailIdA
+				},
+				dataType: "jsonp",
+				jsonp: "jsoncallback",
+				timeout: 5000,
+				success: function(data) {
+					var res = JSON.parse(data)
+					console.log(JSON.stringify(data))
+					var string = ''
+					if (res.code == 200) {
+						maskitem.close()
+						mui('#topPopover').popover('hide');
+						onepage(detailIdA)
+					}
+				},
+				error: function(err) {
+					console.log(err)
+				}
+			})
+		})
+		$('#name').click(function() {
+			mui.ajax({
+				type: 'get',
+				url: url + '/checklist/reportedOrder',
+				data: {
+					detailId: detailIdA
+				},
+				dataType: "jsonp",
+				jsonp: "jsoncallback",
+				timeout: 5000,
+				success: function(data) {
+					// console.log(JSON.stringify(data))
+					var res = JSON.parse(data)
+					var string = ''
+					if (res.code == 200) {
+						var mainitem = plus.webview.getWebviewById('browseChild.html');
+						setTimeout(function(){
+							mui.back()
+						},200)
+						mui.fire(mainitem, 'changeC', {})
+						mui.openWindow({
+							url: '../browse/browse.html',
+							id: 'html/browse/browse.html',
+						})
+						mui.toast('发布成功')
+					}
+				},
+				error: function(err) {
+					console.log(err)
+				}
+			})
+		})
+		// 		var nameId = window.localStorage.getItem('nameId')
+		// 		var parId =window.localStorage.getItem ('parId')
+		// 		var namevalue = window.localStorage.getItem ('namevalue')
+
+		$('#muiback').click(function() {
+			var main = plus.webview.getWebviewById("feryittem.html");
+			mui.fire(main, 'changeCityitemghb', {
+				// cityName: twoArr
+			})
+
+			var mainitem = plus.webview.getWebviewById("../check/detailsPage.html");
+			mui.fire(mainitem, 'changeCityitemghbone', {
+
+			})
+			mui.openWindow({
+				url: '../browse/browse.html',
+				id: 'html/browse/browse.html',
+
+			})
+		})
+	</script>
+
+</html>
