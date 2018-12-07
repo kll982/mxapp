@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<script src="../../lib/js/mui.min.js"></script>
+		<script src="../../lib/js/jquery1.9.1.min.js"></script>
+		<link href="../../lib/css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../../css/index.css" />
+		<link rel="stylesheet" type="text/css" href="../../lib/css/mui.picker.min.css" />
+		<style type="text/css">
+			#inputSize {
+				height: 50px;
+				line-height: 50px;
+				background: linear-gradient(to right, #48A9F6, #2985E8);
+				position: relative;
+			}
+
+			.mui-table-view-cell {
+				line-height: 34px;
+				color: #323232;
+			}
+
+			#inputItem {
+				border-radius: 19px;
+				height: 37px;
+				width: 86%;
+				margin-left: 7%;
+				color: #FFFFFF;
+				background: #91BBE8;
+				border: none;
+			}
+
+			#imglocation {
+				position: absolute;
+				right: 40px;
+				width: 23px;
+				height: 23px;
+				top: 13px;
+			}
+
+			/* 选择器的颜色 */
+			/* 确定 */
+			.mui-btn-blue,
+			.mui-btn-primary,
+			input[type="submit"] {
+				color: #404040;
+				border: none;
+				background: none;
+			}
+
+			/* 取消 */
+			.mui-btn,
+			button,
+			input[type="button"],
+			input[type="reset"],
+			input[type="submit"] {
+				color: #404040;
+				border: none;
+				background: none;
+			}
+
+			.mui-picker-inner {
+				background: #FFFFFF;
+			}
+
+			.mui-poppicker-header {
+				background: #FFFFFF;
+			}
+
+			.mui-poppicker-btn-ok {
+				font-size: 40px;
+			}
+
+			.mui-picker {
+				background-color: #FFFFFF;
+			}
+
+			.mui-poppicker-header .mui-btn {
+				font-size: 18px !important;
+			}
+
+			/* 结束 */
+			input#inputItem::-webkit-input-placeholder {
+				/* WebKit browsers */
+				color: #c2dbf6;
+			}
+
+			input#inputItem:-moz-placeholder {
+				/* Mozilla Firefox 4 to 18 */
+				color: #c2dbf6;
+			}
+
+			input#inputItem::-moz-placeholder {
+				/* Mozilla Firefox 19+ */
+				color: #c2dbf6;
+			}
+
+			input#inputItem:-ms-input-placeholder {
+				/* Internet Explorer 10+ */
+				color: #c2dbf6;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="inputSize">
+			<input type="text" name="" onfocus="myFunction()" onblur="myFunctionItem()" id="inputItem" value="" />
+			<img id="imglocation" src="../../img/ui-qiyesousuo07.png">
+		</div>
+		<ul class="mui-table-view" id=""></ul>
+
+	</body>
+	<script src="../../lib/js/mui.picker.min.js"></script>
+	<script src="../../js/city.js"></script>
+	<script type="text/javascript" charset="utf-8">
+		var nameId
+		var nameIdinitial
+		var typeNumber;
+		var namevalue;
+		var namevaluecity;
+		var query;
+		var specialtext;
+		var special;
+		var url = window.localStorage.getItem('url');
+
+		mui.init({});
+		mui.plusReady(function() {
+			// 字体白色(light)的沉浸栏 
+			// 		 			plus.navigator.setStatusBarStyle("light"); //dark 字体为黑色的沉浸栏
+			// 		 			plus.navigator.setStatusBarBackground('#0F0F0F'); //改变沉浸栏背景颜色的
+			main = plus.webview.currentWebview();
+			namevaluecity = main.namevalue
+			typeNumber = main.query
+			nameId = main.nameId
+			nameIdinitial = main.nameId
+			taskId = main.taskId
+			// console.log(taskId)
+			query = main.query
+			special = main.special
+			specialtext = main.specialtext
+
+			if (query == 1) {
+				$('#titlemui').text('渡口渡船')
+				$('#cityItemall').css('display', 'none')
+				$('#inputItem').attr('placeholder', '请输入渡口名称')
+			} else if (query == 4) {
+				$('#titlemui').text('游览经营公司')
+				$('#inputItem').attr('placeholder', '请输入景点/公司名称')
+			} else if (query == 2) {
+				$('#cityItemall').html('通航水域')
+				$('#titlemui').text('游览经营公司')
+				$('#cityItemall').unbind('click')
+				$('#inputItem').attr('placeholder', '请输入景点/公司名称')
+			} else if (query == 3) {
+				$('#cityItemall').html('非通航水域')
+				$('#titlemui').text('游览经营公司')
+				$('#inputItem').attr('placeholder', '请输入景点/公司名称')
+			}
+               
+				if(taskId==''||taskId==null){
+					taskId=''
+				}else{
+					taskId = taskId
+				}
+			textItem(0)
+		})
+
+		function myFunction() {
+			$('#imglocation').css('display', 'none')
+		}
+
+		function myFunctionItem() {
+			$('#imglocation').css('display', 'block')
+		}
+		$(function() {
+			$('#inputItem').bind('input propertychange', function() {
+				// $('#result').html($(this).val().length + ' characters');
+				namevalue = $(this).val()
+				if (namevalue.length == 0) {
+					textItem(0)
+				} else {
+					textItem(1)
+				}
+			});
+		})
+
+		function textItem(index) {
+			
+			var arrayItem = [{
+				msaId: nameId,
+				type: typeNumber,
+				taskId:taskId
+			}, {
+				msaId: nameId,
+				type: typeNumber,
+				name: namevalue,
+				taskId:taskId
+			}]
+			mui.ajax({
+				type: 'get',
+				url: url + '/checklist/list4AddOrder',
+				data: arrayItem[index],
+				dataType: "jsonp",
+				jsonp: "jsoncallback",
+				timeout: 5000,
+				success: function(data) {
+					// console.log(JSON.stringify(data))
+					var res = JSON.parse(data)
+					var string = ''
+					if (res.code == 200) {
+						console.log(JSON.res)
+						var nameItem = res.data.response.list;
+// 						if (nameItem.length != 0) {
+// 							// $(".mui-table-view").eq(0).css("height",h100);
+// 							$("body").eq(0).css("background", "#fff");
+// 						} else {
+// 							$("body").css("background", "url('../../img/search_compony.jpg')");
+// 						}
+						for (var index = 0; index < nameItem.length; index++) {
+							string = string + '<li class="mui-table-view-cell" onClick="secondary(' + nameItem[index].id + ')">' +
+								nameItem[index].name + '</li>'
+						}
+						
+						if (string != '') {
+							$('body').css({
+								'background': '#FFFFFF'
+							})
+							$('.mui-table-view').html(string)
+						} else {
+							$('body').css({
+								'background': 'url(../../img/search_compony.jpg) no-repeat',
+								'background-size': '100%',
+								'background-position': '100% 150px',
+							})
+							$('.mui-table-view').html('')
+						}
+						
+						for (var j = 0; j < $('.mui-table-view-cell').length; j++) {
+							if ($('.mui-table-view-cell')[j].textContent.length > 19) {
+								var text = $('.mui-table-view-cell')[j].textContent.substring(0, 19)
+								$('.mui-table-view-cell')[j].textContent = text + '...'
+							}
+						}
+					}
+				},
+				error: function(err) {
+					console.log(err)
+				}
+			})
+		}
+
+		function secondary(index) {
+
+			if (query == 2 || query == 3 || query == 4) {
+				mui.openWindow({
+					url: 'feryittem.html',
+					id: 'feryittem.html',
+					extras: {
+						detailId: index,
+						query: query,
+						taskId: taskId,
+						special: special,
+						specialtext: specialtext
+					}
+				})
+			} else if (query == 1) {
+				mui.openWindow({
+					id: '../check/detailsPage.html',
+					url: '../check/detailsPage.html',
+					extras: {
+						detailId: index,
+						query: query,
+						taskId: taskId,
+						special: special,
+						specialtext: specialtext
+					}
+				})
+			}
+
+		}
+		var picker = new mui.PopPicker();
+		// 监听父页面的click
+		window.addEventListener("changeCity", function(e) {
+			picker.setData([{
+				value: "4",
+				text: "全部"
+			}, {
+				value: "2",
+				text: "通航水域"
+			}, {
+				value: "3",
+				text: "非通航水域"
+			}])
+			// 			 mask = mui.createMask(function(){
+			// 				console.log('开启2')
+			//              var main = plus.webview.getWebviewById("html/browse/browse.html");
+			// 			 mui.fire(main, 'changeCityfathertwo',{})
+			// 			});
+			// 			mask.close()
+			//picker.pickers[0].setSelectedIndex(4, 2000);
+			picker.pickers[0].setSelectedValue('4', 500);
+			picker.show(function(SelectedItem) {
+				// console.log(SelectedItem[0].text);
+				var valuetext = SelectedItem[0].text
+				var valuenumber = SelectedItem[0].value
+				typeNumber = Number(valuenumber)
+				
+				textItem(0)
+				var main = plus.webview.getWebviewById("html/browse/browse.html");
+				mui.fire(main, 'changeCityfather', {
+					valuetext: valuetext
+				})
+			})
+		});
+
+		// 		window.addEventListener("changeCitymask", function(e) {
+		// 			console.log('管壁 ')
+		// 			picker.hide()
+		// 		})
+		window.addEventListener("changeC", function(e) {
+			console.log('点击')
+			textItem(0)
+		
+			
+		})
+
+		window.addEventListener("changeCityselect", function(e) {
+
+			if (e.detail.parId == 1) {
+				// console.log(namevaluecity)
+				var cityData2 = [{
+					value: nameIdinitial,
+					text: namevaluecity,
+					children: [{
+						value: nameIdinitial,
+						text: '全部',
+					}]
+				}]
+
+				mui.ajax({
+					type: 'get',
+					url: url + '/msaInfo/getChildByParId',
+					data: {
+						id: nameIdinitial
+					},
+					dataType: "jsonp",
+					jsonp: "jsoncallback",
+					timeout: 5000,
+					success: function(data) {
+						var res = JSON.parse(data)
+						var string = ''
+						if (res.code == 200) {
+							var childDepts = res.data.response.childDepts
+							for (var index = 0; index < childDepts.length; index++) {
+								var item = {
+									value: childDepts[index].id,
+									text: childDepts[index].shortName
+								}
+								cityData2[0].children.push(item)
+							}
+							var cityPicker = new mui.PopPicker({
+								layer: 2
+							});
+							cityPicker.setData(cityData2);
+							// console.log(JSON.stringify(cityData2))
+							cityPicker.show(function(items) {
+								var twocity = items[0].text,
+									twovalue = items[0].value;
+								threecity = items[1].text,
+									threevalue = items[1].value;
+								if (twovalue == threevalue) {
+									nameId = twovalue
+								} else {
+									nameId = threevalue
+								}
+								if (threecity == '全部') {
+									var valuetext = twocity
+								} else {
+									var valuetext = threecity
+								}
+								textItem(0)
+								
+								var main = plus.webview.getWebviewById("html/browse/browse.html");
+								mui.fire(main, 'changetext', {
+									valuetext: valuetext
+								})
+							})
+						}
+					},
+					error: function(err) {
+						console.log(err)
+					}
+				})
+
+
+			} else if (e.detail.parId == 0) {
+				var cityPicker3 = new mui.PopPicker({
+					layer: 3
+				});
+				cityPicker3.setData(cityData3);
+				cityPicker3.show(function(items) {
+					var twocity = items[1].text,
+						twovalue = items[1].value;
+					threecity = items[2].text,
+						onetext = items[0].text
+					threevalue = items[2].value;
+					// console.log(onetext)
+					if (twovalue == threevalue) {
+						nameId = twovalue
+					} else {
+						nameId = threevalue
+					}
+
+					if (threecity == '全部') {
+						var valuetext = twocity
+					} else {
+						var valuetext = threecity
+					}
+					if (twocity == '全部') {
+						nameId = 1;
+						var valuetext = '江苏'
+					}
+					textItem(0)
+					var main = plus.webview.getWebviewById("html/browse/browse.html");
+					mui.fire(main, 'changetext', {
+						valuetext: valuetext
+					})
+				});
+			} else if (e.detail.parId == 2) {
+				// 				console.log('99999')
+				// 				var main = plus.webview.getWebviewById("html/browse/browse.html");
+				// 				mui.fire(main, 'changetextthree', {
+				// 					// valuetext: valuetext
+				// 				})
+			}
+			// 			mui.ajax({
+			// 				type: 'get',
+			// 				url: url + '/msaInfo/getChildByParId ',
+			// 				data:{
+			// 					id:1
+			// 				},
+			// 				dataType: "jsonp",
+			// 				jsonp: "jsoncallback",
+			// 				timeout: 5000,
+			// 				success: function(data) {
+			// 					var res = JSON.parse(data)
+			// 					var string = ''
+			// 				   console.log(res)
+			// 				},
+			// 				error: function(err) {
+			// 					console.log(err)
+			// 				}
+			// 			})
+		})
+	</script>
+</html>

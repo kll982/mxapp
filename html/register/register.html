@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>注册</title>
+		<script src="../../lib/js/mui.min.js"></script>
+		<link href="../../lib/css/mui.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../../lib/css/public.css" />
+		<link rel="stylesheet" type="text/css" href="../home/public.css"/>
+		<script type="text/javascript" charset="utf-8">
+			mui.init();
+			mui.plusReady(function() {
+				var self = plus.webview.currentWebview();
+				// var div = document.getElementsByTagName("div")[0];
+				// div.innerHTML = self.title;
+			});
+		</script>
+	</head>
+	<body class="background-fff">
+		<div class="mui-content background-transparent">
+			<i class="mui-action-back mui-icon mui-icon-left-nav color-999 back"></i>
+			<p id="title" class="title font-size20 color-404040 float-left">注册</p>
+			<div class="inputGronp hidden full">
+				<span>手机号</span>
+				<input type="number" name="" id="tel" class="resetInput background-transparent" maxlength="11" oninput="if(value.length>11)value=value.slice(0,11)" placeholder="手机号"/>
+				<span class="color-527aff" onclick="login.getRegisterPasswordVerificationCode()">获取验证码</span>
+			</div>
+			<div class="inputGronp hidden full">
+				<span>验证码</span>
+				<input type="number" name="" id="VerificationCode" class="resetInput background-transparent" maxlength="6" oninput="if(value.length>6)value=value.slice(0,6)" placeholder="验证码"/>
+			</div>
+			<button type="button" class="mui-btn background-48A9F6to2985E8 mui-btn-block color-fff capsule50" onclick="login.nextRegister()" id="nextRegister">下一步</button>
+		</div>
+		
+		<!-- 模态窗 -->
+		<div id="model-wrap" class="fixed full hidden model-wrap">
+			<div class="model-sort">
+				<!-- <div id="model-title" class="model-title color-fff">
+					title
+				</div> -->
+				<div id="model-center" class="model-center">
+				</div>
+			</div>
+			<span id="model-close" class="model-close inline-block color-fff" onclick="login.closemodle()"></span>
+		</div>
+		
+	</body>
+	<script type="text/javascript" src="../personalCenter/js/personalCenter.js"></script>
+	<script type="text/javascript" src="../home/login.js"></script>
+
+</html>

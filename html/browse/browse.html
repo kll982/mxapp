@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<script src="../../lib/js/mui.min.js"></script>
+		<script src="../../lib/js/jquery1.9.1.min.js"></script>
+		<link href="../../lib/css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../../css/index.css" />
+		<link rel="stylesheet" type="text/css" href="../../lib/css/mui.picker.min.css" />
+		<style type="text/css">
+			#header {
+				background: linear-gradient(to right, #48A9F6, #2985E8);
+				height: 53px;
+			}
+
+			#header>span>h1 {
+				/* background: blue; */
+				line-height: 53px;
+				color: white;
+				display: inline-block;
+				font-size: 18px;
+			}
+
+			#centeritem {
+				/* text-align: center; */
+				/* background: red; */
+			}
+
+			#header>a {
+				top: 7px;
+			}
+
+			.headerItem {
+				line-height: 57px;
+				font-size: 12px;
+				color: #FFFFFF;
+			
+			}
+
+			.headerItem>span>img {
+				/* z-index: 100; */
+				width: 8px;
+				height: 8px;
+				margin-left: 3px;
+			}
+
+			#cityItem {
+				float: right;
+				position: relative;
+				top: 5px;
+			}
+
+			.both {
+				clear: both;
+			}
+
+			.cityItemalltiem {
+				/* float: right; */
+			}
+
+			#cityItemall {
+				display: inline-block;
+			}
+			#centeritem{
+				display: inline-block;
+			}
+		
+		</style>
+	</head>
+	<body>
+		<header id="header" class="mui-bar mui-bar-nav" style="text-align: center;">
+			<a class=" mui-icon mui-icon-left-nav mui-pull-left" id="mui-action-back" style="color: #FFFFFF;" ></a>
+			<span id="centeritem">
+				<h1 class="mui-titleA" id="titlemui">游览经营公司</h1>
+				<span class="headerItem " id="cityItemall">
+					<span id="cityItemallalltime">全部</span>
+					<span><img src="../../img/ui-qiyesousuoxia_03.png"></span>
+				</span>
+			</span>
+			<span class="headerItem" id="cityItem" ><span id="cityItemtext"></span><span id="imgvanish"><img
+					 src="../../img/ui-qiyesousuoxia_03.png"></span></span>
+			<div class="both"></div>
+		</header>
+	</body>
+	<script src="../../lib/js/mui.picker.min.js"></script>
+	<script src="../../lib/js/jquery1.9.1.min.js"></script>
+	<script type="text/javascript" charset="utf-8">
+		var nameId;
+		// var typeNumber = 4;
+		var url = window.localStorage.getItem('url')
+		var namevalue;
+		var query;
+		var specialtext;
+		var clickItem = true
+		mui.plusReady(function() {
+			// 字体白色(light)的沉浸栏 
+			plus.navigator.setStatusBarStyle("dark"); //dark 字体为黑色的沉浸栏
+			plus.navigator.setStatusBarBackground('#FFFFFF'); //改变沉浸栏背景颜色的
+			main = plus.webview.currentWebview();
+			nameId = main.level
+			namevalue = main.namevalue
+			parId = main.parId
+			taskId = main.taskId
+			query = main.query
+			special = main.special
+			specialtext = main.specialtext
+			// console.log(specialtext)
+
+			$('#cityItemtext').text(namevalue)
+			if (main.query == 1) {
+				$('#titlemui').text('渡口渡船')
+				$('#cityItemall').css('display', 'none')
+			} else if (main.query == 4) {
+				$('#titlemui').text('游览经营公司')
+			} else if (main.query == 2) {
+				$('#cityItemall').html('通航水域')
+				$('#titlemui').text('游览经营公司')
+				$('#cityItemall').unbind('click')
+			} else if (main.query == 3) {
+				$('#cityItemall').html('非通航水域')
+				$('#titlemui').text('游览经营公司')
+				$('#cityItemall').unbind('click')
+			}
+
+			successively()
+		})
+
+		function successively() {
+			mui.init({
+				beforeback: function(){
+		       var main = plus.webview.getWebviewById(window.localStorage.getItem('index.html'));
+		       				mui.fire(main, 'changeCityIndex', {
+		       })
+	},
+				swipeBack: false,
+				subpages: [{
+					url: 'browseChild.html', //子页面HTML地址，支持本地地址和网络地址
+					id: 'browseChild.html', //子页面标志
+					styles: {
+						top: '53px', //子页面顶部位置
+						bottom: '0', //子页面底部位置
+					},
+					extras: {
+						nameId: nameId,
+						namevalue: namevalue,
+						query: query,
+						taskId: taskId,
+						special: special,
+						specialtext: specialtext
+					} //额外扩展参数
+				}]
+			});
+		}
+
+		// 通航水域的点击事件
+
+		$('#cityItemall').click(function() {
+			if (clickItem) {
+				var main = plus.webview.getWebviewById("browseChild.html");
+				mui.fire(main, 'changeCity', {})
+				clickItem = false
+			}
+			// 			 mask = mui.createMask(function(){
+			// 				console.log('开启')
+			// 				var main = plus.webview.getWebviewById("browseChild.html");
+			// 				mui.fire(main, 'changeCitymask',{})
+			// 			});
+			// 			mask.show()
+
+		})
+		window.addEventListener("changeCityfather", function(e) {
+			$('#cityItemallalltime').text(e.detail.valuetext)
+			clickItem = true
+		})
+		// 		window.addEventListener("changeCityfathertwo", function(e) {
+		// // 			console.log('shoudao')
+		// // 			var mask = mui.createMask(function(){
+		// // 			});
+		// 			// mask.close()
+		// 		})
+
+		// 城市选择器
+		$('#cityItem').click(function() {
+			if (clickItem) {
+				if (parId == 0) {
+					var main = plus.webview.getWebviewById("browseChild.html");
+					mui.fire(main, 'changeCityselect', {
+						parId: parId
+					})
+					clickItem = false
+				} else if (parId == 1) {
+					var main = plus.webview.getWebviewById("browseChild.html");
+					mui.fire(main, 'changeCityselect', {
+						parId: parId
+					})
+					clickItem = false
+				} else {
+
+				}
+			}
+
+		})
+
+		// city的改变
+		window.addEventListener("changetext", function(e) {
+			clickItem = true
+			$('#cityItemtext').text(e.detail.valuetext)
+		})
+		// 		window.addEventListener("changetextthree", function(e) {
+		// 			console.log('lllllllll')
+		// 			$('#imgvanish').css({'display':'none'})
+		// 		})
+
+		window.addEventListener("changetexttone", function(e) {
+			clickItem = true
+
+		})
+		
+			window.addEventListener("wudingce", function(e) {
+					clickItem = true
+				})
+				
+				
+				$('#mui-action-back').click(function(){
+			
+
+				var main = plus.webview.getWebviewById(window.localStorage.getItem('index.html'));
+				        mui.fire(main, 'changeCityIndex', {
+				})
+			
+			
+			       mui.back()
+// 				mui.openWindow({
+// 					id:'../../index.html',
+// 					url:'../../index.html',
+// 				})
+// 	setTimeout(function(){
+// 					
+// 				},3000)
+				})
+	</script>
+
+</html>

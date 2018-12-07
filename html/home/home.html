@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<script src="../../lib/js/mui.js"></script>
+		<script src="../../lib/js/jquery1.9.1.min.js"></script>
+
+		<link href="../../lib/css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../../css/index.css" />
+		<link rel="stylesheet" type="text/css" href="public.css" />
+		<style type="text/css">
+		</style>
+	</head>
+	<body class="login">
+		<div class="mui-content background-transparent">
+			<i id="indexHome" class=" mui-icon mui-icon-left-nav color-fff back"></i>
+			<p class="title font-size26 color-fff mui-text-center" id="header">水路双重预防</p>
+			<div class="loginGroup hidden full">
+				<input type="text" placeholder="请输入手机号/用户名" id="tel" class="resetInput background-transparent color-fff placeholder-color-fff full"
+				 style="width:100%;" maxlength="15" oninput="if(value.length>16)value=value.slice(0,15)" />
+			</div>
+			<div class="loginGroup hidden full">
+				<input type="password" id="loginPassword" class="resetInput background-transparent color-fff placeholder-color-fff full"
+				 style="width:100%" maxlength="16" placeholder="请输入密码" />
+			</div>
+			<button type="button" class="mui-btn mui-btn-fff mui-btn-block capsule50 font-size20" onclick="logon()">登 &nbsp; 录</button>
+			<div class="color-fff font-size14 hidden padding0-20">
+				<span class="mui-text-left mui-pull-left padding7-0" onclick="login.register()">注册</span>
+				<span class="mui-text-right mui-pull-right padding7-0" onclick="login.resetPassword()">忘记密码？</span>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript" charset="utf-8">
+		
+		mui.init({
+
+		});
+		// 	   if(window.localStorage.getItem('userName') != ''){
+		// 		   mui.openWindow({
+		// 		   	url: '../check/checkFather.html',
+		// 		   	id: '../check/checkFather.html',
+		// 		   	styles: {
+		// 		   		top: 0, //新页面顶部位置
+		// 		   		bottom: 0, //新页面底部位置
+		// 		   	},
+		// 		   	extras: {
+		// 		   		taskId: 5
+		// 		   	}
+		// 		   })
+		// 	   }
+		// 		mui.plusReady(function() {
+		// 			// 字体白色(light)的沉浸栏 
+		// 			plus.navigator.setStatusBarStyle("dark"); //dark 字体为黑色的沉浸栏
+		// 			plus.navigator.setStatusBarBackground('#DFE9F3'); //改变沉浸栏背景颜色的
+		// 
+		// 		})
+		$('#indexHome').click(function() {
+			var main = plus.webview.getWebviewById(window.localStorage.getItem('index.html'));
+			mui.fire(main, 'changeCity', {
+				cityName: true
+			})
+			mui.openWindow({
+				url: '../../index.html',
+				id: window.localStorage.getItem('index.html')
+			})
+		})
+
+		function logon() {
+			console.log(localStorage.getItem("login") + '/login')
+			var valueOne = $('#tel').val();
+			var valueTwo = $('#loginPassword').val();
+			if (valueOne.length < 2) {
+				mui.toast("请输入正确的手机号\用户名")
+				return
+			}
+			if (valueTwo.length < 8) {
+				mui.toast("密码长度应大于8位")
+				return
+			}
+			
+			mui.ajax({
+				type: 'get',
+				url: localStorage.getItem("login") + '/login',
+				async: true,
+				data: {
+					mobile: valueOne,
+					password: valueTwo,
+					devType: 0,
+					formatType: 'json'
+				},
+				timeout: 10000,
+				success: function(data) {
+					if (data.code == 200) {
+						window.localStorage.setItem("userName", data.data.response.user.usrMobile)
+						window.localStorage.setItem('password', valueTwo)
+						console.log(data.data.response.user.usrMobile)
+						console.log(valueTwo)
+						window.localStorage.setItem('sessionKey', data.data.response.sessionKey)
+						var main = plus.webview.getWebviewById(window.localStorage.getItem('index.html'));
+						mui.fire(main, 'changeCity', {
+							cityName: true
+						})
+						mui.openWindow({
+							url: '../../index.html',
+							id: window.localStorage.getItem('index.html'),
+							styles: {
+								top: 0, //新页面顶部位置
+								bottom: 0, //新页面底部位置
+							},
+							extras: {
+								userName: valueOne
+							}
+						})
+					} else {
+						mui.toast(data.message);
+						localStorage.setItem("sessionKey","")
+					}
+				},
+				error: function() {}
+			})
+
+		} 
+		
+	</script>
+	<script src="login.js"></script>
+	<!-- <script src="../password/personalCenter.js"></script> -->
+</html>

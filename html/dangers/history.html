@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link href="../../lib/css/mui.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../../css/index.css" />
+		<style type="text/css">
+			body {
+				background: #F2F2F2;
+			}
+
+			#header {
+				background: linear-gradient(to right, #48A9F6, #2985E8);
+				height: 53px;
+			}
+
+			#header>h1 {
+				font-size: 18px;
+				line-height: 53px;
+				color: white;
+				display: inline-block;
+			}
+
+			#imgsize {
+				width: 18px;
+				height: 17px;
+				margin-right: 10px;
+				margin-top: 19px;
+			}
+
+			#header>a {
+				top: 7px;
+			}
+
+			.rummager {
+				color: #B3B3B3;
+				padding-left: 12px;
+				display: inline-block;
+				font-size: 16px;
+			}
+
+			.username {
+				color: #666666;
+				float: right;
+				font-size: 17px;
+				margin-left: 120px;
+				text-align: justify;
+				display: inline-block;
+			}
+
+			.timeitemsize {
+				margin-bottom: 14px;
+
+			}
+
+			#bodyItem {
+				/* padding: 0 10px; */
+
+			}
+
+			.longstring {
+				width: 6px;
+				/* background: red; */
+				display: inline-block;
+				color: #2581E7;
+			}
+
+			.examine {
+				color: #2581E7;
+				font-size: 18px;
+			}
+
+			.longtime {
+				color: #2581E7;
+				font-size: 18px;
+			}
+
+			#settingop {
+				color: #4D4D4D;
+				line-height: 53px;
+				font-size: 18px;
+				text-align: center;
+				background: #FFFFFF;
+			}
+
+			.hritemff {
+				height: 1px;
+				background: #F2F2F2;
+				border: none;
+				margin: 0;
+				padding: 0;
+				/* margin-bottom: 15px; */
+			}
+
+			.timeitem {
+				margin-bottom: 20px;
+			}
+
+			.rightImg {
+				float: right;
+				color: #40B4F0;
+				font-size: 14px;
+				/* background: red; */
+				margin-top: 5px;
+				line-height: 30px;
+				/* background: red; */
+				margin-bottom: 30px;
+			}
+
+			.arrows {
+				width: 9px;
+				height: 9px;
+				margin-left: 5px;
+			}
+
+			.textitembig {
+				position: relative;
+				height: 25px;
+			}
+
+			.textitembigitem {
+				position: absolute;
+				display: inline-block;
+				/* background: #007AFF; */
+			}
+
+			.textitembigitemname {
+				/* background: yellow; */
+				margin-bottom: 5px;
+			}
+
+			.bodytext {
+				padding-bottom: 60px;
+				margin-bottom: 10px;
+				padding-top: 15px;
+				background: #FFFFFF;
+				padding-left: 10px;
+				padding-right: 10px;
+			}
+
+			.srcimgsize {
+				width: 65px;
+				height: 65px;
+				margin: 0 5px;
+				margin-bottom: 5px;
+			}
+
+			.imgname {
+				margin-left: 38px;
+				margin-top: 10px;
+				display: inline-block;
+			}
+
+			.pfototime {
+				/* background: red; */
+			}
+
+			.pfototimesize {
+				position: relative;
+				color: #B3B3B3;
+				padding-left: 11px;
+
+			}
+
+			.calsimgsize {
+				position: relative;
+				top: 4px;
+				width: 20px;
+				height: 20px;
+				margin-left: 10px;
+			}
+
+			.itemdiplay {
+				display: none;
+			}
+
+			.someitem {
+				display: inline-block;
+				margin-left: 118px;
+				width: 70%;
+
+			}
+
+			.usernameAB {
+				margin-left: 110px;
+			}
+
+			.photobbg {
+
+				display: inline-block;
+			}
+		</style>
+	</head>
+	<body>
+		<header id="header" class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">检查历史</h1>
+		</header>
+		<div style="height: 53px;"></div>
+		<div id="settingop">
+			渡口设置
+		</div>
+		<hr class="hritemff">
+		<div id="bodyItem">
+
+		</div>
+		<img src="">
+	</body>
+	<script src="../../lib/js/mui.min.js"></script>
+	<script src="../../lib/js/jquery1.9.1.min.js"></script>
+	<script src="../../js/index.js"></script>
+	<script type="text/javascript" charset="utf-8">
+		var url = window.localStorage.getItem('url')
+		var checklistDtos = [];
+		var urlItem = [];
+		var displayitem = false;
+		mui.plusReady(function() {
+			// 字体白色(light)的沉浸栏 
+			plus.navigator.setStatusBarStyle("light"); //dark 字体为黑色的沉浸栏
+			plus.navigator.setStatusBarBackground('#000000'); //改变沉浸栏背景颜色的 
+			var self = plus.webview.currentWebview();
+			// console.log(self.detailId)
+			pageitem(self.detailId)
+		})
+		mui.init({
+
+		});
+
+		function pageitem(index) {
+			console.log(index)
+			var index = index
+			mui.ajax({
+				type: 'get',
+				url: url + '/checklist/listReviewHistory',
+				data: {
+
+					id: index
+				},
+				timeout: 10000,
+				success: function(data) {
+					console.log(data.code)
+					if (data.code == 200) {
+						checklistDtos = data.data.response.checklistDtos,
+							string = '';
+						for (var index = 0; index < checklistDtos.length; index++) {
+							var optionId,
+								urlhtml = ''
+
+							console.log(checklistDtos[index].optionId)
+							if (checklistDtos[index].optionId == 1) {
+								optionId = '符合'
+							} else if (checklistDtos[index].optionId == 2) {
+								optionId = '不符合(当场纠正)'
+							} else if (checklistDtos[index].optionId == 3 || checklistDtos[index].optionId == null) {
+								optionId = '不符合(限期整改)'
+							}
+
+							if (checklistDtos[index].url == null || checklistDtos[index].url == '') {
+								// 								   urlhtml='-----'
+								// 									 $('.pfototimesize').eq(0).css({'height':'21px','color':'red'}),
+								// 									 $('.imgname').eq(0).css('display','none')
+							} else {
+								urlItem = checklistDtos[index].url.split(',')
+								for (var j = 0; j < urlItem.length; j++) {
+									if (j == urlItem.length - 1) {
+										var indexsrc = urlItem[j]
+										urlhtml = '<span class="someitem">' + urlhtml + '<img class="srcimgsize" onClick="imgOnclick(' + j +
+											')" src="' + urlItem[j] + '"></span>'
+									} else {
+										urlhtml = urlhtml + '<img class="srcimgsize" onClick="imgOnclick(' + j + ')" src="' + urlItem[j] + '">'
+									}
+
+								}
+							}
+
+							var createTime = timeTransitem(checklistDtos[index].createTime)
+
+							string = string +
+								'<div class="bodytext"> <div class="timeitem"><span class="longstring">|</span><span class="examine">检查时间</span><span class="username longtime">' +
+								createTime +
+								'</span></div>   <div class="timeitemsize itemdiplay' + index +
+								' itemdiplay"><span class="rummager">检查人</span><span class="username">' + checklistDtos[index].createBy +
+								'</span> </div>  <div class="timeitemsize  itemdiplay' + index +
+								' itemdiplay"><span class="rummager">检查结果</span><span class="username ">' + optionId +
+								'</span> </div>  <div class="timeitemsize  itemdiplay' + index +
+								' itemdiplay"><span class="rummager">检查人手机</span><span class="username  usernameAB" >' +
+								checklistDtos[index].operatorPhone +
+								'<span class="photobbg" onClick="calsimgsize(' + index +
+								')" ><img src="../../img/trwergsdfg.png" class="calsimgsize" ></span></span> </div>  <div  class="timeitemsize textitembig"><span class="rummager textitembigitem">问题描述</span><span class="username textitembigitemname">' +
+								checklistDtos[index].reviewDescribe +
+								'</span> </div>  <div class="timeitemsize pfototime  itemdiplay' + index +
+								' itemdiplay"><span class=" pfototimesize">现场照片</span><span class="" >' + urlhtml +
+								'</span> </div>  <div class="timeitemsize textitembig  itemdiplay' + index +
+								' itemdiplay"><span class="rummager textitembigitem">整改要求</span><span class="username ">' + checklistDtos[
+									index].reviewRequire +
+								'</span> </div>  <div class="timeitemsize  itemdiplay' + index +
+								' itemdiplay"><span class="rummager">复查时间</span><span class="username">' + checklistDtos[index].reviewTime +
+								'</span> </div>  <div class="rightImg" onClick = rightImg(' + index + ')><span id="packup' + index +
+								'">展开详情</span><img id ="rightImgbma' + index +
+								'" class="arrows" src="../../img/huandehuashi_03 - fuben(2).png"></div></div>'
+						}
+						$('#bodyItem').html(string)
+
+						namedkfjk()
+					}
+				},
+				error: function() {}
+			})
+		}
+
+		// $('#imgsizespan').click(function(){
+		function calsimgsize(index) {
+			var name = checklistDtos[index].createBy
+			var phone = checklistDtos[index].operatorPhone
+			console.log(name)
+			var text = '确认拨打检查人-' + name
+			var btnArray = ['拨打', '取消'];
+			mui.confirm(text + '电话' + phone + '?', btnArray, function(e) {
+				if (e.index == 0) {
+					plus.device.dial(phone, false);
+				}
+			});
+		}
+		// }
+
+
+		function namedkfjk() {
+			for (var i = 0; i < $('.textitembigitemname').length; i++) {
+				// console.log($('.textitembigitemname')[i].offsetHeight)
+				if ($('.textitembigitemname')[i].offsetHeight > 21) {
+					var height = $('.textitembigitemname')[i].offsetHeight - 21 + 50
+					$('.bodytext').eq(i).css({
+						'padding-bottom': height + 'px'
+					})
+				}
+			}
+		}
+
+
+
+		function rightImg(index) {
+			var classitem = '.itemdiplay' + index
+			var packup = '#packup' + index
+			var rightImgbma = '#rightImgbma' + index
+			if (displayitem) {
+				$(classitem).css('display', 'none')
+				$(packup).text('展开详情')
+				$(rightImgbma).attr('src', '../../img/huandehuashi_03 - fuben(2).png')
+				displayitem = false;
+				namedkfjk()
+
+			} else {
+				$(classitem).css('display', 'block')
+				$(packup).text('收起')
+				$(rightImgbma).attr('src', '../../img/huandehuashi_03 - three.png')
+				displayitem = true;
+				$('.bodytext').eq(index).css({
+					'padding-bottom': '60px'
+				})
+				for (var j = 0; j < $('.someitem').length; j++) {
+					console.log($('.pfototimesize')[j].offsetHeight)
+					console.log($('.pfototimesize')[j].offsetHeight)
+					console.log($('.pfototimesize')[j].offsetHeight)
+					$('.someitem').eq(j).css({
+							'position': 'relative',
+							'top': '-12px'
+						}),
+						$('.pfototimesize').eq(j).css({
+							'position': 'relative',
+							'top': '7px'
+						})
+					// 						if($('.pfototimesize')[i].offsetHeight > 21){
+					// 								var height = $('.textitembigitemname')[i].offsetHeight - 21 +50
+					// 								$('.bodytext').eq(i).css({'padding-bottom':height+'px'})
+					// 						}
+				}
+			}
+
+		}
+
+		function imgOnclick(src) {
+			
+			mui.openWindow({
+				url: "../../js/img.html",
+				id: "img",
+				extras: {
+					img: urlItem[src],
+				}
+			})
+		}
+	</script>
+</html>

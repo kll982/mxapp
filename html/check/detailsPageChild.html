@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<script src="../../lib/js/mui.min.js"></script>
+		<link href="../../lib/css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../../css/index.css" />
+		<link rel="stylesheet" type="text/css" href="../../lib/css/reset.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/tankuang.css" />
+		<style type="text/css">
+			body {
+				background: #FFFFFF;
+			}
+
+			#middlePopover {
+				/* margin-top: 10px; */
+			}
+
+			.mui-table-view::after,
+			.mui-table-view::before {
+				height: 0;
+			}
+
+			#message {
+				font-size: 16px;
+				color: #FFFFFF;
+
+			}
+
+			#headeritemid {
+				font-size: 21px;
+				color: #FFFFFF;
+				font-weight: 400;
+				padding-top: 15px;
+				margin-bottom: 10px;
+			}
+
+			span {
+				color: #4D4D4D;
+			}
+
+			input {
+				color: #4D4D4D;
+			}
+
+			#submitItem {
+				height: 44px;
+				border-radius: 50px;
+				margin-top: 45px;
+
+			}
+
+			#imgsizespan {
+				display: inline-block;
+				margin-left: 40px;
+			}
+
+			.imgsize {
+				position: relative;
+				top: 2px;
+			}
+
+			#villagesA {
+				font-size: 16px;
+				position: relative;
+				display: inline-block;
+				margin-top: 4px;
+			}
+
+			#imgsizeitem {
+				background: url(../../img/sssss_03.jpg) no-repeat;
+				height: 70px;
+				background-size: 100% 100%;
+				padding-left: 12px;
+			}
+
+			.mui-table-view>li {
+				margin-bottom: 20px;
+			}
+
+			.mui-table-view {
+				margin-top: 40px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="imgsizeitem" class="displayTime">
+			<h3 id="headeritemid"></h3>
+			<div id="message"> 基本信息</div>
+		</div>
+
+		<div id="middlePopover" class="displayTime">
+			<div class="mui-popover-arrow"></div>
+			<div class="mui-scroll" >
+				<ul class="mui-table-view">
+					<li id="twomthn" >
+						<img class="imgsize" src="../../img/jibenxinxi07.png"> <span>所在乡镇</span> <span id="villagesA" class="rightuser"></span>
+						<!-- <hr class="hrItem"> -->
+					</li>
+					<li style="margin-top: 5px;">
+						<img class="imgsize" src="../../img/sdfasdfs.png"> <span>运营人</span> <input placeholder="请输入姓名" id="villagesB"
+						 class="rightuser" type="text" name="" />
+						<hr class="hrItem">
+					</li>
+					<li >
+						<img class="imgsize" src="../../img/fsdfasdfas.png"> <span>运营人手机</span> <span id="villagesD" class="rightuser"><input
+							 style="height: 30px;padding-right: 0;width: 140px;" placeholder="请输入手机号" id="villagesC" type="number" name="" /><span id="imgsizespan"><img
+								 id="imgsizespanphtotr" class="imgsize" src="../../img/trwergsdfg.png"></span></span>
+						<hr class="hrItem">
+					</li>
+					<button type="button" id="submitItem">开始检查</button>
+					<!-- <li></li> -->
+				</ul>
+			</div>
+		</div>
+		<script src="../../lib/js/jquery1.9.1.min.js"></script>
+		<script type="text/javascript" charset="utf-8">
+			var name,
+				detailId,
+				operator,
+				query,
+				towanitemnameitem,
+				taskId,
+				special,
+				specialtext,
+				operatorPhone;
+			var url = window.localStorage.getItem('url')
+			mui.plusReady(function() {
+				// 字体白色(light)的沉浸栏 
+				plus.navigator.setStatusBarStyle("dark"); //dark 字体为黑色的沉浸栏
+				plus.navigator.setStatusBarBackground('#000000'); //改变沉浸栏背景颜色的 
+				var self = plus.webview.currentWebview();
+				initial(self.detailId)
+				detailId = self.detailId;
+				query = self.query
+				taskId = self.taskId
+				special = self.special
+				specialtext = self.specialtext
+				console.log(taskId)
+			})
+			mui.init({
+
+			});
+
+			function initial(id) {
+				var id = id
+				console.log('dianji' + id)
+				mui.ajax({
+					type: 'get',
+					url: url + '/checklist/getCompanyInfo',
+					data: {
+						companyId: id
+					},
+					timeout: 10000,
+					success: function(data) {
+						if (data.code == 200) {
+							valueList = data.data.response.companyInfo;
+							name = valueList.name
+							operator = valueList.operator
+							operatorPhone = valueList.operatorPhone
+							var town = valueList.town
+
+							console.log(name)
+							console.log(town)
+							if (name.length > 8) {
+								var towanitemname = name.substring(0, 8) + '...'
+								$('#headeritemid').text(towanitemname)
+								towanitemnameitem = towanitemname
+							} else {
+								$('#headeritemid').text(name)
+								towanitemnameitem = name
+							}
+							if (town.length > 11) {
+								var towanitem = town.substring(0, 11) + '...'
+								$('#villagesA').text(towanitem)
+
+							} else {
+								$('#villagesA').text(town)
+
+							}
+							if (operator == null  || operator == '') {} else {
+								$('#villagesB').val(operator)
+							}
+
+							if (operatorPhone == null || operatorPhone == '') {
+								$('#imgsizespan').css('display', 'none')
+							} else {
+								$('#villagesC').val(operatorPhone)
+							}
+							$('.displayTime').css('display','block')
+						}
+					},
+					error: function() {}
+				})
+			}
+			$('#imgsizespan').click(function() {
+				var phone = operatorPhone;
+				var text = '确认拨打' + name + '运营人'
+				var btnArray = ['拨打', '取消'];
+				if (phone == null  || phone == '') {
+					mui.toast('暂无联系人电话')
+				} else {
+					if (operator == null  || operator == '') {
+						mui.confirm(text + '电话' + phone + '?', btnArray, function(e) {
+							if (e.index == 0) {
+								plus.device.dial(phone, false);
+							}
+						});
+					} else {
+						mui.confirm(text + '-' + operator + '电话' + phone + '?', btnArray, function(e) {
+							if (e.index == 0) {
+								plus.device.dial(phone, false);
+							}
+						});
+					}
+				}
+			})
+
+
+			$('#submitItem').click(function() {
+				var reg = /^1[3-9][0-9]{9}/;
+				var num = $('#villagesB').val();
+				var photo = $('#villagesC').val();
+				var id = String(detailId)
+				if (num == ''||num == null) {
+					num = ''
+				}
+				if (photo== ''||photo == null) {
+					mui.ajax({
+						type: 'post',
+						url: url + '/checklist/updateOperatorInfo',
+						data: {
+							companyId: id,
+							operator: num,
+							operatorPhone: ''
+						},
+						timeout: 10000,
+						success: function(data) {
+							if (data.code == 200) {
+								dataiIdNow()
+							}
+						},
+						error: function() {}
+					})
+				} else {
+					if (photo.length != 11 || !reg.test(photo)) {
+						mui.toast("请输入正确的手机格式")
+						return
+					} else {
+
+						mui.ajax({
+							type: 'post',
+							url: url + '/checklist/updateOperatorInfo',
+							data: {
+								companyId: id,
+								operator: num,
+								operatorPhone: photo
+							},
+							timeout: 10000,
+							success: function(data) {
+								if (data.code == 200) {
+									dataiIdNow()
+								}
+							},
+							error: function() {}
+						})
+					}
+				}
+
+
+			})
+
+
+			function dataiIdNow() {
+				if (typeof(taskId) === 'undefined') {
+					taskId = ''
+				}else{
+					taskId = taskId
+				}
+				
+				mui.ajax({
+					type: 'get',
+					url: url + '/checklist/hasDraft',
+					data: {
+						companyId: detailId,
+						taskId: taskId,
+					},
+					timeout: 10000,
+					success: function(data) {
+						if (data.code == 200) {
+							var hasDraft = data.data.response.checklistDto.hasDraft
+							// console.log(hasDraft)
+							if (hasDraft == '1') {
+                                       
+								id = data.data.response.checklistDto.id
+								mui.openWindow({
+									id: '../check/check.html',
+									url: '../check/check.html',
+									extras: {
+										query: query,
+										detailIdA: id,
+										detailId: detailId,
+										taskId: taskId,
+										towanitemnameitem: towanitemnameitem,
+										special: special,
+										specialtext: specialtext
+									}
+								})
+							} else if (hasDraft == '2') {
+								
+								mui.ajax({
+									type: 'post',
+									url: url + '/checklist/createDetail',
+									data: {
+										companyId: detailId,
+										taskId: taskId
+									},
+									timeout: 10000,
+									success: function(data) {
+										if (data.code == 200) {
+											id = data.data.response.detailId
+											mui.openWindow({
+												id: '../check/check.html',
+												url: '../check/check.html',
+												extras: {
+													query: query,
+													detailIdA: id,
+													detailId: detailId,
+													taskId: taskId,
+													towanitemnameitem: towanitemnameitem,
+													special: special,
+													specialtext: specialtext
+												}
+											})
+										}else if(data.code ==500){
+											mui.toast(data.message)
+										}
+									},
+									error: function() {}
+								})
+							}
+						}
+					},
+					error: function() {}
+				})
+			}
+		</script>
+</html>
