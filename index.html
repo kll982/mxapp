@@ -218,7 +218,7 @@
 			</div>
 			<span id="model-close" class="model-close inline-block color-fff" onclick="closemodle()"></span>
 		</div>
-		<button type="button" onclick=" printSocket()">打印</button>
+		<!-- <button type="button" onclick=" printSocket()">打印</button> -->
 	</body>
 	<script src="js/echart.js"></script>
 	<script type="text/javascript" charset="utf-8">
@@ -277,7 +277,7 @@
    message = document.getElementById("message");
     // 监听点击消息事件
     plus.push.addEventListener( "click", function( msg ) {
-		alert('ddjjjjjj')
+		// alert('ddjjjjjj')
         // 判断是从本地创建还是离线推送的消息
         switch( msg.payload ) {
             case "LocalMSG":
@@ -294,17 +294,15 @@
     }, false );
     // 监听在线消息事件
     plus.push.addEventListener( "receive", function( msg ) {
-		alert('ddjjjjjj')
+		// alert('ddjjjjjj')
         if ( msg.aps ) {  // Apple APNS message
             outSet( "接收到在线APNS消息：" );
         } else {
             outSet( "接收到在线透传消息：" );
         }
+		
         logoutPushMsg( msg );
     }, false );
-
-
-
 
 			plus.runtime.getProperty(plus.runtime.appid, function(inf) {
 				var appVersion = inf.version;
@@ -354,7 +352,7 @@ function isValidObjectitem(clientInfo){
 	 
 	function isValidObject(clientInfo) {
 		if(clientInfo instanceof  Object){
-			alert(clientInfo.clientid)
+			// alert(clientInfo.clientid)
 			
 			return true
 		}

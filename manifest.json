@@ -39,9 +39,6 @@
         "Messaging" : {
             "description" : "访问通讯能力"
         },
-        "Speech" : {
-            "description" : "管理语音识别插件"
-        },
         "Maps" : {
             "description" : "位置信息"
         },
@@ -233,9 +230,7 @@
                 }
             },
             "plugins" : {
-                "speech" : {
-                    "ifly" : {}
-                },
+                "speech" : {},
                 "maps" : {
                     "baidu" : {
                         "appkey_ios" : "O9CY6bhgevWa4sOsqtYtFA5jyX3Yj8O3",
