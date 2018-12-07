@@ -1,0 +1,885 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<script src="lib/js/mui.min.js"></script>
+		<script src="lib/js/jquery1.9.1.min.js"></script>
+		<script src="lib/js/echarts.pie.min.js"></script>
+		<link href="lib/css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="css/indexHoem.css" />
+		<link rel="stylesheet" type="text/css" href="html/home/public.css" />
+		<link rel="stylesheet" type="text/css" href="http://at.alicdn.com/t/font_916083_m6v3tzt4odk.css">
+		<style type="text/css">
+			body {
+				background: #F3F3F3;
+			}
+
+			#header {
+				height: 53px;
+				background: url(img/navheaer.png) no-repeat;
+				background-size: 100% 100%;
+			}
+
+			#header>h1 {
+				line-height: 53px;
+				color: white;
+				font-size: 20px;
+			}
+
+			#header>a {
+				top: 7px;
+			}
+
+			#header>a>img {
+				width: 80%;
+				height: 80%;
+				margin-top: 15px;
+				margin-right: -26px;
+			}
+
+			#informationall {
+				border-radius: 10px;
+				background: #FFFFFF;
+				width: calc(100% - 20px);
+				margin-left: 10px;
+				margin-bottom: 15px;
+			}
+
+			.hrechart {
+				width: 78%;
+				border: none;
+				height: 1px;
+				background-color: #F2F2F2;
+			}
+
+			.rollItemNum {
+				color: red;
+			}
+
+			.dot {
+				width: 8px;
+				height: 8px;
+				background: red;
+				border-radius: 50%;
+				position: absolute;
+				right: 7px;
+				top: -6px !important;
+			}
+
+			.rollItem {
+				font-size: 16px;
+			}
+
+			.monthOne {
+				width: 100%;
+				display: inline-block;
+			}
+
+			#allnextone,
+			#allnexthtee,
+			#allnextwo {
+				display: inline-block;
+			}
+		</style>
+	</head>
+	<body>
+		<header id="header" class="mui-bar mui-bar-nav">
+			<h1 class="mui-title">水运双重预防</h1>
+			<a class=" mui-pull-right" onclick="person()"><img src="img/gerenzhongxin.png"></a>
+		</header>
+		<div id="" style="height: 53px;"></div>
+		<div id="slider" class="mui-slider">
+			<div class="mui-slider-group mui-slider-loop">
+				<div class="mui-slider-item mui-slider-item-duplicate">
+					<a href="#">
+						<img src="" class="mui-size">
+					</a>
+				</div>
+				<!-- 第一张 -->
+				<div class="mui-slider-item">
+					<a href="#">
+						<img src="" class="mui-size">
+					</a>
+				</div>
+				<!-- 第二张 -->
+				<div class="mui-slider-item">
+					<a href="#">
+						<img src="" class="mui-size">
+					</a>
+				</div>
+				<!-- 第三张 -->
+				<div class="mui-slider-item">
+					<a href="#">
+						<img src="" class="mui-size">
+					</a>
+				</div> -->
+				<!-- 第四张 -->
+				<div class="mui-slider-item">
+					<a href="#">
+						<img src="" class="mui-size">
+					</a>
+				</div>
+				<!-- 额外增加的一个节点(循环轮播：最后一个节点是第一张轮播) -->
+				<div class="mui-slider-item mui-slider-item-duplicate">
+					<a href="#">
+						<img src="" class="mui-size">
+					</a>
+				</div>
+			</div>
+			<div class="mui-slider-indicator">
+				<div class="mui-indicator mui-active"></div>
+				<div class="mui-indicator"></div>
+				<div class="mui-indicator"></div>
+				<div class="mui-indicator"></div>
+			</div>
+		</div>
+		<div id="qerwerqwe">
+
+		</div>
+
+		<div id="bulletin">
+			<span id="bulletinName">快报</span>
+			<span id="bulletinUsername" style="height: 30px;position: relative;top: 0px;margin-left: 60px;overflow: hidden;display: inline-block;">
+				<span id="bulletinUser"> </span></span>
+
+		</div>
+		<div id="allItem">
+			<div class="allLast">
+				<img src="img/juxingkaobei.png">
+				<span>安全检查</span>
+			</div>
+			<div id="allnext">
+				<span id="allnextone">
+					<img src="img/uishoyexiugai_03.png" class="twoNum">
+					<p class="monthOne">
+						渡口渡船
+					</p>
+				</span>
+				<span id="allnextwo">
+					<img src="img/ui-shoyexiugai_05.png" class="twoNum">
+					<p class="monthOne">
+						游览经营公司
+					</p>
+				</span>
+				<span id="allnexthtee">
+					<img src="img/ui-shouyeds_07.png" class="twoNum">
+					<p class="monthOne">
+						航运公司
+					</p>
+				</span>
+			</div>
+			<div style="height: 5px;"></div>
+			<hr class="hritemsize">
+			<div style="height: 5px;"></div>
+			<div id="twoMonth">
+				<div class="monthTwo">
+					<img src="img/zhuagxiangludi.png">
+					<span class="itemclick" id="itemclickone">
+						<span id="zhuanxiang" class="dot" style="display: none;"></span>
+						<span>专项检查 </span>
+						<span type="button" class="buttonItem"><img class="imgItemsize" src="img/ui-shoyxiugai_13.png"></span>
+					</span>
+				</div>
+				<img src="img/fengexian.png">
+				<div class="monthTwo">
+					<img src="img/yinuahchengai.png">
+					<span class="itemclick" id="itemclicktwo">
+						<span class="dot" id="yinhuan" style="display: none;"></span>
+						<span>隐患整改</span>
+						<span type="button" class="buttonItem"><img class="imgItemsize" src="img/ui-shoofsdf_16.png"></span>
+					</span>
+				</div>
+			</div>
+
+		</div>
+		<div id="tologo" style="margin-top: 10px;margin-left: 10px;background: #FFFFFF;padding: 10px 0;margin-right: 10px;border-radius: 5px;">
+			<img src="img/juxingkaobei.png" style="height: 17px;width: 4px;top: 2px;position: relative;margin-right: 3px;"><span
+			 style="font-size: 18px;">当月检查数据</span><span onclick="logoItem()" style="color: red;margin-left: 30px;">登录</span><span>查看</span>
+		</div>
+
+		<div id="informationall">
+			<div id="information"></div>
+			<hr class="hrechart">
+			<div class="background-fff hidden color-999" id="chartsWrap" style="border-radius:0 0 10px 10px;">
+				<div id="charts" class="background-fff"></div>
+				<div id="" class="chartsText mui-pull-left left color-999">
+				</div>
+				<div id="" class="chartsText mui-pull-left color-999">
+				</div>
+			</div>
+		</div>
+		<!-- 模态窗 -->
+		<div id="model-wrap" class="fixed full hidden model-wrap">
+			<div class="model">
+				<div id="model-title" class="model-title color-fff"></div>
+				<div id="model-center" class="model-center"></div>
+			</div>
+			<span id="model-close" class="model-close inline-block color-fff" onclick="closemodle()"></span>
+		</div>
+		<button type="button" onclick=" printSocket()">打印</button>
+	</body>
+	<script src="js/echart.js"></script>
+	<script type="text/javascript" charset="utf-8">
+		// 模态窗
+		var modelWrap = document.getElementById("model-wrap"),
+			modelTitle = document.getElementById("model-title"),
+			modelCenter = document.getElementById("model-center"),
+			modelClose = document.getElementById("model-close");
+		window.localStorage.setItem('logout', 'http://passport.moxiang1.com/logout')
+		window.localStorage.setItem('url', 'http://api.moxiang1.com')
+		window.localStorage.setItem("login", "http://passport.moxiang1.com");
+		var url = window.localStorage.getItem('url')
+		var login = window.localStorage.getItem('login')
+		var userName = '';
+		var nameId;
+		var namevalue;
+		var gallery = mui("#slider");
+		var parId;
+		var clientInfo;
+		mui.init({
+			swipeBack: true //启用右滑关闭功能
+		})
+		var msg = 'wodegfklasgj'
+	
+	
+// 	var t = 0;
+// var getuiCliendInfo = function(){
+//      clientInfo = plus.push.getClientInfo();//获取clientinfo
+//     if(isValidObject(clientInfo) && isValidString(clientInfo.clientid) && isValidString(clientInfo.token)){
+//         var clientId = clientInfo.clientid;//clientid需要发给服务器与用户进行绑定
+//         var osname = plus.os.name;//plus.os.name如果消息要区分系统，还需要绑定设备系统
+//         // mui.ajax(...);//提交服务器绑定用户信息，退出时最好还要解绑
+//     }else{//有时也不是一次就能获取成功，可能会没有clientid，重新获取
+//         if(t<200){//最多循环200次
+//             var m=10,n=2;
+//             var sec = parseInt(Math.random()*(m-n)+n,10);//2-10秒
+//             mui.later(getuiCliendInfo, sec*1000);//延后执行。
+//             t++;
+//         }
+//     }
+// }
+
+
+		
+		mui.plusReady(function() {
+			var self = plus.webview.currentWebview();
+			userName = self.userName;
+			firstEvent(userName)
+			var h = plus.webview.getLaunchWebview();
+			window.localStorage.setItem('index.html', h.id)
+			 clientInfo = plus.push.getClientInfo();
+             isValidObjectitem(clientInfo)
+			 console.log(clientInfo.clientid)
+			 
+
+   message = document.getElementById("message");
+    // 监听点击消息事件
+    plus.push.addEventListener( "click", function( msg ) {
+		alert('ddjjjjjj')
+        // 判断是从本地创建还是离线推送的消息
+        switch( msg.payload ) {
+            case "LocalMSG":
+                outSet( "点击本地创建消息启动：" );
+            break;
+            default:
+                outSet( "点击离线推送消息启动：");
+            break;
+        }
+        // 提示点击的内容
+        plus.ui.alert( msg.content );
+        // 处理其它数据
+        logoutPushMsg( msg );
+    }, false );
+    // 监听在线消息事件
+    plus.push.addEventListener( "receive", function( msg ) {
+		alert('ddjjjjjj')
+        if ( msg.aps ) {  // Apple APNS message
+            outSet( "接收到在线APNS消息：" );
+        } else {
+            outSet( "接收到在线透传消息：" );
+        }
+        logoutPushMsg( msg );
+    }, false );
+
+
+
+
+			plus.runtime.getProperty(plus.runtime.appid, function(inf) {
+				var appVersion = inf.version;
+				mui.ajax(url + '/system/clientVersion', {
+					data: {
+						appVersion: appVersion
+					},
+					type: 'get',
+					dataType: "jsonp",
+					// jsonp: "jsoncallback",
+					timeout: 10000,
+					success: function(res) {
+						var data = JSON.parse(res).data.response;
+						if (appVersion < data.mustVersion) {
+							modelWrap.style.display = "flex";
+							modelWrap.style.visibility = "visible";
+							modelTitle.style.display = "none";
+							modelTitle.style.visibility = "visible";
+							// modelTitle.innerHTML="<div class='font-size18 line-height2 aLine half' style=''>"+"SVGFEColorMatrixElement"+"</div>"+"<div class='font-size14 line-height1-5 aLine half'>"+"WebGLTransformFeedback"+"</div>";
+							modelCenter.innerHTML = "<p>" + data.updateDes + "</p><a href='" +
+								data.downloadUrl +
+								"' dowload='true'>点击体验最新版</a>";
+						} else {
+							// mui.toast("当前版本已是最新版")
+						}
+					},
+					error: function() {}
+				})
+			});
+			// console.log(self.id)
+		})
+		
+function isValidObjectitem(clientInfo){
+	if(isValidObject(clientInfo) && isValidString(clientInfo.clientid) && isValidString(clientInfo.token))	{
+		 console.log('yes')
+		         var clientId = clientInfo.clientid;//clientid需要发给服务器与用户进行绑定
+		         var osname = plus.os.name;//plus.os.name如果消息要区分系统，还需要绑定设备系统
+		         // mui.ajax(...);//提交服务器绑定用户信息，退出时最好还要解绑
+		     }else{//有时也不是一次就能获取成功，可能会没有clientid，重新获取
+		         if(t<200){//最多循环200次
+		             var m=10,n=2;
+		             var sec = parseInt(Math.random()*(m-n)+n,10);//2-10秒
+		             mui.later(getuiCliendInfo, sec*1000);//延后执行。
+		             t++;
+		         }
+		     }
+	 
+	function isValidObject(clientInfo) {
+		if(clientInfo instanceof  Object){
+			alert(clientInfo.clientid)
+			
+			return true
+		}
+	}
+	function isValidString(clientInfo){
+		if(clientInfo.constructor == String){
+			return true
+		}
+	}
+}
+ 
+
+
+		 
+		// ajax请求轮播和快报
+		mui.ajax({
+			type: 'get',
+			url: url + '/checklist/getBannerAndArticle',
+			data: {},
+			dataType: "jsonp",
+			jsonp: "jsoncallback",
+			timeout: 5000,
+			success: function(data) {
+				var res = JSON.parse(data)
+				var string = '',
+					stringImg = '',
+					cursor = '';
+				if (res.code == 200) {
+					var imgItem = res.data.response.adList
+					var articleList = res.data.response.articleList
+					var sort = []
+					for (var sequence = 0; sequence < imgItem.length; sequence++) {
+						sort.push(imgItem[sequence].sort)
+					}
+					for (var j = 0; j < sort.length - 1; j++) {
+						for (var i = 0; i < sort.length - 1 - j; i++) {
+							if (sort[i] > sort[i + 1]) {
+								var temp = sort[i];
+								sort[i] = sort[i + 1];
+								sort[i + 1] = temp;
+							}
+						}
+					}
+
+					if (sort.length > 3) {
+						var sortItem = sort.slice(0, 4)
+						// console.log(sortItem)
+						for (var num = 0; num < imgItem.length; num++) {
+							if (imgItem[num].sort == sortItem[sortItem.length - 1]) {
+								stringImg = '<div class="mui-slider-item mui-slider-item-duplicate"><a href="#"><img class="mui-size" src="' +
+									imgItem[num].imgUrl +
+									'" /></a></div>'
+							}
+						}
+
+						for (var imgsite = 0; imgsite < sortItem.length; imgsite++) {
+
+							for (var numitem = 0; numitem < imgItem.length; numitem++) {
+								if (imgItem[numitem].sort == sortItem[imgsite]) {
+									stringImg = stringImg + '<div class="mui-slider-item"><a href="#"><img class="mui-size" src="' + imgItem[
+										numitem].imgUrl + '"/></a></div>'
+								}
+							}
+						}
+						for (var numfirst = 0; numfirst < imgItem.length; numfirst++) {
+							if (imgItem[numfirst].sort == sortItem[0]) {
+								stringImg = stringImg +
+									'<div class="mui-slider-item mui-slider-item-duplicate"><a href="#"><img class="mui-size" src="' + imgItem[
+										numfirst].imgUrl +
+									'" /></a></div>'
+							}
+						}
+						$('.mui-slider-group').html(stringImg)
+
+					}
+					// 					else if(sort.length <= 4 && sort.length>1){
+					// 						var sortItem = sort
+					// 					for (var num = 0; num < imgItem.length; num++) {
+					// 						if (imgItem[num].sort == sortItem[sortItem.length-1]) {
+					// 							console.log('成功')
+					// 							stringImg = '<div class="mui-slider-item mui-slider-item-duplicate"><a href="#"><img class="mui-size" src="' + imgItem[num].imgUrl +
+					// 								'" /></a></div>'
+					// 						}
+					// 					}
+					// 					for(var imgsite = 0 ;imgsite < sort.length ;imgsite ++ ) {
+					// 						for(var numitem = 0 ;numitem < imgItem.length;numitem++){
+					// 							if(imgItem[numitem].sort == sort[imgsite]){
+					// 								stringImg = stringImg + '<div class="mui-slider-item"><a href="#"><img class="mui-size" src="'+imgItem[numitem].imgUrl+'"/></a></div>'
+					// 							}
+					// 						}
+					// 					}				
+					// 					for (var numfirst = 0; numfirst < imgItem.length; numfirst++) {
+					// 						if (imgItem[numfirst].sort == sortItem[0]) {
+					// 							stringImg = stringImg + '<div class="mui-slider-item mui-slider-item-duplicate"><a href="#"><img class="mui-size" src="' + imgItem[numfirst].imgUrl +
+					// 								'" /></a></div>'
+					// 						}
+					// 					}
+					// 					console.log(stringImg)
+					// 					$('.mui-slider-group').html(stringImg)
+					// 
+					// 					}
+					else if (sort.lenght == 1) {}
+					// console.log(string)
+					// 					for (var index = 0; index < imgItem.length; index++) {
+					// 						stringImg = stringImg + '<div class="mui-slider-item"><a href="#"><img src='++'/></a></div>'
+					// 						cursor = cursor + '<div class="mui-indicator"></div>'
+					// 					}
+					// 					stringImg = stringImg + '<div class="mui-slider-item mui-slider-item-duplicate"><a href="#"><img src='++
+					// 						' /></a></div>'
+					// 					$('.mui-slider-group').html(stringImg)
+					// 					$('.mui-slider-indicator').append(cursor)
+					// 					$('')
+
+
+
+					// 					for (var index = 0; index < imgItem.length; index++) {
+					// 						document.getElementsByClassName('mui-size')[index].setAttribute('src', imgItem[index].imgUrl)
+					// 						document.getElementsByClassName('mui-size')[5].setAttribute('src', imgItem[1].imgUrl)
+					// 					}
+					slideshow(articleList)
+					exist()
+				}
+			},
+			error: function(err) {
+				// console.log(JSON.stringify(err));
+			}
+		})
+
+		function slideshow(articleList) {
+			// console.log(articleList.length)
+			var num = articleList.length
+			var numitem = 0;
+			var string;
+			setInterval(function() {
+				if (num > numitem) {
+					var indexteme = articleList[numitem].id
+					if (articleList[numitem].tag != null) {
+
+						if (articleList[numitem].title.length > 14) {
+							var text = articleList[numitem].title.substring(0, 14) + '...'
+							string = '<p class="rollItem" onClick="indexteme(' + indexteme + ')">' + text +
+								'<span class="rollItemNum">(New)</span></p>'
+						} else {
+							string = '<p class="rollItem" onClick="indexteme(' + indexteme + ')">' + articleList[numitem].title +
+								'<span class="rollItemNum">(New)</span></p>'
+						}
+
+					} else {
+						if (articleList[numitem].title.length > 16) {
+							var text = articleList[numitem].title.substring(0, 14) + '...'
+							string = '<p class="rollItem" onClick="indexteme(' + indexteme + ')">' + text + '</p>'
+						} else {
+							string = '<p class="rollItem" onClick="indexteme(' + indexteme + ')">' + articleList[numitem].title + '</p>'
+						}
+					}
+				} else {
+					numitem = 0
+					var indexteme = articleList[numitem].id
+					if (articleList[numitem].tag != null) {
+						if (articleList[numitem].title.length > 14) {
+							var text = articleList[numitem].title.substring(0, 14) + '...'
+							string = '<p class="rollItem" onClick="indexteme(' + indexteme + ')">' + text +
+								'<span class="rollItemNum">(New)</span></p>'
+						} else {
+							string = '<p class="rollItem" onClick="indexteme(' + indexteme + ')">' + articleList[numitem].title +
+								'<span class="rollItemNum">(New)</span></p>'
+						}
+
+					} else {
+						if (articleList[numitem].title.length > 14) {
+							var text = articleList[numitem].title.substring(0, 14) + '...'
+							string = '<p class="rollItem" onClick="indexteme(' + indexteme + ')">' + text + '</p>'
+						} else {
+							string = '<p class="rollItem" onClick="indexteme(' + indexteme + ')">' + articleList[numitem].title + '</p>'
+						}
+					}
+
+				}
+				numitem++
+				$('#bulletinUsername').html('<span id="bulletinUser" >' + string + '</span>')
+			}, 3000)
+		}
+
+		window.addEventListener("changeCityitem", function() {
+
+			$('#tologo').css('display', 'block')
+		});
+
+		function exist() {
+			mui.ajax(localStorage.getItem("url") + "/app/index", {
+				success: function(res) {
+					if (res.code == 200) {
+						window.localStorage.setItem("level", Number(res.data.response.msaInfo.nodeType))
+					}
+				}
+			})
+			estimate()
+			if (numuser) {
+				var valueOne = localStorage.getItem("userName")
+				var valueTwo = localStorage.getItem("password")
+				mui.ajax({
+					type: 'get',
+					url: login + '/login',
+					async: true,
+					data: {
+						mobile: valueOne,
+						password: valueTwo,
+						devType: 0,
+						formatType: 'json'
+					},
+					timeout: 10000,
+					success: function(data) {
+						if (data.code == 200) {
+							$('#tologo').css('display', 'none')
+							firstEvent()
+							echart()
+						} else {
+							localStorage.setItem("sessionKey","")
+							mui.toast(data.message)
+						}
+					},
+					error: function() {}
+				})
+			} else {
+				$('#tologo').css('display', 'block')
+				$('#informationall').css('display', 'none')
+			}
+		}
+
+
+
+		$('#allnextone').click(function() {
+			estimate()
+			if (numuser) {
+				mui.openWindow({
+					id: 'html/browse/browse.html',
+					url: 'html/browse/browse.html',
+					extras: {
+						level: nameId,
+						namevalue: namevalue,
+						parId: parId,
+						query: 1,
+					} //额外扩展参数
+				})
+			} else {
+				mui.openWindow({
+					id: 'html/home/home.html',
+					url: 'html/home/home.html',
+				})
+			}
+		})
+		$('#allnextwo').click(function() {
+
+			estimate()
+			if (numuser) {
+				mui.openWindow({
+					id: 'html/browse/browse.html',
+					url: 'html/browse/browse.html',
+					extras: {
+						level: nameId,
+						namevalue: namevalue,
+						parId: parId,
+						query: 4,
+					} //额外扩展参数
+				})
+			} else {
+				mui.openWindow({
+					id: 'html/home/home.html',
+					url: 'html/home/home.html',
+				})
+			}
+
+		})
+		$('#allnexthtee').click(function() {
+			mui.toast("暂未开通")
+			// 			mui.openWindow({
+			// 				id:'',
+			// 				url:'',
+			// 			})
+		})
+		$('#itemclickone').click(function() {
+			estimate()
+			if (numuser) {
+				mui.openWindow({
+					id: '.html/special/special',
+					url: 'html/special/special.html',
+					extras: {
+						level: nameId,
+					} //额外扩展参数
+				})
+			} else {
+				mui.openWindow({
+					id: 'html/home/home.html',
+					url: 'html/home/home.html',
+				})
+			}
+		})
+		$('#itemclicktwo').click(function() {
+			estimate()
+			if (numuser) {
+				mui.openWindow({
+					id: 'html/dangers/dangersFather.html',
+					url: 'html/dangers/dangersFather.html',
+					extras: {
+						level: nameId,
+						namevalue: namevalue,
+						parId: parId
+					} //额外扩展参数
+				})
+			} else {
+				mui.openWindow({
+					id: 'html/home/home.html',
+					url: 'html/home/home.html',
+				})
+			}
+		})
+
+		function indexteme(index) {
+			mui.openWindow({
+				id: 'html/bulletin/bulletin.html',
+				url: 'html/bulletin/bulletin.html',
+				extras: {
+					detailId: index
+				}
+
+			})
+		}
+		// 		$('#bulletinName').click(function() {
+		// 			// console.log(5)
+		// 			mui.openWindow({
+		// 				id: 'html/bulletin/bulletin.html',
+		// 				url: 'html/bulletin/bulletin.html',
+		// 			})
+		// 		})
+		function logoItem() {
+			mui.openWindow({
+				id: 'html/home/home.html',
+				url: 'html/home/home.html',
+			})
+		}
+
+		function firstEvent() {
+			mui.ajax({
+				type: 'get',
+				url: url + '/app/index',
+				data: {},
+				dataType: "jsonp",
+				jsonp: "jsoncallback",
+				timeout: 5000,
+				success: function(data) {
+					var res = JSON.parse(data)
+					var string = ''
+					if (res.code == 200) {
+						var countOrderOfCurrentMsa = res.data.response.allArriveReviewCount,
+							checklistCount = res.data.response.checklistCount;
+						if (checklistCount > 0 && checklistCount != null) {
+							$('#zhuanxiang').css('display', 'inline-block')
+						}else{
+							$('#zhuanxiang').css('display', 'none')
+						}
+						if (countOrderOfCurrentMsa > 0 && countOrderOfCurrentMsa != null) {
+							$('#yinhuan').css('display', 'inline-block')
+						}else{
+							$('#yinhuan').css('display', 'none')
+						}
+						$('#tologo').css('display', 'none')
+						// var value = res.data.
+						var countTroubleOfCurrentMsa = res.data.response.countTroubleOfCurrentMsa
+
+						string =
+							'<div id="numberAll"> <div><span id="alllastItem"><img src="img/juxingkaobei.png"><span class="textleftItem">当月检查数据</span></span><span id="city">' +
+							res.data.response.msaInfo.shortName +
+							'</span></div>  <div id="following">  <span class="hunbernum"><p class="quantity">' +
+							countTroubleOfCurrentMsa.orderCount +
+							'</p><p class="diagram"><img class="imgNumber" src="img/jiancafhsdf.png"><span class="obligations">检查单数量</span> </p></span>   <img class="fengexian" src="img/fengexian.png"><span class="hunbernum">       <p class="quantity">' +
+							countTroubleOfCurrentMsa.correctCount +
+							'</p><p class="diagram"><img class="imgNumber" src="img/fsdfsdhdfh.png"><span class="obligations">当场纠正</span></p></span>       <img class="fengexian" src="img/fengexian.png"><span class="hunbernum">           <p class="quantity">' +
+							countTroubleOfCurrentMsa.reviewCount +
+							'</p><p class="diagram"><img class="imgNumber"  src="img/xianqizhnggaAb.png"><span class="obligations">限期整改</span></p></span></div></div>'
+						$('#information').html(string)
+						$('#informationall').css('display', 'block')
+						$('.mui-title').text(res.data.response.msaInfo.name)
+
+						nameId = res.data.response.msaInfo.id
+						namevalue = res.data.response.msaInfo.shortName
+						parId = res.data.response.msaInfo.parId
+						window.localStorage.setItem('nameId', nameId)
+						window.localStorage.setItem('parId', parId)
+						window.localStorage.setItem('namevalue', namevalue)
+					}
+				},
+				error: function(err) {
+					console.log(JSON.stringify(err));
+				}
+			})
+		}
+
+
+
+
+		gallery.slider({
+			interval: 2000 //自动轮播周期，若为0则不自动播放，默认为0；
+		});
+
+		function estimate() {
+			var key = Number(localStorage.getItem("userName"));
+			if (key == "" || key == null) {
+				$('#zhuanxiang').css('display', 'none')
+				$('#yinhuan').css('display', 'none')
+				return numuser = false
+			} else {
+				return numuser = true
+			}
+		}
+
+		// 登录监听
+		// changeCity
+		window.addEventListener("changeCity", function(e) {
+			$('.mui-title').html('水运双重预防')
+			
+			exist()
+		});
+
+		window.addEventListener("changeCityIndex", function() {
+			exist()
+
+		});
+
+		function person() {
+			estimate()
+			if (numuser) {
+				mui.openWindow({
+					id: 'html/personalCenter/personalCenter.html',
+					url: 'html/personalCenter/personalCenter.html',
+				})
+			} else {
+				mui.openWindow({
+					id: 'html/home/home.html',
+					url: 'html/home/home.html',
+				})
+			}
+
+		}
+
+
+		function closemodle() {
+			modelWrap.style.display = "none";
+			modelWrap.style.visibility = "hidden";
+		}
+		
+function printSocket(){
+// 	console.log(str)
+// 	console.log(ip)
+// 	console.log(port)
+str = '我的将福建省的看法'
+console.log(str)
+
+    if (plus.os.name == "Android") {
+	console.log(plus.os.name)
+    plus.nativeUI.showWaiting("正在打印中。。。");
+       var Socket = plus.android.importClass("java.net.Socket");
+        var socket;
+        var outputStream;
+        //解决高低版本兼容
+        var StrictMode = plus.android.importClass("android.os.StrictMode");
+        var Build = plus.android.importClass("android.os.Build");
+        if (Build.VERSION.SDK_INT > 9) {
+            var policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+            StrictMode.setThreadPolicy(policy);
+        } 
+        try{
+        socket = new Socket('127.0.0.1', '8080');
+	    console.log(JSON.stringify(socket))
+        socket.setKeepAlive(true); 
+
+        outputStream = socket.getOutputStream();
+        plus.android.importClass(outputStream);
+        var bytes = plus.android.invoke(str, 'getBytes', 'gbk');
+       outputStream.write(bytes);
+
+        outputStream.flush();
+        socket.shutdownOutput();
+        plus.nativeUI.closeWaiting();
+        }catch(e){
+        mui.toast("网络连接超时，请重新连接！")
+        //TODO handle the exception
+        plus.nativeUI.closeWaiting();
+        } 
+    }
+}
+// mui.plusReady(function() {
+//             main = plus.android.runtimeMainActivity();
+//             BluetoothAdapter = plus.android.importClass("android.bluetooth.BluetoothAdapter");
+//             UUID = plus.android.importClass("java.util.UUID");
+//             uuid = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");//不需要更改
+//             BAdapter = BluetoothAdapter.getDefaultAdapter();
+//             BAdapter.cancelDiscovery(); //停止扫描
+//             device = BAdapter.getRemoteDevice("DC:1D:30:25:19:23");//这里是蓝牙打印机的蓝牙地址
+//             plus.android.importClass(device);
+//             bluetoothSocket = device.createInsecureRfcommSocketToServiceRecord(uuid);
+//             plus.android.importClass(bluetoothSocket);
+//         });
+// 
+//         function print() {
+//             if(!bluetoothSocket.isConnected()) {
+//                 console.log('断开了，需要重新连接,连接中');
+//                 bluetoothSocket.connect();
+//             }
+// 
+//             if(bluetoothSocket.isConnected()) {
+//                 console.log('连接成功');
+//                 var outputStream = bluetoothSocket.getOutputStream();
+//                 plus.android.importClass(outputStream);
+//                 var s = plus.android.importClass('java.lang.String');
+//                 var string = new s("测试数据"+new Date().getMilliseconds()+'\n\n\n\n');//必须以创建字符串对象的形式创建对象，否则返回NULL
+//                 var bytes = string.getBytes('gbk');
+//                 console.log(bytes);
+//                 outputStream.write(bytes);
+//                 outputStream.flush();
+//             } else {
+//                 console.log('fail');
+//             }
+// 
+//         }
+
+	</script>
+
+</html>
