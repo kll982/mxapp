@@ -160,7 +160,7 @@
 				<span id="allnextwo">
 					<img src="img/ui-shoyexiugai_05.png" class="twoNum">
 					<p class="monthOne">
-						游览经营公司
+						游览经营
 					</p>
 				</span>
 				<span id="allnexthtee">
@@ -227,8 +227,8 @@
 			modelTitle = document.getElementById("model-title"),
 			modelCenter = document.getElementById("model-center"),
 			modelClose = document.getElementById("model-close");
-		window.localStorage.setItem('logout', 'http://passport.moxiang1.com/logout')
-		window.localStorage.setItem('url', 'http://api.moxiang1.com')
+		window.localStorage.setItem('logout', 'http://passport.moxiang1.com/logout');
+		window.localStorage.setItem('url', 'http://api.moxiang1.com');
 		window.localStorage.setItem("login", "http://passport.moxiang1.com");
 		var url = window.localStorage.getItem('url')
 		var login = window.localStorage.getItem('login')
@@ -244,7 +244,7 @@
 		var msg = 'wodegfklasgj'
 	
 	
-// 	var t = 0;
+// var t = 0;
 // var getuiCliendInfo = function(){
 //      clientInfo = plus.push.getClientInfo();//获取clientinfo
 //     if(isValidObject(clientInfo) && isValidString(clientInfo.clientid) && isValidString(clientInfo.token)){
@@ -260,24 +260,20 @@
 //         }
 //     }
 // }
-
-
 		
 		mui.plusReady(function() {
+						plus.navigator.setStatusBarStyle("dark"); //dark 字体为黑色的沉浸栏
+						plus.navigator.setStatusBarBackground('#FFFFFF'); //改变沉浸栏背景颜色的
 			var self = plus.webview.currentWebview();
 			userName = self.userName;
 			firstEvent(userName)
 			var h = plus.webview.getLaunchWebview();
 			window.localStorage.setItem('index.html', h.id)
 			 clientInfo = plus.push.getClientInfo();
-             isValidObjectitem(clientInfo)
-			 console.log(clientInfo.clientid)
-			 
 
    message = document.getElementById("message");
     // 监听点击消息事件
     plus.push.addEventListener( "click", function( msg ) {
-		// alert('ddjjjjjj')
         // 判断是从本地创建还是离线推送的消息
         switch( msg.payload ) {
             case "LocalMSG":
@@ -294,7 +290,6 @@
     }, false );
     // 监听在线消息事件
     plus.push.addEventListener( "receive", function( msg ) {
-		// alert('ddjjjjjj')
         if ( msg.aps ) {  // Apple APNS message
             outSet( "接收到在线APNS消息：" );
         } else {
@@ -333,23 +328,55 @@
 				})
 			});
 			// console.log(self.id)
+            
 		})
 		
+		
 function isValidObjectitem(clientInfo){
+	var  t = 0;
 	if(isValidObject(clientInfo) && isValidString(clientInfo.clientid) && isValidString(clientInfo.token))	{
-		 console.log('yes')
+		 // console.log('yes')
 		         var clientId = clientInfo.clientid;//clientid需要发给服务器与用户进行绑定
 		         var osname = plus.os.name;//plus.os.name如果消息要区分系统，还需要绑定设备系统
-		         // mui.ajax(...);//提交服务器绑定用户信息，退出时最好还要解绑
+		         mui.ajax({
+		         	type: 'post',
+		         	url: url + '/checklist/updateUserCID',
+		         	async: true,
+		         	data: {
+		         		cid:clientId
+		         	},
+		         	timeout: 10000,
+		         	success: function(data) {
+		         		if (data.code == 200) {
+							// console.log('dianji')
+		         		}
+		         	},
+		         	error: function() {}
+		         })//提交服务器绑定用户信息，退出时最好还要解绑
 		     }else{//有时也不是一次就能获取成功，可能会没有clientid，重新获取
 		         if(t<200){//最多循环200次
 		             var m=10,n=2;
 		             var sec = parseInt(Math.random()*(m-n)+n,10);//2-10秒
-		             mui.later(getuiCliendInfo, sec*1000);//延后执行。
+		             mui.later(isValidObjectitem, sec*1000);//延后执行。
 		             t++;
 		         }
 		     }
-	 
+	 var t = 0;
+// var getuiCliendInfo = function(){
+//      clientInfo = plus.push.getClientInfo();//获取clientinfo
+//     if(isValidObject(clientInfo) && isValidString(clientInfo.clientid) && isValidString(clientInfo.token)){
+//         var clientId = clientInfo.clientid;//clientid需要发给服务器与用户进行绑定
+//         var osname = plus.os.name;//plus.os.name如果消息要区分系统，还需要绑定设备系统
+//         // mui.ajax(...);//提交服务器绑定用户信息，退出时最好还要解绑
+//     }else{//有时也不是一次就能获取成功，可能会没有clientid，重新获取
+//         if(t<200){//最多循环200次
+//             var m=10,n=2;
+//             var sec = parseInt(Math.random()*(m-n)+n,10);//2-10秒
+//             mui.later(getuiCliendInfo, sec*1000);//延后执行。
+//             t++;
+//         }
+//     }
+// }
 	function isValidObject(clientInfo) {
 		if(clientInfo instanceof  Object){
 			// alert(clientInfo.clientid)
@@ -363,9 +390,6 @@ function isValidObjectitem(clientInfo){
 		}
 	}
 }
- 
-
-
 		 
 		// ajax请求轮播和快报
 		mui.ajax({
@@ -376,6 +400,7 @@ function isValidObjectitem(clientInfo){
 			jsonp: "jsoncallback",
 			timeout: 5000,
 			success: function(data) {
+				// console.log(JSON.stringify(data))
 				var res = JSON.parse(data)
 				var string = '',
 					stringImg = '',
@@ -428,50 +453,7 @@ function isValidObjectitem(clientInfo){
 						$('.mui-slider-group').html(stringImg)
 
 					}
-					// 					else if(sort.length <= 4 && sort.length>1){
-					// 						var sortItem = sort
-					// 					for (var num = 0; num < imgItem.length; num++) {
-					// 						if (imgItem[num].sort == sortItem[sortItem.length-1]) {
-					// 							console.log('成功')
-					// 							stringImg = '<div class="mui-slider-item mui-slider-item-duplicate"><a href="#"><img class="mui-size" src="' + imgItem[num].imgUrl +
-					// 								'" /></a></div>'
-					// 						}
-					// 					}
-					// 					for(var imgsite = 0 ;imgsite < sort.length ;imgsite ++ ) {
-					// 						for(var numitem = 0 ;numitem < imgItem.length;numitem++){
-					// 							if(imgItem[numitem].sort == sort[imgsite]){
-					// 								stringImg = stringImg + '<div class="mui-slider-item"><a href="#"><img class="mui-size" src="'+imgItem[numitem].imgUrl+'"/></a></div>'
-					// 							}
-					// 						}
-					// 					}				
-					// 					for (var numfirst = 0; numfirst < imgItem.length; numfirst++) {
-					// 						if (imgItem[numfirst].sort == sortItem[0]) {
-					// 							stringImg = stringImg + '<div class="mui-slider-item mui-slider-item-duplicate"><a href="#"><img class="mui-size" src="' + imgItem[numfirst].imgUrl +
-					// 								'" /></a></div>'
-					// 						}
-					// 					}
-					// 					console.log(stringImg)
-					// 					$('.mui-slider-group').html(stringImg)
-					// 
-					// 					}
 					else if (sort.lenght == 1) {}
-					// console.log(string)
-					// 					for (var index = 0; index < imgItem.length; index++) {
-					// 						stringImg = stringImg + '<div class="mui-slider-item"><a href="#"><img src='++'/></a></div>'
-					// 						cursor = cursor + '<div class="mui-indicator"></div>'
-					// 					}
-					// 					stringImg = stringImg + '<div class="mui-slider-item mui-slider-item-duplicate"><a href="#"><img src='++
-					// 						' /></a></div>'
-					// 					$('.mui-slider-group').html(stringImg)
-					// 					$('.mui-slider-indicator').append(cursor)
-					// 					$('')
-
-
-
-					// 					for (var index = 0; index < imgItem.length; index++) {
-					// 						document.getElementsByClassName('mui-size')[index].setAttribute('src', imgItem[index].imgUrl)
-					// 						document.getElementsByClassName('mui-size')[5].setAttribute('src', imgItem[1].imgUrl)
-					// 					}
 					slideshow(articleList)
 					exist()
 				}
@@ -542,14 +524,18 @@ function isValidObjectitem(clientInfo){
 		});
 
 		function exist() {
-			mui.ajax(localStorage.getItem("url") + "/app/index", {
+		
+			estimate()
+			if(numuser){
+				isValidObjectitem(clientInfo)
+				mui.ajax(localStorage.getItem("url") + "/app/index", {
 				success: function(res) {
 					if (res.code == 200) {
 						window.localStorage.setItem("level", Number(res.data.response.msaInfo.nodeType))
 					}
 				}
 			})
-			estimate()
+			}
 			if (numuser) {
 				var valueOne = localStorage.getItem("userName")
 				var valueTwo = localStorage.getItem("password")
@@ -772,13 +758,11 @@ function isValidObjectitem(clientInfo){
 		// changeCity
 		window.addEventListener("changeCity", function(e) {
 			$('.mui-title').html('水运双重预防')
-			
 			exist()
 		});
 
 		window.addEventListener("changeCityIndex", function() {
 			exist()
-
 		});
 
 		function person() {
@@ -808,10 +792,10 @@ function printSocket(){
 // 	console.log(ip)
 // 	console.log(port)
 str = '我的将福建省的看法'
-console.log(str)
+// console.log(str)
 
     if (plus.os.name == "Android") {
-	console.log(plus.os.name)
+	// console.log(plus.os.name)
     plus.nativeUI.showWaiting("正在打印中。。。");
        var Socket = plus.android.importClass("java.net.Socket");
         var socket;
@@ -825,7 +809,7 @@ console.log(str)
         } 
         try{
         socket = new Socket('127.0.0.1', '8080');
-	    console.log(JSON.stringify(socket))
+	    // console.log(JSON.stringify(socket))
         socket.setKeepAlive(true); 
 
         outputStream = socket.getOutputStream();

@@ -25,8 +25,6 @@ function Login() {
 
 	// 首页 跳转 登录
 	this.GoTOLogin = function() {
-
-
 		mui.openWindow({
 			url: './html/login/login.html',
 			id: "login",
@@ -59,8 +57,7 @@ function Login() {
 			mui.toast("请输入6位的验证码")
 			return
 		}
-		console.log(telValue.value);
-		console.log(VerificationCode.value);
+		
 
 		mui.ajax(localStorage.getItem("login") + "/checkPwdCode", {
 			data: {
@@ -70,7 +67,7 @@ function Login() {
 			},
 			timeout: 10000,
 			success: function(res) {
-				console.log(JSON.stringify(res));
+				
 				if(res.code == 200){
 					mui.openWindow({
 						url: 'nextRegister.html',
@@ -127,7 +124,7 @@ function Login() {
 				if (data.isVerifyCode == true) {
 					var regisTertoken = data.token; // 判断是否需要验证码
 					window.regisTertoken = data.token;
-					console.log(regisTertoken)
+				
 					var xhr = new XMLHttpRequest();
 					xhr.open('GET', localStorage.getItem("login") + '/verifyCode?token=' + regisTertoken + "&formatType=img", true);
 					xhr.responseType = "blob";
@@ -176,7 +173,7 @@ function Login() {
 										// jsonp: "jsoncallback",
 										timeout: 10000,
 										success: function(res) {
-											console.log(res);
+										
 											var rescode = JSON.parse(res).code;
 											var message = JSON.parse(res).message;
 											if (rescode != 200) {
@@ -240,7 +237,7 @@ function Login() {
 			type: 'get',
 			dataType: "jsonp",
 			success: function(res) {
-				console.log(res);
+				
 				if (res.code == 500) {
 					mui.toast(res.message);
 				} else if (res.code == 200) {

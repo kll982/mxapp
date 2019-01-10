@@ -18,6 +18,11 @@
 			}
 
 			.mui-table-view-cell {
+				display: -webkit-flex;
+				/* Safari */
+				display: flex;
+				flex-direction: row;
+				justify-content: space-between;
 				line-height: 34px;
 				color: #323232;
 			}
@@ -101,6 +106,22 @@
 				/* Internet Explorer 10+ */
 				color: #c2dbf6;
 			}
+			#Addcompany{
+				width: 40px;
+				height: 40px;
+				margin-left: 300px;
+				top: 500px;
+				right: 40px;
+			}
+		.mui-bar{
+			background-color:#FFFFFF;
+			border: none;
+			box-shadow:none;
+		}	
+		.imgitemitemgd{
+			width: 14px;
+			height: 10px;
+		}
 		</style>
 	</head>
 	<body>
@@ -108,6 +129,9 @@
 			<input type="text" name="" onfocus="myFunction()" onblur="myFunctionItem()" id="inputItem" value="" />
 			<img id="imglocation" src="../../img/ui-qiyesousuo07.png">
 		</div>
+		<nav id="Addcompany"  class="mui-bar mui-bar-tab" id='navbarA'>
+			<img style="height: 40px;width: 40px;" src="../../img/suspension-button.png" >
+		</nav>
 		<ul class="mui-table-view" id=""></ul>
 
 	</body>
@@ -122,6 +146,8 @@
 		var query;
 		var specialtext;
 		var special;
+		var parId;
+		var numItemidtime=[];
 		var url = window.localStorage.getItem('url');
 
 		mui.init({});
@@ -135,7 +161,7 @@
 			nameId = main.nameId
 			nameIdinitial = main.nameId
 			taskId = main.taskId
-			// console.log(taskId)
+			parId = main.parId
 			query = main.query
 			special = main.special
 			specialtext = main.specialtext
@@ -145,23 +171,44 @@
 				$('#cityItemall').css('display', 'none')
 				$('#inputItem').attr('placeholder', '请输入渡口名称')
 			} else if (query == 4) {
-				$('#titlemui').text('游览经营公司')
+				$('#titlemui').text('游览经营活动')
 				$('#inputItem').attr('placeholder', '请输入景点/公司名称')
 			} else if (query == 2) {
 				$('#cityItemall').html('通航水域')
-				$('#titlemui').text('游览经营公司')
+				$('#titlemui').text('游览经营活动')
 				$('#cityItemall').unbind('click')
 				$('#inputItem').attr('placeholder', '请输入景点/公司名称')
 			} else if (query == 3) {
 				$('#cityItemall').html('非通航水域')
-				$('#titlemui').text('游览经营公司')
+				$('#titlemui').text('游览经营活动')
 				$('#inputItem').attr('placeholder', '请输入景点/公司名称')
 			}
-               
 				if(taskId==''||taskId==null){
 					taskId=''
 				}else{
 					taskId = taskId
+					if(taskId != ''){
+					
+					   mui.ajax({
+					   			type: 'get',
+					   			url: localStorage.getItem("url") +'/checklist/listCompanyIdOfCheckOver',
+					   			data:{
+										taskId:taskId
+									},
+					   			timeout: 10000,
+					   			success: function(res) {
+					   			
+					   				if (res.code == 200){
+                      	numItemidtime = res.data.response.companyIds			
+											
+					   				} 
+// 										else {
+// 					   					mui.toast(res.message);
+// 					   				}
+					   			},
+					   			error: function() {}
+					   		})
+					}
 				}
 			textItem(0)
 		})
@@ -186,7 +233,7 @@
 		})
 
 		function textItem(index) {
-			
+
 			var arrayItem = [{
 				msaId: nameId,
 				type: typeNumber,
@@ -197,6 +244,7 @@
 				name: namevalue,
 				taskId:taskId
 			}]
+
 			mui.ajax({
 				type: 'get',
 				url: url + '/checklist/list4AddOrder',
@@ -205,11 +253,9 @@
 				jsonp: "jsoncallback",
 				timeout: 5000,
 				success: function(data) {
-					// console.log(JSON.stringify(data))
 					var res = JSON.parse(data)
 					var string = ''
 					if (res.code == 200) {
-						console.log(JSON.res)
 						var nameItem = res.data.response.list;
 // 						if (nameItem.length != 0) {
 // 							// $(".mui-table-view").eq(0).css("height",h100);
@@ -218,8 +264,18 @@
 // 							$("body").css("background", "url('../../img/search_compony.jpg')");
 // 						}
 						for (var index = 0; index < nameItem.length; index++) {
-							string = string + '<li class="mui-table-view-cell" onClick="secondary(' + nameItem[index].id + ')">' +
-								nameItem[index].name + '</li>'
+							if(	nameItem[index].name.length > 17){
+							var	nameItemter = nameItem[index].name.substring(0, 17)+'...';
+							}else{
+								var	nameItemter = nameItem[index].name
+							}
+							var imgitemitemgd = '';
+							if(numItemidtime.indexOf(nameItem[index].id) != -1){
+							
+								 imgitemitemgd = '<img class="imgitemitemgd" src="../../img/trueitem.png"/>'
+							}
+							string = string + '<li class="mui-table-view-cell" onClick="secondary(' + nameItem[index].id + ')"><span>' +
+								nameItemter + '</span><span>'+ imgitemitemgd +'<span></li>'
 						}
 						
 						if (string != '') {
@@ -236,12 +292,12 @@
 							$('.mui-table-view').html('')
 						}
 						
-						for (var j = 0; j < $('.mui-table-view-cell').length; j++) {
-							if ($('.mui-table-view-cell')[j].textContent.length > 19) {
-								var text = $('.mui-table-view-cell')[j].textContent.substring(0, 19)
-								$('.mui-table-view-cell')[j].textContent = text + '...'
-							}
-						}
+// 						for (var j = 0; j < $('.mui-table-view-cell').length; j++) {
+// 							if ($('.mui-table-view-cell')[j].textContent.length > 17) {
+// 								var text = $('.mui-table-view-cell')[j].textContent.substring(0, 17)
+// 								$('.mui-table-view-cell')[j].textContent = text + '...'
+// 							}
+// 						}
 					}
 				},
 				error: function(err) {
@@ -319,10 +375,7 @@
 		// 			picker.hide()
 		// 		})
 		window.addEventListener("changeC", function(e) {
-			console.log('点击')
 			textItem(0)
-		
-			
 		})
 
 		window.addEventListener("changeCityselect", function(e) {
@@ -452,6 +505,41 @@
 			// 					console.log(err)
 			// 				}
 			// 			})
+		})
+		
+		// 添加公司
+		$('#Addcompany').click(function(){
+
+         if(query == 1){
+					 mui.openWindow({
+						 url:'Createaferry.html',
+						 id:'Createaferry.html',
+						 extras:{
+							 query:query,
+							 nameIdinitial:nameIdinitial,
+							 parId:parId,
+							 namevaluecity:namevaluecity,
+							 taskId:taskId,
+							 specialtext:specialtext,
+							 special:special
+						 }
+					 })
+				 }else if(query == 2||query==3||query==4){
+					 mui.openWindow({
+					 	url:'CreateaCompany.html',
+					 	id:'CreateaCompany.html',
+					 	extras:{
+					 		query:query,
+					 		nameIdinitial:nameIdinitial,
+					 		parId:parId,
+					 		namevaluecity:namevaluecity,
+					 		taskId:taskId,
+							specialtext:specialtext,
+							special:special
+					 	}
+					 })
+				 }
+				 
 		})
 	</script>
 </html>

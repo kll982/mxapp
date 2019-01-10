@@ -65,7 +65,6 @@
 
 #btn>span {
 	margin: 0 3px;
-
 }
 
 #btn {
@@ -75,16 +74,21 @@
 }
 
 .btnimg {
-	height: 28px;
-	width: 63px;
+	
+	height: 30px;
+	width:150px;
 }
 
 .btnimgA {
-	height: 28px;
-	width: 123px;
+	height: 30px;
+	width:150px;
 }
 
 .btnimgB {
-	height: 28px;
-	width: 123px;
+	height: 30px;
+	width:150px;
+}
+.btnimgC{
+	height: 30px;
+	width:150px;
 }

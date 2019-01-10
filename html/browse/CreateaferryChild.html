@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<script src="../../lib/js/mui.min.js"></script>
+		<link href="../../lib/css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../../css/index.css" />
+		<link rel="stylesheet" type="text/css" href="../../lib/css/reset.css" />
+		<link rel="stylesheet" type="text/css" href="../../lib/css/mui.picker.min.css" />
+
+		<style type="text/css">
+			body {
+				background: #FFFFFF;
+
+			}
+
+			.mui-table-view::after,
+			.mui-table-view::before {
+				height: 0;
+
+			}
+
+			#message {
+				font-size: 16px;
+				color: #FFFFFF;
+
+			}
+
+			#headeritemid {
+				font-size: 21px;
+				color: #FFFFFF;
+				font-weight: 400;
+				padding-top: 15px;
+				margin-bottom: 10px;
+			}
+
+			span {
+				color: #4D4D4D;
+			}
+
+			input {
+				color: #4D4D4D;
+			}
+
+			#submitItem {
+				height: 40px;
+				width: calc(100% - 20px);
+				background: linear-gradient(to right, #48A9F6, #2985E8);
+				left: 10px;
+				font-size: 18px;
+				color: #FFFFFF;
+				letter-spacing: 5px;
+				height: 44px;
+				border-radius: 50px;
+				margin-top: 110px;
+			}
+
+			#imgsizeitem {
+				background: url(../../img/sssss_03.jpg) no-repeat;
+				height: 70px;
+				background-size: 100% 100%;
+				padding-left: 12px;
+			}
+
+			.mui-table-view {
+				margin-top: 45px;
+			}
+
+			.hrItem {
+				margin: 0;
+				border: none;
+				height: 1px;
+				background: #E6E6E6;
+				width: calc(100% - 76px);
+				margin-left: 49px;
+				margin-right: 24px;
+				position: relative;
+				top: -18px;
+			}
+
+			.mui-table-viewItem {
+				margin: 0;
+				margin-left: 30px;
+				margin-right: 24px;
+				padding: none;
+				height: 40px;
+				line-height: 40px;
+				display: block;
+				margin-bottom: 3px;
+			}
+
+			.imgItem {
+				height: 16px;
+				height: 13px;
+				margin-right: 2px;
+			}
+
+			.mui-table-viewItemDiv>input {
+				border: none;
+				width: 162px;
+				height: 40px;
+				text-align: right;
+				display: block;
+				float: right;
+			}
+
+			.mui-table-viewItemDiv>span {
+				color: #4D4D4D;
+			}
+
+			.mui-table-viewItemDiv>span>span {
+				font-size: 14px;
+				color: #4D4D4D;
+			}
+
+			/* 选择器的颜色 */
+			/* 确定 */
+			.mui-btn-blue,
+			.mui-btn-primary,
+			input[type="submit"] {
+				color: #404040;
+				border: none;
+				background: none;
+			}
+
+			/* 取消 */
+			.mui-btn,
+			button,
+			input[type="button"],
+			input[type="reset"],
+			input[type="submit"] {
+				color: #404040;
+				border: none;
+				background: none;
+			}
+
+			.mui-picker-inner {
+				background: #FFFFFF;
+			}
+
+			.mui-poppicker-header {
+				background: #FFFFFF;
+			}
+
+			.mui-poppicker-btn-ok {
+				font-size: 40px;
+			}
+
+			.mui-picker {
+				background-color: #FFFFFF;
+			}
+
+			.mui-poppicker-header .mui-btn {
+				font-size: 18px !important;
+			}
+
+			/* 结束 */
+		</style>
+	</head>
+
+	<body>
+		<div id="imgsizeitem" class="displayTime">
+			<h3 id="headeritemid">创建渡口</h3>
+			<div id="message"> 基本信息</div>
+		</div>
+		<ul class="mui-table-view">
+			<li class="mui-table-viewItem">
+				<div class="mui-table-viewItemDiv">
+					<img class="imgItem" src="../../img/unit-img.png">
+					<span>渡口<span>(必填)</span></span>
+					<input type="text" onfocus="changeItemName(1)" onfocusout="changeItem(1)" id="jurisdictionA" placeholder="请输入渡口" />
+				</div>
+
+			</li>
+			<hr class="hrItem">
+			<div style="clear: both;"></div>
+			<li class="mui-table-viewItem">
+				<div class="mui-table-viewItemDiv">
+					<img class="imgItem" src="../../img/jibenxinxi07.png">
+					<span>所属海事局<span>(必填)</span></span>
+					<input type="text" onclick="clectItem()" id="jurisdictionB" placeholder="请选择渡口所属" readonly="readonly" />
+				</div>
+
+			</li>
+			<hr class="hrItem">
+			<div style="clear: both;"></div>
+			<li class="mui-table-viewItem">
+				<div class="mui-table-viewItemDiv">
+					<img class="imgItem" src="../../img/jibenxinxi07.png">
+					<span>所在乡镇</span>
+					<input type="text" onfocus="changeItemName(3)" onfocusout="changeItem(3)" id="jurisdictionC" placeholder="请填写渡口所在乡镇" />
+				</div>
+
+			</li>
+			<hr class="hrItem">
+			<div style="clear: both;"></div>
+			<li class="mui-table-viewItem">
+				<div class="mui-table-viewItemDiv">
+					<img class="imgItem" src="../../img/sdfasdfs.png">
+					<span>联系人</span>
+					<input type="text" onfocus="changeItemName(4)" onfocusout="changeItem(4)" id="jurisdictionD" placeholder="请输入姓名" />
+				</div>
+
+			</li>
+			<hr class="hrItem">
+			<div style="clear: both;"></div>
+			<li class="mui-table-viewItem">
+				<div class="mui-table-viewItemDiv">
+					<img class="imgItem" src="../../img/fsdfasdfas.png">
+					<span>联系人手机</span>
+					<input type="number" onfocus="changeItemName(5)" onfocusout="changeItem(5)" id="jurisdictionE" placeholder="请输入手机号" />
+				</div>
+
+			</li>
+			<hr class="hrItem">
+			<div style="clear: both;"></div>
+		</ul>
+		<button type="button" id="submitItem">开始检查</button>
+		<script src="../../lib/js/jquery1.9.1.min.js"></script>
+		<script src="../../lib/js/mui.picker.min.js"></script>
+		<script src="../../js/new_city.js"></script>
+		<script type="text/javascript" charset="utf-8">
+			var parId,
+				nameIdinitial,
+				query,
+				nameId,
+				jurisdictionA = '',
+				cityPicker3,
+				jurisdictionB = '',
+				jurisdictionC = '',
+				cityPicker,
+				taskId,
+				jurisdictionD = '',
+				namevaluecity,
+				specialtext='',
+				special='',
+				jurisdictionE = '';
+			var url = window.localStorage.getItem('url')
+			mui.plusReady(function() {
+				// 字体白色(light)的沉浸栏 
+// 				plus.navigator.setStatusBarStyle("dark"); //dark 字体为黑色的沉浸栏
+// 				plus.navigator.setStatusBarBackground('#FFFFFF'); //改变沉浸栏背景颜色的 
+				var self = plus.webview.currentWebview();
+				parId = self.parId; //判断省
+				query = self.query; //判断渡口
+				namevaluecity = self.namevaluecity; // 判断城市id
+				nameIdinitial = self.nameIdinitial; // 城市名称
+        taskId = self.taskId;
+				special = self.special;
+				specialtext = self.specialtext;
+			})
+			mui.init({
+
+			});
+			// 离焦的时候
+			function changeItem(e) {
+				if (e == '1') {
+					jurisdictionA = $('#jurisdictionA').val()
+					if (jurisdictionA.length > 7) {
+						$('#jurisdictionA').val($('#jurisdictionA').val().substring(0, 6) + "...")
+					}
+				} else if (e == '3') {
+					jurisdictionC = $('#jurisdictionC').val()
+					if (jurisdictionC.length > 7) {
+						$('#jurisdictionC').val($('#jurisdictionC').val().substring(0, 6) + "...")
+					}
+				} else if (e == '4') {
+					jurisdictionD = $('#jurisdictionD').val()
+					if (jurisdictionD.length > 7) {
+						$('#jurisdictionD').val($('#jurisdictionD').val().substring(0, 6) + "...")
+					}
+				}
+			}
+			// 聚焦的时候
+			function changeItemName(e) {
+				if (e == '1') {
+					$('#jurisdictionA').val(jurisdictionA)
+				} else if (e == '3') {
+					$('#jurisdictionC').val(jurisdictionC)
+				} else if (e == '4') {
+					$('#jurisdictionD').val(jurisdictionD)
+				}
+			}
+			$('#submitItem').click(function() {
+			
+				var reg = /^1[3-9][0-9]{9}/;
+				jurisdictionE = $('#jurisdictionE').val()
+				if (jurisdictionE != '') {
+					if (jurisdictionE.length != 11 || !reg.test(jurisdictionE)) {
+						mui.toast("请输入正确的手机格式")
+						return
+					}
+				}
+				if (jurisdictionA == '') {
+					mui.toast('请填写渡口')
+				} else if (jurisdictionB == '') {
+					mui.toast('请填写所属海事局')
+				} else {
+					mui.ajax({
+						type: 'post',
+						url: url + '/checklist/addCompanyInfo',
+						data: {
+							type: 1,
+							msaId: jurisdictionB,
+							name: jurisdictionA,
+							town: jurisdictionC,
+							operator: jurisdictionD,
+							operatorPhone: jurisdictionE,
+						},
+						timeout: 10000,
+						success: function(data) {
+						
+							if (data.code == 200) {
+								var companyId = data.data.response.companyId;
+								// console.log(companyId )
+								dataiIdNow(companyId)
+							} else if (data.code == 500) {
+								mui.toast('公司名称重复')
+							}
+						},
+						error: function() {}
+					})
+				}
+
+			})
+// 创建检查单
+			function dataiIdNow(detailId) {
+				if (typeof(taskid) === 'undefined') {
+					taskid = ''
+				} else {
+					taskid = taskid
+				}
+				mui.ajax({
+					type: 'get',
+					url: url + '/checklist/hasDraft',
+					data: {
+						companyId: detailId,
+						taskId: taskid
+					},
+					timeout: 10000,
+					success: function(data) {
+						if (data.code == 200) {
+							var hasDraft = data.data.response.checklistDto.hasDraft
+							if (hasDraft == '1') {
+								var id = data.data.response.checklistDto.id 
+							
+								mui.openWindow({
+									id: '../check/check.html',
+									url: '../check/check.html',
+									extras: {
+										query: query,
+										detailIdA: id,
+										detailId: detailId,
+										taskId: taskid,
+										towanitemnameitem: jurisdictionA,
+									special: special,
+									specialtext: specialtext
+									}
+								})
+							} else if (hasDraft == '2'){
+								mui.ajax({
+									type: 'post',
+									url: url + '/checklist/createDetail',
+									data: {
+										companyId: detailId,
+										taskId: taskId
+									},
+									timeout: 10000,
+									success: function(data) {
+									
+										if (data.code == 200) {
+											id = data.data.response.detailId
+									
+											mui.openWindow({
+												id: '../check/check.html',
+												url: '../check/check.html',
+												extras: {
+													query: query,
+													detailIdA: id,
+													detailId: detailId,
+													taskId: taskid,
+													towanitemnameitem: jurisdictionA,
+												special: special,
+												specialtext: specialtext
+												}
+											})
+										} else if (data.code == 500) {
+											mui.toast(data.message)
+										}
+									},
+									error: function() {}
+								})
+							}
+						}
+					},
+					error: function() {}
+				})
+			}
+			// 选择海事局
+			function clectItem() {
+				// parId  省市县
+				// nameIdinitial  省市县的id
+				if (parId != 2) {
+					var main = plus.webview.getWebviewById("Createaferry.html");
+					mui.fire(main, 'changetext', {
+						valuetext: true
+					})
+				}
+
+				if (parId == 1) {
+					var cityData2 = [{
+						value: nameIdinitial,
+						text: namevaluecity,
+						children: []
+					}]
+					mui.ajax({
+						type: 'get',
+						url: url + '/msaInfo/getChildByParId',
+						data: {
+							id: nameIdinitial
+						},
+						dataType: "jsonp",
+						jsonp: "jsoncallback",
+						timeout: 5000,
+						success: function(data) {
+							var res = JSON.parse(data)
+							var string = ''
+							if (res.code == 200) {
+								var childDepts = res.data.response.childDepts
+								for (var index = 0; index < childDepts.length; index++) {
+									var item = {
+										value: childDepts[index].id,
+										text: childDepts[index].shortName
+									}
+									cityData2[0].children.push(item)
+								}
+								cityPicker = new mui.PopPicker({
+									layer: 2
+								});
+								cityPicker.setData(cityData2);
+								cityPicker.show(function(items) {
+									var twocity = items[0].text,
+										twovalue = items[0].value;
+									threecity = items[1].text,
+										threevalue = items[1].value;
+										nameId = threevalue
+									$('#jurisdictionB').val(threecity)
+									jurisdictionB = nameId
+								})
+							}
+						},
+						error: function(err) {
+							console.log(err)
+						}
+					})
+
+				} else if (parId == 0) {
+					cityPicker3 = new mui.PopPicker({
+						layer: 3
+					});
+					cityPicker3.setData(cityData3);
+					cityPicker3.show(function(items) {
+						var twocity = items[1].text,
+							twovalue = items[1].value;
+						threecity = items[2].text,
+							onetext = items[0].text
+						  threevalue = items[2].value;
+							nameId = threevalue
+						$('#jurisdictionB').val(threecity)
+						jurisdictionB = nameId
+						
+					});
+				} else if (parId == 2) {
+					jurisdictionB = nameIdinitial
+					$('#jurisdictionB').val(namevaluecity)
+				
+				}
+			}
+			var valuetextchild
+			window.addEventListener("changetextItem", function(e) {
+				valuetextchild = e.detail.valuetextchild
+				if (parId == 0) {
+					if (e.detail.valuetextchild) {
+						cityPicker3.dispose()
+						valuetextchild = false
+					}
+				} else if (parId = 1) {
+					if (e.detail.valuetextchild) {
+						cityPicker.dispose()
+						valuetextchild = false
+					}
+				}
+
+			})
+		</script>
+</html>

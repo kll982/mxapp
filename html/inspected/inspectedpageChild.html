@@ -472,8 +472,8 @@
 		var listId, detailId, Lon, Lat, orderId, address,arr=[];
 		mui.plusReady(function() {
 			// 字体白色(light)的沉浸栏 
-			plus.navigator.setStatusBarStyle("light"); //dark 字体为黑色的沉浸栏
-			plus.navigator.setStatusBarBackground('#000000'); //改变沉浸栏背景颜色的 
+// 			plus.navigator.setStatusBarStyle("light"); //dark 字体为黑色的沉浸栏
+// 			plus.navigator.setStatusBarBackground('#000000'); //改变沉浸栏背景颜色的 
 			var self = plus.webview.currentWebview();
 			listId = self.listId;
 			detailId = self.detailId;
@@ -513,10 +513,10 @@
 				},
 				timeout: 10000,
 				success: function(data) {
-					// console.log(JSON.stringify(data));
+					
 					if (data.code == 200) {
 						var valueListA = data.data.response.checklistOrder;
-						console.log(JSON.stringify(valueListA))
+					
 						if (valueListA.optionId == 1) {
 							imgitemone = $('.imgitemtimeimg').eq(0).attr('src', '../../img/sdfsdf.png')
 						} else if (valueListA.optionId == 2) {
@@ -540,7 +540,7 @@
 						if (valueListA.picUrl != '' || valueListA.picUrl != null) {
 							arr = valueListA.picUrl.split(',')
 							for (var i in arr) {
-								console.log(arr[i]);
+							
 								var imgWrap = document.createElement("span");
 								imgWrap.className = "appendImgWrap";
 								imgWrap.setAttribute("class", "appendImgWrap");
@@ -566,7 +566,7 @@
 											this.parentNode.style.display = "none";
 										}
 									}
-									console.log(arr);
+								
 								}
 							}
 						}
@@ -616,7 +616,7 @@
 			Lat = position.coords.latitude; //获取纬度
 			address = ' ' + position.address.province + "," + position.address.city + "," + position.address.district + "," +
 				position.address.street;
-			console.log(Lon, Lat)
+		
 			$('#geographic').html(address)
 		}
 
@@ -653,7 +653,7 @@
 				imgitemtwo = $('.imgitemtimeimg').eq(1).attr('src'),
 				imgitemthree = $('.imgitemtimeimg').eq(2).attr('src');
 			if (imgitemone == '../../img/sdfsdf.png') {
-				console.log()
+			
 				present({
 					itemId: listId,
 					orderId: orderId,
@@ -664,7 +664,7 @@
 				})
 			} else if (imgitemtwo == '../../img/DCJZ IN.png') {
 				if ($('#textareaone').val().trim().length > 0) {
-					// console.log(urls);
+				
 					present({
 						itemId: listId,
 						orderId: orderId,
@@ -714,16 +714,16 @@
 		})
 
 		function present(data) {
-			console.log(data);
+		
 			mui.ajax({
 				type: 'post',
 				url: localStorage.getItem("url") + '/checklist/updateOrder',
 				data: data,
 				timeout: 10000,
 				success: function(res) {
-					console.log(JSON.stringify(res));
+				
 					if (res.code == 200) {
-						console.log()
+					
 						// var orderId = res.data.response.orderId;
 						mui.toast(res.message);
 						var main = plus.webview.getWebviewById("../check/check.html");

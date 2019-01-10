@@ -503,7 +503,7 @@
 						'display': 'block'
 					})
 			}
-			console.log(level)
+		
 			var array = [{
 				msaId: level
 			}, {
@@ -527,104 +527,26 @@
 						// console.log(JSON.stringify(list))
 						var stringAll = ''
 						arrayItem = []
-
 						for (var index = 0; index < list.length; index++) {
-							arrayItem.push(list[index].uploadTime)
+							arrayItem.push(list[index].companyId)
 						}
 						arrayItem = unique1(arrayItem) 
-						
-						// arrayItem = [78]
-					
 						for (var j = 0; j < arrayItem.length; j++) {
-							var string = ''
 							var addition = 0
 							var checkType;
-
-							for (var i = 0; i < list.length; i++) {
-								var msa ;
-								 // num = 0;
+							var checklistTitle = '',msaName = '',indexi;
 							
-								if (i != list.length - 1) {
-									if (arrayItem[j] == list[i].uploadTime) {
-										if (list[i].checkType == 1) {
-											checkType = 'chang'
-										} else {
-											checkType = 'zhuan'
-										}
-										addition = addition + 1
-										var num = i;
-										string = string + '<div class="setting" onClick="subpage(event,' + list[i].reviewId +
-											',' + list[i].companyId +','+i+
-											')">  <div><span><img class="yinhuanpaichaa_07" src="../../img/yinhuanpaichaa_07.png"></span><span class="two">' +
-											list[i].two +
-											'</span></div>  <div ><p class="reviewDescribe">' + list[i].reviewDescribe +
-											'</p></div>   <div class="reviewTimeall"> <span></span> <span class="reviewTime">复查时间：<span class="imgtime">' +
-											list[i].reviewTime +
-											'</span><img class="huandehuashi_03" src="../../img/huandehuashi_03.png"></span></div> </div><hr class="imgitamgrau">'
+							for (var i = 0; i < list.length; i++){
+									if (arrayItem[j] == list[i].companyId) {
+										 addition++
+                     checklistTitle =  list[i].checklistTitle;
+										 msaName = list[i].companyMsaName;
+										 indexi = i;
 									}
-								} else {
-                      if(num == ''||num==null){
-										  num=0
-									  }
-									
-									var uploadTimeA = timeTrans(list[num].uploadTime)
-									if (arrayItem[j] == list[i].uploadTime) { 
-										var uploadTimeA = timeTrans(list[i].uploadTime)
-										jnum++
-										if (list[i].checkType == 1) {
-											checkType = 'chang'
-										} else {
-											checkType = 'zhuan'
-										}	
-																		if(list[i].msaName.length>5){
-																			msa = list[i].msaName.substring(0,5)+"...";
-																		}else{
-																			msa = list[i].msaName;
-																		}
-										addition = addition + 1
-										string = string + '<div class="setting" onClick="subpage(event,' + list[i].reviewId +
-											',' + list[i].companyId + ','+i+
-											')">  <div><span><img class="yinhuanpaichaa_07" src="../../img/yinhuanpaichaa_07.png"></span><span class="two">' +
-											list[i].two +
-											'</span></div>  <div ><p class="reviewDescribe">' + list[i].reviewDescribe +
-											'</p></div>   <div  class="reviewTimeall"> <span></span> <span class="reviewTime">复查时间：<span class="imgtime">' +
-											list[i].reviewTime +
-											'</span><img class="huandehuashi_03" src="../../img/huandehuashi_03.png"></span></div> </div><hr class="imgitamgrau">'
-
-										stringAll = stringAll + '<img class="' + checkType +
-											'" src=""><li onClick="dispalyItem(' + jnum +
-											')" class="mui-table-view-cell"> <div class="checklistTitleAll"><span></span><span class="checklistTitle">' +
-											list[i].checklistTitle +
-											'<span></span></div> <div class="checklistTitleAllitem"><span class="msaName">' +
-											msa + '</span><span class="longstring">|</span><span class="uploadTime">' + uploadTimeA +
-											'</span><span><span class="hiddendanger">隐患数量: ' + addition +
-											' <span><img  id="img' + jnum +
-											'"  class="imglogo" src="../../img/ui-qiyesousuoxia_ejsf03.png"></span></span></div><div id="jnum' + jnum +
-											'"  class="grayItem">' + string + ' </div> </li>'
-										// 											<span class="hiddendanger">隐患数量: ' + addition +
-										// 											' <span><img  id="img' + jnum +
-										// 											'"  class="imglogo" src="../../img/ui-qiyesousuoxia_ejsf03.png"></span>
-									} else {
-										if(list[num].msaName.length>5){
-											msa = list[num].msaName.substring(0,5)+"...";
-										}else{
-											msa = list[num].msaName;
-										}
-										jnum++
-										stringAll = stringAll + '<img class="' + checkType +
-											'"  src=""><li  onClick="dispalyItem(' + jnum +
-											')"   class="mui-table-view-cell"> <div class="checklistTitleAll"><span></span><span class="checklistTitle">' +
-											list[num].checklistTitle + '</div> <div class="checklistTitleAllitem"><span class="msaName">' +
-											msa + '</span><span class="longstring">|</span><span class="uploadTime">' + uploadTimeA +
-											'</span><span><span class="hiddendanger">隐患数量: ' + addition +
-											' <span><img  id="img' + jnum +
-											'"  class="imglogo" src="../../img/ui-qiyesousuoxia_ejsf03.png"></span></span></div><div id="jnum' + jnum +
-											'" class="grayItem">' + string + '</div> </li>'
-
-									}
-
-								}
 							}
+							stringAll = stringAll + '<li onClick="reviewpage('+arrayItem[j]+','+indexi+')" class="mui-table-view-cell"> <div class="checklistTitleAll"><span></span><span class="checklistTitle">' +
+              checklistTitle+ '</div> <div class="checklistTitleAllitem"><span class="msaName">所属: </span><span class="uploadTime">'
+							+msaName +'</span><span><span class="hiddendanger">隐患数量: ' + addition +' </span></div> </li>'
 						}
                   
 						if (stringAll != '') {
@@ -647,7 +569,18 @@
 				error: function() {}
 			})
 		}
-
+  function reviewpage(index,i){
+		var companyName = list[i].companyName
+		mui.openWindow({
+			id: 'dangerspageattr.html',
+			url: 'dangerspageattr.html',
+			extras: {
+				companyId: index,
+				levelindex: levelindex,
+				companyName:companyName
+			}
+		})
+	}
 		// 去重
 		function unique1(arr) {
 			var newArr = []; //新建一个数组
@@ -656,7 +589,7 @@
 					newArr.push(arr[i]);
 				}
 			}
-			newArr.sort(function(a,b){return b-a});
+			// newArr.sort(function(a,b){return b-a});
            
 			return newArr;
 		}
@@ -740,18 +673,17 @@
 window.addEventListener('changeCity',function(){
 	firstDom(0)
 })
-		function subpage(event, index, companyId,i) {
-		
+		function subpage(event, index, companyId,i) {		
 			event.stopPropagation()
 			var index = index;
-			var two = list[i].two 
+			var two = list[i].companyName 
 			mui.openWindow({
 				id: 'dangerspage.html',
 				url: 'dangerspage.html',
 				extras: {
 					detailId: index,
 					companyId: companyId,
-					two:two
+					two:companyName
 				}
 			})
 		}

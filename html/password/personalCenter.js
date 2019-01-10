@@ -23,7 +23,7 @@ function PersonalCenter() {
 	this.GoTOPersonal = function() {
 		mui.ajax(localStorage.getItem("login")+"/checkSSO",{
 			success:function(res){
-				console.log(JSON.stringify(res));
+				
 				if(res.code == 600 || res.data.response.ok == false){
 					mui.openWindow({
 						url: "./html/login/login.html",
@@ -77,7 +77,7 @@ function PersonalCenter() {
 			success: function(res) {
 				var data = JSON.parse(res).data.response;
 				if (appVersion < data.mustVersion) {
-					console.log(JSON.stringify(data));
+				
 					modelWrap.style.display = "flex";
 					modelWrap.style.visibility = "visible";
 					modelTitle.style.display = "none";
@@ -94,7 +94,7 @@ function PersonalCenter() {
 
 	// 登出
 	this.logout = function() {
-		mui.confirm("确认退出登录？", "", function(e) {
+		mui.confirm("确认退出登录？", "", function(e){
 			if (e.index == 1) {
 				mui.ajax(window.localStorage.getItem('logout'), {
 					data: {
@@ -139,7 +139,7 @@ function PersonalCenter() {
 				"Content-Type":"x-www-form-urlencoded",
 			},
 			success: function(res) {
-				console.log(res);
+				
 				var data = JSON.parse(res).data.response;
 				if (data.isVerifyCode == true) {
 					var regisTertoken = data.token; // 判断是否需要验证码
@@ -208,7 +208,7 @@ function PersonalCenter() {
 								}
 							}
 						} else {
-							console.log(this);
+						
 						}
 					}
 					xhr.send();
@@ -237,7 +237,7 @@ function PersonalCenter() {
 			},
 			timeout: 10000,
 			success: function(res) {
-				console.log(JSON.stringify(res));
+			
 				if (res.code == 200) {
 					mui.openWindow({
 						url: 'nextResetPassword.html',

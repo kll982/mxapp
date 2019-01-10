@@ -126,13 +126,13 @@
 			var url = window.localStorage.getItem('url')
 			mui.plusReady(function() {
 				// 字体白色(light)的沉浸栏 
-				plus.navigator.setStatusBarStyle("dark"); //dark 字体为黑色的沉浸栏
-				plus.navigator.setStatusBarBackground('#000000'); //改变沉浸栏背景颜色的 
+// 				plus.navigator.setStatusBarStyle("dark"); //dark 字体为黑色的沉浸栏
+// 				plus.navigator.setStatusBarBackground('#000000'); //改变沉浸栏背景颜色的 
 				var self = plus.webview.currentWebview();
 				initial(self.detailId)
 				detailId = self.detailId;
 				query = self.query
-				console.log(detailId)
+				
 			})
 			mui.init({
 
@@ -155,8 +155,7 @@
 							operatorPhone = valueList.operatorPhone
 							var town = valueList.town
 
-							console.log(name)
-							console.log(town)
+							
 							if (name.length > 8) {
 								var towanitemname = name.substring(0, 8) + '...'
 								$('#headeritemid').text(towanitemname)
@@ -215,12 +214,11 @@
 				var photo = $('#villagesC').val();
 				var id = String(detailId) 
 			
-				console.log(id)
-				console.log(photo)
+				
 				if (num==null||num=='') {
 					num = ''
 				} 
-				console.log(num)
+				
 				if (photo == ''||photo==null) {
 					mui.ajax({
 						type: 'post',
@@ -232,10 +230,10 @@
 						},
 						timeout: 10000,
 						success: function(data) {
-							console.log(JSON.stringify(data))
+							
 							if (data.code == 200) {
-								// mui.back()
-								console.log('one')
+								mui.back()
+								
 							}
 						},
 						error: function() {}
@@ -256,11 +254,11 @@
 							},
 							timeout: 10000,
 							success: function(data) {
-								console.log(JSON.stringify(data))
+							
 								if (data.code == 200) {
 									// dataiIdNow()
-									// mui.back()
-									console.log('two')
+									mui.back()
+								
 
 								}
 							},

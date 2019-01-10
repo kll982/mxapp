@@ -71,15 +71,15 @@
 		<script type="text/javascript" charset="utf-8">
 			mui.plusReady(function() {
 				// 字体白色(light)的沉浸栏 
-				plus.navigator.setStatusBarStyle("light"); //dark 字体为黑色的沉浸栏
-				plus.navigator.setStatusBarBackground('#000000'); //改变沉浸栏背景颜色的 
+// 				plus.navigator.setStatusBarStyle("light"); //dark 字体为黑色的沉浸栏
+// 				plus.navigator.setStatusBarBackground('#000000'); //改变沉浸栏背景颜色的 
 				var self = plus.webview.currentWebview();
 				initial(self.detailId)
 			})
 
 			function initial(detailId) {
 				var detailId = detailId
-				console.log(detailId)
+			
 				mui.init({
 					subpages: [{
 						url: 'unitsChild.html', //子页面HTML地址，支持本地地址和网络地址

@@ -27,7 +27,7 @@
 			</div>
 			<button type="button" class="mui-btn mui-btn-fff mui-btn-block capsule50 font-size20" onclick="logon()">登 &nbsp; 录</button>
 			<div class="color-fff font-size14 hidden padding0-20">
-				<span class="mui-text-left mui-pull-left padding7-0" onclick="login.register()">注册</span>
+				<!-- <span class="mui-text-left mui-pull-left padding7-0" onclick="login.register()">注册</span> -->
 				<span class="mui-text-right mui-pull-right padding7-0" onclick="login.resetPassword()">忘记密码？</span>
 			</div>
 		</div>
@@ -68,7 +68,6 @@
 		})
 
 		function logon() {
-			console.log(localStorage.getItem("login") + '/login')
 			var valueOne = $('#tel').val();
 			var valueTwo = $('#loginPassword').val();
 			if (valueOne.length < 2) {
@@ -95,8 +94,7 @@
 					if (data.code == 200) {
 						window.localStorage.setItem("userName", data.data.response.user.usrMobile)
 						window.localStorage.setItem('password', valueTwo)
-						console.log(data.data.response.user.usrMobile)
-						console.log(valueTwo)
+						
 						window.localStorage.setItem('sessionKey', data.data.response.sessionKey)
 						var main = plus.webview.getWebviewById(window.localStorage.getItem('index.html'));
 						mui.fire(main, 'changeCity', {
