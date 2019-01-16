@@ -40,6 +40,7 @@
 
  <script type="text/javascript" charset="utf-8">
 var indexitem ;
+var twoItem ;
 var url = window.localStorage.getItem('url')
  mui.plusReady(function() {
 		// 字体白色(light)的沉浸栏 
@@ -48,8 +49,10 @@ var url = window.localStorage.getItem('url')
 		 var self = plus.webview.currentWebview();
 		 if(self.two.length>8){
 			 $('.mui-title').text(self.two.substring(0,7)+'...')
+			 twoItem = self.two.substring(0,7)+'...'
 		 }else{
 			 $('.mui-title').text(self.two)
+			 twoItem = self.two
 		 }
 		  pageitem(self.detailId)
 			// indexitem = self.detailId

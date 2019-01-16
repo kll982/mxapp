@@ -662,6 +662,8 @@
 					$('#zhankaiA' + num).css('display', 'block') // 一级的
 					$('#fuhe' + num).css('display', 'none') // 一级的
 					$('#unfold' + num).children('span').text('收起')
+					$('#unfold' + num).children('img').attr('src','../../img/youbianone - fuben.png')
+				
 				}
 			} else if (j == '2') {
 				if ($('#btnimgA' + num).attr('src') == '../../img/DCJZIN.png') {
@@ -675,6 +677,7 @@
 					$('#fuhe' + num).css('display', 'block') // 一级的
 					$('#zhankaiA' + num).css('display', 'none') // 一级的
 					$('#unfold' + num).children('span').text('收起')
+					$('#unfold' + num).children('img').attr('src','../../img/youbianone - fuben.png')
 				}
 			} else if (j == '3') {
 				if ($('#btnimgB' + num).attr('src') == '../../img/XQZGIN.png') {
@@ -688,6 +691,7 @@
 					$('#zhankaiA' + num).css('display', 'block') // 一级的
 					$('#zhankai' + num).css('display', 'block') // 三级的
 					$('#unfold' + num).children('span').text('收起')
+					$('#unfold' + num).children('img').attr('src','../../img/youbianone - fuben.png')
 				}
 			}else if( j =='4'){
 				if($('#btnimgC' + num).attr('src') == '../../img/bushiyong-1.png'){
@@ -767,9 +771,13 @@
 			if (itemText == '展开') {
 				$('#zhankai' + num).css('display', 'block')
 				$('#unfold' + num).children('span').text('收起')
+				$('#unfold' + num).children('img').attr('src','../../img/youbianone - fuben.png')
+
 			} else if (itemText == '收起') {
 				$('#zhankai' + num).css('display', 'none')
 				$('#unfold' + num).children('span').text('展开')
+				$('#unfold' + num).children('img').attr('src','../../img/youbiantwo.png')
+
 			}
 		}
 		window.addEventListener('preserveItem', function(e) {

@@ -609,7 +609,7 @@
 		var issueitem = false;
 		var url = window.localStorage.getItem('url')
 		var headtextdis = false
-		var detailId, listId, Lon, Lat, address;
+		var detailId, listId, Lon, Lat, address,twoItem;
 		mui.plusReady(function() {
 			// 字体白色(light)的沉浸栏 
 			// 			plus.navigator.setStatusBarStyle("light"); //dark 字体为黑色的沉浸栏
@@ -617,12 +617,15 @@
 			var self = plus.webview.currentWebview();
 			pageitemone(self.detailId)
 			detailId = self.detailId;
+			twoItem = self.twoItem;
 			plus.geolocation.getCurrentPosition(MapPoint, function(e) {
 				mui.toast("error:" + e.message);
 			})
 
 		})
-
+ window.addEventListener('changeCitynamegk', function() {
+ 	mui.back()
+ })
 		function pageitemone(index) {
 			var index = index
 			mui.ajax({
@@ -898,9 +901,7 @@
 				success: function(res) {
 					if (res.code == 200) {
 						var imgItem = $('#imgFun').attr('src')
-						if (imgItem.indexOf('radio26') == -1) {
-							Printed()
-						}
+					
 						if (data.optionId != 1) {
 							mui.toast("隐患已排除");
 						} else {
@@ -914,7 +915,11 @@
 						mui.fire(main, 'changeCity', {
 							// cityName: twoArr
 						})
-						mui.back();
+					 if (imgItem.indexOf('radio26') == -1) {
+					 	Printed()
+					 }else{
+						 mui.back()
+					 }
 						// valueList = data.data.response.list;
 
 					} else {
@@ -935,27 +940,16 @@
 				$('#fontsitItem').css('color', '#44A5F4')
 			}
 		}
-
 		// 打印传递的数据
-		function Printed() {
-			mui.ajax({
-				type: 'get',
-				url: localStorage.getItem("url") + '/checklistPrint/solveTheProblem',
-				data: {
-					reviewId: detailId
-				},
-				timeout: 10000,
-				success: function(res) {
-					if (res.code == 200) {
-					var response = res.data.response
-					console.log('成功')
-					}
-					else {
-						mui.toast(res.message);
-					}
-				},
-				error: function() {}
+		function Printed(){
+			mui.openWindow({
+				id: 'printItem.html',
+				url: 'printItem.html',
+				extras: {
+					detailId: detailId
+				}
 			})
+
 		}
 	</script>
 </html>

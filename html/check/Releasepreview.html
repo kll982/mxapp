@@ -214,7 +214,6 @@
 
 		<div id="textIghter" style=""></div>
 		<div id="" style="height: 100px;"></div>
-
 		<nav id="submitFather" class="mui-bar mui-bar-tab" id='navbarA'>
 			<div style="height: 28px;line-height: 28px;position: relative;top: 2px;" id="imgTrueItem">
 				<span style="width:30px;display:inline-block;height: 30px;line-height: 30px;text-align: right;" onclick="imgFuntion()">
@@ -402,31 +401,67 @@
 			mui.openWindow({
 				url: '../browse/browse.html',
 				id: 'html/browse/browse.html',
+				
 			})
 			mui.toast('发布成功')
 		}
 
-		function Printed() {
-			console.log(detailId)
-		mui.ajax({
-			type: 'get',
-			url: localStorage.getItem("url") + '/checklistPrint/troubleJobOrder',
-			data: {
-				detailId: detailId
-			},
-			timeout: 10000,
-			success: function(res) {
-				if (res.code == 200) {
-				var response = res.data.response
-				var list = res.data.response.list
-				tiaName()
+		function Printed(){
+			mui.openWindow({
+				url: 'Printed.html',
+				id: 'Printed.html',
+				extras: {
+					detailId: detailId
 				}
-				else {
-					mui.toast(res.message);
-				}
-			},
-			error: function() {}
-		})
+				
+			})
+// 			console.log(detailId)
+// 		mui.ajax({
+// 			type: 'get',
+// 			url: localStorage.getItem("url") + '/checklistPrint/troubleJobOrder',
+// 			data: {
+// 				detailId: detailId
+// 			},
+// 			timeout: 10000,
+// 			success: function(res) {
+// 				if (res.code == 200) {
+// 				var response = res.data.response
+// 				var list = res.data.response.list
+// 				// tiaName()
+// 				}
+// 				else {
+// 					mui.toast(res.message);
+// 				}
+// 			},
+// 			error: function() {}
+// 		})
 		}
+// 		$('#buttonItem').click(function(){
+// 		 var result = plus.bridge.execSync("customPlugin", "print", ['模板编号',{参数obj}]);
+// 		    alert(result);
+// 		})
+// 		$('#buttonItemA').click(function(){
+// 			
+// 		})
+// 		function print(){  
+// 		    var result = plus.bridge.execSync("customPlugin", "print", ['1',{response}]);
+// 		    if(result==1){
+// 				scanPrinter()
+// 			}else(result==0){
+// 				'成功'
+// 			}
+// 		}
+		//同步调用原生方法扫描打印机     
+// 		function scanPrinter(){
+// 		    //调用customPlugin插件的testFunctionSync方法，传递了两个参数，分别是James和Tracy
+// 		    var result = plus.bridge.execSync("customPlugin", "scanPrinter", []);
+// 			// acceptPrint(result)
+// 		    alert(result); 
+// 		}
+
+//         function print(){  
+// 		    var result = plus.bridge.execSync("customPlugin", "print", ['2',{response}]);
+// 		    alert(result);
+// 		}
 	</script>
 </html>
