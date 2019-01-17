@@ -171,7 +171,7 @@
                         "spotlight" : "unpackage/res/icons/40x40.png",
                         "spotlight@2x" : "unpackage/res/icons/80x80.png"
                     },
-                    "appstore" : "unpackage/res/icons/192x192.png"
+                    "appstore" : "C:/Users/Administrator/Desktop/tupian/192px.png"
                 },
                 "android" : {
                     "mdpi" : "unpackage/res/icons/48x48.png",
