@@ -133,8 +133,8 @@
 			var url = window.localStorage.getItem('url')
 			mui.plusReady(function() {
 				// 字体白色(light)的沉浸栏 
-				plus.navigator.setStatusBarStyle("dark"); //dark 字体为黑色的沉浸栏
-				plus.navigator.setStatusBarBackground('#000000'); //改变沉浸栏背景颜色的 
+// 				plus.navigator.setStatusBarStyle("dark"); //dark 字体为黑色的沉浸栏
+// 				plus.navigator.setStatusBarBackground('#000000'); //改变沉浸栏背景颜色的 
 				var self = plus.webview.currentWebview();
 				initial(self.detailId)
 				detailId = self.detailId;
@@ -147,7 +147,7 @@
 
 			function initial(id) {
 				var id = id
-				console.log('dianji' + id)
+			
 				mui.ajax({
 					type: 'get',
 					url: url + '/checklist/getCompanyInfo',
@@ -251,8 +251,7 @@
 						timeout: 10000,
 						success: function(data) {
 							if (data.code == 200) {
-								// mui.back()
-
+								mui.back()
 							}
 						},
 						error: function() {}

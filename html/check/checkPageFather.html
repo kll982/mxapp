@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<script src="../../lib/js/mui.min.js"></script>
+		<link href="../../lib/css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../../css/index.css" />
+		<link rel="stylesheet" type="text/css" href="../../lib/css/reset.css" />
+		<style type="text/css">
+			#header {
+				background: linear-gradient(to right, #48A9F6, #2985E8);
+				height: 93px;
+			}
+
+			#header>h1 {
+				line-height: 53px;
+				font-size: 18px;
+				color: white;
+				display: inline-block;
+			}
+
+			#imgsize {
+				width: 18px;
+				height: 17px;
+				margin-right: 10px;
+				margin-top: 19px;
+			}
+
+			#header>a {
+				top: 7px;
+			}
+
+			#test1 {
+				/* background: yellow; */
+				height: 40px;
+				line-height: 30px;
+				padding-top: 7px;
+				text-align: center;
+			}
+
+			#tableHeader {
+				/* background: #007DDB; */
+				margin: 0 auto;
+			}
+
+			#tableHeader>tr {}
+
+			.tableTd {
+				color: red;
+				padding: 0 5px;
+				/* background: blue; */
+				line-height: 26px;
+			}
+
+			.tableTd>a {
+				width: 26px;
+				height: 26px;
+				display: inline-block;
+				border-radius: 50%;
+				color: #FFFFFF;
+				font-family: Source Han Sans CN;
+			}
+
+			.tableTd:first-child>a {
+				background: #FFFFFF;
+				color: #318EEB;
+			}
+			.mui-icon{
+				color: #FFFFFF;
+			}
+			.tableTd>a>img{
+				width: 10px;
+				height: 10px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header id="header" class="mui-bar mui-bar-nav">
+			<a class=" mui-icon mui-icon-left-nav mui-pull-left" onClick="preserve()" >
+				<span style="font-size: 14px;position: relative;top: -1px;left: -7px;">保存</span></a>
+			<h1 class="mui-title"></h1>
+			<span style="height: 53px;display: block;"></span>
+			<div id="test1">
+				<table id="tableHeader">
+					<tr id="tableHeaderTr">
+					</tr>
+				</table>
+			</div>
+		</header>
+
+		<script src="../../lib/js/jquery1.9.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript" charset="utf-8">
+			var detailId;
+			var url = window.localStorage.getItem('url')
+			var index;
+			mui.plusReady(function() {
+				// 字体白色(light)的沉浸栏 
+				// 		 plus.navigator.setStatusBarStyle("light"); //dark 字体为黑色的沉浸栏
+				// 		 plus.navigator.setStatusBarBackground('#000000'); //改变沉浸栏背景颜色的 
+				var self = plus.webview.currentWebview();
+				if (self.towanitemnameitem.length > 12) {
+					$('.mui-title').text(self.towanitemnameitem.substring(0, 11) + '...')
+				} else {
+					$('.mui-title').text(self.towanitemnameitem)
+				}
+				pageitem(self.one, self.detailId, self.two)
+				// console.log(self.detailId)
+			})
+              
+			function pageitem(one, detailId, two) {
+				mui.ajax({
+					type: 'get',
+					url: url + '/checklist/listOrder',
+					data: {
+						detailId: detailId
+					},
+					timeout: 10000,
+					success: function(data) {
+						if (data.code == 200) {
+							index = 0;
+							var valueList = data.data.response.list;
+							var string = '';
+							for (var num = 0; num < valueList.length; num++) {
+								if (two == valueList[num].two && one == valueList[num].one) {
+									++index
+								}
+							}
+							// console.log(index)
+							if (index <= 5) {
+								for (var numitem = 1; numitem < index + 1; numitem++) {
+									string = string + '<td class="tableTd"><a  id="item' + numitem + '"  onClick="hrefItem(' + numitem + ')">' +
+										numitem + '</a></td>'
+								}
+							} else if (index > 5) {
+								for (var numitem = 1; numitem < 7; numitem++) {
+									if (numitem == 6) {
+										string = string + '<td class="tableTd"><a id="item' + numitem + '" onClick="rightNum(' + numitem +
+											')"><img src="../../img/shilaignagjsdg.png"/></a></td>'
+									} else {
+										string = string + '<td class="tableTd"><a id="item' + numitem + '" onClick="hrefItem(' + numitem + ')"  >' +
+											numitem + '</a></td>'
+									}
+								}
+							}
+							$('#tableHeaderTr').html(string)
+						}
+					},
+					error: function() {}
+				})
+				mui.init({
+					subpages: [{
+						url: 'checkPage.html', //子页面HTML地址，支持本地地址和网络地址
+						id: 'checkPage.html', //子页面标志
+						styles: {
+							top: '93px', //子页面顶部位置
+							bottom: '0', //子页面底部位置
+						},
+						extras: {
+							one: one,
+							detailId: detailId,
+							two: two
+						}, //额外扩展参数
+
+					}]
+				});
+
+			}
+
+			function hrefItem(num) {
+				$('.tableTd').children('a').css({
+					'background': 'none',
+					'color': '#FFFFFF'
+				})
+				$('#item' + num).css({
+					'background': '#FFFFFF',
+					'color': '#318EEB'
+				})
+				var main = plus.webview.getWebviewById("checkPage.html");
+				mui.fire(main, 'checkPageHref', {
+					hrefNum: num
+				})
+			}
+
+
+
+			function rightNum(num) {
+				var value = Number($('#item' + num).parent().prev().children('a').text())
+				var string = '';
+//                  console.log(index)
+//                  console.log(value)
+				if (index - value > 5){
+					for (var numitem = value + 1; numitem < value + 7; numitem++) {
+					if (numitem == value + 1) {
+						string = string + '<td class="tableTd"><a  onClick="leftItem(' + numitem +
+							')"><img src="../../img/shilaignagjsdg - ertrre.png"/></a></td><td class="tableTd"><a  id="item' + numitem + '"  onClick="hrefItem(' + numitem + ')">' +
+								numitem + '</a></td>'
+					} else if (numitem == value + 6){
+							string = string + '<td class="tableTd"><a id="item' + numitem + '" onClick="rightNum(' + numitem +
+								')"><img src="../../img/shilaignagjsdg.png"/></a></td>'
+						} else {
+							string = string + '<td class="tableTd"><a id="item' + numitem + '" onClick="hrefItem(' + numitem + ')"  >' +
+								numitem + '</a></td>'
+						}
+					}
+				} else if (index - value <= 5) {
+					for (var numitem = value + 1; numitem < index+1; numitem++) {
+					if (numitem == value + 1) {
+						string = string + '<td class="tableTd"><a  onClick="leftItem(' + numitem +
+							')"><img src="../../img/shilaignagjsdg - ertrre.png"/></a></td><td class="tableTd"><a  id="item' + numitem + '"  onClick="hrefItem(' + numitem + ')">' +
+								numitem + '</a></td>'
+					} else {
+						string = string + '<td class="tableTd"><a id="item' + numitem + '" onClick="hrefItem(' + numitem + ')"  >' +
+							numitem + '</a></td>'
+					}
+				}
+				}
+				$('#tableHeaderTr').html(string)
+			    $('.tableTd').children('a').css({
+			    	'background': 'none',
+			    	'color': '#FFFFFF'
+			    })
+			}
+			
+			
+			function leftItem(num) {
+			var value = Number($('#item' + num).text())
+// 			console.log(value)
+// 			console.log(index)
+			var string = '';
+			if (value - 5 <= 5) {
+					for (var numitem = 1; numitem < 7; numitem++) {
+						if (numitem == 6) {
+							string = string + '<td class="tableTd"><a id="item' + numitem + '" onClick="rightNum(' + numitem +
+								')"><img src="../../img/shilaignagjsdg.png"/></a></td>'
+						} else {
+							string = string + '<td class="tableTd"><a id="item' + numitem + '" onClick="hrefItem(' + numitem + ')"  >' +
+								numitem + '</a></td>'
+						}
+					}
+			}else if(value - 5 > 5){
+				for (var numitem =value - 5 ; numitem < value + 1 ; numitem++) {
+					if (numitem == value - 5) {
+						string = string + '<td class="tableTd"><a  onClick="leftItem(' + numitem +
+							')"><img src="../../img/shilaignagjsdg - ertrre.png"/></a></td><td class="tableTd"><a  id="item' + numitem + '"  onClick="hrefItem(' + numitem + ')">' +
+								numitem + '</a></td>'
+					}else if (numitem == value   ) {
+						string = string +  '<td class="tableTd"><a id="item' + numitem + '" onClick="rightNum(' + numitem +
+							')"><img src="../../img/shilaignagjsdg.png"/></a></td>'
+					}  else {
+						string = string + '<td class="tableTd"><a id="item' + numitem + '" onClick="hrefItem(' + numitem + ')"  >' +
+							numitem + '</a></td>'
+					}
+				}
+			}
+			$('#tableHeaderTr').html(string)
+			$('.tableTd').children('a').css({
+				'background': 'none',
+				'color': '#FFFFFF'
+			})
+			}
+			function preserve(){
+				var main = plus.webview.getWebviewById("checkPage.html");
+				mui.fire(main, 'preserveItem', {
+					
+				})
+			}
+		</script>
+</html>

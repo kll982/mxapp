@@ -218,8 +218,8 @@
 		var displayitem = false;
 		mui.plusReady(function() {
 			// 字体白色(light)的沉浸栏 
-			plus.navigator.setStatusBarStyle("light"); //dark 字体为黑色的沉浸栏
-			plus.navigator.setStatusBarBackground('#000000'); //改变沉浸栏背景颜色的 
+// 			plus.navigator.setStatusBarStyle("light"); //dark 字体为黑色的沉浸栏
+// 			plus.navigator.setStatusBarBackground('#000000'); //改变沉浸栏背景颜色的 
 			var self = plus.webview.currentWebview();
 			// console.log(self.detailId)
 			pageitem(self.detailId)
@@ -229,7 +229,7 @@
 		});
 
 		function pageitem(index) {
-			console.log(index)
+			
 			var index = index
 			mui.ajax({
 				type: 'get',
@@ -240,7 +240,7 @@
 				},
 				timeout: 10000,
 				success: function(data) {
-					console.log(data.code)
+					
 					if (data.code == 200) {
 						checklistDtos = data.data.response.checklistDtos,
 							string = '';
@@ -248,7 +248,7 @@
 							var optionId,
 								urlhtml = ''
 
-							console.log(checklistDtos[index].optionId)
+							
 							if (checklistDtos[index].optionId == 1) {
 								optionId = '符合'
 							} else if (checklistDtos[index].optionId == 2) {
@@ -314,7 +314,7 @@
 		function calsimgsize(index) {
 			var name = checklistDtos[index].createBy
 			var phone = checklistDtos[index].operatorPhone
-			console.log(name)
+			
 			var text = '确认拨打检查人-' + name
 			var btnArray = ['拨打', '取消'];
 			mui.confirm(text + '电话' + phone + '?', btnArray, function(e) {
@@ -360,9 +360,7 @@
 					'padding-bottom': '60px'
 				})
 				for (var j = 0; j < $('.someitem').length; j++) {
-					console.log($('.pfototimesize')[j].offsetHeight)
-					console.log($('.pfototimesize')[j].offsetHeight)
-					console.log($('.pfototimesize')[j].offsetHeight)
+				
 					$('.someitem').eq(j).css({
 							'position': 'relative',
 							'top': '-12px'

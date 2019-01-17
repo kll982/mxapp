@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<script src="../../lib/js/mui.min.js"></script>
+		<link href="../../lib/css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../../css/index.css" />
+		<link rel="stylesheet" type="text/css" href="../../lib/css/reset.css" />
+		<style type="text/css">
+			#header {
+				padding: 0;
+				margin: 0;
+				height: 53px;
+				color: #FFFFFF;
+				font-size: 18px;
+			}
+
+			#itemName {
+				height: 44px;
+				line-height: 44px;
+				background: #FFFFFF;
+				text-align: center;
+				color: #000000;
+			}
+
+			#headerItem {
+				height: 53px;
+				background: url(../../img/navheaer.png) no-repeat;
+				background-size: 100% 100%;
+			}
+
+			#headerItem>h1 {
+				color: #FFFFFF;
+				font-size: 18px;
+				line-height: 53px;
+			}
+
+			.mui-icon-left-nav {
+				top: 5px;
+			}
+
+			#imgsize {
+				width: 18px;
+				height: 17px;
+				margin-right: 10px;
+				margin-top: 13px;
+			}
+
+			.mui-pull-right {
+				width: 40px;
+				/* background: red; */
+				margin-top: 5px;
+			}
+
+			body {
+				background: #FFFFFF;
+			}
+
+			.hritemnWid {
+				height: 1px;
+				border: none;
+				background: #F2F2F2;
+				position: relative;
+				top: -1px;
+				padding: 0;
+				margin: 0;
+				margin-left: 26px;
+			}
+
+			.colorItemTextIgeg {
+				color: #999999;
+				font-size: 14px;
+				/* margin: 4px 0; */
+				width: 90px;
+				/* background: red; */
+
+			}
+
+			.colorItemTexeg {
+				color: #000000;
+				font-size: 14px;
+			}
+
+			#headrChildtext>div {
+				display: -webkit-flex;
+				/* Safari */
+				display: flex;
+				justify-content: space-between;
+				margin: 10px 0;
+				padding-left: 26px;
+				padding-right: 26px;
+			}
+
+			.flexItem {
+				display: -webkit-flex;
+				/* Safari */
+				display: flex;
+				justify-content: space-between;
+				margin: 15px 0;
+				padding: 0 26px;
+			}
+
+			.imgSizeItem {
+				width: 70px;
+				height: 70px;
+				border-radius: 8px;
+				margin-left: 5px;
+			}
+
+			.flexItemOne {
+				background: #F7F7F7;
+				height: 34px;
+				line-height: 34px;
+				margin-top: 20px;
+				padding: 0 10px;
+			}
+
+			.flexItemOne>span {
+				font-size: 14px;
+				color: #808080;
+			}
+
+			.threeText {
+				color: #474747;
+				font-size: 16px;
+				margin: 20px 0 10px;
+				padding: 0 10px;
+				font-weight: 600;
+			}
+
+			.coimg {
+				text-align: right;
+				width: 290px;
+			}
+
+			#submitFather {
+				background: #FFFFFF;
+				height: 55px;
+				line-height: 55px;
+				border: none;
+				bottom: 0;
+				width: 100%;
+			}
+
+			.mui-bar-tab,
+			.mui-bar: {
+				border-top: none;
+				color: red;
+			}
+
+			.mui-bar-nav {
+				box-shadow: none;
+			}
+
+			#navbarA {
+				height: 50px;
+				line-height: 50px;
+				z-index: 300;
+			}
+
+			#name {
+				width: calc(100% - 20px);
+				height: 40px;
+				left: 10px;
+				top: 5px;
+				background: linear-gradient(to right, #48A9F6, #2985E8);
+				background-size: 100% 100%;
+				background: #48A9F6;
+				border-radius: 6px;
+				color: #FFFFFF;
+				font-size: 16px;
+				letter-spacing: 3px;
+			}
+
+			.oneghkdfhgdkftwo {
+				width: 10px;
+				height: 11px;
+				margin-left: 5px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header id="header" class="mui-bar mui-bar-nav">
+			<div id="headerItem">
+				<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+				<h1 class="mui-title">发布预览</h1>
+			</div>
+
+		</header>
+		<div id="" style="height: 53px;"></div>
+		<div id="headrChild" style="height: 50px;line-height: 50px;color: #404040;font-weight: bold;font-size: 20px;padding-left: 10px;"></div>
+		<hr class="hritemnWid">
+		<div id="headrChildtext" style="">
+			<div>
+				<span class="colorItemTextIgeg">检查人</span><span id="one" class="colorItemTexeg"></span>
+			</div>
+			<div>
+				<span class="colorItemTextIgeg">检查人手机</span><span id="onea" class="colorItemTexeg"></span>
+			</div>
+			<div>
+				<span class="colorItemTextIgeg">检查人单位</span><span id="oneb" class="colorItemTexeg"></span>
+			</div>
+			<div>
+				<span class="colorItemTextIgeg">检查项目数</span><span id="onec" class="colorItemTexeg"></span>
+			</div>
+			<div>
+				<span class="colorItemTextIgeg">限期整改项目</span><span id="oned" class="colorItemTexeg"></span>
+			</div>
+		</div>
+		<hr class="hritemnWid">
+
+		<div id="textIghter" style=""></div>
+		<div id="" style="height: 100px;"></div>
+		<nav id="submitFather" class="mui-bar mui-bar-tab" id='navbarA'>
+			<div style="height: 28px;line-height: 28px;position: relative;top: 2px;" id="imgTrueItem">
+				<span style="width:30px;display:inline-block;height: 30px;line-height: 30px;text-align: right;" onclick="imgFuntion()">
+					<img id="imgFun" src="../../img/raido142.png" style="position: relative;top: 3px;"></span>
+				<span style="font-size: 12px;color: #44A5F4;" id="fontsitItem">打印水水上安全隐患治理通知单</span>
+			</div>
+			<button id="name">发布记录</button>
+		</nav>
+	</body>
+	<script src="../../lib/js/jquery1.9.1.min.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript" charset="utf-8">
+		var detailId;
+		var trueItej = false;
+		var url = window.localStorage.getItem('url')
+		mui.plusReady(function() {
+			var self = plus.webview.currentWebview();
+			detailId = self.detailId;
+			var string = self.string;
+			$('#headrChild').text(string)
+			name(detailId)
+		})
+		mui.init({
+
+		});
+
+		function imgFuntion() {
+			var imgItem = $('#imgFun').attr('src')
+			if (imgItem.indexOf('radio26') == -1) {
+				$('#imgFun').attr('src', '../../img/radio26.png')
+				$('#fontsitItem').css('color', '#999999')
+			} else {
+				$('#imgFun').attr('src', '../../img/raido142.png')
+				$('#fontsitItem').css('color', '#44A5F4')
+			}
+		}
+
+		function name(detailId) {
+			mui.ajax({
+				type: 'get',
+				url: url + '/checklist/releasePreview',
+				data: {
+					detailId: detailId
+				},
+				dataType: "jsonp",
+				jsonp: "jsoncallback",
+				timeout: 5000,
+				success: function(data) {
+					var res = JSON.parse(data)
+					if (res.code == 200) {
+						var response = res.data.response;
+						var list = res.data.response.list;
+						var string = '';
+						var arrayname = [];
+						$('#one').text(response.name)
+						$('#onea').text(response.phone)
+						$('#oneb').text(response.msaName)
+						$('#onec').text(response.allCount)
+						$('#oned').text(response.troubleCount)
+						for (var index = 0; index < list.length; index++) {
+							if (arrayname.indexOf(list[index].one) == -1) {
+								arrayname.push(list[index].one)
+							}
+						}
+						for (var num = 0; num < arrayname.length; num++) {
+							var number = 0;
+							var valut = arrayname[num]
+							var stringItem = '';
+							var arraynameityem = '';
+							for (var j = 0; j < list.length; j++) {
+								if (arrayname[num] == list[j].one) {
+									number++
+									var accord = 'block';
+									var accordItem = 'block';
+									var pictures = list[j].pictures
+									var imgSring = '';
+									var valuerTextI = '',
+										srcimgname = '';
+									for (var pic = 0; pic < pictures.length; pic++) {
+										imgSring += '<img class="imgSizeItem" src=' + pictures[pic] + ' />'
+									}
+									if (list[j].optionId == '1') {
+										accord = 'none';
+										valuerTextI = '符合'
+										srcimgname = '../../img/tuoyuan9.png'
+									} else if (list[j].optionId == '2') {
+										accordItem = 'none';
+										valuerTextI = '不符合(当场纠正)'
+										srcimgname = '../../img/tuoyuan10.png'
+									} else if (list[j].optionId == '3') {
+										valuerTextI = '不符合(限期整改)'
+										srcimgname = '../../img/tuoyuan1.png'
+										trueItej = true;
+									}
+									stringItem = stringItem +
+										'<div  class="threeText"><img style="position: relative;width:12px;height:12px;" src=' + srcimgname +
+										'/> ' + list[j].three +
+										'</div><div class="flexItem"><span class="colorItemTextIgeg">检查结果</span><span  class="colorItemTexeg">' +
+										valuerTextI +
+										'</span></div><div class="flexItem"><span class="colorItemTextIgeg">现场照片</span><span  class="colorItemTexeg coimg">' +
+										imgSring +
+										'</span></div><div style="display:' + accord +
+										'"><div class="flexItem"><span class="colorItemTextIgeg">问题描述</span><span  class="colorItemTexeg">' +
+										list[j].troubleDescribe + '</span></div><div style="display:' + accordItem +
+										'"><div class="flexItem"><span class="colorItemTextIgeg">整改要求</span><span  class="colorItemTexeg">' + list[
+											j].reviewRequire +
+										'</span></div><div class="flexItem"><span class="colorItemTextIgeg">复查时间</span><span  class="colorItemTexeg">' +
+										list[j].reviewTime +
+										'</span></div></div></div><hr class="hritemnWid">'
+
+								}
+							}
+							if(arrayname[num].length>15){
+								arraynameityem = arrayname[num].substring(0,15)
+							}else{
+								arraynameityem = arrayname[num]
+							}
+							string += '<div class="flexItem flexItemOne"><span class="colorItemTextIgegone">' + arraynameityem +
+								'</span><span id="arrayname' + num + '" class="colorItemTexeg" onClick="dfhgdkftwo(' + num + ')">' + number +
+								'项<img class="oneghkdfhgdkftwo" src="../../img/oneghkdfhgdkf22.png"/></span></div><div id="display' + num +
+								'">' + stringItem + '</div>'
+							// console.log('name')
+						}
+						$('#textIghter').html(string)
+						if (!trueItej) {
+							$('#imgTrueItem').css('display', 'none')
+						}
+					}
+				},
+				error: function(err) {
+					console.log(err)
+				}
+			})
+		}
+
+		function dfhgdkftwo(num) {
+			var imgItem = $('#arrayname' + num).children('img').attr('src')
+			if (imgItem.indexOf('oneghkdfhgdkf22') == -1) {
+				$('#arrayname' + num).children('img').attr('src', '../../img/oneghkdfhgdkf22.png')
+				$('#display' + num).css('display', 'block')
+			} else {
+				$('#arrayname' + num).children('img').attr('src', '../../img/oneghkdfhgdkf111.png')
+				$('#display' + num).css('display', 'none')
+			}
+
+
+		}
+		$('#name').click(function(){
+			mui.ajax({
+				type: 'get',
+				url: url + '/checklist/reportedOrder',
+				data: {
+					detailId: detailId
+				},
+				dataType: "jsonp",
+				jsonp: "jsoncallback",
+				timeout: 5000,
+				success: function(data) {
+					var res = JSON.parse(data)
+					var string = ''
+					if (res.code == 200) {
+						var imgItem = $('#imgFun').attr('src')
+						console.log(imgItem.indexOf('radio26') == -1)
+						if (imgItem.indexOf('radio26') == -1) {
+							Printed()
+							
+						} else {
+							tiaName()
+						}
+					}
+				},
+				error: function(err) {
+					console.log(err)
+				}
+			})
+		})
+		// 页面的跳转和刷新
+		function tiaName() {
+			var mainitemname = plus.webview.getWebviewById('../check/check.html');
+			mui.fire(mainitemname, 'changeCitytimeoneitemd', {})
+			var mainitem = plus.webview.getWebviewById('browseChild.html');
+			setTimeout(function(){
+				mui.back()
+			}, 200)
+			mui.fire(mainitem, 'changeC', {})
+			mui.openWindow({
+				url: '../browse/browse.html',
+				id: 'html/browse/browse.html',
+				
+			})
+			mui.toast('发布成功')
+		}
+
+		function Printed(){
+			mui.openWindow({
+				url: 'Printed.html',
+				id: 'Printed.html',
+				extras: {
+					detailId: detailId
+				}
+				
+			})
+// 			console.log(detailId)
+// 		mui.ajax({
+// 			type: 'get',
+// 			url: localStorage.getItem("url") + '/checklistPrint/troubleJobOrder',
+// 			data: {
+// 				detailId: detailId
+// 			},
+// 			timeout: 10000,
+// 			success: function(res) {
+// 				if (res.code == 200) {
+// 				var response = res.data.response
+// 				var list = res.data.response.list
+// 				// tiaName()
+// 				}
+// 				else {
+// 					mui.toast(res.message);
+// 				}
+// 			},
+// 			error: function() {}
+// 		})
+		}
+// 		$('#buttonItem').click(function(){
+// 		 var result = plus.bridge.execSync("customPlugin", "print", ['模板编号',{参数obj}]);
+// 		    alert(result);
+// 		})
+// 		$('#buttonItemA').click(function(){
+// 			
+// 		})
+// 		function print(){  
+// 		    var result = plus.bridge.execSync("customPlugin", "print", ['1',{response}]);
+// 		    if(result==1){
+// 				scanPrinter()
+// 			}else(result==0){
+// 				'成功'
+// 			}
+// 		}
+		//同步调用原生方法扫描打印机     
+// 		function scanPrinter(){
+// 		    //调用customPlugin插件的testFunctionSync方法，传递了两个参数，分别是James和Tracy
+// 		    var result = plus.bridge.execSync("customPlugin", "scanPrinter", []);
+// 			// acceptPrint(result)
+// 		    alert(result); 
+// 		}
+
+//         function print(){  
+// 		    var result = plus.bridge.execSync("customPlugin", "print", ['2',{response}]);
+// 		    alert(result);
+// 		}
+	</script>
+</html>

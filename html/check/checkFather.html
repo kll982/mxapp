@@ -76,12 +76,12 @@
 
 			mui.plusReady(function() {
 				// 字体白色(light)的沉浸栏 
-				plus.navigator.setStatusBarStyle("light"); //dark 字体为黑色的沉浸栏
-				plus.navigator.setStatusBarBackground('#000000'); //改变沉浸栏背景颜色的 
+// 				plus.navigator.setStatusBarStyle("light"); //dark 字体为黑色的沉浸栏
+// 				plus.navigator.setStatusBarBackground('#000000'); //改变沉浸栏背景颜色的 
 				var self = plus.webview.currentWebview();
 				detailId = self.detailId;
 				query = self.query
-				console.log(query)
+				
 				name(detailId)
 			})
 
@@ -113,7 +113,7 @@
 			
 			});
 			window.addEventListener("changeCitynachecktiengg", function(e) {
-				console.log('----------')
+				
 				$('#mentiem').css('display','block')
 			
 			});

@@ -446,7 +446,6 @@
 								 disabled="disabled" id="inputfontB" />
 								 <span   data-options='{"type":"date","beginYear":2018,"endYear":2024}'  class="btn" id="imgtimerng">
 									 <img src="../../img/timexianqi_03.png"></span></span>
-									
 						</div>
 					</div>
 					<div id="inputfontD">
@@ -475,21 +474,31 @@
 		var carryOne = false;
 		var url = window.localStorage.getItem('url')
 		var headtextdis = false
-		var listId, detailId, Lon, Lat, address;
+		var  one,two,three,detailId, Lon, Lat, address;
 		mui.plusReady(function() {
 			// 字体白色(light)的沉浸栏 
-			plus.navigator.setStatusBarStyle("light"); //dark 字体为黑色的沉浸栏
-			plus.navigator.setStatusBarBackground('#000000'); //改变沉浸栏背景颜色的 
+// 			plus.navigator.setStatusBarStyle("light"); //dark 字体为黑色的沉浸栏
+// 			plus.navigator.setStatusBarBackground('#000000'); //改变沉浸栏背景颜色的 
 			var self = plus.webview.currentWebview();
-			listId = self.listId;
+			one = self.one
+			two = self.two
+			three = self.three
 			detailId = self.detailId;
-			pageitemone(self.listId, self.detailId)
+			pageitemone(detailId)
 			plus.geolocation.getCurrentPosition(MapPoint, function(e) {
 				mui.toast("error:" + e.message);
 			})
 		})
-
-		function pageitemone(index, detailId) {
+		function pageitemone(detailId) {
+			
+			
+			if(typeof(one) === 'undefined' && typeof(two) === 'undefined'){
+				
+			}else if(typeof(two) === 'undefined'){
+				
+			}else{
+				
+			}
 			mui.ajax({
 				type: 'get',
 				url: url + '/checklist/listOrder',
@@ -498,27 +507,27 @@
 				},
 				timeout: 10000,
 				success: function(data) {
-					if (data.code == 200) {
-						valueList = data.data.response.list;
-						for (var num = 0; num < valueList.length; num++) {
-							if (valueList[num].id == index){
-								var texthtmlinne = valueList[num].stipulate.split(/\n/)
-								var texthtmlinnethree = valueList[num].three.split(/\n/)
-								var stringimg='' ;
-								var stringimgA='' ;
-								for(var time = 0;time < texthtmlinne.length; time++){
-									stringimg = stringimg +'<span class="childitem">' + texthtmlinne[time] + '</span><br>'
-								}
-								for(var timeitem = 0;timeitem < texthtmlinnethree.length; timeitem++){
-									stringimgA = stringimgA +'<span class="childitem">' + texthtmlinnethree[timeitem] + '</span><br>'
-								}
-								console.log(stringimgA)
-								$('#headtext').html(stringimg)
-                                $('#bodyAll').css('display','block')
-								$('#headnumber').html(stringimgA)
-							}
-						}
-					}
+// 					if (data.code == 200) {
+// 						valueList = data.data.response.list;
+// 						for (var num = 0; num < valueList.length; num++) {
+// 							if (valueList[num].id == index){
+// 								var texthtmlinne = valueList[num].stipulate.split(/\n/)
+// 								var texthtmlinnethree = valueList[num].three.split(/\n/)
+// 								var stringimg='' ;
+// 								var stringimgA='' ;
+// 								for(var time = 0;time < texthtmlinne.length; time++){
+// 									stringimg = stringimg +'<span class="childitem">' + texthtmlinne[time] + '</span><br>'
+// 								}
+// 								for(var timeitem = 0;timeitem < texthtmlinnethree.length; timeitem++){
+// 									stringimgA = stringimgA +'<span class="childitem">' + texthtmlinnethree[timeitem] + '</span><br>'
+// 								}
+// 								console.log(stringimgA)
+// 								$('#headtext').html(stringimg)
+//                                 $('#bodyAll').css('display','block')
+// 								$('#headnumber').html(stringimgA)
+// 							}
+// 						}
+// 					}
 				},
 				error: function() {}
 			})
@@ -609,7 +618,7 @@
 				imgitemtwo = $('.imgitemtimeimg').eq(1).attr('src'),
 				imgitemthree = $('.imgitemtimeimg').eq(2).attr('src');
 			if (imgitemone == '../../img/sdfsdf.png') {
-				console.log()
+				
 				present({
 					itemId: listId,
 					detailId: detailId,
@@ -670,16 +679,16 @@
 		})
 
 		function present(data) {
-			console.log(JSON.stringify(data));
+			
 			mui.ajax({
 				type: 'post',
 				url: localStorage.getItem("url") + '/checklist/insertOrder',
 				data: data,
 				timeout: 10000,
 				success: function(res) {
-					console.log(JSON.stringify(res));
+					
 					if (res.code == 200) {
-						console.log()
+					
 						var orderId = res.data.response.orderId;
 						mui.toast('保存成功');
 						var main = plus.webview.getWebviewById("../check/check.html");

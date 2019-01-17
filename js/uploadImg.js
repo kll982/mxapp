@@ -126,8 +126,8 @@ function uploadimg(imgArray, ext) {
 		if (true) {
 			var len = [];
 			for (var index = 0; index < 100; index++) {
-				if (imgArray.substring(index * 1000, (index + 1) * 1000) == '') {} else {
-					len.push(imgArray.substring(index * 1000, (index + 1) * 1000))
+				if (imgArray.substring(index * 5000, (index + 1) * 5000) == '') {} else {
+					len.push(imgArray.substring(index * 5000, (index + 1) * 5000))
 				}
 			}
 			resolve(ajaxfuntion(len))
@@ -136,8 +136,7 @@ function uploadimg(imgArray, ext) {
 
 	function ajaxfuntion(len) {
 		
-	console.log(localStorage.getItem("url") + "/oss/uploadTroublePic")
-	console.log( len.length)
+
 		mui.ajax(localStorage.getItem("url") + "/oss/uploadTroublePic", {
 			type: "post",
 			data: {
@@ -155,6 +154,7 @@ function uploadimg(imgArray, ext) {
 			},
 			success: function(res) {
 				// alert(JSON.stringify(res))
+				// console.log(JSON.stringify(res));
 				if (res.code == 200) {
 					url = res.data.url;
 					urls.push(url);
@@ -180,7 +180,7 @@ function uploadimg(imgArray, ext) {
 					imgWrap.appendChild(imgContent);
 					imgWrap.appendChild(imgDelete);
 					$('.photoItem').append(imgWrap);
-
+					
 					imgDelete.onclick = function(e) {
 						for (var i in urls) {
 							if (urls[i] == this.getAttribute("url")) {
@@ -200,7 +200,7 @@ function uploadimg(imgArray, ext) {
 							}
 						})
 					}
-					console.log(urls);
+					
 					// 				var string = '<span class="photoItemchild photoItemchilditem" id="deleteItem' + num +
 					// 					'"><img class="photooneimgsize" src="' + url +
 					// 					'"/><span class="photoItemchilditemimg" onClick="deleteItem(' + num +

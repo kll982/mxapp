@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<script src="../../lib/js/mui.min.js"></script>
+		<link href="../../lib/css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../../css/index.css" />
+		<link rel="stylesheet" type="text/css" href="../../lib/css/reset.css" />
+		<style type="text/css">
+			body {
+				background: #FFFFFF;
+			}
+
+			#header {
+				padding: 0;
+				margin: 0;
+				height: 53px;
+				color: #FFFFFF;
+				font-size: 18px;
+			}
+
+			#itemName {
+				height: 44px;
+				line-height: 44px;
+				background: #FFFFFF;
+				text-align: center;
+				color: #000000;
+			}
+
+			#headerItem {
+				height: 53px;
+				background: #F7F7F7;
+				background-size: 100% 100%;
+			}
+
+			#headerItem>h1 {
+				color: #404040;
+				font-size: 18px;
+				line-height: 53px;
+			}
+
+			.mui-icon-left-nav {
+				top: 5px;
+			}
+
+			#imgsize {
+				width: 18px;
+				height: 17px;
+				margin-right: 10px;
+				margin-top: 13px;
+			}
+
+			.mui-pull-right {
+				width: 40px;
+				/* background: red; */
+				margin-top: 5px;
+			}
+
+			.buttonITemcalss {
+				width: 136px;
+				height: 36px;
+				position: absolute;
+				top: 450px;
+				margin-left: calc(50% - 78px);
+				display: block;
+				background: #48A9F6;
+				color: #FFFFFF;
+				font-size: 15px;
+				letter-spacing: 5px;
+			}
+
+			.buttodivname {
+				margin: 100px auto;
+				color: #404040;
+			}
+
+			.buttodivname>.Releaseitemg {
+				color: #404040;
+				font-size: 20px;
+				font-weight: 600;
+				text-align: center;
+				margin: 15px 0;
+				line-height: 30px;
+			}
+
+			#footItem {
+				/* background: red; */
+				position: absolute;
+				width: 100%;
+				top: 500px;
+			}
+
+			#footItem>div:first-child {
+				color: #404040;
+				font-size: 12px;
+				text-align: right;
+				margin-right: 25px;
+			}
+
+			#footItem>div:last-child {
+				color: #3593ED;
+				font-size: 14px;
+				text-align: right;
+				margin-right: 25px;
+				margin-top: 14px;
+			}
+
+			#footItem>div:last-child img {
+				position: relative;
+				top: 2px;
+				margin-right: 4px;
+			}
+
+			#footItem>div:last-child span {
+				height: 30px;
+				display: inline-block;
+			}
+
+			.mui-table-view-cell {
+				color: #404040;
+				font-size: 18px;
+				height: 50px;
+			}
+
+			.mui-table-view-cell>a {
+				position: relative;
+				top: 3px;
+			}
+
+			.mui-table-view-cell img {
+				margin-right: 8px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header id="header" class="mui-bar mui-bar-nav">
+			<div id="headerItem">
+				<!-- <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a> -->
+				<h1 class="mui-title">水上安全隐患治理通知单打印</h1>
+			</div>
+		</header>
+		<div id="buttodiv" class="buttodivname">
+			<div class="Releaseitemg"><img src="../../img/lujing33.png"></div>
+			<div class="Releaseitemg" id="Release">发布成功</div>
+		</div>
+		<div id="buttonITemFitr">
+			<button type="button" id="buttonITem" class="buttonITemcalss" onclick="print()">打印</button>
+		</div>
+		<div id="footItem" style="display: none;">
+			<div>长时间无反应，请先关闭打印机，重新连接打印机</div>
+			<div  onclick="scanPrinter()"><span id="againConnect"><img src="../../img/wgfagsag158.png">重新连接打印机</span></div>
+		</div>
+
+		<script src="../../lib/js/jquery1.9.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript" charset="utf-8">
+			var detailId;
+			var acceptPrintArray = [];
+			var arrayItem;
+			mui.plusReady(function() {
+				// 字体白色(light)的沉浸栏 
+				plus.navigator.setStatusBarStyle("dark"); //dark 字体为黑色的沉浸栏
+				plus.navigator.setStatusBarBackground('#F7F7F7'); //改变沉浸栏背景颜色的 
+				var self = plus.webview.currentWebview();
+				detailId = self.detailId;
+				name(detailId)
+			})
+
+			function name(detailId) {
+				console.log(detailId)
+				mui.ajax({
+					type: 'get',
+					url: localStorage.getItem("url") + '/checklistPrint/troubleJobOrder',
+					data: {
+						detailId: detailId
+					},
+					timeout: 10000,
+					success: function(res) {
+						if (res.code == 200) {
+							var response = res.data.response
+							arrayItem = response
+							// tiaName()
+						} else {
+							mui.toast(res.message);
+						}
+					},
+					error: function() {}
+				})
+			}
+			//同步调用原生方法添加打印机 
+			function print() {
+				var result = plus.bridge.execSync("customPlugin", "print", ['2',{arrayItem}]);
+				if (result == 1){
+					scanPrinterItem()
+				} else if (result == 0){
+					$('#buttodiv').find('img').attr('src', '../../img/zujian154.png')
+					$('#Release').text('正在打印请等待')
+					$('#buttonITem').css('display', 'none')
+			
+				}
+			}
+			//接收打印结果
+			function getPrintResult(result) {
+				//result:0:成功  1:缺纸 2:打印头过热 
+				if (result == 0) {
+					succse()
+				} else if (result != 0) {
+					$('#buttodiv').find('img').attr('src', '../../img/zujiande155.png')
+					$('#Release').html('打印错误')
+					$('#buttonITemFitr').text('')
+					$('#footItem').css({
+						'display': 'block'
+					})
+				}
+				// 			if (result == 2) {
+				// 				$('#buttodiv').find('img').attr('src', '../../img/zujiande155.png')
+				// 				$('#Release').html('打印机请状纸<br>请装纸')
+				// 				$('#buttonITemFitr').text('')
+				// 				$('#footItem').css({
+				// 					'display': 'block'
+				// 				})
+				// 			}
+				// 			if (result == 3) {
+				// 				$('#buttodiv').find('img').attr('src', '../../img/zujiande155.png')
+				// 				$('#Release').html('打印机纸舱盖打开')
+				// 				$('#buttonITemFitr').text('')
+				// 				$('#footItem').css({
+				// 					'display': 'block'
+				// 				})
+				// 			}
+				// 			if (result == -1) {
+				// 				$('#buttodiv').find('img').attr('src', '../../img/zujiande155.png')
+				// 				$('#Release').html('打印机错误<br>请检查打印机')
+				// 				$('#buttonITemFitr').text('')
+				// 				$('#footItem').css({
+				// 					'display': 'block'
+				// 				})
+				// 			}
+			}
+			//同步调用原生方法扫描打印机              
+			function scanPrinter() {
+				//调用customPlugin插件的testFunctionSync方法，传递了两个参数，分别是James和Tracy
+				var result = plus.bridge.execSync("customPlugin", "scanPrinter", []);
+				$('#buttonITemFitr').text('')
+				$('#buttodiv').html('')
+			}
+
+			//接收蓝牙设备
+			function acceptPrint(name, macaddr) {
+				var rejectItem = {
+					name: name,
+					macaddr: macaddr
+				}
+				acceptPrintArray.push(rejectItem)
+			}
+		
+			//本次扫描打印机结束事件
+			function scanPrinterEnd(result) {
+				var string = '';
+				for (var index = 0; index < acceptPrintArray.length; index++) {
+					string += '<li class="mui-table-view-cell" onClick="addPrinter(' + index +
+						')"><a class="mui-navigate-right"><img src="../../img/lantinsdgsagd161.png">' + acceptPrintArray[index].macaddr +
+						'</a> </li>'
+				}
+				$('#buttodiv').html('<ul class="mui-table-view">' + string + '</ul>')
+			}
+			//同步调用原生方法添加打印机              
+			function addPrinter(id) {
+				var arrauItem = []
+				arrauItem.push(acceptPrintArray[id].macaddr)
+				mui.confirm('是否连接此设备', ['确认', '取消'], function(value) {
+					if (value.index == '0') {
+						//调用customPlugin插件的testFunctionSync方法，传递了两个参数，分别是James和Tracy
+						var result = plus.bridge.execSync("customPlugin", "addPrinter", arrauItem);
+						$('#buttodiv').html('<div class="Releaseitemg"><img src="../../img/lujing33.png"></div><div class="Releaseitemg" id="Release">连接成功</div>')
+						$('#buttonITemFitr').html('<button type="button" id="buttonITem" class="buttonITemcalss" onclick="print()">打印</button>')
+					} else if (value.index == '1') {
+					}
+				})
+
+			}
+			//异步调用原生方法
+			function nativeAsync() {
+				var bridge = plus.bridge;
+				var success = function(msg) {
+					alert("onSuccess,msg = " + msg);
+				};
+				var failed = function(msg) {
+					alert("onFailed,msg = " + msg);
+				}
+				//获取回调的id
+				var callbackId = bridge.callbackId(success, failed);
+				//注意，这里要跟原生开发的人定好回调id在参数列表中的索引位置
+				plus.bridge.exec("customPlugin", "testFunctionAsync", [callbackId, "secondParam"]);
+			}
+
+			function succse() {
+				$('#buttodiv').find('img').attr('src', '../../img/lujing33.png')
+				$('#Release').text('打印完成')
+				$('#buttonITemFitr').html(
+					'<button type="button"  id="bnITem" onClick="bnITem()"  class="buttonITemcalss" >返回</button>')
+
+			}
+
+			function bnITem() {
+				plus.navigator.setStatusBarStyle("dark"); //dark 字体为黑色的沉浸栏
+				plus.navigator.setStatusBarBackground('#FFFFFF'); //改变沉浸栏背景颜色的
+				var mainitemname = plus.webview.getWebviewById('../check/check.html');
+				mui.fire(mainitemname, 'changeCitytimeoneitemd', {})
+				var mainitem = plus.webview.getWebviewById('browseChild.html');
+				setTimeout(function() {
+					mui.back()
+				}, 200)
+				mui.fire(mainitem, 'changeC', {})
+				mui.openWindow({
+					url: '../browse/browse.html',
+					id: 'html/browse/browse.html',
+
+				})
+			}
+
+			// 未检测到打印机
+			function scanPrinterItem() {
+				$('#buttodiv').find('img').attr('src', '../../img/zujiande155.png')
+				$('#Release').html('未检测到打印机<br>请连接打印机')
+				$('#buttonITemFitr').html(
+					'<button type="button" id="bnITemlijie" onClick="scanPrinter()" class="buttonITemcalss" >连接打印机</button>')
+			}
+
+		</script>
+</html>

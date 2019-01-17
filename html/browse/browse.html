@@ -14,7 +14,6 @@
 				background: linear-gradient(to right, #48A9F6, #2985E8);
 				height: 53px;
 			}
-
 			#header>span>h1 {
 				/* background: blue; */
 				line-height: 53px;
@@ -73,7 +72,7 @@
 		<header id="header" class="mui-bar mui-bar-nav" style="text-align: center;">
 			<a class=" mui-icon mui-icon-left-nav mui-pull-left" id="mui-action-back" style="color: #FFFFFF;" ></a>
 			<span id="centeritem">
-				<h1 class="mui-titleA" id="titlemui">游览经营公司</h1>
+				<h1 class="mui-titleA" id="titlemui">游览经营活动</h1>
 				<span class="headerItem " id="cityItemall">
 					<span id="cityItemallalltime">全部</span>
 					<span><img src="../../img/ui-qiyesousuoxia_03.png"></span>
@@ -96,12 +95,13 @@
 		var clickItem = true
 		mui.plusReady(function() {
 			// 字体白色(light)的沉浸栏 
-			plus.navigator.setStatusBarStyle("dark"); //dark 字体为黑色的沉浸栏
-			plus.navigator.setStatusBarBackground('#FFFFFF'); //改变沉浸栏背景颜色的
+// 			plus.navigator.setStatusBarStyle("dark"); //dark 字体为黑色的沉浸栏
+// 			plus.navigator.setStatusBarBackground('#FFFFFF'); //改变沉浸栏背景颜色的
 			main = plus.webview.currentWebview();
 			nameId = main.level
 			namevalue = main.namevalue
 			parId = main.parId
+	
 			taskId = main.taskId
 			query = main.query
 			special = main.special
@@ -113,14 +113,14 @@
 				$('#titlemui').text('渡口渡船')
 				$('#cityItemall').css('display', 'none')
 			} else if (main.query == 4) {
-				$('#titlemui').text('游览经营公司')
+				$('#titlemui').text('游览经营活动')
 			} else if (main.query == 2) {
 				$('#cityItemall').html('通航水域')
-				$('#titlemui').text('游览经营公司')
+				$('#titlemui').text('游览经营活动')
 				$('#cityItemall').unbind('click')
 			} else if (main.query == 3) {
 				$('#cityItemall').html('非通航水域')
-				$('#titlemui').text('游览经营公司')
+				$('#titlemui').text('游览经营活动')
 				$('#cityItemall').unbind('click')
 			}
 
@@ -128,6 +128,7 @@
 		})
 
 		function successively() {
+		
 			mui.init({
 				beforeback: function(){
 		       var main = plus.webview.getWebviewById(window.localStorage.getItem('index.html'));
@@ -148,7 +149,8 @@
 						query: query,
 						taskId: taskId,
 						special: special,
-						specialtext: specialtext
+						specialtext: specialtext,
+						parId:parId
 					} //额外扩展参数
 				}]
 			});

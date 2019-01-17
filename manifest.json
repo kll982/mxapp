@@ -5,7 +5,7 @@
     "name" : "水运双重预防",
     /*应用名称，程序桌面图标名称*/
     "version" : {
-        "name" : "2.0.0",
+        "name" : "2.0.1",
         /*应用版本名称*/
         "code" : 200
     },
@@ -42,9 +42,8 @@
         "Maps" : {
             "description" : "位置信息"
         },
-        "Push" : {
-            "description" : "管理推送消息插件"
-        }
+        "Speech" : {},
+        "Push" : {}
     },
     "plus" : {
         "splashscreen" : {
@@ -86,8 +85,6 @@
                     "<uses-permission android:name=\"android.permission.ACCESS_FINE_LOCATION\"/>",
                     "<uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\"/>",
                     "<uses-permission android:name=\"android.permission.ACCESS_WIFI_STATE\"/>",
-                    "<uses-permission android:name=\"android.permission.BLUETOOTH\"/>",
-                    "<uses-permission android:name=\"android.permission.BLUETOOTH_ADMIN\"/>",
                     "<uses-permission android:name=\"android.permission.CALL_PHONE\"/>",
                     "<uses-permission android:name=\"android.permission.CAMERA\"/>",
                     "<uses-permission android:name=\"android.permission.CHANGE_NETWORK_STATE\"/>",
@@ -107,9 +104,7 @@
                     "<uses-permission android:name=\"android.permission.WAKE_LOCK\"/>",
                     "<uses-permission android:name=\"android.permission.WRITE_CONTACTS\"/>",
                     "<uses-permission android:name=\"android.permission.WRITE_EXTERNAL_STORAGE\"/>",
-                    "<uses-permission android:name=\"android.permission.WRITE_SETTINGS\"/>",
-                    "<uses-permission android:name=\"android.permission.BLUETOOTH\"/>",
-                    "<uses-permission android:name=\"android.permission.BLUETOOTH_ADMIN\"/>"
+                    "<uses-permission android:name=\"android.permission.WRITE_SETTINGS\"/>"
                 ]
             },
             "orientation" : [ "portrait-primary", "portrait-secondary" ],
@@ -230,7 +225,9 @@
                 }
             },
             "plugins" : {
-                "speech" : {},
+                "speech" : {
+                    "ifly" : {}
+                },
                 "maps" : {
                     "baidu" : {
                         "appkey_ios" : "O9CY6bhgevWa4sOsqtYtFA5jyX3Yj8O3",

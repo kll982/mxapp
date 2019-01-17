@@ -12,16 +12,15 @@
 			}
 
 			#bodyAll {
-				background: linear-gradient(to right, #48A9F6, #2985E8) no-repeat;
-				background-size: 100% 50px;
-
+				/* background: linear-gradient(to right, #48A9F6, #2985E8) no-repeat; */
+				/* background-size: 100% 50px; */
 			}
 
 			#headername {
 				/* background: yellow; */
-				width: calc(100% - 20px);
-				margin-left: 10px;
-				box-shadow: 2px 2px 1px 0px #F3F3F3;
+				width: calc(100% - 30px);
+				margin-left: 15px;
+				/* box-shadow: 2px 2px 1px 0px #F3F3F3; */
 				border-radius: 10px;
 				background: #FFFFFF;
 			}
@@ -40,12 +39,12 @@
 			}
 
 			#headnumber {
-			display: inline-block;
-			text-align: justify;
-			padding-bottom: 10px;
-			color: #4D4D4D;
-			padding-top: 10px;
-			margin-right: 15px;
+				display: inline-block;
+				text-align: justify;
+				padding-bottom: 10px;
+				color: #4D4D4D;
+				padding-top: 10px;
+				margin-right: 15px;
 			}
 
 			#imgSize {
@@ -63,7 +62,7 @@
 				padding-bottom: 10px;
 			}
 
-			.btnimg {
+			/* 			.btnimg {
 				height: 28px;
 				width: 63px;
 			}
@@ -76,7 +75,7 @@
 			.btnimgB {
 				height: 28px;
 				width: 123px;
-			}
+			} */
 
 			#btn {
 				margin-top: 10px;
@@ -107,6 +106,7 @@
 			#photoItemname {
 				position: absolute;
 				top: 0px;
+				left: -0px;
 			}
 
 			.photoItem {
@@ -182,11 +182,11 @@
 				float: right;
 			}
 
-		#inputfontD {
-			margin-left: 5px;
-			padding-bottom: 20px;
-			
-		}
+			#inputfontD {
+				margin-left: 5px;
+				padding-bottom: 20px;
+
+			}
 
 			.xinhaoitem {
 				color: #737373;
@@ -320,6 +320,8 @@
 				height: 1px;
 				background: #F2F2F2;
 				border: none;
+				margin: 0;
+
 			}
 
 			#history {
@@ -327,9 +329,9 @@
 				font-size: 15px;
 				line-height: 30px;
 				float: right;
-				margin-right: 20px;
+				margin-right: 25px;
 				margin-bottom: 75px;
-				margin-top: 15px;
+				margin-top: -12px;
 			}
 
 			/* 选择器的颜色 */
@@ -341,9 +343,11 @@
 				border: none;
 				background: none;
 			}
+
 			.mui-dtpicker-header button {
 				font-size: 16px;
 			}
+
 			/* 取消 */
 			.mui-btn,
 			button,
@@ -437,43 +441,95 @@
 				top: 0;
 				right: 0;
 			}
-			#headtextdis{
+
+			#headtextdis {
 				text-align: right;
-				
+
 				margin-right: 15px;
 			}
+
 			#geographictext {
 				display: inline-block;
 				width: 109px;
-			margin-bottom: 10px;
+				margin-bottom: 10px;
 			}
+
 			#geographicimgitwm {
 				width: 12px;
 				height: 14px;
 				margin-left: 5px;
 			}
+
+			#headnumberItemtext {
+				height: 44px;
+				text-align: center;
+			}
+
+			#headnumberItemtext>span {
+				line-height: 44px;
+				font-weight: 500;
+			}
+
+			.imgitemtimeimg {
+				height: 30px;
+				width: 155px;
+			}
+
+			.itemfdfid {
+				display: -webkit-flex;
+				/* Safari */
+				display: flex;
+				flex-direction: row;
+				justify-content: space-around;
+				/* margin: 0 5px; */
+				/* background: red; */
+			}
+
+			.speech {
+				position: relative;
+				top: 3px;
+				width: 12px;
+				height: 18px;
+			}
+
+			.speechparter {
+				width: 40px;
+				text-align: center;
+			}
+
+			.namrflex {
+				display: -webkit-flex;
+				/* Safari */
+				display: flex;
+				justify-content: space-between;
+			}
 		</style>
 	</head>
 
 	<body>
+		<div id="headnumberItemtext">
+			<span></span>
+		</div>
+		<hr class="hrheightitem">
 		<div id="bodyAll" style="display: none;">
 			<div id="headername">
 				<div id="head">
-					<div id="headnumber"></div><div id="headtextdis"><img id="imgSize" src="../../img/nobufuhe.png"></div>
+					<div id="headnumber"></div>
+					<div id="headtextdis"><img id="imgSize" src="../../img/nobufuhe.png"></div>
 				</div>
 				<div id="headtext" style="display: none;"></div>
 				<div id="btn">
-					<span class="imgitemtime" id="imgitemA"><img class="btnimg imgitemtimeimg" src="../../img/dfdf.png"></span>
-					<span class="imgitemtime" id="imgitemB"><img class="btnimgA imgitemtimeimg" src="../../img/DCJZ.png"></span>
-					<span class="imgitemtime" id="imgitemC"><img class="btnimgB imgitemtimeimg" src="../../img/XQZG.png"></span>
-				</div>
-				<hr class="hrheightitem">
-				<div id="youbiantwoFather">
-					<div id="issueall">
-						<span id="issue">问题描述</span>
-						<img id="youbiantwo" src="../../img/youbiantwo.png">
+					<div class="itemfdfid" style="margin-bottom: 6px;">
+						<span class="imgitemtime" id="imgitemA"><img class="btnimg imgitemtimeimg" src="../../img/dfdf.png"></span>
+						<span class="imgitemtime" id="imgitemC"><img class="btnimgB imgitemtimeimg" src="../../img/XQZG.png"></span>
+					</div>
+					<div class="itemfdfid">
+						<span class="imgitemtime" id="imgitemB"><img class="btnimgA imgitemtimeimg" src="../../img/DCJZ.png"></span>
+						<span class="imgitemtime" id="imgitemD"><img class="btnimgC imgitemtimeimg" src="../../img/bushiyong-2.png"></span>
 					</div>
 
+				</div>
+				<div id="youbiantwoFather">
 					<div id="describe" style="display: none;">
 						<p id="describeitem"></p>
 						<div id="describeitemone">
@@ -492,31 +548,31 @@
 				</div>
 				<div id="itermtext">
 					<div id="cameraItem">
-						<span id="photoItemname" class="xinhaoitem">现场照片</span>
+						<span id="photoItemname" class="xinhaoitem"><span class="xinhao">*</span>现场照片</span>
 						<span class="photoItem">
 							<span class="photoItemchild" id="photoone"><img src="../../img/zhiengadgjsadg-43.png"></span>
-							<!-- 							<span class="photoItemchild photoItemchilditem"><img class="photooneimgsize" src=" /var/mobile/Containers/Data/Application/83270403-0560-40E7-9088-179D4EBA8668/Documents/Pandora/apps/HBuilder/doc/head.png?version=1542194098942"/>
-							<span class="photoItemchilditemimg"><img  src="../../img/zudexiaochu13.png"></span></span> -->
-							<!-- 	<span class="photoItemchild" id="photoone"></span>
-							<span class="photoItemchild" id="photoone"></span> -->
 						</span>
+					</div>
+					<div id="disnowatt">
+						<div id="textareaItem">
+							<div class="namrflex"><span><span class="xinhao">*</span><span class="lefttop xinhaoitem">检查描述</span></span>
+								<span class="speechparter" onclick="yuyinItem(1)"><img class="speech" src="../../img/photeItem.png" /></span></div>
+							<textarea rows="2" cols="" id="textareaone"></textarea>
+						</div>
+						<div id="nameite">
+							<div id="inputfontA">
+								<div class="namrflex"><span><span class="xinhao">*</span><span class="lefttop xinhaoitem">整改要求</span></span>
+									<span class="speechparter" onclick="yuyinItem(2)"><img class="speech" src="../../img/photeItem.png" /></span></div>
+								<textarea rows="2" cols="" id="textareatwo"></textarea>
+							</div>
+							<div id="inputfontC">
+								<span><span class="xinhao" id="xinhaoA">*</span><span id="inputfontE" class="xinhaoitem">复查时间</span><input type="text"
+									 disabled="disabled" id="inputfontB" value="" /><span data-options='{"type":"date","beginYear":2018,"endYear":2024}'
+									 class="btn" id="imgtimerng"><img src="../../img/timexianqi_03.png"></span></span>
+							</div>
+						</div>
+					</div>
 
-					</div>
-					<div id="textareaItem">
-						<span><span class="xinhao">*</span><span class="lefttop xinhaoitem">检查描述</span></span>
-						<textarea rows="2" cols="" id="textareaone"></textarea>
-					</div>
-					<div id="nameite">
-						<div id="inputfontA">
-							<span><span class="xinhao">*</span><span class="lefttop xinhaoitem">整改要求</span></span>
-							<textarea rows="2" cols="" id="textareatwo"></textarea>
-						</div>
-						<div id="inputfontC">
-							<span><span class="xinhao" id="xinhaoA">*</span><span id="inputfontE" class="xinhaoitem">复查时间</span><input type="text"
-								 disabled="disabled" id="inputfontB" value="" /><span  data-options='{"type":"date","beginYear":2018,"endYear":2024}' class="btn" id="imgtimerng"><img
-									 src="../../img/timexianqi_03.png"></span></span>
-						</div>
-					</div>
 					<div id="inputfontD">
 						<span id="geographictext" class="xinhaoitem">定&#x3000;&#x3000;位</span><br>
 						<div id="">
@@ -535,7 +591,12 @@
 
 		</div>
 		<nav id="submitFather" class="mui-bar mui-bar-tab" id='navbarA'>
-			<button id="submit">确认</button>
+			<div style="height: 28px;line-height: 28px;position: relative;top: 2px;" id="imgTrueItem">
+				<span style="width:30px;display:inline-block;height: 30px;line-height: 30px;text-align: right;" onclick="imgFuntion()">
+					<img id="imgFun" src="../../img/raido142.png" style="position: relative;top: 3px;"></span>
+				<span style="font-size: 12px;color: #44A5F4;" id="fontsitItem">打印水水上安全隐患治理通知单</span>
+			</div>
+			<button id="submit">提交结果</button>
 		</nav>
 	</body>
 	<script src="../../lib/js/mui.min.js"></script>
@@ -548,20 +609,23 @@
 		var issueitem = false;
 		var url = window.localStorage.getItem('url')
 		var headtextdis = false
-		var detailId, listId, Lon, Lat, address;
+		var detailId, listId, Lon, Lat, address,twoItem;
 		mui.plusReady(function() {
 			// 字体白色(light)的沉浸栏 
-			plus.navigator.setStatusBarStyle("light"); //dark 字体为黑色的沉浸栏
-			plus.navigator.setStatusBarBackground('#000000'); //改变沉浸栏背景颜色的 
+			// 			plus.navigator.setStatusBarStyle("light"); //dark 字体为黑色的沉浸栏
+			// 			plus.navigator.setStatusBarBackground('#000000'); //改变沉浸栏背景颜色的 
 			var self = plus.webview.currentWebview();
 			pageitemone(self.detailId)
 			detailId = self.detailId;
+			twoItem = self.twoItem;
 			plus.geolocation.getCurrentPosition(MapPoint, function(e) {
 				mui.toast("error:" + e.message);
-			}) 
-			
-		})
+			})
 
+		})
+ window.addEventListener('changeCitynamegk', function() {
+ 	mui.back()
+ })
 		function pageitemone(index) {
 			var index = index
 			mui.ajax({
@@ -575,17 +639,17 @@
 						valueList = data.data.response.list;
 						for (var num = 0; num < valueList.length; num++) {
 							if (valueList[num].reviewId == index) {
-								console.log('成功')
-								
+
+
 								var texthtmlinne = valueList[num].stipulate.split(/\n/)
 								var texthtmlinnethree = valueList[num].three.split(/\n/)
-								var stringimgA='' ;
-								var stringimg='' ;
-								for(var time = 0;time < texthtmlinne.length; time++){
-									stringimg = stringimg +'<span class="childitem">' + texthtmlinne[time] + '</span><br>'
+								var stringimgA = '';
+								var stringimg = '';
+								for (var time = 0; time < texthtmlinne.length; time++) {
+									stringimg = stringimg + '<span class="childitem">' + texthtmlinne[time] + '</span><br>'
 								}
-								for(var timeitem = 0;timeitem < texthtmlinnethree.length; timeitem++){
-									stringimgA = stringimgA +'<span class="childitem">' + texthtmlinnethree[timeitem] + '</span><br>'
+								for (var timeitem = 0; timeitem < texthtmlinnethree.length; timeitem++) {
+									stringimgA = stringimgA + '<span class="childitem">' + texthtmlinnethree[timeitem] + '</span><br>'
 								}
 								$('#headnumber').html(stringimgA)
 								$('#headtext').html(stringimg)
@@ -593,8 +657,9 @@
 								$('#describeitemuser').html(valueList[num].createName)
 								var createTime = timeTransitem(valueList[num].createTime)
 								$('#describeitemtime').html(createTime)
-								$('#bodyAll').css('display','block')
-                                $('#history').css('display','block')
+								$('#headnumberItemtext>span').text(valueList[num].two)
+								$('#bodyAll').css('display', 'block')
+								$('#history').css('display', 'block')
 							}
 						}
 					}
@@ -614,29 +679,60 @@
 
 		})
 		$('#imgitemA').click(function() {
-			$('.btnimg').eq(0).attr('src', '../../img/dfdf.png')
-			$('.btnimgA').eq(0).attr('src', '../../img/DCJZ.png')
-			$('.btnimgB').eq(0).attr('src', '../../img/XQZG.png')
-			this.firstElementChild.setAttribute('src', '../../img/sdfsdf.png')
-			$('#disnow').css('display', 'none')
+			if (this.firstElementChild.getAttribute('src') == '../../img/sdfsdf.png') {
+				$('#disnow').css('display', 'none')
+				itemnamechusi()
+			} else {
+				itemnamechusi()
+				this.firstElementChild.setAttribute('src', '../../img/sdfsdf.png')
+				$('#disnow').css('display', 'block')
+				$('#disnowatt').css('display', 'none')
+			}
 		})
 		$('#imgitemB').click(function() {
-			$('.btnimg').eq(0).attr('src', '../../img/dfdf.png')
-			$('.btnimgA').eq(0).attr('src', '../../img/DCJZ.png')
-			$('.btnimgB').eq(0).attr('src', '../../img/XQZG.png')
-			this.firstElementChild.setAttribute('src', '../../img/DCJZ IN.png')
-			$('#disnow').css('display', 'block')
-			$('#nameite').css('display', 'none')
+			if (this.firstElementChild.getAttribute('src') == '../../img/DCJZIN.png') {
+				$('#disnow').css('display', 'none')
+				itemnamechusi()
+			} else {
+				itemnamechusi()
+				this.firstElementChild.setAttribute('src', '../../img/DCJZIN.png')
+				$('#disnow').css('display', 'block')
+				$('#disnowatt').css('display', 'block')
+				$('#nameite').css('display', 'none')
+			}
+
 		})
 		$('#imgitemC').click(function() {
+			if (this.firstElementChild.getAttribute('src') == '../../img/XQZGIN.png') {
+				$('#disnow').css('display', 'none')
+				itemnamechusi()
+			} else {
+				itemnamechusi()
+				this.firstElementChild.setAttribute('src', '../../img/XQZGIN.png')
+				$('#disnow').css('display', 'block')
+				$('#disnowatt').css('display', 'block')
+				$('#nameite').css('display', 'block')
+			}
+
+		})
+		$('#imgitemD').click(function() {
+			if (this.firstElementChild.getAttribute('src') == '../../img/bushiyong-1.png') {
+				$('#disnow').css('display', 'none')
+				itemnamechusi()
+			} else {
+				$('#disnow').css('display', 'none')
+				itemnamechusi()
+				this.firstElementChild.setAttribute('src', '../../img/bushiyong-1.png')
+			}
+
+		})
+
+		function itemnamechusi() {
+			$('.btnimgC').eq(0).attr('src', '../../img/bushiyong-2.png')
 			$('.btnimg').eq(0).attr('src', '../../img/dfdf.png')
 			$('.btnimgA').eq(0).attr('src', '../../img/DCJZ.png')
 			$('.btnimgB').eq(0).attr('src', '../../img/XQZG.png')
-			this.firstElementChild.setAttribute('src', '../../img/XQZG IN.png')
-			$('#disnow').css('display', 'block')
-			$('#nameite').css('display', 'block')
-		})
-
+		}
 		$('#issueall').click(function() {
 			if (issueitem == false) {
 				$('#describe').css('display', 'block')
@@ -660,104 +756,170 @@
 			})
 		})
 
+		function yuyinItem(num) {
+			var options = {};
+			options.engine = 'iFly';
+			var textadd = "";
+			// alert("开始语音识别：");
+			plus.speech.startRecognize(options, function(s) {
+				textadd += s;
+				if (num == 1) {
+					$('#textareaone').val(textadd)
+					console.log(textadd)
+				} else if (num == 2) {
+					$('#textareatwo').val(textadd)
+					console.log(textadd)
+				}
+			}, function(e) {
+				alert("语音识别失败：" + e.message);
+			})
 
+		}
 
+		function speechFatherOne(id, num) {
+			var options = {};
+			options.engine = 'iFly';
+			var textadd = "";
+			// alert("开始语音识别：");
+			plus.speech.startRecognize(options, function(s) {
+				textadd += s;
+				if (num == '1') {
+					var row = Math.ceil(textadd.length / 22);
+					if (row == 0) {
+						row = 1
+					}
+					$('#onfocusItem' + id).attr('rows', row)
+					$('#onfocusItem' + id).val(textadd)
+				} else if (num == '2') {
+					var row = Math.ceil(textadd.length / 22);
+					if (row == 0) {
+						row = 1
+					}
 
+					$('#onfocusItemName' + id).attr('rows', row)
+					$('#onfocusItemName' + id).val(textadd)
+
+				}
+				// console.log(textadd)
+			}, function(e) {
+				alert("语音识别失败：" + e.message);
+			});
+		}
 		// 获取当前的位置信息
 		function MapPoint(position) {
 			Lon = position.coords.longitude; //获取经度
 			Lat = position.coords.latitude; //获取纬度
-		    address = position.address.province + "," + position.address.city + "," + position.address.district + "," + position.address.street
-		 // + "," + position.address.streetNum;
+			address = position.address.province + "," + position.address.city + "," + position.address.district + "," + position
+				.address.street
+			// + "," + position.address.streetNum;
 			$('#geographic').html(address)
-		
+
 		}
 
 		$('#submit').click(function() {
 			var imgitemone = $('.imgitemtimeimg').eq(0).attr('src'),
-				imgitemtwo = $('.imgitemtimeimg').eq(1).attr('src'),
-				imgitemthree = $('.imgitemtimeimg').eq(2).attr('src');
-			
+				imgitemtwo = $('.imgitemtimeimg').eq(2).attr('src'),
+				imgitemthree = $('.imgitemtimeimg').eq(1).attr('src');
+			imgitemfirn = $('.imgitemtimeimg').eq(3).attr('src');
 			if (imgitemone == '../../img/sdfsdf.png') {
-				present({
-					reviewId: detailId,
-					optionId: "1",
-					lng: Lon, // 经度
-					lat: Lat, //纬度
-					location: address
-				})
-			} else if (imgitemtwo == '../../img/DCJZ IN.png') {
-				if ($('#textareaone').val().trim().length > 0) {
+				if (urls.length != 0) {
 					present({
-						reviewId: detailId,
-						optionId: "2",
 						picUrl: urls.join(","),
-						describe: $('#textareaone').val(),
+						reviewId: detailId,
+						optionId: "1",
 						lng: Lon, // 经度
 						lat: Lat, //纬度
 						location: address
 					})
-					// present(1)
 				} else {
-					mui.toast('检查描述未填写')
+					mui.toast('照片未上传')
 				}
-			} else if (imgitemthree == '../../img/XQZG IN.png') {
-				if ($('#textareaone').val().trim().length > 0) {
-					if ($('#textareatwo').val().trim().length > 0) {
-						if ($('#inputfontB').val().length > 0) {
-							console.log(33)
-							present({
-								reviewId: detailId,
-								optionId: "3",
-								picUrl: urls.join(","),
-								describe: $('#textareaone').val(),
-								lng: Lon, // 经度
-								lat: Lat, //纬度
-								location: address,
-								reviewRequire: $('#textareatwo').val(),
-								reviewTime: $('#inputfontB').val(),
-							})
+			} else if (imgitemtwo == '../../img/DCJZIN.png') {
+				if (urls.length != 0) {
+					if ($('#textareaone').val().trim().length > 0) {
+						present({
+							reviewId: detailId,
+							optionId: "2",
+							picUrl: urls.join(","),
+							describe: $('#textareaone').val(),
+							lng: Lon, // 经度
+							lat: Lat, //纬度
+							location: address
+						})
+						// present(1)
+					} else {
+						mui.toast('检查描述未填写')
+					}
+				} else {
+					mui.toast('照片未上传')
+				}
+			} else if (imgitemthree == '../../img/XQZGIN.png') {
+				if (urls.length != 0) {
+					if ($('#textareaone').val().trim().length > 0) {
+						if ($('#textareatwo').val().trim().length > 0) {
+							if ($('#inputfontB').val().length > 0) {
+
+								present({
+									reviewId: detailId,
+									optionId: "3",
+									picUrl: urls.join(","),
+									describe: $('#textareaone').val(),
+									lng: Lon, // 经度
+									lat: Lat, //纬度
+									location: address,
+									reviewRequire: $('#textareatwo').val(),
+									reviewTime: $('#inputfontB').val(),
+								})
+							} else {
+								mui.toast('复查时间未选择')
+
+							}
 						} else {
-							mui.toast('复查时间未选择')
+							mui.toast('整改要求未填写')
 
 						}
 					} else {
-						mui.toast('整改要求未填写')
+						mui.toast('检查描述未填写')
 
 					}
 				} else {
-					mui.toast('检查描述未填写')
-
+					mui.toast('照片未上传')
 				}
+			} else if (imgitemfirn == '../../img/bushiyong-1.png') {
+				mui.back()
 			} else {
 				mui.toast('未判断是否符合')
 			}
 		})
 
 		function present(data) {
-			console.log(JSON.stringify(data));
 			mui.ajax({
 				type: 'post',
 				url: localStorage.getItem("url") + '/checklist/review',
 				data: data,
 				timeout: 10000,
 				success: function(res) {
-					console.log(JSON.stringify(res));
 					if (res.code == 200) {
-						if(data.optionId != 1){
+						var imgItem = $('#imgFun').attr('src')
+					
+						if (data.optionId != 1) {
 							mui.toast("隐患已排除");
-						}else{
-						mui.toast("隐患复查成功");
+						} else {
+							mui.toast("隐患复查成功");
 						}
 						var main = plus.webview.getWebviewById("checkChild.html");
 						mui.fire(main, 'changeCity', {
 							// cityName: twoArr
 						})
-                        var main = plus.webview.getWebviewById("html/dangers/dangersFather.html");
+						var main = plus.webview.getWebviewById("dangerspageattr.html");
 						mui.fire(main, 'changeCity', {
 							// cityName: twoArr
 						})
-						mui.back();
+					 if (imgItem.indexOf('radio26') == -1) {
+					 	Printed()
+					 }else{
+						 mui.back()
+					 }
 						// valueList = data.data.response.list;
 
 					} else {
@@ -766,6 +928,28 @@
 				},
 				error: function() {}
 			})
+		}
+
+		function imgFuntion() {
+			var imgItem = $('#imgFun').attr('src')
+			if (imgItem.indexOf('radio26') == -1) {
+				$('#imgFun').attr('src', '../../img/radio26.png')
+				$('#fontsitItem').css('color', '#999999')
+			} else {
+				$('#imgFun').attr('src', '../../img/raido142.png')
+				$('#fontsitItem').css('color', '#44A5F4')
+			}
+		}
+		// 打印传递的数据
+		function Printed(){
+			mui.openWindow({
+				id: 'printItem.html',
+				url: 'printItem.html',
+				extras: {
+					detailId: detailId
+				}
+			})
+
 		}
 	</script>
 </html>

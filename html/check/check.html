@@ -99,19 +99,6 @@
 				background-color: rgba(0, 0, 0, .3);
 			} */
 
-			.muiRight {
-				position: absolute;
-				right: 14px;
-				display: inline-block;
-				height: 40px;
-				bottom: 1px;
-				width: 50px;
-				padding-top: 9px;
-				font-size: 13px;
-				text-align: right;
-				padding-right: 20px;
-				/* background: yellow; */
-			}
 
 			. mui-media {
 				position: relative;
@@ -122,14 +109,6 @@
 				background: #F3F3F3;
 			}
 
-			.muiRightimg {
-				margin-right: 3px;
-				width: 14px;
-				height: 14px;
-				margin-top: 2px;
-				z-index: 200;
-				float: right;
-			}
 
 			.mui-table-view-cell {
 				color: #595959;
@@ -162,14 +141,6 @@
 				background-color: rgba(0, 0, 0, .3);
 			}
 
-		/* 	.muiRightimg {
-				position: relative;
-				margin-top: 1px;
-				display: inline-block;
-				z-index: -110;
-				
-			} */
-
 			.mui-icon-left-nav {
 				display: inline-block;
 				color: #FFFFFF;
@@ -196,6 +167,25 @@
 			.mui-table-view-cell::after{
 				right: 14px;
 			}
+			
+			.leftCol{
+				/* background: red; */
+			}
+			.mui-table-view-cellitem{
+				/* background: yellow; */
+				  padding:15px 10px;
+				 display: -webkit-flex; /* Safari */
+         display: flex;
+				 flex-direction: row ;
+				 justify-content:space-between;
+			}
+			.muiRight{
+				/* background: #2581E7; */
+				color: #999999;
+				font-size: 11px;
+				margin: auto 0;
+				margin-right: 10px;
+			}
 		</style>
 	</head>
 	<body>
@@ -205,7 +195,7 @@
 				<h1 class="mui-title">日常检查</h1>
 				<span id="openPopover" class="mui-pull-right"><img src="../../img/shuaxin_07.png" id="imgsize"></span>
 			</div>
-			<div id="itemName"><span id="itemNameitem"></span> <span id="itemNameitemchuo"></span></div>
+			<div id="itemName"  ><span id="itemNameitem"></span> <span id="itemNameitemchuo"></span></div>
 		</header>
 		<span style="height: 87px;display: inline-block;"></span>
 		<div id="topPopover" class="mui-popover" style="width: 120px;z-index: 100000;">
@@ -220,7 +210,7 @@
 		<div id="itemback"></div>
 		<div id="mobile"></div>
 		<nav id="submitFather"  class="mui-bar mui-bar-tab" id='navbarA'>
-			<button id="name">发布检查单</button>
+			<button id="name">发布记录</button>
 		</nav>
 		<!-- 弹框 -->
 
@@ -230,7 +220,7 @@
 	<script type="text/javascript">
 		var detailId;
 		var detailIdA;
-		var query;
+		var query,towanitemnameitem;
 		var main, menu, mask = mui.createMask(_closeMenu);
 		var showMenu = false,
 			mode = 'main-move';
@@ -242,14 +232,16 @@
 		var key = '4';
 		mui.plusReady(function() {
 			// 字体白色(light)的沉浸栏 
-			plus.navigator.setStatusBarStyle("light"); //dark 字体为黑色的沉浸栏
-			plus.navigator.setStatusBarBackground('#0F0F0F'); //改变沉浸栏背景颜色的
+// 			plus.navigator.setStatusBarStyle("light"); //dark 字体为黑色的沉浸栏
+// 			plus.navigator.setStatusBarBackground('#0F0F0F'); //改变沉浸栏背景颜色的
 			main = plus.webview.currentWebview();
 			detailId = main.detailId
 			query = main.query
 			detailIdA = main.detailIdA
 			special = main.special
 			specialtext = main.specialtext
+			towanitemnameitem = main.towanitemnameitem  //公司渡口名称
+
 			$('#itemNameitem').text(main.towanitemnameitem)
 			if (query == 1) {
 				$('#itemNameitemchuo').text('渡口渡船检查')
@@ -291,11 +283,15 @@
 			}, 300);
 		})
 		window.addEventListener("changeCitytimeone", function(e) {
+		
 			onepage(detailIdA)
 		})
-
+		window.addEventListener("changeCitytimeoneitemd", function(e) {
+		
+			mui.back()
+		})
 		function onepage(valueId) {
-			// console.log(valueId)
+			console.log(valueId)
 			$('#mobile').html('')
 			mui.ajax(url + '/checklist/listOrder', {
 				data: {
@@ -306,13 +302,11 @@
 				jsonp: "jsoncallback",
 				timeout: 10000,
 				success: function(data) {
-					// console.log(data)
-					// 一级目录数组
 					var res = JSON.parse(data);
 					var value = res.data.response.list;
 					var countA = res.data.response.count;
 					var orders = res.data.response.orders;
-					// console.log(value[0].one)
+				
 					if (orders.length == 0) {
 						$('#name').attr('disabled', 'disabled')
 					} else {
@@ -324,39 +318,21 @@
 								newArr.push(value[i].one)
 						}
 					}
-			
 					valueItem = value
-					// 					for (var j = 0; j < ordersArray.length; j++) {
-					// 						for (var num = 0; num < newArr.length; num++) {
-					// 							if (ordersArray[j] == newArr[num]) {
-					// 								newArr.splice(num, 1)
-					// 							}
-					// 						}
-					// 					}
-
-					// console.log(newArr)
 					var string = ''
-					for (var indexA = 0; indexA < newArr.length; indexA++) {
+					for (var indexA = 0; indexA < newArr.length; indexA++) { 
 						var stringnum = newArr[indexA]
-						if(newArr[indexA].length>12){
-						var	stringnumA = newArr[indexA].substring(0,12)+'...'
-						}else{
-						var stringnumA = stringnum
-						}
-								
-						string = string + '<li class="mui-table-view-cell mui-table-view-cellitem mui-media" onClick=leftItem(' +
-							indexA + ')>' + stringnumA +
-							'<span class="muiRight" id="srctext" onClick=rightItem(event,' + indexA + ')>' + countA[stringnum] +
-							'</span>' + '<img class="muiRightimg" onClick=rightItem(event,' + indexA + ') src="../../img/yijian_03.png" id="srcimg"/>' + '</li>'
+						 string = string + '<li class="mui-table-view-cell mui-table-view-cellitem mui-media" onClick=leftItem(' +
+							indexA + ')><span class="leftCol">' + stringnum +
+							'</span><span class="muiRight" >' + countA[stringnum] +'</span></li>'
 					}
 					var itemPrsmise = new Promise(function(resolve, reject) {
-
 						$('#mobile').html($('<ul class="mui-table-view"></ul>').append(string))
 						$('#mobile').append('<div style="clear: both"></div>')
 						resolve(1)
 					})
 					itemPrsmise.then(function(value) {
-						percentage()
+						// percentage()
 					})
 
 				},
@@ -364,21 +340,21 @@
 			})
 		}
 
-		function percentage() {
-			for (var index = 0; index < $('.muiRight').length; index++) {
-				var value = $('.muiRight')[index].textContent
-				var valueA = value.split('/')[0]
-				if (valueA != '0') {
-					document.getElementsByClassName('muiRightimg')[index].setAttribute('src', '../../img/yijian_07.png')
-				} else {
-					$('.muiRight')[index].onclick = document.getElementsByClassName('muiRightimg')[index].onclick = function() {
-						mui.toast("该项暂无已检内容");
-						event.stopPropagation()
-					}
-				}
-
-			}
-		}
+// 		function percentage() {
+// 			for (var index = 0; index < $('.muiRight').length; index++) {
+// 				var value = $('.muiRight')[index].textContent
+// 				var valueA = value.split('/')[0]
+// 				if (valueA != '0') {
+// 					document.getElementsByClassName('muiRightimg')[index].setAttribute('src', '../../img/yijian_07.png')
+// 				} else {
+// 					$('.muiRight')[index].onclick = document.getElementsByClassName('muiRightimg')[index].onclick = function() {
+// 						mui.toast("该项暂无已检内容");
+// 						event.stopPropagation()
+// 					}
+// 				}
+// 
+// 			}
+// 		}
 		mui.init({
 			swipeBack: false,
 			// beforeback: back,
@@ -401,61 +377,55 @@
 
 		})
 
-
-
-		// 右侧点击事件
-		function rightItem(event, index) {
-			var one = newArr[index] 
-			event.stopPropagation()
-			mui.openWindow({
-				url: '../inspected/inspected.html',
-				id: '../inspected/inspected.html',
-				extras: {
-					detailId: detailIdA,
-					one: one,
-				}
-			})
-			// openMenu(3)
-		}
 		// 左侧点击事件
 		function leftItem(e) {
 			var value = newArr[e]
 			var twovalue = []
-			$('#openPopover').css('display', 'none')
-			for (var index = 0; index < $('.mui-table-view-cellitem').length; index++) {
-				$('.mui-table-view-cellitem').eq(index).css({
-					'background': ' #FFFFFF',
-					'color': '#5C5C5C'
-				})
-			}
-			$('.mui-table-view-cellitem').eq(e).css({
-				'background': 'linear-gradient(to right, #48A9F6, #2985E8)',
-				'color': '#FFFFFF'
-			})
 			for (var i = 0; i < valueItem.length; i++) {
 				if (valueItem[i].one == value) {
 					twovalue.push(valueItem[i])
 				}
 			}
 			var twoArr = []
-
 			for (var i = 0; i < twovalue.length; i++) {
 				if (twoArr.indexOf(twovalue[i].two) == -1) {
 					twoArr.push(twovalue[i].two)
 				}
 			}
-			var main = plus.webview.getWebviewById("checkChild.html");
-			mui.fire(main, 'changeCity', {
-				cityName: twoArr,
-				value: value
-			})
-			// 		  var maintiem = plus.webview.getWebviewById("../check/checkFather.html");
-			// 				mui.fire(maintiem, 'changeCitynacheck', {
-			// 						// cityName: twoArr
-			// 					}),
-			// window.localStorage.setItem('textValue', twoArr)
-			window.localStorage.setItem('textTwoValue', value)
-			openMenu(3)
+			if(twoArr.length == 1 && twoArr[0] == value){
+					mui.openWindow({
+					url: 'checkPageFather.html',
+					id: 'checkPageFather.html',
+					extras: {
+						one: twoArr[0],
+						detailId: detailIdA,
+						two:twoArr[0],
+						towanitemnameitem:towanitemnameitem
+					}
+				})
+			}else{
+				$('#openPopover').css('display', 'none')
+				for (var index = 0; index < $('.mui-table-view-cellitem').length; index++) {
+					$('.mui-table-view-cellitem').eq(index).css({
+						'background': ' #FFFFFF',
+						'color': '#5C5C5C'
+					})
+				}
+				$('.mui-table-view-cellitem').eq(e).css({
+					'background': 'linear-gradient(to right, #48A9F6, #2985E8)',
+					'color': '#FFFFFF'
+				})
+				
+				var main = plus.webview.getWebviewById("checkChild.html");
+				mui.fire(main, 'changeCity', {
+					cityName: twoArr,
+					value: value,
+					towanitemnameitem:towanitemnameitem
+				})
+				window.localStorage.setItem('textTwoValue', value)
+				openMenu(3) 
+			}
+	
 		}
 
 		// 监听二级菜单的返回的
@@ -477,7 +447,7 @@
 			mui('#topPopover').popover('hide');
 			mui('#middlePopover').popover('toggle', document.getElementById("middlePopoveritem"));
 			if (query == 1) {
-				// console.log('yes')
+				
 				mui.openWindow({
 					url: '../browse/ferry.html',
 					id: '../browse/ferry.html',
@@ -610,18 +580,18 @@
 		// document.querySelector('.mui-action-menu').addEventListener('tap', openMenu);
 		//在android4.4中的swipe事件，需要preventDefault一下，否则触发不正常
 		//故，在dragleft，dragright中preventDefault
-		window.addEventListener('dragright', function(e) {
+		window.addEventListener('dragright', function(e){
 			e.detail.gesture.preventDefault();
 		});
 		window.addEventListener('dragleft', function(e) {
 			e.detail.gesture.preventDefault();
 		});
 		//主界面向左滑动，若菜单未显示，则显示菜单；否则不做任何操作；
-		window.addEventListener("swipeleft", openMenu);
+		// window.addEventListener("swipeleft", openMenu);
 		//主界面向右滑动，若菜单已显示，则关闭菜单；否则，不做任何操作；
-		window.addEventListener("swiperight", closeMenu);
+		// window.addEventListener("swiperight", closeMenu);
 		//menu页面向右滑动，关闭菜单；
-		window.addEventListener("menu:swiperight", closeMenu);
+		// window.addEventListener("menu:swiperight", closeMenu);
 
 		//重写mui.menu方法，Android版本menu按键按下可自动打开、关闭侧滑菜单；
 		mui.menu = function() {
@@ -644,7 +614,7 @@
 				timeout: 5000,
 				success: function(data) {
 					var res = JSON.parse(data)
-					// console.log(JSON.stringify(data))
+				
 					var string = ''
 					if (res.code == 200) {
 						maskitem.close()
@@ -658,36 +628,45 @@
 			})
 		})
 		$('#name').click(function() {
-			mui.ajax({
-				type: 'get',
-				url: url + '/checklist/reportedOrder',
-				data: {
-					detailId: detailIdA
-				},
-				dataType: "jsonp",
-				jsonp: "jsoncallback",
-				timeout: 5000,
-				success: function(data) {
-					// console.log(JSON.stringify(data))
-					var res = JSON.parse(data)
-					var string = ''
-					if (res.code == 200) {
-						var mainitem = plus.webview.getWebviewById('browseChild.html');
-						setTimeout(function(){
-							mui.back()
-						},200)
-						mui.fire(mainitem, 'changeC', {})
-						mui.openWindow({
-							url: '../browse/browse.html',
-							id: 'html/browse/browse.html',
-						})
-						mui.toast('发布成功')
-					}
-				},
-				error: function(err) {
-					console.log(err)
-				}
-			})
+			var stringItemite = main.towanitemnameitem+$('#itemNameitemchuo').text()
+									mui.openWindow({
+										url: 'Releasepreview.html',
+										id: 'Releasepreview.html',
+										extras: {
+											detailId: detailIdA,
+											string : stringItemite
+										}
+									})
+// 			mui.ajax({
+// 				type: 'get',
+// 				url: url + '/checklist/reportedOrder',
+// 				data: {
+// 					detailId: detailIdA
+// 				},
+// 				dataType: "jsonp",
+// 				jsonp: "jsoncallback",
+// 				timeout: 5000,
+// 				success: function(data) {
+// 					// console.log(JSON.stringify(data))
+// 					var res = JSON.parse(data)
+// 					var string = ''
+// 					if (res.code == 200) {
+// 						var mainitem = plus.webview.getWebviewById('browseChild.html');
+// 						setTimeout(function(){
+// 							mui.back()
+// 						},200)
+// 						mui.fire(mainitem, 'changeC', {})
+// 						mui.openWindow({
+// 							url: '../browse/browse.html',
+// 							id: 'html/browse/browse.html',
+// 						})
+// 						mui.toast('发布成功')
+// 					}
+// 				},
+// 				error: function(err) {
+// 					console.log(err)
+// 				}
+// 			})
 		})
 		// 		var nameId = window.localStorage.getItem('nameId')
 		// 		var parId =window.localStorage.getItem ('parId')

@@ -61,7 +61,7 @@
 		mui.plusReady(function() {
 			var self = plus.webview.currentWebview();
 			detailId = self.detailId;
-			console.log(detailId);
+		
 			first = self.one;
 			onload();
 		})
@@ -210,7 +210,7 @@
 										div.appendChild(DeleteBtn);
 										selcondTitle.appendChild(div);
 										DeleteBtn.onclick = function(e) {
-											console.log("删除");
+											
 
 											mui.ajax(localStorage.getItem("url") + "/checklist/removeOrder", {
 												data: {

@@ -12,6 +12,7 @@
 		<script src="../../lib/js/jquery1.9.1.min.js" type="text/javascript" charset="utf-8"></script>
 		<link rel="stylesheet" type="text/css" href="http://at.alicdn.com/t/font_916083_m6v3tzt4odk.css">
 		<script type="text/javascript" charset="utf-8">
+		
 			var pages = 1;
 			mui.init({
 				beforeback: function() {
@@ -30,6 +31,7 @@
 							pages++; //页数
 							add(pages); //ajax函数
 							mui('#card-wrap').pullRefresh().endPullupToRefresh();
+							mui('#card-wrap').pullRefresh().disablePullupToRefresh(); //隐藏“上拉加载”所在区域
 						} //必选，刷新函数，根据具体业务来编写，比如通过ajax从服务器获取新数据；
 					}
 
@@ -125,7 +127,7 @@
 	</body>
 	<script type="text/javascript">
 		function add(pages) {
-			console.log(pages)
+			
 			mui.ajax(localStorage.getItem("url") + "/checklist/listSpecialOrderInfo", {
 				data: {
 					pageNum: pages
@@ -134,7 +136,7 @@
 					if (res.code == 200) {
 						var list = res.data.response.list;
 						if (list == null || list == '') {
-							console.log('是的')
+							
 							$('body').css({
 								'background': 'url(../../img/nowzhuanxiang_02.jpg) no-repeat',
 								'background-size': '100%',
@@ -286,6 +288,8 @@
 								}
 							}
 							mui('#card-wrap').pullRefresh().endPullupToRefresh(false); //禁止刷新
+							mui('#card-wrap').pullRefresh().disablePullupToRefresh(); //隐藏“上拉加载”所在区域
+
 						} else {
 							mui('#card-wrap').pullRefresh().endPullupToRefresh(true); //启动刷新
 						}

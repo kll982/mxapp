@@ -30,9 +30,7 @@
 			.mui-tableItem {
 				width: 100%;
 				color: #595959;
-				height: 42px;
-				line-height: 42px;
-				padding-left: 10px;
+				padding: 15px 10px;
 			}
 
 			.hrclass {
@@ -41,40 +39,12 @@
 				border: 0.8px solid #F2F2F2;
 			}
 
-			.imgright {
-				float: right;
-				margin-right: 45px;
-				width: 12px;
-				height: 12px;
-				margin-top: 13px;
-			}
-
-			.pageson {
-				width: 100%;
-				padding-right: 45px;
-				text-align: justify;
-				color: #000000;
-				background: #F3F3F3;
-			}
-
-			.pageson>p {
-				font-size: 16px;
-				line-height: 22px;
-				padding-left: 15px;
-			}
-
-			.pageson>p:first-child {
-				padding-top: 5px;
-			}
-
-			.hrclasstwo {
-				border: 0.8px solid #E6E6E6;
+			.secondaryItem {
+				color: #2E8AEA;
 			}
 		</style>
 	</head>
-
 	<body>
-
 		<div class="mui-content">
 			<ul class="mui-table-view panelItem">
 			</ul>
@@ -85,6 +55,7 @@
 		var level = [];
 		var main = null;
 		var detailId;
+		var towanitemnameitem;
 		var valueList = [];
 		var value = ''
 		mui.init({
@@ -97,191 +68,100 @@
 			main = plus.webview.currentWebview().opener();
 			var self = plus.webview.currentWebview();
 			detailId = self.detailId;
-			// console.log(detailId)
 		})
-		// var levelItem = localStorage.getItem('textValue')
-		// 		setInterval(function() {
-		// 			if (localStorage.getItem('textValue') != levelItem) {
-		// 				 levelItem = localStorage.getItem('textValue')
-		// 				 level = levelItem.split(',')
-		// 				 console.log(level)
-		// 				 muiTable()
-		// 			}
-		// 		}, 100)
 		var url = window.localStorage.getItem('url')
 		var textTwoValue = window.localStorage.getItem('textTwoValue')
 		window.addEventListener("changeCity", function(e) {
 			level = e.detail.cityName
 			valuetext = e.detail.value
-		
+			towanitemnameitem = e.detail.towanitemnameitem
 			muiTable()
 		});
 		window.addEventListener("changeCitytimeone", function(e) {
 
 		})
-	window.addEventListener("xintian", function(e) {
-           value=''
+		window.addEventListener("xintian", function(e) {
+			value = ''
 		})
+
 		function muiTable() {
 			$('.mui-table-view').html('')
-			for (var index = 0; index < level.length; index++) {
-				string = '</span><li class="mui-tableItem" onClick="pageItem(' + index + ')"><span class="secondary">' + level[
-						index] +
-					'</span><img class="imgright" id="imgright' + index +
-					'" src="../../img/youbianone.png" ></li><hr class="hrclass"/><div class="pageson" id="pageSon' + index +
-					'"></div>'
-				$('.mui-table-view').append(string)
-				var stringText = ''
-				$('#num' + index).html(stringText)
-			}
+			
+			mui.ajax(url + '/checklist/listOrder', {
+				data: {
+					detailId: detailId
+				},
+				type: 'get',
+				dataType: "jsonp",
+				jsonp: "jsoncallback",
+				timeout: 10000,
+				success: function(data) {
+					
+					var res = JSON.parse(data);
+					var value = res.data.response.list;
+					var orders = res.data.response.orders;
+					var arrayItem = [];
+					// var string='';
+					if (orders.length == 0) {
+						for (var index = 0; index < level.length; index++) {
+							var secondaryItem = '';
+							string = '</span><li class="mui-tableItem" onClick="pageItem(' + index + ')"><span class="secondary  ' +
+								secondaryItem + '">' + level[index] +
+								'</span></li><hr class="hrclass"/>'
+							$('.mui-table-view').append(string)
+							var stringText = ''
+							$('#num' + index).html(stringText)
+						}
+					} else {
+						for (var ordersNum = 0; ordersNum < orders.length; ordersNum++) {
+							arrayItem.push(orders[ordersNum].itemId)
+						}
+						for (var index = 0; index < level.length; index++) {
+							var secondaryItem = '';
+							for (var num = 0; num < value.length; num++) {
+								if (level[index] == value[num].two && valuetext == value[num].one) {
+									if (arrayItem.indexOf(value[num].id) != -1) {
+										secondaryItem = 'secondaryItem'
+									}
+								}
+							}
+							string = '</span><li class="mui-tableItem" onClick="pageItem(' + index + ')"><span class="secondary  ' +
+								secondaryItem + '">' + level[index] +
+								'</span></li><hr class="hrclass"/>'
+							$('.mui-table-view').append(string)
+							var stringText = ''
+							$('#num' + index).html(stringText)
+						}
+					}
+				},
+				error: function() {}
+			})
 			for (var j = 0; j < $('.secondary').length; j++) {
 				if ($('.secondary')[j].textContent.length > 8) {
 					var textitam = $('.secondary')[j].textContent.substring(0, 8)
 					var texthtml = textitam + '...'
 					$('.secondary').eq(j).text(texthtml)
-
-					// console.log(texthtml)
 				}
 			}
 		}
 
-		function pageItem(indexnum){
-			var valuetwo = level[indexnum]
-// 			console.log(valuetwo)
-// 			console.log(value)
-			var string = '';
-			if (valuetwo == value) {
-				$('.imgright').attr('src', "../../img/youbianone.png")
-				$('.pageson').html('')
-				$('.mui-tableItem').eq(indexnum).css('color', '#595959')
-				$('.hrclass').css('border', '0.8px solid #F2F2F2')
-				value = '';
-			} else {
-				value = level[indexnum] 
-				// console.log(detailId)
-				$('.pageson').html('')
-				$('.imgright').attr('src', "../../img/youbianone.png")
-				$('.mui-tableItem').css('color', '#595959')
-				$('.hrclass').css('border', '0.8px solid #F2F2F2')
-				mui.ajax({
-					type: 'get',
-					url: url + '/checklist/listOrder',
-					data: {
-						detailId: detailId
-					},
-					timeout: 10000,
-					success: function(data) {
-						// console.log(JSON.stringify(data))
-						if (data.code == 200) {
-							// console.log(JSON.stringify(data))
-							valueList = data.data.response.list;
-							orders = data.data.response.orders;
-							for (var index = 0; index < valueList.length; index++) {
-								
-                                var isRightA = 0
-								var isRight = 0;
-								if(valueList[index].three.length>39){
-									var threetext = valueList[index].three.substring(0,39)+'...'
-								}else{
-									var threetext = valueList[index].three
-								}
-								// console.log(threetext)
-								if (orders.length >= 1) {
-									for (var j = 0; j < orders.length; j++) {
-										if (value == valueList[index].two && valuetext == valueList[index].one && orders[j].itemId != valueList[
-												index].id) {
-											 isRight = 1;
-										} else if (value == valueList[index].two && valuetext == valueList[index].one && orders[j].itemId ==
-											valueList[index].id) {
-											 isRightA = 2
-										} else {
-											var isRight = 3
-										}
-									}
-									if(isRightA != 2){
-										if (isRight == 1) { 
-											string = string + '<p onClick="detailPage(' + valueList[index].id +','+ index +')">' + threetext +
-												'</p><hr class="hrclasstwo"/>'
-										}
-									}
-								
-								} else {
-									if (value == valueList[index].two && valuetext == valueList[index].one) {
-										string = string + '<p onClick="detailPage(' + valueList[index].id +','+ index +')">' +threetext +
-											'</p><hr class="hrclasstwo"/>'
-
-									}
-
-								}
-
-
-								// console.log(value)
-
-							}
-							var id = '#pageSon' + indexnum
-
-                            console.log(string) 
-							if(string==''||string==null){
-								mui.toast('已检查完毕')
-							}else{
-								$(id).html(string)
-								$('#imgright' + indexnum).attr('src', "../../img/youbiantwo.png")
-								$('.mui-tableItem').eq(indexnum).css('color', '#318EEB')
-								$('.hrclass').eq(indexnum).css('border', '1px solid #48A9F6')
-							}
-							
-						}
-					},
-					error: function() {}
-				})
-			}
-
-		}
-
-		function detailPage(index,value) {
-// 			console.log(value)
-// 			console.log(index)
+		function pageItem(indexnum) {
+		
 			var main = plus.webview.getWebviewById("../check/check.html");
 			mui.fire(main, 'changeCityitem', {
 					// cityName: twoArr
-				}),	
+				}),
 				mui.openWindow({
-					url: 'checkPage.html',
-					id: 'checkPage.html',
+					url: 'checkPageFather.html',
+					id: 'checkPageFather.html',
 					extras: {
-						listId: index,
+						one: valuetext,
 						detailId: detailId,
-						two:valueList[value].two
+						two: level[indexnum],
+						towanitemnameitem: towanitemnameitem
 					}
 				})
 		}
-		// 		function closeMenu() {
-		// 			mui.fire(main, "menu:swiperight");
-		// 		}
-
-		//左滑显示出来的菜单，只需监听右滑，然后将菜单关闭即可；在该菜单上左滑，不做任何操作；
-		// window.addEventListener("swiperight", closeMenu);
-
-		// document.getElementById("close-btn").addEventListener('tap',closeMenu);
-
-		// ajax请求二级列表数据
-		// 		mui.ajax({
-		// 			type:'post',
-		// 			url:'',
-		// 			data:{
-		// 				
-		// 			},
-		// 			dataType: "jsonp",
-		// 			jsonp: "jsoncallback", 
-		// 			timeout: 5000,
-		//             success:function(data){
-		// 				console.log(data)
-		// 			},
-		// 			error:function(err){
-		// 				console.log(err)
-		// 			}
-		// 		})
-
 		mui(".mui-content").on('tap', '.mui-table-view-cell', function() {
 			// closeMenu();
 			mui.openWindow({

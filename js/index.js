@@ -33,7 +33,7 @@ function timeTransitem(date){
 // 		}
 
 		// 获取当前的时间
-		mui.init();
+
 		var result = $('#inputfontB')[0];
 		var btns = $('.btn');
 		btns.each(function(i, btn) {

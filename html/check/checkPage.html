@@ -1,92 +1,1106 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
-    <title></title>
-    <link href="../../lib/css/mui.css" rel="stylesheet"/>
-	<link rel="stylesheet" type="text/css" href="../../css/index.css"/>
-	<style type="text/css">
-		#header {
-						background: linear-gradient(to right, #48A9F6, #2985E8);
-						height: 53px;
-					}
-					#header>h1 {
-						line-height: 53px;
-						font-size:18px;
-						color: white;
-						display: inline-block;
-					}
-					#imgsize{
-						width: 18px;
-						height: 17px;
-						margin-right: 10px;
-						margin-top: 19px;
-					}
-					#header>a{
-						top: 7px;
-					}
-	</style>
-</head>
-<body>
-	<header id="header" class="mui-bar mui-bar-nav">
-		<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
-		<h1 class="mui-title"></h1>
-	</header>
-</body>
- <script src="../../lib/js/mui.min.js"></script>
-<script src="../../lib/js/jquery1.9.1.min.js"></script>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link href="../../lib/css/mui.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../../css/index.css" />
+		<link rel="stylesheet" type="text/css" href="../../lib/css/mui.picker.min.css" />
 
- <script type="text/javascript" charset="utf-8">
-	
- mui.plusReady(function() {
-		// 字体白色(light)的沉浸栏 
-		 plus.navigator.setStatusBarStyle("light"); //dark 字体为黑色的沉浸栏
-		 plus.navigator.setStatusBarBackground('#000000'); //改变沉浸栏背景颜色的 
-		var self = plus.webview.currentWebview();
-		if(self.two.length>12){
-			$('.mui-title').text(self.two.substring(0,11)+'...')
-		}else{
-			$('.mui-title').text(self.two)
-		}
-		pageitem(self.listId,self.detailId)
-	 }) 
-	  function pageitem(index,detailId){
-			mui.init({
-				subpages: [{
-					url: 'checkPageChild.html', //子页面HTML地址，支持本地地址和网络地址
-					id: 'checkPageChild.html', //子页面标志
-					styles: {
-						top: '53px', //子页面顶部位置
-						bottom: '0', //子页面底部位置
-					},
-					extras: {
-						listId:index,
-						detailId:detailId
-					} //额外扩展参数
-				}]
-			});
-// 			mui.ajax({
-// 				type: 'get',
-// 				url: url + '/checklist/listOrder',
-// 				data: {
-// 				detailId: 90
-// 				},
-// 				timeout: 10000,
-// 				success: function(data) {
-// 					if (data.code == 200) {
-// 							valueList = data.data.response.list;
-//               for(var num = 0 ;num<valueList.length;num++){
-// 								if(valueList.id == index){
-// 									
-// 								}
-// 							}
-// 					} 
-// 				},
-// 				error: function() {}
-// 			})
-		}
-            
+		<style type="text/css">
+			.bodyCenter {
+				margin-bottom: 6px;
+				background: #FFFFFF;
+				padding: 0 20px 6px 20px;
+				/* background: red; */
+				padding-bottom: 14px;
+			}
+
+			.htmlHeader {
+				display: -webkit-flex;
+				/* Safari */
+				display: flex;
+				flex-direction: row;
+				justify-content: flex-start;
+				padding: 19px 0 10px 0;
+			}
+
+			.htmlText {
+				/* background: yellow; */
+				font-size: 20px;
+				color: #404040;
+				font-weight: 303px;
+				text-align: justify;
+
+			}
+
+			.htmlNum {
+				/* background: red; */
+				font-size: 20px;
+				color: #404040;
+				font-weight: 303px;
+			}
+
+			.imgSize {
+				width: 18px;
+				height: 18px;
+				padding: 0;
+				margin: 0;
+				/* background: blue; */
+				float: right;
+			}
+
+			.clear {
+				clear: both;
+			}
+
+			.imgFather {
+				padding: 0;
+				margin: 0 0 7px 0;
+				height: 20px;
+				/* background: red; */
+			}
+
+			.regulations {
+				background: #FAFAFA;
+				border-radius: 16px;
+				padding: 12px 20px;
+				box-shadow: 0px 2px 3px 2px #E6E6E6;
+				display: none;
+			}
+
+			.regulations>span {
+				color: #666666;
+				font-size: 14px;
+			}
+
+			.dataDisplay {
+				display: block;
+			}
+
+			.btn {
+				display: -webkit-flex;
+				/* Safari */
+				display: flex;
+				flex-direction: row;
+				justify-content: space-around;
+				margin-top: 24px;
+				/* background: red; */
+			}
+
+		/* 	.imgitemtimeimg {
+				background: red;
+			} */
+
+			.photoText {
+				color: #999999;
+				font-size: 16px;
+				/* position: relative; */
+				width: 80px !important;
+				display: inline-block;
+				flex-shrink: 0;
+				/* background: #007AFF; */
+			}
+
+			.photoImg {
+				height: 75px;
+				width: 75px;
+				display: inline-block;
+				border: 1px dashed #CCCCCC;
+				line-height: 75px;
+				text-align: center;
+				margin: 0 0 6px 6px;
+				/* background: red; */
+			}
+
+			.photoImg>img {
+				height: 15px;
+				width: 18px;
+				display: inline-block;
+			}
+
+			.photoImgBig {
+				/* background: red; */
+				height: 75px;
+				width: 75px;
+				display: inline-block;
+				margin: 0 0 6px 6px;
+			}
+
+			.photoImgBig>img {
+				height: 75px !important;
+				width: 75px;
+				display: inline-block;
+			}
+
+			.photoCenter {
+				display: -webkit-flex;
+				/* Safari */
+				display: flex;
+				flex-direction: row;
+				flex-wrap: wrap;
+			}
+
+			.photoFather {
+				/* background: yellow; */
+				margin: 30px 0 16px 0;
+				display: -webkit-flex;
+				/* Safari */
+				display: flex;
+				flex-direction: row;
+				justify-content: flex-start;
+			}
+
+			.examine {
+				display: -webkit-flex;
+				/* Safari */
+				display: flex;
+				flex-direction: row;
+				justify-content: space-between;
+			}
+
+			.examine>span {
+				color: #999999;
+				font-size: 16px;
+			}
+
+			.examine>span>span {
+				color: red;
+				font-size: 20px;
+				position: relative;
+				top: 2px;
+			}
+
+			.speechFather {
+				width: 30px;
+				height: 30px;
+				/* background: red; */
+				display: inline-block;
+				text-align: center;
+			}
+
+			.speech {
+				position: relative;
+				top: 3px;
+				width: 12px;
+				height: 18px;
+			}
+
+			.hrItem {
+				margin-top: 2px;
+				border: none;
+				height: 1px;
+				background: #D9D9D9;
+				position: relative;
+				top: -7px;
+			}
+
+			textarea {
+				border: none;
+				text-align: justify;
+				margin: 0;
+				/* background: red; */
+			}
+
+			.positioning {
+				height: 14px;
+				width: 12px;
+			}
+
+			.bottomButton {
+				text-align: right;
+				margin-top: 18px;
+			}
+
+			.bottomButton>span {
+				color: #CCCCCC;
+				font-size: 14px;
+				margin-left: 20px;
+			}
+
+			.unfold>img {
+				width: 10px;
+				height: 10px;
+				margin-left: 2px;
+			}
+
+			/*  .unfold{
+				background: red;
+			} */
+			.positionTop {
+				position: relative;
+			}
+
+			#contentHtml {
+				#overflow: visible
+			}
+
+			textarea {
+				padding: 6px;
+				font-size: 14px;
+				color: #404040;
+			}
+
+			.dingwei {
+				font-size: 14px;
+				color: #404040;
+				margin-left: 10px;
+				position: relative;
+				top: -1px;
+			}
+
+			/* 选择器的颜色 */
+			/* 确定 */
+			.mui-btn-blue,
+			.mui-btn-primary,
+			input[type="submit"] {
+				color: #404040;
+				border: none;
+				background: none;
+			}
+
+			.mui-dtpicker-header button {
+				font-size: 16px;
+			}
+
+			/* 取消 */
+			.mui-btn,
+			button,
+			input[type="button"],
+			input[type="reset"],
+			input[type="submit"] {
+				font-size: 16px;
+				color: #404040;
+				border: none;
+				background: none;
+			}
+
+
+
+			.mui-picker-inner {
+				background: #FFFFFF;
+			}
+
+			.mui-dtpicker-title h5 {
+				background: #FFFFFF;
+			}
+
+			.mui-dtpicker-header {
+				background: #FFFFFF;
+			}
+
+			.mui-poppicker-header {
+				background: #FFFFFF;
+			}
+
+			.mui-poppicker-btn-ok {
+				font-size: 40px;
+			}
+
+			.mui-picker {
+				background-color: #FFFFFF;
+			}
+
+			.mui-poppicker-header .mui-btn {
+				font-size: 18px !important;
+			}
+
+			/* 结束 */
+			.clearText {
+				/* background: red; */
+				display: inline-block;
+				width: 40px;
+				text-align: center;
+			}
+
+			.zhankai {
+				/* background: red; */
+				/* display: none; */
+			}
+
+			.zudexiaochu>img {
+				width: 16px;
+				height: 16px;
+				position: absolute;
+				display: inline-block;
+				right: 0;
+				top: -75px;
+			}
+
+			.zudexiaochu {
+				position: relative;
+				display: inline-block;
+			}
+			.examineItemItm{
+				color: red;
 				
-    </script>
+			}
+		
+		</style>
+	</head>
+	<body>
+		<!-- <input type="text" name="" id="name" value="" /> -->
+		<div id="contentHtml"> </div>
+
+	</body>
+	<script src="../../lib/js/mui.min.js"></script>
+	<script src="../../lib/js/jquery1.9.1.min.js"></script>
+	<script src="../../lib/js/mui.picker.min.js"></script>
+	<script src="../../js/threeUploadlmg.js"></script>
+	<script type="text/javascript" charset="utf-8">
+		var url = window.localStorage.getItem('url')
+		var dingwei = '',
+		 	  Lon = '',
+			  lat = '',
+			 detailId;
+		var initialItem = true;
+		var itemId = [];
+		var itemIdAll = [];
+		mui.plusReady(function() {
+			// 字体白色(light)的沉浸栏 
+			// 		 plus.navigator.setStatusBarStyle("light"); //dark 字体为黑色的沉浸栏
+			// 		 plus.navigator.setStatusBarBackground('#000000'); //改变沉浸栏背景颜色的 
+			var self = plus.webview.currentWebview();
+			detailId = self.detailId;
+			var promise = new Promise(function(resolve, reject) {
+		  plus.geolocation.getCurrentPosition(function(p){
+			var	address = p.address.province + "," + p.address.city + "," +p.address.district + "," +p.address.street
+		      // alert(p.address.province + p.address.city + p.address.district + p.address.street)
+		 			Lon =  p.coords.longitude; //获取经度
+		 			Lat = p.coords.latitude; //获取纬度
+					dingwei = address;
+					resolve(dingwei)
+					// alert(dingwei)
+	     }, function(e){
+		  alert('Geolocation error: ' + e.message);
+	   });
+			
+			})
+			promise.then(function(item){
+					pageitem(self.one, self.detailId, self.two,item)
+			})
+		})
+		mui.init({
+			// 				subpages: [{
+			// 					url: 'checkPageChild.html', //子页面HTML地址，支持本地地址和网络地址
+			// 					id: 'checkPageChild.html', //子页面标志
+			// 					styles: {
+			// 						top: '53px', //子页面顶部位置
+			// 						bottom: '0', //子页面底部位置
+			// 					},
+			// 					extras: {
+			// 						one:one,
+			// 						detailId:detailId,
+			// 						two:two
+			// 					} //额外扩展参数
+			// 				}]
+		beforeback: function(){
+		mui.toast('保存成功');
+		var main = plus.webview.getWebviewById("../check/check.html");
+		mui.fire(main, 'changeCitytimeone', {
+			// cityName: twoArr
+		})
+	},
+		});
+		function pageitem(one, detailId, two,dingwei) {
+			dingwei = dingwei
+		
+			mui.ajax({
+				type: 'get',
+				url: url + '/checklist/listOrder',
+				data: {
+					detailId: detailId
+				},
+				timeout: 10000,
+				success: function(data) {
+					if (data.code == 200) {
+						var valueList = data.data.response.list;
+						var orders = data.data.response.orders;
+						var index = 0;
+						var string = '';
+						var arrayItem = []
+						if (orders.length == 0) {
+							
+						} else {
+							for (var ordersNum = 0; ordersNum < orders.length; ordersNum++) {
+								arrayItem.push(orders[ordersNum].itemId)
+							}
+						}
+					
+						for (var num = 0; num < valueList.length; num++) {
+							var jiancha = '',
+								miaoshu = '',
+								shijian = '',
+								dingweiA = '';
+							var btnimg = "../../img/dfdf.png"
+							var btnimgA = "../../img/DCJZ.png"
+							var btnimgB = "../../img/XQZG.png"
+							var row = 1;
+							var zhanText = '展开';
+							var displaytext = 'block',
+								zhankai = 'none',
+								zhankaiA = 'block',
+								zhankaiOne = 'none';
+							if (two == valueList[num].two && one == valueList[num].one) {
+								var picUrlimg = '';
+								index = index + 1;
+								itemIdAll.push(valueList[num].id)
+								if (arrayItem.indexOf(valueList[num].id) != -1) {
+									for (var j = 0; j < orders.length; j++) {
+										if (valueList[num].id == orders[j].itemId) {
+											var orderIditem = orders[j].id 
+											itemId.push(valueList[num].id)
+										
+											 
+											if(orders[j].picUrl== null||orders[j].picUrl== ''){
+												 picUrlimg = '';
+											}else {
+												var numbir=0
+												var asdfasggsdfg = orders[j].picUrl.split(',')
+												for(var pic= 0 ;pic < asdfasggsdfg.length;pic++){
+												 numbir++
+												 picUrlimg = picUrlimg + '<span id="'+ numbir +'photoImgA'+ valueList[num].id +'" class="photoImgBig"><img id="'+ numbir +
+												'photoImgname'+ valueList[num].id +  '" class="photname'+ valueList[num].id +'" onClick="zudexiaochuA('+ valueList[num].id +
+												','+ numbir +')" src="' + asdfasggsdfg[pic] +'"/><span class="zudexiaochu" id="zudexiaochu' + valueList[num].id + 
+												'" ><img onClick="deleteItemB('+ valueList[num].id +','+numbir +',event)" src="../../img/zudexiaochu13.png"/></span></span>'	
+												}
+											}
+											if (orders[j].optionId == 1) {
+												btnimg = "../../img/sdfsdf.png";
+												zhankaiOne = 'block';
+												displaytext = 'none';
+												// zhanText = '收起';
+											} else if (orders[j].optionId == 2) {
+												btnimgA = "../../img/DCJZIN.png"
+												zhankaiOne = 'block';
+												zhankaiA = 'none';
+												// zhanText = '收起';
+											} else if (orders[j].optionId == 3) {
+												btnimgB = "../../img/XQZGIN.png"
+												zhankaiOne = 'block';
+											}
+											// 检查描述
+											if (orders[j].troubleDescribe != null && orders[j].troubleDescribe != '') {
+												jiancha = orders[j].troubleDescribe
+												
+												row = Math.ceil(jiancha.length / 22);
+											}
+											// 整改要求
+											if (orders[j].reviewRequire != null && orders[j].reviewRequire != '') {
+												miaoshu = orders[j].reviewRequire
+												row = Math.ceil(miaoshu.length / 22);
+											}
+											// 复查时间
+											if (orders[j].reviewTime != null && orders[j].reviewTime != '') {
+												shijian = orders[j].reviewTime
+											}
+											// 定位
+											if (orders[j].location != null && orders[j].location != '') {
+												dingweiA = orders[j].location
+											}
+										}
+									}
+								} else {
+									// 获取当前的位置信息
+									var orderIditem ='';
+									// alert(dingwei)
+									dingweiA = '<span class="oneOnly">'+dingwei+'</span>'
+								}
+								var texthtmlinne = valueList[num].stipulate.split(/\n/)
+								var stringimg = '';
+								for (var time = 0; time < texthtmlinne.length; time++) {
+									stringimg = stringimg + '<span class="childitem">' + texthtmlinne[time] + '</span><br>'
+								}
+								string = string + '<div orderIditem="'+orderIditem+'" name="href' + valueList[num].id + '" id="href' + index +
+									'" class="bodyCenter bodyCenter' + valueList[num].id + '"><div class="htmlHeader"><span class="htmlNum">' +
+									index + '.' +
+									'</span> <span class="htmlText">' + valueList[num].three +
+									'</span></div><p class="imgFather"><img class="imgSize" id="imgSize' +
+									valueList[num].id + '" onClick="imgSizeClick(' + valueList[num].id +
+									')" src="../../img/nobufuhe.png"></p><div class="regulations" id="regulations' +valueList[num].id + '"><span>' 
+									+ stringimg + '</span></div><div class="btn" ><div style="text-align: center;"><span class="imgitemtime">' +
+									'<img id="btnimg' + valueList[num].id + '" onClick="anniellidae(' + valueList[num].id +
+									',1)" class="btnimg imgitemtimeimg' + valueList[num].id + '" src=' + btnimg +'></span><span class="imgitemtime" >' +
+									'<img style="margin-top:6px;" id="btnimgA' + valueList[num].id + '" onClick="anniellidae(' + valueList[num].id +
+									',2)" class="btnimgA imgitemtimeimg' + valueList[num].id + '" src=' + btnimgA +
+									'></span></div><div style="text-align: center;"><span class="imgitemtime" >' + '<img id="btnimgB' + valueList[num].id +
+									'" onClick="anniellidae(' + valueList[num].id + ',3)" class="btnimgB imgitemtimeimg' + valueList[num].id +'" src=' + btnimgB +
+									'></span><span class="imgitemtime" ><img style="margin-top:6px;" class="btnimgC" id="btnimgC' + valueList[num].id +'" onClick="anniellidae(' + valueList[num].id + 
+									',4)" src="../../img/bushiyong-2.png" /></span></div></div><div style="display:'
+									 + zhankaiOne + '" class="zhankaiOne" id="zhankaiOne' + valueList[num].id +
+									'"><div style="display:' + zhankai + '" class="zhankai" id="zhankai' + valueList[num].id +
+									'">  <div class="photoFather"><span class="photoText">现场照片<span class="examineItemItm">*</span></span>' +
+									'<span class="photoCenter" id="photoCenter' + valueList[num].id +
+									'"><span  onClick="photoCenter(' + valueList[num].id +
+									')" class="photoImg"><img src="../../img/pfotoname.png"/></span>' + picUrlimg +
+									'</span></div>  <div style="display:' + displaytext + '" class="fuhe" id="fuhe' + valueList[num].id +
+									'"> <div><p class="examine"><span>检查描述<span class="examineItem">*</span></span>' +
+									'<span class="speechFather" onClick="speechFatherOne('+valueList[num].id+',1)"><img class="speech" src="../../img/photeItem.png"/></span></p></div>' +
+									'<div class="positionTop"><textarea id="onfocusItem' + valueList[num].id + '" oninput="onfocusItem(' +
+									valueList[num].id + ')"  rows="' + row + '" cols="">' + jiancha +
+									'</textarea><hr class="hrItem"/></div><div style="display:' + zhankaiA + '" class="zhankaiA" id="zhankaiA' +
+									valueList[num].id + '"><div><p class="examine">' +
+									'<span>整改要求<span class="examineItem">*</span></span>' +
+									'<span class="speechFather" onClick="speechFatherOne('+valueList[num].id+',2)"><img class="speech" src="../../img/photeItem.png"/></span></p></div>' +
+									'<div class="positionTop"><textarea id="onfocusItemName' + valueList[num].id +
+									'" oninput="onfocusItemName(' + valueList[num].id +
+									')" rows="' + row + '" cols="">' + miaoshu + '</textarea><hr class="hrItem"/></div>' +
+									'<div><p class="examine"><span>复查时间<span class="examineItem">*</span></span></p></div>' +
+									'<div class="positionTop"><textarea data-options={"type":"date","beginYear":2018,"endYear":2024} class="btn' +
+									valueList[num].id + '"  id="textTime' + valueList[num].id + '" onClick="textTime(' + valueList[num].id +
+									')" rows="1" readonly="readonly" cols="">' + shijian +
+									' </textarea><hr class="hrItem"/></div></div></div><div ><p class="examine"><span>定位</span></p>' +
+									'<div><span><img class="positioning" src="../../img/diliweizhi.png"/></span><span class="dingwei">' +
+									dingweiA + '</span></div>' +
+									'</div></div>  <div class="bottomButton"><span class="clearText" onClick="clearText(' + valueList[num].id +
+									')">清除</span><span class="unfold" id="unfold' + valueList[num].id + '" onClick=unfold(' + valueList[num].id +
+									')><span>' + zhanText + '</span><img src="../../img/youbiantwo.png" /></span></div></div>' +
+									'</div> <div class = "clear" ></div> '
+							}
+							// data-options='{"type":"date","beginYear":2018,"endYear":2024}' 
+						}
+						$('#contentHtml').html(string)
+					}
+				},
+				error: function() {}
+			})
+		}
+
+
+		function imgSizeClick(index) {
+			var id = '#imgSize' + index
+			var idItem = '#regulations' + index
+			if ($(idItem).attr('class').indexOf('dataDisplay') == -1) {
+				$(idItem).attr({
+					'class': 'regulations dataDisplay'
+				})
+			} else {
+				$(idItem).attr({
+					'class': 'regulations'
+				})
+			}
+		}
+
+
+		// 检测父页面的链接
+		window.addEventListener("checkPageHref", function(e) {
+			var num = 0;
+			for (var index = 1; index < e.detail.hrefNum; index++) {
+				var numItem = '#href' + index;
+				num = num + $(numItem).outerHeight(true);
+			}
+			$('html,body').scrollTop(num)
+		});
+
+		function textTime(num) {
+			// 获取当前的时间
+			var result = $('#textTime' + num)[0];
+			var btns = $('.btn' + num);
+			btns.each(function(i, btn) {
+				btn.addEventListener('tap', function() {
+					var _self = this;
+					if (_self.picker) {
+						_self.picker.show(function(rs) {
+							result.value = rs.text;
+							_self.picker.dispose();
+							_self.picker = null;
+						});
+					} else {
+						var optionsJson = this.getAttribute('data-options') || '{}';
+						var options = JSON.parse(optionsJson);
+						var id = this.getAttribute('id');
+						/*
+						 * 首次显示时实例化组件
+						 * 示例为了简洁，将 options 放在了按钮的 dom 上
+						 * 也可以直接通过代码声明 optinos 用于实例化 DtPicker
+						 */
+						_self.picker = new mui.DtPicker(options);
+						_self.picker.show(function(rs) {
+							/*
+							 * rs.value 拼合后的 value
+							 * rs.text 拼合后的 text
+							 * rs.y 年，可以通过 rs.y.vaue 和 rs.y.text 获取值和文本
+							 * rs.m 月，用法同年
+							 * rs.d 日，用法同年
+							 * rs.h 时，用法同年
+							 * rs.i 分（minutes 的第二个字母），用法同年
+							 */
+							result.value = rs.text;
+							/* 
+							 * 返回 false 可以阻止选择框的关闭
+							 * return false;
+							 */
+							/*
+							 * 释放组件资源，释放后将将不能再操作组件
+							 * 通常情况下，不需要示放组件，new DtPicker(options) 后，可以一直使用。
+							 * 当前示例，因为内容较多，如不进行资原释放，在某些设备上会较慢。
+							 * 所以每次用完便立即调用 dispose 进行释放，下次用时再创建新实例。
+							 */
+							_self.picker.dispose();
+							_self.picker = null;
+						});
+					}
+
+				}, false);
+			});
+
+		}
+
+		function anniellidae(num, j) {
+			// console.log(j)
+			if (j == '1') {
+				if ($('#btnimg' + num).attr('src') == '../../img/sdfsdf.png') {
+					tinct(num)
+					// $('#fuhe'+num).css('display','block')
+					zhankaiinte(num)
+				} else {
+					tinct(num)
+					$('#btnimg' + num).attr('src', '../../img/sdfsdf.png')
+					$('#zhankaiOne' + num).css('display', 'block') //总的
+					$('#zhankai' + num).css('display', 'block') // 三级的
+					$('#zhankaiA' + num).css('display', 'block') // 一级的
+					$('#fuhe' + num).css('display', 'none') // 一级的
+					$('#unfold' + num).children('span').text('收起')
+					$('#unfold' + num).children('img').attr('src','../../img/youbianone - fuben.png')
+				
+				}
+			} else if (j == '2') {
+				if ($('#btnimgA' + num).attr('src') == '../../img/DCJZIN.png') {
+					tinct(num)
+					zhankaiinte(num)
+				} else {
+					tinct(num)
+					$('#btnimgA' + num).attr('src', '../../img/DCJZIN.png')
+					$('#zhankaiOne' + num).css('display', 'block') //总的
+					$('#zhankai' + num).css('display', 'block') // 三级的
+					$('#fuhe' + num).css('display', 'block') // 一级的
+					$('#zhankaiA' + num).css('display', 'none') // 一级的
+					$('#unfold' + num).children('span').text('收起')
+					$('#unfold' + num).children('img').attr('src','../../img/youbianone - fuben.png')
+				}
+			} else if (j == '3') {
+				if ($('#btnimgB' + num).attr('src') == '../../img/XQZGIN.png') {
+					tinct(num)
+					zhankaiinte(num)
+				} else {
+					tinct(num)
+					$('#btnimgB' + num).attr('src', '../../img/XQZGIN.png')
+					$('#zhankaiOne' + num).css('display', 'block') //总的
+					$('#fuhe' + num).css('display', 'block') // 一级的
+					$('#zhankaiA' + num).css('display', 'block') // 一级的
+					$('#zhankai' + num).css('display', 'block') // 三级的
+					$('#unfold' + num).children('span').text('收起')
+					$('#unfold' + num).children('img').attr('src','../../img/youbianone - fuben.png')
+				}
+			}else if( j =='4'){
+				if($('#btnimgC' + num).attr('src') == '../../img/bushiyong-1.png'){
+					tinct(num)
+					zhankaiinte(num)
+				}else{
+					tinct(num)
+					zhankaiinte(num)
+					$('#btnimgC' + num).attr('src', '../../img/bushiyong-1.png')
+				}
+			
+			}
+		}
+
+		function zhankaiinte(num) {
+			$('#zhankaiOne' + num).css('display', 'block') //总的
+			$('#zhankai' + num).css('display', 'block') // 三级的
+			$('#zhankaiA' + num).css('display', 'block') // 一级的
+			$('#zhankaiOne' + num).css('display', 'none') //总的
+		}
+
+		function tinct(num) {
+			// console.log(num)
+			$('#btnimg' + num).attr('src', '../../img/dfdf.png')
+			$('#btnimgA' + num).attr('src', '../../img/DCJZ.png')
+			$('#btnimgB' + num).attr('src', '../../img/XQZG.png')
+			$('#btnimgC' + num).attr('src', '../../img/bushiyong-2.png')
+		}
+
+
+
+		function onfocusItem(num) {
+			var namevalue = $('#onfocusItem' + num).val()
+			var row = Math.ceil(namevalue.length / 22);
+			if (row == 0) {
+				row = 1
+			}
+			$('#onfocusItem' + num).attr('rows', row)
+		}
+
+		function onfocusItemName(num) {
+			var namevalue = $('#onfocusItemName' + num).val()
+			var row = Math.ceil(namevalue.length / 22);
+			if (row == 0) {
+				row = 1
+			}
+
+			$('#onfocusItemName' + num).attr('rows', row)
+			// console.log(row)
+		}
+		// 获取位置
+// 		function MapPoint(position) {
+// 			console.log('打击')
+
+// 			address = position.address.province + "," + position.address.city + "," + position.address.district + "," +
+// 				position.address.street
+// 			dingwei = address;
+// 			$('.oneOnly').text(dingwei)
+// 		}
+		// 清除信息
+		function clearText(num) {
+			$('#onfocusItem' + num).val('')
+			$('#onfocusItemName' + num).val('')
+			$('#textTime' + num).val('')
+			$('#onfocusItem' + num).attr('rows', 1)
+			$('#onfocusItemName' + num).attr('rows', 1)
+			var stringImg = '<span  onClick="photoCenter(' + num +
+				')" class="photoImg"><img src="../../img/pfotoname.png"/></span>'
+			$('#photoCenter' + num).html(stringImg)
+			// tinct(num)
+		}
+
+		// 收起展开
+		function unfold(num) {
+			var itemIdAllcript = [];
+			var itemText = $('#unfold' + num).children('span').text()
+			if (itemText == '展开') {
+				$('#zhankai' + num).css('display', 'block')
+				$('#unfold' + num).children('span').text('收起')
+				$('#unfold' + num).children('img').attr('src','../../img/youbianone - fuben.png')
+
+			} else if (itemText == '收起') {
+				$('#zhankai' + num).css('display', 'none')
+				$('#unfold' + num).children('span').text('展开')
+				$('#unfold' + num).children('img').attr('src','../../img/youbiantwo.png')
+
+			}
+		}
+		window.addEventListener('preserveItem', function(e) {
+      var promise = new Promise(function(resove,reject){
+				for (var i = 0; i < itemId.length; i++) {
+					for (var indexname = 0; indexname < itemIdAll.length; indexname++) {
+						if (itemId[i] == itemIdAll[indexname]) {
+							itemIdAll.splice(indexname, 1);
+						}
+					}
+				}
+				// console.log(itemIdAll)
+				for (var it = 0; it < itemId.length; it++) {
+					// var itemfalse =
+					if (!itemtd(itemId[it], 1)) {
+						return false
+					}
+				}
+				for (var itm = 0; itm < itemIdAll.length; itm++) {
+					// var itemfalse =
+					if (!itemtd(itemIdAll[itm], 2)){
+						return false
+					}
+				}
+				if(initialItem){
+					mui.back()
+				}else{
+					for (var it = 0; it < itemId.length; it++) {
+						submitpreserve(itemId[it], 1)
+					}
+					for (var itm = 0; itm < itemIdAll.length; itm++) {
+						submitpreserve(itemIdAll[itm], 2)
+					}
+				}
+			resove(true)	
+			})
+
+ promise.then(function(value){
+	
+	 if(value){
+		 setTimeout(function(){
+			 mui.back();
+		 },800)
+		 
+	 }
+ })
+			// 			mui.confirm('  ','是否保存',['取消','保存'],function(e){
+			// 				if(e.index == 1){
+			// 					  
+			// 				}
+			// 			})
+		})
+
+		function itemtd(num, j) {
+		// alert(j)
+			var imgitemone = $('#btnimg' + num).attr('src'),
+				imgitemtwo = $('#btnimgA' + num).attr('src'),
+				imgitemthree = $('#btnimgB' + num).attr('src');
+			if (imgitemone == '../../img/sdfsdf.png') {
+				// alert($('.photname' + num).length)
+				if($('.photname' + num).length == 0){
+					var hrefnumId = heightItem(num)
+					mui.toast(hrefnumId + '.照片未上传')
+					return false
+				}else{
+					initialItem = false;
+					return true
+				}
+			
+			} else if (imgitemtwo == '../../img/DCJZIN.png') {
+				if($('.photname' + num).length != 0){
+					if ($('#onfocusItem' + num).val().trim().length > 0) {
+						initialItem = false;
+						return true
+					} else {
+						var hrefnumId = heightItem(num)
+						mui.toast(hrefnumId + '.检查描述未填写')
+						return false
+					}
+				}else{
+					var hrefnumId = heightItem(num)
+					mui.toast(hrefnumId + '.照片未上传')
+					return false
+				}
+
+			} else if (imgitemthree == '../../img/XQZGIN.png') {
+				if($('.photname' + num).length != 0){
+				if ($('#onfocusItem' + num).val().trim().length > 0) {
+					if ($('#onfocusItemName' + num).val().trim().length > 0) {
+						if ($('#textTime' + num).val().trim().length > 0) {
+							initialItem = false;
+							return true
+						} else {
+							var hrefnumId = heightItem(num)
+							mui.toast(hrefnumId + '.复查时间未选择')
+							return false
+						}
+					} else {
+						var hrefnumId = heightItem(num)
+						mui.toast(hrefnumId + '.整改要求未填写')
+						return false
+					}
+				} else {
+					var hrefnumId = heightItem(num)
+					mui.toast(hrefnumId + '.检查描述未填写')
+					return false
+				}
+				}else{
+					var hrefnumId = heightItem(num)
+					mui.toast(hrefnumId + '.照片未上传')
+					return false
+				}
+			} else {
+         if(j == 1){
+					  initialItem = false;
+					  return true
+         }else{
+					 	return true
+				 }
+			
+			}
+		}
+
+		function heightItem(num) {
+			var hrefId = $('.bodyCenter' + num).attr('id')
+			var hrefnumId = Number(hrefId.substring(4, hrefId.length))
+			var numheight = 0;
+			for (var index = 1; index < hrefnumId; index++) {
+				var numItem = '#href' + index;
+				numheight = numheight + $(numItem).outerHeight(true);
+			}
+			$('html,body').scrollTop(numheight)
+			return hrefnumId
+		}
+
+		function submitpreserve(num, j) {
+			// 			console.log(num)
+						// console.log(j)
+			var imgattry = '';
+		
+			for (var test = 0; test < $('.photname' + num).length; test++) {
+				if(imgattry == ''){
+					imgattry = $('.photname' + num).eq(test).attr('src')
+				}else{
+					imgattry = imgattry + ','+ $('.photname' + num).eq(test).attr('src') 
+				}
+			}
+			var imgitemone = $('#btnimg' + num).attr('src'),
+				imgitemtwo = $('#btnimgA' + num).attr('src'),
+				imgitemthree = $('#btnimgB' + num).attr('src');
+			if (imgitemone == '../../img/sdfsdf.png') {
+				if(j == 1){
+				var orderId =	$('.bodyCenter'+num).eq(0).attr('orderIditem')
+				var present = {
+					orderId: orderId,
+					detailId: detailId,
+					optionId: "1",
+					lng: Lon, // 经度
+					lat: Lat, //纬度
+					location: dingwei,
+					picUrl: imgattry
+				}
+				}else if(j == 2){
+					var present = {
+						itemId: num,
+						detailId: detailId,
+						optionId: "1",
+						lng: Lon, // 经度
+						lat: Lat, //纬度
+						location: dingwei,
+						picUrl: imgattry
+					}
+				}
+			
+				ajaxItem(present, j)
+			} else if (imgitemtwo == '../../img/DCJZIN.png') {
+				var describe = $('#onfocusItem' + num).val();
+				if(j == 1){
+				var orderId =	$('.bodyCenter'+num).eq(0).attr('orderIditem')
+				var present = {
+					orderId: orderId,
+					detailId: detailId,
+					optionId: "2",
+					picUrl: imgattry,
+					describe: describe,
+					lng: Lon, // 经度
+					lat: Lat, //纬度
+					location: dingwei
+				}
+				}else if(j == 2){
+				var present = {
+					itemId: num,
+					detailId: detailId,
+					optionId: "2",
+					picUrl: imgattry,
+					describe: describe,
+					lng: Lon, // 经度
+					lat: Lat, //纬度
+					location: dingwei
+				}
+				}
+				ajaxItem(present, j)
+
+			} else if (imgitemthree == '../../img/XQZGIN.png') {
+				var describe = $('#onfocusItem' + num).val(),
+					reviewRequire = $('#onfocusItemName' + num).val(),
+					reviewTime = $('#textTime' + num).val();
+					if(j == 1){
+					var orderId =	$('.bodyCenter'+num).eq(0).attr('orderIditem')
+					var present = {
+						orderId: orderId,
+						detailId: detailId,
+						optionId: "3",
+						picUrl: imgattry,
+						describe: describe,
+						lng: Lon, // 经度
+						lat: Lat, //纬度
+						location: dingwei,
+						reviewRequire: $('#onfocusItemName' + num).val(),
+						reviewTime: $('#textTime' + num).val(),
+					}
+					}else if(j == 2){
+					var present = {
+						itemId: num,
+						detailId: detailId,
+						optionId: "3",
+						picUrl: imgattry,
+						describe: describe,
+						lng: Lon, // 经度
+						lat: Lat, //纬度
+						location: dingwei,
+						reviewRequire: $('#onfocusItemName' + num).val(),
+						reviewTime: $('#textTime' + num).val(),
+					}
+					}
+
+				ajaxItem(present, j)
+
+			}else{
+				if(j == 1){
+					
+					var orderId =	$('.bodyCenter'+num).eq(0).attr('orderIditem')
+					// console.log(orderId)
+					var present = {
+						orderId: orderId,
+					}
+					ajaxItem(present, 3)
+				}
+			}
+		}
+
+		function ajaxItem(present, j){
+// 			console.log(JSON.stringify(present))
+// 			console.log(j)
+			if(j == 2){
+				var urlItem = '/checklist/insertOrder';
+				var typeItem = 'post'
+			}else if(j ==1){
+				var urlItem = '/checklist/updateOrder';
+				var typeItem = 'post'
+			}else if(j == 3){
+				var urlItem = '/checklist/removeOrder';
+				var typeItem = 'get'
+			}
+			// console.log(present) 
+				mui.ajax({
+				type: typeItem,
+				url: localStorage.getItem("url") + urlItem,
+				data: present,
+				timeout: 10000,
+				success: function(res) {
+					if (res.code == 200){
+					
+					} else {
+						mui.toast(res.message);
+					}
+				},
+				error: function() {}
+			})
+		}
+		function zudexiaochuA(num,numbir) {
+			var img = $('#'+numbir +'photoImgname' + num).attr('src')
+			mui.openWindow({
+				url: "../../js/img.html",
+				id: "img",
+				extras: {
+					img: img,
+				}
+			})
+		}
+		function deleteItemB(num,numbir,event){
+			event.stopPropagation();
+			$('#'+numbir +'photoImgA' + num).html('')
+			$('#'+numbir +'photoImgA' + num).css('display','none')
+		}
+		function speechFatherOne(id,num){
+			var options = {};
+	        options.engine = 'iFly';
+	    var textadd = "";
+      	// alert("开始语音识别：");
+	     plus.speech.startRecognize(options, function(s){
+				 textadd += s;
+				 if(num=='1'){ 
+					var row = Math.ceil(textadd.length / 22);
+					 if (row == 0) {
+					 	row = 1
+					 	}				 
+				$('#onfocusItem' + id).attr('rows', row)
+					$('#onfocusItem'+id).val(textadd)
+				 }else if(num == '2'){
+					 	var row = Math.ceil(textadd.length / 22);
+					 	if (row == 0) {
+					 		row = 1
+					 		}
+					 	
+					 $('#onfocusItemName' + id).attr('rows', row)
+					$('#onfocusItemName'+id).val(textadd)
+
+				 }
+			 // console.log(textadd)
+	    }, function(e){
+		alert("语音识别失败："+e.message);
+	});
+		}
+	</script>
 </html>
