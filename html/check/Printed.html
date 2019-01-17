@@ -151,7 +151,7 @@
 		</div>
 		<div id="footItem" style="display: none;">
 			<div>长时间无反应，请先关闭打印机，重新连接打印机</div>
-			<div  onclick="scanPrinter()"><span id="againConnect"><img src="../../img/wgfagsag158.png">重新连接打印机</span></div>
+			<div onclick="scanPrinter()"><span id="againConnect"><img src="../../img/wgfagsag158.png">重新连接打印机</span></div>
 		</div>
 
 		<script src="../../lib/js/jquery1.9.1.min.js" type="text/javascript" charset="utf-8"></script>
@@ -159,6 +159,25 @@
 			var detailId;
 			var acceptPrintArray = [];
 			var arrayItem;
+			mui.init({
+				beforeback: function() {
+					plus.navigator.setStatusBarStyle("dark"); //dark 字体为黑色的沉浸栏
+								plus.navigator.setStatusBarBackground('#FFFFFF'); //改变沉浸栏背景颜色的
+								var mainitemname = plus.webview.getWebviewById('../check/check.html');
+								mui.fire(mainitemname, 'changeCitytimeoneitemd', {})
+								var mainitem = plus.webview.getWebviewById('browseChild.html');
+								setTimeout(function() {
+									mui.back()
+								}, 200)
+								mui.fire(mainitem, 'changeC', {})
+								mui.openWindow({
+									url: '../browse/browse.html',
+									id: 'html/browse/browse.html',
+				
+								})
+					
+				}
+			});
 			mui.plusReady(function() {
 				// 字体白色(light)的沉浸栏 
 				plus.navigator.setStatusBarStyle("dark"); //dark 字体为黑色的沉浸栏
@@ -169,7 +188,6 @@
 			})
 
 			function name(detailId) {
-				console.log(detailId)
 				mui.ajax({
 					type: 'get',
 					url: localStorage.getItem("url") + '/checklistPrint/troubleJobOrder',
@@ -191,14 +209,16 @@
 			}
 			//同步调用原生方法添加打印机 
 			function print() {
-				var result = plus.bridge.execSync("customPlugin", "print", ['2',{arrayItem}]);
-				if (result == 1){
+				var result = plus.bridge.execSync("customPlugin", "print", ['2', {
+					arrayItem
+				}]);
+				if (result == 1) {
 					scanPrinterItem()
-				} else if (result == 0){
+				} else if (result == 0) {
 					$('#buttodiv').find('img').attr('src', '../../img/zujian154.png')
 					$('#Release').text('正在打印请等待')
 					$('#buttonITem').css('display', 'none')
-			
+
 				}
 			}
 			//接收打印结果
@@ -255,13 +275,19 @@
 				}
 				acceptPrintArray.push(rejectItem)
 			}
-		
+
 			//本次扫描打印机结束事件
 			function scanPrinterEnd(result) {
 				var string = '';
 				for (var index = 0; index < acceptPrintArray.length; index++) {
+					var valueItemger='';
+					if(acceptPrintArray[index].name.length>6){
+						valueItemger = acceptPrintArray[index].name.substring(0,6)+'...'
+					}else{
+						valueItemger = acceptPrintArray[index].name
+					}
 					string += '<li class="mui-table-view-cell" onClick="addPrinter(' + index +
-						')"><a class="mui-navigate-right"><img src="../../img/lantinsdgsagd161.png">' + acceptPrintArray[index].macaddr +
+						')"><a class="mui-navigate-right"><img src="../../img/lantinsdgsagd161.png">'+ valueItemger + '  ' + acceptPrintArray[index].macaddr +
 						'</a> </li>'
 				}
 				$('#buttodiv').html('<ul class="mui-table-view">' + string + '</ul>')
@@ -274,10 +300,12 @@
 					if (value.index == '0') {
 						//调用customPlugin插件的testFunctionSync方法，传递了两个参数，分别是James和Tracy
 						var result = plus.bridge.execSync("customPlugin", "addPrinter", arrauItem);
-						$('#buttodiv').html('<div class="Releaseitemg"><img src="../../img/lujing33.png"></div><div class="Releaseitemg" id="Release">连接成功</div>')
-						$('#buttonITemFitr').html('<button type="button" id="buttonITem" class="buttonITemcalss" onclick="print()">打印</button>')
-					} else if (value.index == '1') {
-					}
+						$('#buttodiv').html(
+							'<div class="Releaseitemg"><img src="../../img/lujing33.png"></div><div class="Releaseitemg" id="Release">连接成功</div>'
+						)
+						$('#buttonITemFitr').html(
+							'<button type="button" id="buttonITem" class="buttonITemcalss" onclick="print()">打印</button>')
+					} else if (value.index == '1') {}
 				})
 
 			}
@@ -328,6 +356,5 @@
 				$('#buttonITemFitr').html(
 					'<button type="button" id="bnITemlijie" onClick="scanPrinter()" class="buttonITemcalss" >连接打印机</button>')
 			}
-
 		</script>
 </html>

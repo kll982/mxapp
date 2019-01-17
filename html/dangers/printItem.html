@@ -166,7 +166,17 @@
 				detailId = self.detailId;
 				name(detailId)
 			})
-
+			mui.init({
+				beforeback: function(){
+					plus.navigator.setStatusBarStyle("dark"); //dark 字体为黑色的沉浸栏
+					plus.navigator.setStatusBarBackground('#FFFFFF'); //改变沉浸栏背景颜色的
+					var main = plus.webview.getWebviewById("dangerspagechilde.html");
+					mui.fire(main, 'changeCitynamegk', {
+						// cityName: twoArr
+					})
+					
+				}
+			});
 			function name(detailId) {
 				mui.ajax({
 					type: 'get',
@@ -189,14 +199,16 @@
 			}
 			//同步调用原生方法添加打印机 
 			function print() {
-				var result = plus.bridge.execSync("customPlugin", "print", ['1',{arrayItem}]);
+				var result = plus.bridge.execSync("customPlugin", "print", ['1', {
+					arrayItem
+				}]);
 				if (result == 1) {
 					scanPrinterItem()
 				} else if (result == 0) {
 					$('#buttodiv').find('img').attr('src', '../../img/zujian154.png')
 					$('#Release').text('正在打印请等待')
 					$('#buttonITem').css('display', 'none')
-					
+
 				}
 			}
 			//接收打印结果
@@ -255,11 +267,18 @@
 			}
 
 			//本次扫描打印机结束事件
-			function scanPrinterEnd(result) {
+			function scanPrinterEnd(result){
+				console.log('ne')
 				var string = '';
 				for (var index = 0; index < acceptPrintArray.length; index++) {
+					var valueItemger='';
+					if(acceptPrintArray[index].name.length > 6){
+						valueItemger = acceptPrintArray[index].name.substring(0,6)+'...'
+					}else{
+						valueItemger = acceptPrintArray[index].name
+					}
 					string += '<li class="mui-table-view-cell" onClick="addPrinter(' + index +
-						')"><a class="mui-navigate-right"><img src="../../img/lantinsdgsagd161.png">' + acceptPrintArray[index].macaddr +
+						')"><a class="mui-navigate-right"><img src="../../img/lantinsdgsagd161.png">'+ valueItemger + '  '  + acceptPrintArray[index].macaddr +
 						'</a> </li>'
 				}
 				$('#buttodiv').html('<ul class="mui-table-view">' + string + '</ul>')
@@ -310,11 +329,11 @@
 			function bnITem() {
 				plus.navigator.setStatusBarStyle("dark"); //dark 字体为黑色的沉浸栏
 				plus.navigator.setStatusBarBackground('#FFFFFF'); //改变沉浸栏背景颜色的
-					var main = plus.webview.getWebviewById("dangerspagechilde.html");
-					mui.fire(main, 'changeCitynamegk', {
-						// cityName: twoArr
-					})
-			mui.back()
+				var main = plus.webview.getWebviewById("dangerspagechilde.html");
+				mui.fire(main, 'changeCitynamegk', {
+					// cityName: twoArr
+				})
+				mui.back()
 			}
 			// 未检测到打印机
 			function scanPrinterItem() {
