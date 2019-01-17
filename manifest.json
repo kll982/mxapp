@@ -43,7 +43,8 @@
             "description" : "位置信息"
         },
         "Speech" : {},
-        "Push" : {}
+        "Push" : {},
+        "Bluetooth" : {}
     },
     "plus" : {
         "splashscreen" : {
