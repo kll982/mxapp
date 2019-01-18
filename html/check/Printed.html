@@ -226,38 +226,31 @@
 				//result:0:成功  1:缺纸 2:打印头过热 
 				if (result == 0) {
 					succse()
-				} else if (result != 0) {
+				}
+				if (result == 2) {
 					$('#buttodiv').find('img').attr('src', '../../img/zujiande155.png')
-					$('#Release').html('打印错误')
+					$('#Release').html('打印机请状纸<br>请装纸')
 					$('#buttonITemFitr').text('')
 					$('#footItem').css({
 						'display': 'block'
 					})
 				}
-				// 			if (result == 2) {
-				// 				$('#buttodiv').find('img').attr('src', '../../img/zujiande155.png')
-				// 				$('#Release').html('打印机请状纸<br>请装纸')
-				// 				$('#buttonITemFitr').text('')
-				// 				$('#footItem').css({
-				// 					'display': 'block'
-				// 				})
-				// 			}
-				// 			if (result == 3) {
-				// 				$('#buttodiv').find('img').attr('src', '../../img/zujiande155.png')
-				// 				$('#Release').html('打印机纸舱盖打开')
-				// 				$('#buttonITemFitr').text('')
-				// 				$('#footItem').css({
-				// 					'display': 'block'
-				// 				})
-				// 			}
-				// 			if (result == -1) {
-				// 				$('#buttodiv').find('img').attr('src', '../../img/zujiande155.png')
-				// 				$('#Release').html('打印机错误<br>请检查打印机')
-				// 				$('#buttonITemFitr').text('')
-				// 				$('#footItem').css({
-				// 					'display': 'block'
-				// 				})
-				// 			}
+	// 			if (result == 3) {
+	// 				$('#buttodiv').find('img').attr('src', '../../img/zujiande155.png')
+	// 				$('#Release').html('打印机纸舱盖打开')
+	// 				$('#buttonITemFitr').text('')
+	// 				$('#footItem').css({
+	// 					'display': 'block'
+	// 				})
+	// 			}
+				if (result == -1) {
+					$('#buttodiv').find('img').attr('src', '../../img/zujiande155.png')
+					$('#Release').html('打印机错误<br>请检查打印机')
+					$('#buttonITemFitr').text('')
+					$('#footItem').css({
+						'display': 'block'
+					})
+				}
 			}
 			//同步调用原生方法扫描打印机              
 			function scanPrinter() {
@@ -265,6 +258,10 @@
 				var result = plus.bridge.execSync("customPlugin", "scanPrinter", []);
 				$('#buttonITemFitr').text('')
 				$('#buttodiv').html('')
+				acceptPrintArray=[];
+				$('#footItem').css({
+					'display': 'none'
+				})
 			}
 
 			//接收蓝牙设备
