@@ -65,7 +65,7 @@ function PersonalCenter() {
 
 	// 检查更新
 	this.checkNew = function() {
-		var appVersion = "2.0.0";
+		var appVersion = "2.0.1";
 		mui.ajax(url + '/system/clientVersion', {
 			data: {
 				appVersion: appVersion
