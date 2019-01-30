@@ -107,7 +107,6 @@
 					$('.mui-title').text(self.towanitemnameitem)
 				}
 				pageitem(self.one, self.detailId, self.two)
-				// console.log(self.detailId)
 			})
               
 			function pageitem(one, detailId, two) {
@@ -128,7 +127,7 @@
 									++index
 								}
 							}
-							// console.log(index)
+						
 							if (index <= 5) {
 								for (var numitem = 1; numitem < index + 1; numitem++) {
 									string = string + '<td class="tableTd"><a  id="item' + numitem + '"  onClick="hrefItem(' + numitem + ')">' +
@@ -189,8 +188,7 @@
 			function rightNum(num) {
 				var value = Number($('#item' + num).parent().prev().children('a').text())
 				var string = '';
-//                  console.log(index)
-//                  console.log(value)
+
 				if (index - value > 5){
 					for (var numitem = value + 1; numitem < value + 7; numitem++) {
 					if (numitem == value + 1) {
@@ -227,8 +225,7 @@
 			
 			function leftItem(num) {
 			var value = Number($('#item' + num).text())
-// 			console.log(value)
-// 			console.log(index)
+
 			var string = '';
 			if (value - 5 <= 5) {
 					for (var numitem = 1; numitem < 7; numitem++) {

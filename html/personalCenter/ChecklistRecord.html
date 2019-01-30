@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<script src="../../lib/js/mui.min.js"></script>
+		<link href="../../lib/css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../../css/index.css" />
+		<link rel="stylesheet" type="text/css" href="../../lib/css/reset.css" />
+		<style type="text/css">
+			body {
+				background: #FFFFFF;
+			}
+
+			#header {
+				padding: 0;
+				margin: 0;
+				height: 53px;
+				color: #FFFFFF;
+				font-size: 18px;
+			}
+
+			#headerItem {
+				height: 53px;
+				background: linear-gradient(to right, #48A9F6, #2985E8);
+				background-size: 100% 100%;
+			}
+
+			#headerItem>h1 {
+				color: #FFFFFF;
+				font-size: 18px;
+				line-height: 53px;
+			}
+
+			.mui-icon-left-nav {
+				top: 5px;
+			}
+
+			.mui-pull-right {
+				line-height: 53px;
+				color: #FCFCFC;
+				font-size: 16px;
+				margin-right: 10px;
+			}
+			#leftFlex>div{
+				display: -webkit-flex;
+				/* Safari */
+				display: flex;
+				flex-direction: row;
+				margin: 7px 0;
+			}
+			#leftFlex>div>.leftItemOne{
+				flex-shrink:0;
+				width: 90px;
+			}
+			#leftFlex>div>span{
+				color: #999999;
+				font-size: 14px;
+			}
+			#leftFlex>div>.rightItem{
+				color:  #4D4D4D ;
+				text-align: justify;
+				line-height: 18px;
+				position: relative;
+				top: -2px;
+			}
+			.thress{
+				letter-spacing:3.5px;
+			}
+			#honeItem>span{
+				color: #404040;
+				font-size: 20px;
+				font-weight: bold;
+			}
+			#serialNum,#honeItem,#leftFlex{
+				margin:16px 10px;
+			}
+			#ddenRrou{
+				background:  #F2F2F2 ;
+				height: 28px;
+				line-height: 28px;
+				font-size: 14px;
+				padding-left: 10px;
+				color: #808080;
+			}
+			.footName .ftItemOn{
+				color: #999999;
+				font-size: 14px;
+				display: -webkit-flex;
+				/* Safari */
+				display: flex;
+				flex-direction: row;
+			}
+			.footName .ftItemOn .leftItemOne{
+				flex-shrink:0;
+				width: 80px;
+			}
+			.footName .ftItemOn .rigptItem{
+				color:#595959;
+				line-height: 18px;
+				position: relative;
+				top: -2px;
+			}
+			.borderImgsize{
+				width: 12px;
+				height: 12px;
+				margin-right: 3px;
+			}
+			.oneMameTw{
+				color: #474747;
+				font-size: 16px;
+			}
+			.oneMameTw .borderItewam{
+				font-size: 10px;
+				width: 40px;
+				line-height: 14px;
+				height: 14px;
+				display: inline-block;
+				text-align: center;
+				margin-left: 8px;
+			}
+			.oneMameTw .assItemSizColorC{
+				background: #CCCCCC;
+				color: #FFFFFF;
+			}
+			.oneMameTw .assItemSizColorA{
+				color: #F49C44;
+				border: 1px solid #F49C44;
+			}
+			.oneMameTw .assItemSizColorB{
+				color: #F44444;
+				border: 1px solid #F44444;
+			}
+			.imgSiztIten{
+				width: 70px;
+				height: 70px;
+				margin:3px;
+			}
+			#fottItemti{
+				margin: 0 10px;
+				margin-bottom: 40px;
+			}
+			.ftItemOn{
+				margin-left:16px;
+			}
+			.ftItemOn{
+				margin-top: 16px;
+			}
+			.footName{
+				margin-top: 20px;
+			}
+			.huandehuashieeName{
+				width: 8px;
+				height: 10px;
+				margin-left: 2px;
+			}
+			.andehuashieeNa{
+				font-size: 14px;
+				color: #44A5F4;
+				
+			}
+		</style>
+	</head>
+	<body>
+		<header id="header" class="mui-bar mui-bar-nav">
+			<div id="headerItem">
+				<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+				<h1 class="mui-title">检查单</h1>
+				<span class="mui-pull-right" onclick="PrintedName()">打印</span>
+			</div>
+		</header>
+		<div style="height: 53px;"></div>
+		<div id="bodyCenter">
+			<div id="honeItem"><span>dfsfsd</span></div>
+			<div id="serialNum"><span>检查单编号：</span><span>---</span></div>
+			<div id="leftFlex">
+				<div><span class="leftItemOne thress">发布时间：</span><span id="righta" class="rightItem"></span></div>
+				<div><span class="leftItemOne thress">被检单位：</span><span id="rightb" class="rightItem"></span></div>
+				<div><span class="leftItemOne thress">检查单位：</span><span id="rightc" class="rightItem"></span></div>
+				<!-- <div><span class="leftItemOne">检&#x3000;查&#x3000;人：</span><span id="rightd" class="rightItem">叠缝合十多个</span></div> -->
+				<div><span class="leftItemOne">发&#x3000;布&#x3000;人：</span><span id="righte" class="rightItem"></span></div>
+				<div><span class="leftItemOne">检查项目数：</span><span id="rightf" class="rightItem"></span></div>
+				<div><span class="leftItemOne thress">检查结果：</span><span id="rightg" class="rightItem"></span></div>
+				<div><span class="leftItemOne">备&#x3000;&#x3000;&#x3000;注：</span><span id="righth" class="rightItem"></span></div>
+			</div>
+			<div id="ddenRrou"><span>隐患是否解决：</span><span id="HiddenRrou"></span></div>
+		</div>
+		<div id="fottItemti"></div>
+		<script src="../../lib/js/jquery1.9.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/index.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript" charset="utf-8">
+			var detailId ,list,
+				url = window.localStorage.getItem('url');
+			mui.plusReady(function() {
+				// 字体白色(light)的沉浸栏 
+				// 				plus.navigator.setStatusBarStyle("light"); //dark 字体为黑色的沉浸栏
+				// 				plus.navigator.setStatusBarBackground('#000000'); //改变沉浸栏背景颜色的 
+				var self = plus.webview.currentWebview();
+				detailId = self.detailId
+				name(detailId)
+			})
+
+			function name(detailId) {
+				mui.ajax({
+					type: 'get',
+					url: url + '/checklist/listAllOrderByDetailId',
+					data: {
+						detailId: detailId,
+					},
+					timeout: 10000,
+					success: function(data) {
+						if (data.code == 200) {
+							     var response = data.data.response,string='',optionId='';
+								 list=data.data.response.list;
+								 var disappear = 'block',disappearO = 'block',disappearA ='block',srcimg='',borderItewam='',classItemSize='';
+								$('#righta').text(timeTransIyrm(response.uploadTime))
+								$('#rightb').text(response.companyName)
+								$('#rightc').text(response.msaName)
+								// $('#rightd').text(response.name)
+								$('#righte').text(response.name)
+								$('#rightf').text(response.allCount)
+								$('#rightg').html('<span>符合：'+response.accord+'&#x3000;</span><span>限期整改：'+response.reviewCount+
+								'&#x3000;</span><span>当场纠正：'+response.correctCount+'&#x3000;</span><br/><span>不适用：'
+								+response.notApplicableCount+'</span>')
+								$('#righth').text(response.remarks)
+								if(response.isSolve=='0'){
+									$('#HiddenRrou').text('已解决')
+								}else if(response.isSolve=='1'){
+									$('#HiddenRrou').text('未解决')
+								}else if(response.isSolve=='2'){
+									$('#HiddenRrou').text('无隐患')
+								}
+								
+                                for(var index=0;index<list.length;index++){
+									var imgString = '';
+									var text = list[index].picUrl.split(',')
+									
+									for(var j = 0 ;j<text.length;j++ ){
+										imgString += '<img class="imgSiztIten" src= '+text[j]+' />'
+									}
+									if(list[index].optionId == '1'){
+										optionId = '符合'// 符合 
+										disappearA  = 'none';
+										srcimg ="../../img/tuoyuan9.png"
+									}else if(list[index].optionId == '2'){
+										optionId = '不符合(当场纠正)'// 当场纠正
+										disappearO = 'none'
+										srcimg ="../../img/tuoyuan10.png"
+									}else if(list[index].optionId == '3'){
+										optionId = '不符合(限期整改)'// 限期整改
+										srcimg = "../../img/tuoyuan1.png"
+									}else if(list[index].optionId == '4'){
+										optionId = '不适用'// 不适用
+										disappear = 'none'
+										srcimg ="../../img/tuoyuan11.png"
+									} 
+									if(list[index].status=='1'){
+										borderItewam ='审核中' 
+									    classItemSize ='assItemSizColorA'
+										var zhuZong = 'none'
+									}else if(list[index].status=='2'){
+										borderItewam = '未消除'
+										classItemSize ='assItemSizColorB'
+										var zhuZong = 'block'
+									}else if(list[index].status=='3'){
+										borderItewam = '已消除'
+										classItemSize ='assItemSizColorC'
+										var zhuZong = 'none'
+									}
+									string +='<div class="footName"><div class="oneMameTw"><span><img class="borderImgsize " src='+srcimg+
+									' />'+list[index].item+'</span><span class="borderItewam '+classItemSize+'">'+borderItewam+
+									'<span></div><div style="display:'+ disappear +
+									'"><div class="ftItemOn"><span class="leftItemOne">检查结果：</span><span class="rigptItem">'+optionId+'</span></div>'+
+									'<div class="ftItemOn"><span class="leftItemOne">现场照片：</span><span class="rigptItem">'+imgString+'</span></div>'+
+									'<div style="display:'+ disappearA +'"> <div class="ftItemOn"><span class="leftItemOne">问题描述：</span><span class="rigptItem">'
+									+list[index].troubleDescribe+'</span></div>'+
+									'<div style="display:'+ disappearO +'"><div class="ftItemOn"><span class="leftItemOne">整改要求：</span><span class="rigptItem">'
+									+list[index].reviewRequire+'</span></div>'+
+									'<div class="ftItemOn"><span class="leftItemOne">复查时间：</span><span class="rigptItem">'
+									+list[index].reviewTime+'</span></div></div></div></div>'+
+									'<div class="ftItemOn"><span class="leftItemOne">定&#x3000;&#x3000;位：</span><span class="rigptItem">'+list[index].location+
+									'</span></div><div style="display:'+ zhuZong+';text-align: right;margin-right: 10px;"><span onclick="chicktRace('
+									+list[index].reviewId+','+ index +')" class="andehuashieeNa">隐患追踪<img class="huandehuashieeName" src="../../img/huandehuashi_03.png" /><span></div></div>'
+								}
+								$('#fottItemti').html(string)
+						} 
+					},
+					error: function(err) {
+						console.log(err)
+					}
+				})
+			}
+			function chicktRace(index,num){
+				mui.openWindow({
+					id:'chicktRace.html',
+					url:'chicktRace.html',
+					extras: {
+						item:index,
+						one:$('#rightb').text(),
+						two:list[num].item
+					}
+				})
+			}
+			function PrintedName(){
+				mui.openWindow({
+					id:'PrintedName.html',
+					url:'PrintedName.html',
+					extras: {
+						detailId:detailId
+					}
+				})
+			}
+		</script>
+</html>

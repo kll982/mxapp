@@ -12,8 +12,46 @@
 			mui.init();
 		</script>
 		<style type="text/css">
-			.bottom-shadow-f6f6f6{
+			.bottom-shadow-f6f6f6 {
 				box-shadow: 0 2px 5px #ebebeb;
+			}
+			#ItreProme {
+				border-radius: 6px;
+				overflow: hidden;
+				height: 330px;
+				background: #FFFFFF;
+				z-index: 1200;
+				width: 70%;
+				position: fixed;
+				top: 20%;
+				margin-left: 15%;
+			}
+
+			#abolishTrue .buttonName {
+				display: inline-block;
+				height: 45px;
+				top: 0;
+				position: absolute;
+				width: 49%;
+				line-height: 45px;
+				text-align: center;
+				color: #4D4D4D;
+			}
+
+			#abolishTrue {
+				text-align: center;
+				position: absolute;
+				bottom: 0;
+				width: 100%;
+				height: 46px;
+
+			}
+			#ItrePromeOne {
+				height: 265px;
+				/* background: red; */
+				background-image: url(../../img/shengjigeingxin-3.png);
+				background-repeat: no-repeat;
+				background-size: 100% 113px;
 			}
 		</style>
 	</head>
@@ -31,12 +69,12 @@
 		</div>
 		<div class="margin-top28 padding10-0">
 			<ul class="mui-table-view margin-bottom-10">
-				<li class="mui-table-view-cell">
+				<li class="mui-table-view-cell" onclick="recordTo()">
 					<i class="mui-icon width20 float-left">
 						<img class="width20" src="../../img/ReleaseRecords.png">
 					</i>
 					<span class="margin-left-14 line-height1-5">发布记录</span>
-					<span class="mui-badge mui-badge-inverted">暂未开通，敬请期待</span>
+					<span class="mui-badge mui-badge-inverted"></span>
 				</li>
 			</ul>
 			<ul class="mui-table-view margin-bottom-10">
@@ -68,24 +106,40 @@
 			</ul>
 		</div>
 		<button type="button" class="mui-btn mui-btn-block color-f00 border-e6e6e6" onclick="personalCenter.logout()">退出登录</button>
-		
-		<!-- 模态窗 -->
-		<div id="model-wrap" class="fixed full hidden model-wrap">
-			<div class="model">
-				<div id="model-title" class="model-title color-fff"></div>
-				<div id="model-center" class="model-center"></div>
+
+		<!-- 弹框 -->
+		<div id="ItreProme" style="display: none;">
+			<div id="ItrePromeOne">
+				<div style="color:#FFFFFF;padding-top: 50px;padding-left: 24px;height: 80px;"><span id="mustVersion"></span></div>
+				<div style="height: 180px;font-size: 12px;padding: 0 10px;padding-top: 20px;">
+					【优化】<br />
+					1.隐患列表、隐患复查等UI界面优化<br />
+					2.修复了检查页面保存失败bug<br />
+					【新增】<br />
+					1.新增查看检查历史和隐患追踪的功能<br />
+					2.新增无隐患状况下“水上安全隐患治理建议”打印<br />
+					3.检查单发布前新增“备注/安全建议”填写<br />
+					</span></div>
 			</div>
-			<span id="model-close" class="model-close inline-block color-fff" onclick="personalCenter.closemodle()"></span>
+			<div id="abolishTrue">
+				<div style="height: 1px;background: #CCCCCC;margin: 0;padding: 0;"></div>
+				<div>
+					<span class="buttonName" style="left: 0;" onclick="trueNameFor()">暂不升级</span>
+					<span style="width: 1px;background: #CCCCCC;height: 45px;display: inline-block;"></span>
+					<span class="buttonName" style="right: 0;" onclick="trueNameTo()">立即升级</span>
+				</div>
+			</div>
 		</div>
 
 	</body>
 	<script type="text/javascript" src="../password/personalCenter.js"></script>
+	<script src="../../lib/js/jquery1.9.1.min.js"></script>
 	<script type="text/javascript">
+		var downloadUrl
 		window.onload = function() {
 			mui.ajax(localStorage.getItem("url") + "/checklist/getUserInfo", {
 				data: {},
 				success: function(res) {
-					// console.log(JSON.stringify(res))
 					if (res.code == 200) {
 						mui("#userName")[0].textContent = res.data.response.userInfo.name;
 						mui("#userMsa")[0].textContent = res.data.response.userInfo.departmentName;
@@ -95,5 +149,58 @@
 				}
 			})
 		}
+
+		function recordTo() {
+			mui.openWindow({
+				id: 'recordPage.html',
+				url: 'recordPage.html',
+			})
+		}
+		mui.init({
+			swipeBack: false,
+			gestureConfig: {
+				tap: true, //默认为true
+				doubletap: true, //默认为false
+				longtap: true, //默认为false
+				swipe: true, //默认为true
+				drag: true, //默认为true
+				hold: true, //默认为false，不监听
+				release: true //默认为false，不监听
+			}
+		})
+		function trueNameTo() {
+			$('#ItreProme').css('display', 'none')
+			$('.mui-backdrop').css('display', 'none')
+			plus.nativeUI.toast("正在准备环境，请稍后！");
+			sleep(1000);
+			console.log(downloadUrl)
+			var path = downloadUrl; //下载apk
+			plus.runtime.install(path)
+		}
+	function sleep(numberMillis) {
+			var now = new Date();
+			var exitTime = now.getTime() + numberMillis;
+			while (true) {
+				now = new Date();
+				if (now.getTime() > exitTime)
+					return;
+			}
+		}
+		function trueNameFor() {
+			$('#ItreProme').css('display', 'none')
+			$('.mui-backdrop').css('display', 'none')
+		}
+		$('.buttonName')[0].addEventListener("hold", function() {
+			$('.buttonName').eq(0).css('color', '#44A5F4')
+		})
+		$('.buttonName')[0].addEventListener("release", function() {
+			$('.buttonName').eq(0).css('color', '#4D4D4D')
+		})
+		$('.buttonName')[1].addEventListener("hold", function() {
+			$('.buttonName').eq(1).css('color', '#44A5F4')
+		})
+		$('.buttonName')[1].addEventListener("release", function() {
+			$('.buttonName').eq(1).css('color', '#4D4D4D')
+		})
 	</script>
 </html>

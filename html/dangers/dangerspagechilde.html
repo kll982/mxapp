@@ -112,7 +112,6 @@
 			.photoItem {
 				display: inline-block;
 				margin-left: 75px;
-
 			}
 
 			.photoItemchild {
@@ -192,7 +191,7 @@
 				color: #737373;
 			}
 
-			#submitFather {
+			#submitFather { 
 				height: 55px;
 				line-height: 55px;
 				border: none;
@@ -231,7 +230,9 @@
 
 			textarea {
 				color: #808080;
-				border: 1px solid #D9D9D9;
+				border: none ;
+				border-bottom: 1px solid #D9D9D9;
+				margin-top: 10px;
 			}
 
 			input:disabled {
@@ -248,7 +249,6 @@
 
 			#submitFather {
 				background: #FFFFFF;
-				`
 			}
 
 			#geographicimg {
@@ -330,7 +330,7 @@
 				line-height: 30px;
 				float: right;
 				margin-right: 25px;
-				margin-bottom: 75px;
+				margin-bottom: 125px;
 				margin-top: -12px;
 			}
 
@@ -444,7 +444,6 @@
 
 			#headtextdis {
 				text-align: right;
-
 				margin-right: 15px;
 			}
 
@@ -557,13 +556,13 @@
 						<div id="textareaItem">
 							<div class="namrflex"><span><span class="xinhao">*</span><span class="lefttop xinhaoitem">检查描述</span></span>
 								<span class="speechparter" onclick="yuyinItem(1)"><img class="speech" src="../../img/photeItem.png" /></span></div>
-							<textarea rows="2" cols="" id="textareaone"></textarea>
+							<textarea rows="1" cols="" id="textareaone" oninput="onfocusItem(1)"></textarea>
 						</div>
 						<div id="nameite">
 							<div id="inputfontA">
 								<div class="namrflex"><span><span class="xinhao">*</span><span class="lefttop xinhaoitem">整改要求</span></span>
 									<span class="speechparter" onclick="yuyinItem(2)"><img class="speech" src="../../img/photeItem.png" /></span></div>
-								<textarea rows="2" cols="" id="textareatwo"></textarea>
+								<textarea rows="1" cols="" id="textareatwo"  oninput="onfocusItem(2)"></textarea>
 							</div>
 							<div id="inputfontC">
 								<span><span class="xinhao" id="xinhaoA">*</span><span id="inputfontE" class="xinhaoitem">复查时间</span><input type="text"
@@ -626,6 +625,24 @@
  window.addEventListener('changeCitynamegk', function() {
  	mui.back()
  })
+ function onfocusItem(num) {
+	 if(num == '1'){
+		var namevalue = $('#textareaone' ).val()
+		var row = Math.ceil(namevalue.length / 22);
+		if (row == 0) {
+			row = 1
+		}
+		$('#textareaone').attr('rows', row)
+	 }else if(num == '2'){
+	 	var namevalue = $('#textareatwo').val()
+		var row = Math.ceil(namevalue.length / 22);
+		if (row == 0) {
+			row = 1
+		}
+		$('#textareatwo').attr('rows', row)
+	 }
+
+ }
 		function pageitemone(index) {
 			var index = index
 			mui.ajax({
@@ -858,7 +875,6 @@
 					if ($('#textareaone').val().trim().length > 0) {
 						if ($('#textareatwo').val().trim().length > 0) {
 							if ($('#inputfontB').val().length > 0) {
-
 								present({
 									reviewId: detailId,
 									optionId: "3",
@@ -886,13 +902,21 @@
 					mui.toast('照片未上传')
 				}
 			} else if (imgitemfirn == '../../img/bushiyong-1.png') {
-				mui.back()
+				console.log('naem')
+				present({
+					reviewId: detailId,
+					optionId: "4",
+					lng: Lon, // 经度
+					lat: Lat, //纬度
+					location: address,
+				})
 			} else {
 				mui.toast('未判断是否符合')
 			}
 		})
 
 		function present(data) {
+			alert('33')
 			mui.ajax({
 				type: 'post',
 				url: localStorage.getItem("url") + '/checklist/review',
@@ -900,13 +924,9 @@
 				timeout: 10000,
 				success: function(res) {
 					if (res.code == 200) {
+						console.log('33444')
 						var imgItem = $('#imgFun').attr('src')
-					
-						if (data.optionId != 1) {
-							mui.toast("隐患已排除");
-						} else {
-							mui.toast("隐患复查成功");
-						}
+							// mui.toast("复查成功");
 						var main = plus.webview.getWebviewById("checkChild.html");
 						mui.fire(main, 'changeCity', {
 							// cityName: twoArr
@@ -923,7 +943,7 @@
 						// valueList = data.data.response.list;
 
 					} else {
-						mui.toast(res.message);
+						mui.toast(res.message+'44444');
 					}
 				},
 				error: function() {}

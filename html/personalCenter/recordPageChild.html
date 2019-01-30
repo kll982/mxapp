@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<script src="../../lib/js/mui.min.js"></script>
+		<link href="../../lib/css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../../css/index.css" />
+		<link rel="stylesheet" type="text/css" href="../../lib/css/reset.css" />
+		<style type="text/css">
+			body {
+				background: #FFFFFF;
+			}
+
+			.mui-table-view::before,
+			.mui-table-view::after {
+				height: 0;
+			}
+
+			.mui-table-view-cell::after {
+				height: 0;
+				left: 0;
+			}
+
+			.mui-navigate-right::after,
+			.mui-push-right::after {
+				content: none;
+			}
+
+			.mui-table-view-cell>a:not(.mui-btn) {
+				margin: 0;
+			}
+
+			.mui-control-item {
+				color: #FFFFFF !important;
+				font-size: 14px;
+			}
+
+			.mui-scroll>.mui-active {
+				font-size: 15px;
+			}
+
+			.mui-segmented-control.mui-segmented-control-inverted .mui-control-item.mui-active {
+				border-bottom: 2px solid #FFFFFF;
+			}
+
+			.mui-table-view-chevron {
+				margin: 0 10px;
+			}
+
+			.mui-table-view-cell {
+				margin: 10px 0;
+				box-shadow: 1px 1px 3px 1px #E2E2E2;
+				padding: 0;
+				border-radius: 6px;
+				padding: 14px;
+			}
+
+			.mui-content {
+				margin-top: 50px;
+				background: linear-gradient(to right, #48A9F6, #2985E8) no-repeat;
+				background-size: 100% 50px;
+			}
+
+			.oneDiv>.heightItemon {
+				color: #404040;
+				font-size: 18px;
+				font-weight: bold;
+			}
+
+			.mui-table-view-cell>div {
+				padding-right: 10px;
+			}
+
+			.oneDiv>span>img {
+				width: 21px;
+				height: 21px;
+				margin-right: 7px;
+			}
+            .oneDiv{
+				margin-bottom: 18px;
+			}
+			.otherItem {
+				font-size: 12px;
+				color: #999999;
+				margin: 8px 0;
+			}
+			.mui-table-view-chevron .mui-table-view-cell {
+				padding-right: 0px;
+			}
+		</style>
+	</head>
+	<body>
+		<div style="background: linear-gradient(to right, #48A9F6, #2985E8);height: 50px;" id="wrapperXItem" class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
+			<div class="mui-scroll">
+				<a class="mui-control-item mui-active">
+					全部
+				</a>
+				<a class="mui-control-item">
+					渡口渡船
+				</a>
+				<a class="mui-control-item">
+					游览活动
+				</a>
+			</div>
+
+		</div>
+		<div id="pullrefresh" class="mui-content mui-scroll-wrapper mui-slider-item" style="margin-bottom: 50px;">
+			<div class="mui-scroll">
+				<!--数据列表-->
+				<ul class="mui-table-view mui-table-view-chevron">
+
+				</ul>
+			</div>
+
+		</div>
+
+	</body>
+	<script src="../../lib/js/jquery1.9.1.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../js/index.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript" charset="utf-8">
+		var url = window.localStorage.getItem('url'),
+			pageNum = 1,pages ;
+			checkSortId = '';
+		mui.plusReady(function() {
+			// 字体白色(light)的沉浸栏 
+			// 				plus.navigator.setStatusBarStyle("light"); //dark 字体为黑色的沉浸栏
+			// 				plus.navigator.setStatusBarBackground('#000000'); //改变沉浸栏背景颜色的 
+			var self = plus.webview.currentWebview();
+		})
+		mui.init({
+			pullRefresh: {
+				container: '#pullrefresh',
+				down: {
+					auto: true, //可选,默认false.自动上拉加载一次
+					callback: pulldownRefresh
+				},
+				up: {
+					contentrefresh: "正在加载...", //可选，正在加载状态时，上拉加载控件上显示的标题内容
+					contentnomore: '没有更多数据了', //可选，请求完毕若没有更多数据时显示的提醒内容；
+					callback: pullupRefresh
+				}
+			}
+		});
+
+		function pulldownRefresh() {
+			pageNum = 1;
+			setTimeout(function(){
+				mui.ajax({
+					type: 'get',
+					url: url + '/checklist/listCheckHistoryByUser',
+					data: {
+						pageNum: pageNum,
+						checkSortId: checkSortId,
+					},
+					timeout: 10000,
+					success: function(data) {
+						if (data.code == 200) {
+							var string = ''
+							var list = data.data.response.list;
+							pages = data.data.response.pageInfo.pages
+						
+							for (var index = 0; index < list.length; index++) {
+								var accordCount = list[index].accordCount,
+									correctCount = list[index].correctCount,
+									reviewCount = list[index].reviewCount;
+								var uploadTime = timeTransIyrm(list[index].uploadTime)
+								string +=
+									'<li class="mui-table-view-cell" id='+list[index].id+
+									'><div class="oneDiv"><span><img src="../../img/xunricha-1.png"/></span><span class="heightItemon">' +
+									list[index].companyName + '</span></div><div class="otherItem"><span>检查单位：</span><span>' + list[index].createMsaName +
+									'</span></div><div class="otherItem"><span>检查人员：</span><span>' + list[index].createBy +
+									'</span></div><div class="otherItem"><span>检查结果：</span><span>符合 ' + accordCount +
+									' &#x3000;</span><span>当场纠正 ' + correctCount + ' &#x3000;</span><span>隐患整改 ' + reviewCount +
+									'</span></div><div class="otherItem"><span>发布时间：</span><span>' + uploadTime +
+									'</span></div></li>'
+							}
+							$('.mui-table-view-chevron').html(string)
+							mui('#pullrefresh').pullRefresh().endPulldownToRefresh(); //refresh completed
+							// mui('#pullrefresh').pullRefresh().disablePullupToRefresh(); // 关闭显示更多的提示 
+							setTimeout(function () {
+								mui('#pullrefresh').pullRefresh().enablePullupToRefresh(); 
+								mui('#pullrefresh').pullRefresh().endPullupToRefresh();
+								 }, 1000)
+
+						}
+					},
+					error: function(err) {
+						console.log(err)
+					}
+				})
+			}, 1000);
+		}
+		/**
+		 * 上拉加载具体业务实现
+		 */
+		function pullupRefresh(){
+			pageNum++
+			if(pages < pageNum){
+				mui('#pullrefresh').pullRefresh().endPullupToRefresh(true); //参数为true代表没有更多数据了。
+			}else{
+				setTimeout(function() {
+					mui.ajax({
+						type: 'get',
+						url: url + '/checklist/listCheckHistoryByUser',
+						data: {
+							pageNum: pageNum,
+							checkSortId: checkSortId,
+						},
+						timeout: 10000,
+						success: function(data) {
+							if (data.code == 200) {
+								var string = ''
+								var list = data.data.response.list;		
+								for (var index = 0; index < list.length; index++) {
+									var accordCount = list[index].accordCount,
+										correctCount = list[index].correctCount,
+										reviewCount = list[index].reviewCount;
+									var uploadTime = timeTransIyrm(list[index].uploadTime)
+									string +=
+										'<li class="mui-table-view-cell" id='+list[index].id+
+										'"><div class="oneDiv"><span><img src="../../img/xunricha-1.png"/></span><span class="heightItemon">' +
+										list[index].companyName + '</span></div><div class="otherItem"><span>检查单位：</span><span>' + list[index].createMsaName +
+										'</span></div><div class="otherItem"><span>检查人员：</span><span>' + list[index].createBy +
+										'</span></div><div class="otherItem"><span>检查结果：</span><span>符合 ' + accordCount +
+										' &#x3000;</span><span>当场纠正 ' + correctCount + ' &#x3000;</span><span>隐患整改 ' + reviewCount +
+										'</span></div><div class="otherItem"><span>发布时间：</span><span>' + uploadTime +
+										'</span></div></li>'
+								}
+								$('.mui-table-view-chevron').append(string)
+								mui('#pullrefresh').pullRefresh().endPullupToRefresh(false); //参数为true代表没有更多数据了。
+								
+							}
+						},
+						error: function(err) {
+							console.log(err)
+						}
+					})
+				}, 1500);
+			}
+		
+		}
+		var btn = $('.mui-control-item')
+		for (var item = 0; item < btn.length; item++) {
+			btn[item].addEventListener("tap", function() {
+				pageNum = 1
+				setTimeout(function() {
+					var text = $('.mui-active').eq(0).text().trim()
+					if (text == '全部') {
+						checkSortId = ''
+						mui('#pullrefresh').pullRefresh().pulldownLoading();
+					} else if (text == '渡口渡船') {
+						checkSortId = '1'
+						mui('#pullrefresh').pullRefresh().pulldownLoading();
+					} else if (text == '游览活动') {
+						checkSortId = '2'
+						mui('#pullrefresh').pullRefresh().pulldownLoading();
+					}
+				}, 300)
+			})
+		}
+		mui('.mui-table-view-chevron').on('tap','.mui-table-view-cell',function(){
+			var id = this.getAttribute("id");
+			
+			mui.openWindow({
+				id:'ChecklistRecord.html',
+				url:'ChecklistRecord.html',
+				extras: {
+					detailId:id
+				}
+			})
+		})
+		mui('#wrapperXItem').scroll({
+			scrollY: false, //是否竖向滚动
+			scrollX: true, //是否横向滚动
+			startX: 0, //初始化时滚动至x
+			// startY: 0, //初始化时滚动至y
+			indicators: true, //是否显示滚动条
+			deceleration: 0.0005, //阻尼系数,系数越小滑动越灵敏
+			bounce: true //是否启用回弹
+		});
+	</script>
+</html>

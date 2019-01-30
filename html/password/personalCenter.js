@@ -77,13 +77,14 @@ function PersonalCenter() {
 			success: function(res) {
 				var data = JSON.parse(res).data.response;
 				if (appVersion < data.mustVersion) {
-				
-					modelWrap.style.display = "flex";
-					modelWrap.style.visibility = "visible";
-					modelTitle.style.display = "none";
-					modelTitle.style.visibility = "visible";
-					// modelTitle.innerHTML="<div class='font-size18 line-height2 aLine half' style=''>"+"SVGFEColorMatrixElement"+"</div>"+"<div class='font-size14 line-height1-5 aLine half'>"+"WebGLTransformFeedback"+"</div>";
-					modelCenter.innerHTML = "<p>" + data.updateDes + "</p><a href='" + data.downloadUrl + "' dowload>点击体验最新版</a>";
+					downloadUrl = data.downloadUrl
+					$('#mustVersion').text('V' + data.clientVersion)
+					maskItemTive = mui.createMask(function(){
+						return false;
+					})
+					maskItemTive.show()
+					$('.buttonName').css('color', '#4D4D4D')
+					$('#ItreProme').css('display', 'block')
 				} else {
 					mui.toast("当前版本已是最新版")
 				}

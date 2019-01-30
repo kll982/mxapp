@@ -72,12 +72,11 @@
 			.colorItemTextIgeg {
 				color: #999999;
 				font-size: 14px;
-				/* margin: 4px 0; */
+				flex-shrink: 0;
 				width: 90px;
 				/* background: red; */
-
 			}
-
+          
 			.colorItemTexeg {
 				color: #000000;
 				font-size: 14px;
@@ -87,17 +86,18 @@
 				display: -webkit-flex;
 				/* Safari */
 				display: flex;
-				justify-content: space-between;
+				flex-direction: row;
 				margin: 10px 0;
-				padding-left: 26px;
+				padding-left: 12px;
 				padding-right: 26px;
 			}
+
 
 			.flexItem {
 				display: -webkit-flex;
 				/* Safari */
 				display: flex;
-				justify-content: space-between;
+				flex-direction: row;
 				margin: 15px 0;
 				padding: 0 26px;
 			}
@@ -179,6 +179,9 @@
 				height: 11px;
 				margin-left: 5px;
 			}
+			#headrChildtext>div>.colorItemTextIgeg{
+			   width:104px;	
+			}
 		</style>
 	</head>
 
@@ -195,11 +198,11 @@
 		<hr class="hritemnWid">
 		<div id="headrChildtext" style="">
 			<div>
-				<span class="colorItemTextIgeg">检查人</span><span id="one" class="colorItemTexeg"></span>
+				<span class="colorItemTextIgeg">检&#x3000;查&#x3000;人</span><span id="one" class="colorItemTexeg"></span>
 			</div>
-			<div>
+			<!-- <div>
 				<span class="colorItemTextIgeg">检查人手机</span><span id="onea" class="colorItemTexeg"></span>
-			</div>
+			</div> -->
 			<div>
 				<span class="colorItemTextIgeg">检查人单位</span><span id="oneb" class="colorItemTexeg"></span>
 			</div>
@@ -207,7 +210,10 @@
 				<span class="colorItemTextIgeg">检查项目数</span><span id="onec" class="colorItemTexeg"></span>
 			</div>
 			<div>
-				<span class="colorItemTextIgeg">限期整改项目</span><span id="oned" class="colorItemTexeg"></span>
+				<span class="colorItemTextIgeg">限期整改项</span><span id="oned" class="colorItemTexeg"></span>
+			</div>
+			<div>
+				<span class="colorItemTextIgeg">备&#x3000;&#x3000;&#x3000;注</span><span id="onee" class="colorItemTexeg"></span>
 			</div>
 		</div>
 		<hr class="hritemnWid">
@@ -220,17 +226,19 @@
 					<img id="imgFun" src="../../img/raido142.png" style="position: relative;top: 3px;"></span>
 				<span style="font-size: 12px;color: #44A5F4;" id="fontsitItem">打印水水上安全隐患治理通知单</span>
 			</div>
-			<button id="name">发布记录</button>
+			<button id="name">确定记录</button>
 		</nav>
 	</body>
 	<script src="../../lib/js/jquery1.9.1.min.js" type="text/javascript" charset="utf-8"></script>
 	<script type="text/javascript" charset="utf-8">
-		var detailId;
-		var trueItej = false;
+		var detailId, remarks;
+		var trueItej = false,
+			trueItejIte = 0;
 		var url = window.localStorage.getItem('url')
 		mui.plusReady(function() {
 			var self = plus.webview.currentWebview();
 			detailId = self.detailId;
+			remarks = self.remarks;
 			var string = self.string;
 			$('#headrChild').text(string)
 			name(detailId)
@@ -249,8 +257,7 @@
 				$('#fontsitItem').css('color', '#44A5F4')
 			}
 		}
-
-		function name(detailId) {
+		function name(detailId){
 			mui.ajax({
 				type: 'get',
 				url: url + '/checklist/releasePreview',
@@ -272,29 +279,33 @@
 						$('#oneb').text(response.msaName)
 						$('#onec').text(response.allCount)
 						$('#oned').text(response.troubleCount)
+						$('#onee').text(remarks)
 						for (var index = 0; index < list.length; index++) {
-							if (arrayname.indexOf(list[index].one) == -1) {
-								arrayname.push(list[index].one)
+							if (arrayname.indexOf(list[index].item) == -1) {
+								arrayname.push(list[index].item)
 							}
 						}
 						for (var num = 0; num < arrayname.length; num++) {
-							var number = 0;
+							var number = 0; 
 							var valut = arrayname[num]
 							var stringItem = '';
 							var arraynameityem = '';
 							for (var j = 0; j < list.length; j++) {
-								if (arrayname[num] == list[j].one) {
+								if (arrayname[num] == list[j].item) {
 									number++
+									var accordNamef = 'block';
 									var accord = 'block';
 									var accordItem = 'block';
 									var pictures = list[j].pictures
 									var imgSring = '';
 									var valuerTextI = '',
 										srcimgname = '';
-									for (var pic = 0; pic < pictures.length; pic++) {
-										imgSring += '<img class="imgSizeItem" src=' + pictures[pic] + ' />'
+									if(pictures != '' && pictures !=null){
+										for (var pic = 0; pic < pictures.length; pic++) {
+											imgSring += '<img class="imgSizeItem" src=' + pictures[pic] + ' />'
+										}
 									}
-									if (list[j].optionId == '1') {
+									if (list[j].optionId == '1'){
 										accord = 'none';
 										valuerTextI = '符合'
 										srcimgname = '../../img/tuoyuan9.png'
@@ -306,13 +317,17 @@
 										valuerTextI = '不符合(限期整改)'
 										srcimgname = '../../img/tuoyuan1.png'
 										trueItej = true;
+									}else if(list[j].optionId == '4'){
+										accordNamef = 'none';
+										valuerTextI = '不适用'
+										srcimgname = '../../img/tuoyuan11.png'
 									}
 									stringItem = stringItem +
 										'<div  class="threeText"><img style="position: relative;width:12px;height:12px;" src=' + srcimgname +
-										'/> ' + list[j].three +
-										'</div><div class="flexItem"><span class="colorItemTextIgeg">检查结果</span><span  class="colorItemTexeg">' +
+										'/> ' + list[j].item +
+										'</div> <div class="flexItem"><span class="colorItemTextIgeg">检查结果</span><span  class="colorItemTexeg">' +
 										valuerTextI +
-										'</span></div><div class="flexItem"><span class="colorItemTextIgeg">现场照片</span><span  class="colorItemTexeg coimg">' +
+										'</span></div><div style="display:' + accordNamef +'"><div class="flexItem"><span class="colorItemTextIgeg">现场照片</span><span  class="colorItemTexeg">' +
 										imgSring +
 										'</span></div><div style="display:' + accord +
 										'"><div class="flexItem"><span class="colorItemTextIgeg">问题描述</span><span  class="colorItemTexeg">' +
@@ -321,24 +336,25 @@
 											j].reviewRequire +
 										'</span></div><div class="flexItem"><span class="colorItemTextIgeg">复查时间</span><span  class="colorItemTexeg">' +
 										list[j].reviewTime +
-										'</span></div></div></div><hr class="hritemnWid">'
+										'</span></div></div></div></div><hr class="hritemnWid">'
 
 								}
 							}
-							if(arrayname[num].length>15){
-								arraynameityem = arrayname[num].substring(0,15)
-							}else{
-								arraynameityem = arrayname[num]
-							}
-							string += '<div class="flexItem flexItemOne"><span class="colorItemTextIgegone">' + arraynameityem +
-								'</span><span id="arrayname' + num + '" class="colorItemTexeg" onClick="dfhgdkftwo(' + num + ')">' + number +
-								'项<img class="oneghkdfhgdkftwo" src="../../img/oneghkdfhgdkf22.png"/></span></div><div id="display' + num +
-								'">' + stringItem + '</div>'
-							// console.log('name')
+
+							// 							if(arrayname[num].length>15){
+							// 								arraynameityem = arrayname[num].substring(0,15)
+							// 							}else{
+							// 								arraynameityem = arrayname[num]
+							// 							}
+							// 							string += '<div class="flexItem flexItemOne"><span class="colorItemTextIgegone">' + arraynameityem +
+							// 								'</span><span id="arrayname' + num + '" class="colorItemTexeg" onClick="dfhgdkftwo(' + num + ')">' + number +
+							// 								'项<img class="oneghkdfhgdkftwo" src="../../img/oneghkdfhgdkf22.png"/></span></div><div id="display' + num +
+							// 								'">' + stringItem + '</div>'
+							string += stringItem
 						}
 						$('#textIghter').html(string)
 						if (!trueItej) {
-							$('#imgTrueItem').css('display', 'none')
+							trueItejIte = 1;
 						}
 					}
 				},
@@ -357,28 +373,27 @@
 				$('#arrayname' + num).children('img').attr('src', '../../img/oneghkdfhgdkf111.png')
 				$('#display' + num).css('display', 'none')
 			}
-
-
 		}
-		$('#name').click(function(){
+		$('#name').click(function() {
 			mui.ajax({
 				type: 'get',
 				url: url + '/checklist/reportedOrder',
 				data: {
-					detailId: detailId
+					detailId: detailId,
+					remarks: remarks
 				},
 				dataType: "jsonp",
 				jsonp: "jsoncallback",
 				timeout: 5000,
 				success: function(data) {
+					console.log(JSON.stringify(data))
 					var res = JSON.parse(data)
 					var string = ''
 					if (res.code == 200) {
 						var imgItem = $('#imgFun').attr('src')
-						console.log(imgItem.indexOf('radio26') == -1)
+						// console.log(imgItem.indexOf('radio26') == -1)
 						if (imgItem.indexOf('radio26') == -1) {
 							Printed()
-							
 						} else {
 							tiaName()
 						}
@@ -394,74 +409,84 @@
 			var mainitemname = plus.webview.getWebviewById('../check/check.html');
 			mui.fire(mainitemname, 'changeCitytimeoneitemd', {})
 			var mainitem = plus.webview.getWebviewById('browseChild.html');
-			setTimeout(function(){
+			setTimeout(function() {
 				mui.back()
 			}, 200)
 			mui.fire(mainitem, 'changeC', {})
 			mui.openWindow({
 				url: '../browse/browse.html',
 				id: 'html/browse/browse.html',
-				
+
 			})
 			mui.toast('发布成功')
 		}
 
-		function Printed(){
-			mui.openWindow({
-				url: 'Printed.html',
-				id: 'Printed.html',
-				extras: {
-					detailId: detailId
-				}
-				
-			})
-// 			console.log(detailId)
-// 		mui.ajax({
-// 			type: 'get',
-// 			url: localStorage.getItem("url") + '/checklistPrint/troubleJobOrder',
-// 			data: {
-// 				detailId: detailId
-// 			},
-// 			timeout: 10000,
-// 			success: function(res) {
-// 				if (res.code == 200) {
-// 				var response = res.data.response
-// 				var list = res.data.response.list
-// 				// tiaName()
-// 				}
-// 				else {
-// 					mui.toast(res.message);
-// 				}
-// 			},
-// 			error: function() {}
-// 		})
-		}
-// 		$('#buttonItem').click(function(){
-// 		 var result = plus.bridge.execSync("customPlugin", "print", ['模板编号',{参数obj}]);
-// 		    alert(result);
-// 		})
-// 		$('#buttonItemA').click(function(){
-// 			
-// 		})
-// 		function print(){  
-// 		    var result = plus.bridge.execSync("customPlugin", "print", ['1',{response}]);
-// 		    if(result==1){
-// 				scanPrinter()
-// 			}else(result==0){
-// 				'成功'
-// 			}
-// 		}
-		//同步调用原生方法扫描打印机     
-// 		function scanPrinter(){
-// 		    //调用customPlugin插件的testFunctionSync方法，传递了两个参数，分别是James和Tracy
-// 		    var result = plus.bridge.execSync("customPlugin", "scanPrinter", []);
-// 			// acceptPrint(result)
-// 		    alert(result); 
-// 		}
+		function Printed() {
+			if (trueItejIte == 0) {
+				mui.openWindow({
+					url: 'Printed.html',
+					id: 'Printed.html',
+					extras: {
+						detailId: detailId
+					}
+				})
+			} else if (trueItejIte == 1) {
+				mui.openWindow({
+					url: 'PrintedSuggest.html',
+					id: 'PrintedSuggest.html',
+					extras: {
+						detailId: detailId
+					}
+				})
+			}
 
-//         function print(){  
-// 		    var result = plus.bridge.execSync("customPlugin", "print", ['2',{response}]);
-// 		    alert(result);
-// 		}
+			// 			console.log(detailId)
+			// 		mui.ajax({
+			// 			type: 'get',
+			// 			url: localStorage.getItem("url") + '/checklistPrint/troubleJobOrder',
+			// 			data: {
+			// 				detailId: detailId
+			// 			},
+			// 			timeout: 10000,
+			// 			success: function(res) {
+			// 				if (res.code == 200) {
+			// 				var response = res.data.response
+			// 				var list = res.data.response.list
+			// 				// tiaName()
+			// 				}
+			// 				else {
+			// 					mui.toast(res.message);
+			// 				}
+			// 			},
+			// 			error: function() {}
+			// 		})
+		}
+		// 		$('#buttonItem').click(function(){
+		// 		 var result = plus.bridge.execSync("customPlugin", "print", ['模板编号',{参数obj}]);
+		// 		    alert(result);
+		// 		})
+		// 		$('#buttonItemA').click(function(){
+		// 			
+		// 		})
+		// 		function print(){  
+		// 		    var result = plus.bridge.execSync("customPlugin", "print", ['1',{response}]);
+		// 		    if(result==1){
+		// 				scanPrinter()
+		// 			}else(result==0){
+		// 				'成功'
+		// 			}
+		// 		}
+		//同步调用原生方法扫描打印机     
+		// 		function scanPrinter(){
+		// 		    //调用customPlugin插件的testFunctionSync方法，传递了两个参数，分别是James和Tracy
+		// 		    var result = plus.bridge.execSync("customPlugin", "scanPrinter", []);
+		// 			// acceptPrint(result)
+		// 		    alert(result); 
+		// 		}
+
+		//         function print(){  
+		// 		    var result = plus.bridge.execSync("customPlugin", "print", ['2',{response}]);
+		// 		    alert(result);
+		// 		}
 	</script>
 </html>

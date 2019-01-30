@@ -94,13 +94,25 @@
 				margin-right: 5px;
 				position: relative;
 				top: 1px;
+				
+			}
+			.disUrgency{
+				color: #F44444;
+				border: 1px solid #F35C51;
+				font-size: 10px;
+				margin-left: 10px;
+				height: 14px;
+				line-height: 14px;
+				padding: 0 2px;
+				letter-spacing: 2px;
+				
 			}
 		</style>
 	</head>
 	<body>
 		<header id="header" class="mui-bar mui-bar-nav">
 			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
-			<h1 class="mui-title">隐患整改</h1>
+			<h1 class="mui-title">隐患复查</h1>
 		</header>
 		<div style="height: 53px;"></div>
 		<div id="itemchild"></div>
@@ -129,6 +141,7 @@
 		})
 
 		function initial(companyId, index) {
+			
 			mui.ajax({
 				type: 'get',
 				url: url + '/checklist/listReviewByConditional',
@@ -142,11 +155,17 @@
 						list = data.data.response.list
 						for (var indexa = 0; indexa < list.length; indexa++) {
 							if (companyId == list[indexa].companyId) {
-								var string = '<li><p class="titleItem">' + list[indexa].three +
-									'</p><div class="boryItem"><p class="titletext"><img class="imgsizeitemtd" src="../../img/zhinengshiliantu.png"/>' +
-									list[indexa].reviewDescribe + '</p><p  class="titletime"><span>复查时间: <span><span>' + list[indexa].reviewTime +
-									'</span></p></div> <button  class="titlebuttone" onClick="subpage(' + list[indexa].reviewId + ',' +
-									list[indexa].companyId + ',' + indexa + ')">去复查</button></li>'
+								var disItem = 'none'
+								if(list[indexa].isArrive=='1'){
+									 disItem = 'none'
+								}else if(list[indexa].isArrive=='2'){
+									 disItem = 'inline-block'
+								}
+								var string = '<li onClick="reviewIdItem(' + list[indexa].reviewId + ')"><p class="titleItem">' + list[indexa].three +
+									'<span class="disUrgency" style="display:'+disItem+'" >紧急</span></p> <div class="boryItem"><p class="titletext">问题描述：'
+									 +list[indexa].reviewDescribe + '</p><p class="titletext">整改要求：' + list[indexa].reviewRequire + 
+									 '</p><p  class="titletime"><span>复查时间: <span><span>' + list[indexa].reviewTime +
+									'</span></p></div></li>'
 								$('.mui-table-view').append(string)
 							}
 						}
@@ -163,18 +182,31 @@
 			})
 		}
 
-		function subpage(index, companyId, i) {
-			var index = index;
-			var two = list[i].companyName
-			mui.openWindow({
-				id: 'dangerspage.html',
-				url: 'dangerspage.html',
-				extras: {
-					detailId: index,
-					companyId: companyId,
-					two: two
-				}
-			})
-		}
+	window.addEventListener("changeCityrspagea", function(){
+			initial(companyId, levelindex)
+		});
+// 		function subpage(index, companyId, i){
+// 			var index = index;
+// 			var two = list[i].companyName
+// 			mui.openWindow({
+// 				id: 'dangerspage.html',
+// 				url: 'dangerspage.html',
+// 				extras: {
+// 					detailId: index,
+// 					companyId: companyId,
+// 					two: two
+// 				}
+// 			})
+// 		}
+		function reviewIdItem(index){
+					mui.openWindow({
+						id:'returnPage.html',
+						url:'returnPage.html',
+						extras: {
+							level: levelindex,
+							reviewId: index,
+						}
+					})
+			}
 	</script>
 </html>

@@ -84,7 +84,7 @@
 				box-shadow: 1px 2px 12px 2px #ebeff1;
 				background: #FFFFFF;
 				margin-bottom: 12px;
-
+        padding-bottom: 15px;
 			}
 
 			/* title */
@@ -103,7 +103,7 @@
 
 			.checklistTitleAllitem {
 				font-size: 15px;
-				margin-bottom: 20px;
+				/* margin-bottom: 5px; */
 				padding-left: 5px;
 				padding-right: 10px;
 			}
@@ -321,7 +321,21 @@
 			.mui-table-view-cell.mui-active {
 				background: #FFFFFF;
 			}
-
+			.disUrgency{
+				color: #F44444;
+				border: 1px solid #F35C51;
+				font-size: 10px;
+				margin-left: 10px;
+				height: 14px;
+				line-height: 14px;
+				padding: 0 2px;
+				letter-spacing: 2px;
+				
+			}
+			.itemItemName{
+				margin-top: 6px;
+				display: inline-block;
+			}
 			/* 	body{
 				background: url(../../img/ui-sousuoyeme_10.jpg) no-repeat;
 				background-size: 100% ;
@@ -337,14 +351,11 @@
 		</header>
 		<div class="mui-content">
 			<div style="padding: 10px 10px;" id="segmentedControlFather">
-				<div id="segmentedControl" class="mui-segmented-control  mui-segmented-control-inverted ">
+	<!-- 			<div id="segmentedControl" class="mui-segmented-control  mui-segmented-control-inverted ">
 					<a id="mui-activecome" class="mui-control-item mui-active" href="#item1">全部隐患<span class="underline" style="height:2px;width:40px;background: #FFFFFF;display:block;margin: 0 auto;"></span></a>
-
 					<a class="mui-control-item" href="#item2">逾期未查隐患<span class="underline" style="height:2px;width:40px;background: #FFFFFF;display:block;margin: 0 auto;display: none;"></a>
-
 					<a class="mui-control-item" href="#item3">未到期隐患<span class="underline" style="height:2px;width:40px;background: #FFFFFF;display:block;margin: 0 auto; display: none;"></a>
-
-				</div>
+				</div> -->
 				<div id="segmentedControlnext">
 					<button type="button" class="allitem mui-activeitem" onclick="onChange(' ')">全部</button>
 					<button type="button" class="allitem" onclick="onChange(1)">渡口渡船</button>
@@ -514,42 +525,67 @@
 				isOverdue: isOverdue,
 				checkSortId: checkSortId
 			}]
-
 			mui.ajax({
 				type: 'get',
 				url: url + '/checklist/listReviewByConditional',
 				data: array[indexnumget],
 				timeout: 10000,
 				success: function(data) {
-					// console.log(JSON.stringify(data))
+					
 					if (data.code == 200) {
 						 list = data.data.response.list
-						// console.log(JSON.stringify(list))
-						var stringAll = ''
-						arrayItem = []
+						var stringAll = '' ,arrayItem = [],arrayItemSend = []
+						   
 						for (var index = 0; index < list.length; index++) {
-							arrayItem.push(list[index].companyId)
+							if(list[index].isPass=='0'){
+								arrayItem.push(list[index].companyId)
+							}else if(list[index].isPass=='2'){
+								arrayItemSend.push(list[index].reviewId)
+							}
 						}
 						arrayItem = unique1(arrayItem) 
+						// console.log(arrayItemSend)
+					 if(arrayItemSend.length>0){
+						 for(var n=0;n<arrayItemSend.length;n++){
+							 for(var na=0;na<list.length;na++){
+								 if (arrayItemSend[n] == list[na].reviewId){
+									 stringAll = stringAll + '<li onClick="reviewIdItem('+list[na].reviewId+')" class="mui-table-view-cell">'
+									 +'<div class="checklistTitleAll"><span></span><span class="checklistTitle">' +
+									 list[na].checklistTitle+'<span class="disUrgency" style="display:'+disItem+
+									 '" >退回</span><br/><span class="itemItemName">'+list[na].item+'<span> </div> <div class="checklistTitleAllitem"><span class="msaName">退回人: </span><span class="uploadTime">' +list[na].passByName 
+									 +'</span><span></div> <div class="checklistTitleAllitem"><span class="msaName">退回原因: </span><span class="uploadTime">'
+									 +list[na].noPassCause +'</span><span></div> <div class="checklistTitleAllitem"><span class="msaName">再次提交时间: </span><span class="uploadTime">'+list[na].reviewTime +'</span><span></div> </li>'
+								 }
+							 }
+						 }
+					 }
 						for (var j = 0; j < arrayItem.length; j++) {
-							var addition = 0
+						  var originalItem = false;
+							var addition = 0;
 							var checkType;
 							var checklistTitle = '',msaName = '',indexi;
-							
+							var disItem = 'none'
 							for (var i = 0; i < list.length; i++){
-									if (arrayItem[j] == list[i].companyId) {
-										 addition++
+									if (arrayItem[j] == list[i].companyId){
+										if(list[i].isPass=='0'){
+											 addition++
                      checklistTitle =  list[i].checklistTitle;
 										 msaName = list[i].companyMsaName;
 										 indexi = i;
+										 if(list[i].isArrive == '2'){
+										 	disItem = 'inline-block'
+										 }
+										}
 									}
 							}
-							stringAll = stringAll + '<li onClick="reviewpage('+arrayItem[j]+','+indexi+')" class="mui-table-view-cell"> <div class="checklistTitleAll"><span></span><span class="checklistTitle">' +
-              checklistTitle+ '</div> <div class="checklistTitleAllitem"><span class="msaName">所属: </span><span class="uploadTime">'
-							+msaName +'</span><span><span class="hiddendanger">隐患数量: ' + addition +' </span></div> </li>'
+							stringAll = stringAll + '<li onClick="reviewpage('+arrayItem[j]+','+indexi+')" class="mui-table-view-cell">'
+							+'<div class="checklistTitleAll"><span></span><span class="checklistTitle">' +
+              checklistTitle+'<span class="disUrgency" style="display:'+disItem+
+							'" >紧急</span> </div> <div class="checklistTitleAllitem"><span class="msaName">所在辖区: </span><span class="uploadTime">'+msaName +
+							'</span><span></div> <div class="checklistTitleAllitem"><span class="msaName">隐患: </span><span class="uploadTime">'+addition +'</span><span></div> </li>'
 						}
                   
-						if (stringAll != '') {
+						if (stringAll != ''){
 							$('body').css({
 								'background': '#FFFFFF'
 							})
@@ -634,7 +670,7 @@
 				})
 			}
 			checkSortId = index
-			// console.log(index)
+			
 			firstDom(2)
 		}
 
@@ -652,15 +688,15 @@
 		// 城市的选择
 		$('#cityitemselect').click(function() {
 
-			// console.log('成功')
+		
 			linkage()
 		})
 
 		function dispalyItem(event) {
-			// console.log(event)
+		
 			var id = '#jnum' + event;
 			var idimg = '#img' + event;
-			// console.log($('.grayItem').eq(event).css('display'))
+		
 			// $('.grayItem').eq(event).css('background','red')
 			if ($(id).css('display') == 'none') {
 				$(id).css('display', 'block')
@@ -739,17 +775,22 @@ window.addEventListener('changeCity',function(){
 		
 		
 		$('#mui-action-back').click(function(){
-		
 		var main = plus.webview.getWebviewById(window.localStorage.getItem('index.html'));
 		mui.fire(main, 'changeCityIndex', {
 			
 		})
 		mui.back()
-// 		mui.openWindow({
-// 			id:'../../index.html',
-// 			url:'../../index.html',
-// 		})
 		})
-		
+		function reviewIdItem(index){
+					mui.openWindow({
+						id:'returnPage.html',
+						url:'returnPage.html',
+						extras: {
+							level: level,
+							reviewId: index,
+						}
+					})
+			}
+
 	</script>
 </html>

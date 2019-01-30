@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<script src="../../lib/js/mui.min.js"></script>
+		<link href="../../lib/css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../../css/index.css" />
+		<link rel="stylesheet" type="text/css" href="../../lib/css/reset.css" />
+		<link rel="stylesheet" type="text/css" href="../../lib/css/mui.picker.min.css" />
+		<style type="text/css">
+			body {
+				margin: 0;
+				background: #FFFFFF;
+			}
+
+			#titleIte {
+				font-weight: bold;
+				font-size: 18px;
+				color: #474747;
+			}
+
+			#bodyHeader {
+				margin: 0 10px;
+				margin-top: 20px;
+			}
+
+			.leftItem {
+				color: #999999;
+				font-size: 14px;
+				margin-right: 10px;
+				flex-shrink: 0;
+			}
+
+			.rightItem {
+				color: #595959;
+				font-size: 14px;
+				line-height: 18px;
+				position: relative;
+				top: -2px;
+			}
+
+			.flexItem {
+				display: -webkit-flex;
+				/* Safari */
+				display: flex;
+				flex-direction: row;
+				justify-content: flex-start;
+				margin: 16px 0;
+			}
+
+			.imgItemSize {
+				width: 75px;
+				height: 75px;
+				border-radius: 6px;
+			}
+
+			.hrItem {
+				border: none;
+				height: 1px;
+				background: #F2F2F2;
+			}
+
+			#HeaderBody {
+				margin: 0 16px;
+			}
+
+			#headtextdis {
+				text-align: right;
+			}
+
+			#imgSize {
+				width: 22px;
+				height: 22px;
+			}
+
+			#headtext {
+				text-align: justify;
+				padding: 0 30px;
+				color: #808080;
+				background: #fdfdfd;
+				padding-top: 10px;
+				font-size: 16px;
+				padding-bottom: 10px;
+			}
+
+			#bodyCenter {
+				margin: 0 20px 70px 20px;
+			}
+
+			.signal {
+				color: red;
+			}
+
+			.flexItemFome {
+				font-size: 16px;
+			}
+
+			.flexBody {
+				display: -webkit-flex;
+				/* Safari */
+				display: flex;
+				flex-direction: row;
+				justify-content: space-between;
+				/* margin: 16px 0; */
+			}
+
+			.rightBody {
+				width: 40px;
+				text-align: right;
+			}
+
+			textarea {
+				color: #808080;
+				border: none;
+				border-bottom: 1px solid #D9D9D9;
+				margin-top: 10px;
+			}
+
+			.photoItem>.appendImgWrap {
+				width: 75px;
+				height: 75px;
+				position: relative;
+				overflow: hidden;
+				background: #007AFF;
+				float: left;
+				display: block;
+				margin-left: 4px;
+				margin-top: 4px;
+			}
+
+			.appendImg {
+				width: 75px;
+				height: 75px;
+				display: inline-block;
+			}
+
+			/* 图片删除 */
+			.deleteImg {
+				width: 16px;
+				height: 16px;
+				position: absolute;
+				top: 0;
+				right: 0;
+			}
+
+			.photoItemchild {
+				display: inline-block;
+				width: 75px;
+				height: 75px;
+				background: #F5F5F5;
+				float: left;
+				margin-left: 4px;
+				margin-top: 4px;
+				text-align: center;
+			}
+
+			#photoone>img {
+				margin-top: 27px;
+				width: 24px;
+				height: 18px;
+			}
+
+			/* 选择器的颜色 */
+			/* 确定 */
+			.mui-btn-blue,
+			.mui-btn-primary,
+			input[type="submit"] {
+				color: #404040;
+				border: none;
+				background: none;
+			}
+
+			.mui-dtpicker-header button {
+				font-size: 16px;
+			}
+
+			/* 取消 */
+			.mui-btn,
+			button,
+			input[type="button"],
+			input[type="reset"],
+			input[type="submit"] {
+				font-size: 16px;
+				color: #404040;
+				border: none;
+				background: none;
+			}
+
+			.mui-picker-inner {
+				background: #FFFFFF;
+			}
+
+			.mui-dtpicker-title h5 {
+				background: #FFFFFF;
+			}
+
+			.mui-dtpicker-header {
+				background: #FFFFFF;
+			}
+
+			.mui-poppicker-header {
+				background: #FFFFFF;
+			}
+
+			.mui-poppicker-btn-ok {
+				font-size: 40px;
+			}
+
+			.mui-picker {
+				background-color: #FFFFFF;
+			}
+
+			.mui-poppicker-header .mui-btn {
+				font-size: 18px !important;
+			}
+
+			/* 结束 */
+			#inputfontD {
+				margin-left: 5px;
+				padding-bottom: 20px;
+
+			}
+
+			#geographictext {
+				display: inline-block;
+				width: 109px;
+				margin-bottom: 10px;
+				color: #999999;
+			}
+
+			#geographicimgitwm {
+				width: 12px;
+				height: 14px;
+				margin-left: 5px;
+			}
+
+			#geographic {
+				color: #404040;
+				font-size: 15px;
+				display: inline-block;
+			}
+
+			#submitFather {
+				background: #FFFFFF;
+				height: 55px;
+				line-height: 55px;
+				border: none;
+				bottom: 0;
+				width: 100%;
+			}
+
+			#navbarA {
+				height: 50px;
+				line-height: 50px;
+				z-index: 300;
+			}
+
+			#name {
+				width: calc(100% - 20px);
+				height: 40px;
+				left: 10px;
+				top: 5px;
+				background: linear-gradient(to right, #48A9F6, #2985E8);
+				background-size: 100% 100%;
+				background: #48A9F6;
+				border-radius: 6px;
+				color: #FFFFFF;
+				font-size: 16px;
+				letter-spacing: 3px;
+			}
+
+			.buttonSizeIten {
+				height: 30px;
+				width: 155px;
+			}
+
+			#buttonImgSar {
+				display: -webkit-flex;
+				/* Safari */
+				display: flex;
+				flex-direction: row;
+				justify-content: space-around;
+				margin-top: 14px;
+				margin-bottom: 22px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="bodyHeader">
+			<div id="titleIte"><span></span></div>
+			<div id="HeaderBody">
+				<div class="flexItem"><span class="leftItem">来&#x3000;&#x3000;源：</span><span class="rightItem">---</span></div>
+				<div class="flexItem"><span class="leftItem">时&#x3000;&#x3000;间：</span><span class="rightItem" id="itemQ"></span></div>
+				<div class="flexItem"><span class="leftItem">现场照片：</span><span class="rightItem" id="itemW"></span></div>
+				<div class="flexItem"><span class="leftItem">问题描述：</span><span class="rightItem" id="itemE"></span></div>
+				<div class="flexItem"><span class="leftItem">整改要求：</span><span class="rightItem" id="itemR"></span></div>
+			</div>
+		</div>
+		<hr class="hrItem">
+		<div id="bodyCenter">
+			<div id="head" style="height: 40px;line-height: 40px;margin-top: 16px;">
+				<div id="headtextdis"><img id="imgSize" src="../../img/nobufuhe.png"></div>
+			</div>
+			<div id="headtext" style="display: none;"></div>
+
+			<div id="buttonImgSar">
+				<span><img onclick="returnTwo(1)" class="buttonSizeIten" src="../../img/return-1.png"></span>
+				<span><img onclick="returnTwo(2)" class="buttonSizeIten" src="../../img/return-3.png"></span>
+			</div>
+
+			<div class="flexItem flexItemFome">
+				<span class="leftItem flexItemFome">现场照片<span class="signal">*</span></span>
+				<span class="photoItem rightItem">
+					<span class="photoItemchild" id="photoone"><img src="../../img/zhiengadgjsadg-43.png"></span>
+				</span>
+			</div>
+			<div id="bodySisplay" style="display: none;">
+				<div class="flexBody">
+					<span class="leftItem flexItemFome">检查描述<span class="signal">*</span>
+					</span><span class="rightBody"><img src="../../img/photeItem.png"></span>
+				</div>
+				<textarea rows="1" cols="" id="textareaone" oninput="onfocusItem(1)"></textarea>
+				<div class="flexBody">
+					<span class="leftItem flexItemFome">整改要求<span class="signal">*</span></span>
+					<span class="rightBody"><img src="../../img/photeItem.png"></span>
+				</div>
+				<textarea rows="1" cols="" id="textareatwo" oninput="onfocusItem(2)"></textarea>
+				<div class="flexBody">
+					<span class="leftItem flexItemFome">复查时间<span class="signal">*</span></span>
+				</div>
+				<textarea rows="1" cols="" id="TimeIem" onClick="textTime()" data-options={"type":"date","beginYear":2018,"endYear":2024}
+				 readonly="readonly" class="btn"></textarea>
+			</div>
+			<div id="inputfontD">
+				<span id="geographictext" class="xinhaoitem">定&#x3000;&#x3000;位</span><br>
+				<div id="">
+					<span id="imgtextiteslitwmmg" style="display: inline"><img id="geographicimgitwm" src="../../img/diliweizhi.png"></span>
+					<span id="geographic" style="display: inline"></span>
+				</div>
+			</div>
+		</div>
+		<nav id="submitFather" class="mui-bar mui-bar-tab" id='navbarA'>
+			<button id="name">提交复查结果</button>
+		</nav>
+	</body>
+	<script src="../../lib/js/jquery1.9.1.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../js/uploadImg.js"></script>
+	<script src="../../lib/js/mui.picker.min.js"></script>
+	<script type="text/javascript" charset="utf-8">
+		var urlTnd = window.localStorage.getItem('url');
+		var headtextdis = false,
+			reviewId, Lon, Lat, address;
+		mui.plusReady(function() {
+			// 字体白色(light)的沉浸栏 
+			// 				plus.navigator.setStatusBarStyle("light"); //dark 字体为黑色的沉浸栏
+			// 				plus.navigator.setStatusBarBackground('#000000'); //改变沉浸栏背景颜色的 
+			var self = plus.webview.currentWebview();
+			reviewId = self.reviewId; //扩展参数
+			var level = self.level;
+			plus.geolocation.getCurrentPosition(MapPoint, function(e) {
+				mui.toast("error:" + e.message);
+			})
+			initial(level, reviewId)
+		})
+		mui.init({
+
+		});
+		// 获取当前的位置信息
+		function MapPoint(position) {
+			Lon = position.coords.longitude; //获取经度
+			Lat = position.coords.latitude; //获取纬度
+			address = position.address.province + "," + position.address.city + "," + position.address.district + "," + position
+				.address.street
+			// + "," + position.address.streetNum;
+			$('#geographic').html(address)
+
+		}
+
+		function textTime() {
+			// 获取当前的时间
+			var result = $('#TimeIem');
+			var btns = $('.btn');
+			btns.each(function(i, btn) {
+				btn.addEventListener('tap', function() {
+					var _self = this;
+					if (_self.picker) {
+						_self.picker.show(function(rs) {
+							$('#TimeIem').val(rs.text);
+							_self.picker.dispose();
+							_self.picker = null;
+						});
+					} else {
+						var optionsJson = this.getAttribute('data-options') || '{}';
+						var options = JSON.parse(optionsJson);
+						var id = this.getAttribute('id');
+						/*
+						 * 首次显示时实例化组件
+						 * 示例为了简洁，将 options 放在了按钮的 dom 上
+						 * 也可以直接通过代码声明 optinos 用于实例化 DtPicker
+						 */
+						_self.picker = new mui.DtPicker(options);
+						_self.picker.show(function(rs) {
+							/*
+							 * rs.value 拼合后的 value
+							 * rs.text 拼合后的 text
+							 * rs.y 年，可以通过 rs.y.vaue 和 rs.y.text 获取值和文本
+							 * rs.m 月，用法同年
+							 * rs.d 日，用法同年
+							 * rs.h 时，用法同年
+							 * rs.i 分（minutes 的第二个字母），用法同年
+							 */
+							$('#TimeIem').val(rs.text);
+							/* 
+							 * 返回 false 可以阻止选择框的关闭
+							 * return false;
+							 */
+							/*
+							 * 释放组件资源，释放后将将不能再操作组件
+							 * 通常情况下，不需要示放组件，new DtPicker(options) 后，可以一直使用。
+							 * 当前示例，因为内容较多，如不进行资原释放，在某些设备上会较慢。
+							 * 所以每次用完便立即调用 dispose 进行释放，下次用时再创建新实例。
+							 */
+							_self.picker.dispose();
+							_self.picker = null;
+						});
+					}
+
+				}, false);
+			});
+
+		}
+
+		function initial(level, reviewId) {
+			mui.ajax({
+				type: 'get',
+				url: urlTnd + '/checklist/listReviewByConditional',
+				data: level,
+				timeout: 10000,
+				success: function(data) {
+					if (data.code == 200) {
+						var list = data.data.response.list
+						for (var index = 0; index < list.length; index++) {
+							if (reviewId == list[index].reviewId) {
+								var imgUrl = '',
+									stringimgA = '';
+								var texthtmlinne = list[index].stipulate.split(/\n/)
+								$('#titleIte').find('span').text(list[index].item)
+								$('#itemQ').text(list[index].reviewTime)
+								$('#itemE').text(list[index].reviewDescribe)
+								$('#itemR').text(list[index].reviewRequire)
+								for (var j = 0; j < list[index].picUrl.length; j++) {
+									imgUrl = imgUrl + '<img class="imgItemSize" src=' + list[index].picUrl[j] + ' />'
+								}
+								$('#itemW').html(imgUrl)
+								for (var timeitem = 0; timeitem < texthtmlinne.length; timeitem++) {
+									stringimgA = stringimgA + '<span class="childitem">' + texthtmlinne[timeitem] + '</span><br>'
+								}
+								$('#headtext').html(stringimgA)
+							}
+						}
+					}
+				},
+				error: function() {}
+			})
+		}
+	
+		$('#headtextdis').click(function() {
+			if (headtextdis) {
+				$('#headtext').css('display', 'none')
+				headtextdis = false
+			} else {
+				$('#headtext').css('display', 'block')
+				headtextdis = true
+			}
+
+		})
+
+		function onfocusItem(num) {
+			if (num == '1') {
+				var namevalue = $('#textareaone').val()
+				var row = Math.ceil(namevalue.length / 22);
+				if (row == 0) {
+					row = 1
+				}
+				$('#textareaone').attr('rows', row)
+			} else if (num == '2') {
+				var namevalue = $('#textareatwo').val()
+				var row = Math.ceil(namevalue.length / 22);
+				if (row == 0) {
+					row = 1
+				}
+				$('#textareatwo').attr('rows', row)
+			}
+
+		}
+
+		function returnTwo(index) {
+			if (index == '2') {
+				var src = $('.buttonSizeIten').eq(1).attr('src')
+
+				if (src == '../../img/return-3.png') {
+					$('.buttonSizeIten').eq(0).attr('src', '../../img/return-2.png')
+					$('.buttonSizeIten').eq(1).attr('src', '../../img/return-4.png')
+					$('#bodySisplay').css('display', 'block')
+				} else {
+					$('.buttonSizeIten').eq(0).attr('src', '../../img/return-1.png')
+					$('.buttonSizeIten').eq(1).attr('src', '../../img/return-3.png')
+					$('#bodySisplay').css('display', 'none')
+				}
+			} else if (index == '1') {
+				var src = $('.buttonSizeIten').eq(0).attr('src')
+				if (src == '../../img/return-2.png') {
+					$('.buttonSizeIten').eq(1).attr('src', '../../img/return-3.png')
+					$('.buttonSizeIten').eq(0).attr('src', '../../img/return-1.png')
+					$('#bodySisplay').css('display', 'none')
+				}
+			}
+		}
+		$('#name').click(function(){
+			var srcOne = $('.buttonSizeIten').eq(0).attr('src')
+			var srcTwo = $('.buttonSizeIten').eq(1).attr('src')
+			if (urls.length > 0) {
+				if (srcOne == '../../img/return-1.png') {
+					data = {
+						reviewId: String(reviewId),
+						lng: String(Lon),
+						lat: String(Lat),
+						picUrl: urls.join(","),
+						location: address,
+						optionId: '1',
+					}
+					ajaxSubmititem(data)
+				} else if (srcTwo == '../../img/return-4.png') {
+					if ($('#textareaone').val().trim().length > 0) {
+						if ($('#textareatwo').val().trim().length > 0) {
+							if ($('#TimeIem').val().trim().length > 0) {
+								data = {
+									reviewId: String(reviewId),
+									lng: String(Lon),
+									lat: String(Lat),
+									picUrl: urls.join(","),
+									location: address,
+									optionId: '3',
+									describe: $('#textareaone').val().trim(),
+									reviewRequire: $('#textareatwo').val().trim(),
+									reviewTime: $('#TimeIem').val(),
+								}
+								ajaxSubmititem(data)
+							} else {
+								mui.toast('复查时间未填写')
+							}
+						} else {
+							mui.toast('整改要求未填写')
+						}
+					} else {
+						mui.toast('检查描述未填写')
+					}
+				}
+			} else {
+				mui.toast('照片未上传')
+			}
+
+		})
+
+		function ajaxSubmititem(data){
+			mui.ajax({
+				type: 'post',
+				url: urlTnd + '/checklist/review',
+				data: data,
+				timeout: 10000,
+				success: function(data) {
+					if (data.code == 200) {
+						var main = plus.webview.getWebviewById('html/dangers/dangersFather.html');
+						mui.fire(main, 'changeCity', {
+						})
+						var main = plus.webview.getWebviewById('dangerspageattr.html');
+						mui.fire(main, 'changeCityrspagea', {
+						})
+						mui.back()
+					}
+				},
+				error: function(err) {
+					console.log(2)
+				}
+			})
+		}
+
+
+	</script>
+</html>

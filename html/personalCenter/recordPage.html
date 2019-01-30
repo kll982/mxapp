@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<script src="../../lib/js/mui.min.js"></script>
+		<link href="../../lib/css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../../css/index.css" />
+		<link rel="stylesheet" type="text/css" href="../../lib/css/reset.css" />
+		<style type="text/css">
+			body{
+				background: #FFFFFF;
+			}
+			#header {
+				padding: 0;
+				margin: 0;
+				height: 53px;
+				color: #FFFFFF;
+				font-size: 18px;
+			}
+			#headerItem {
+				height: 53px;
+				background: linear-gradient(to right, #48A9F6, #2985E8);
+				background-size: 100% 100%;
+			}
+			#headerItem>h1 {
+				color: #FFFFFF;
+				font-size: 18px;
+				line-height: 53px;
+			}
+			.mui-icon-left-nav {
+				top: 5px;
+			}
+
+		</style>
+	</head>
+	<body>
+		<header id="header" class="mui-bar mui-bar-nav">
+			<div id="headerItem">
+				<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+				<h1 class="mui-title">发布记录</h1>
+			</div>
+		</header>
+		<div class="mui-content"></div>
+		<script src="../../lib/js/jquery1.9.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript" charset="utf-8">
+			var detailId = 1;
+			mui.plusReady(function() {
+				// 字体白色(light)的沉浸栏 
+// 				plus.navigator.setStatusBarStyle("light"); //dark 字体为黑色的沉浸栏
+// 				plus.navigator.setStatusBarBackground('#000000'); //改变沉浸栏背景颜色的 
+				var self = plus.webview.currentWebview();
+				name()
+			})
+			function name() {
+               mui.init({
+               	subpages:[{
+               		url:'recordPageChild.html',
+               		id:'recordPageChild.html',
+               		styles:{
+               			top: '53px',
+               		}
+               	}]
+               });    
+			}
+		
+		</script>
+</html>

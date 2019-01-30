@@ -291,7 +291,6 @@
 					success: function(data) {
 						if (data.code == 200) {
 							var hasDraft = data.data.response.checklistDto.hasDraft
-							// console.log(hasDraft)
 							if (hasDraft == '1') {
                                        
 								id = data.data.response.checklistDto.id

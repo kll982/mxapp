@@ -158,7 +158,6 @@ function uploadimg(imgArray, ext) {
 				if (res.code == 200) {
 					url = res.data.url;
 					urls.push(url);
-					
 					num++;
 					var imgWrap = document.createElement("span");
 					imgWrap.className = "appendImgWrap";

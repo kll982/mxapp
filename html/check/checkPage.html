@@ -436,6 +436,7 @@
 							var btnimg = "../../img/dfdf.png"
 							var btnimgA = "../../img/DCJZ.png"
 							var btnimgB = "../../img/XQZG.png"
+							var btnimgC = "../../img/bushiyong-2.png"
 							var row = 1;
 							var zhanText = '展开';
 							var displaytext = 'block',
@@ -479,6 +480,8 @@
 											} else if (orders[j].optionId == 3) {
 												btnimgB = "../../img/XQZGIN.png"
 												zhankaiOne = 'block';
+											}else if(orders[j].optionId == 4){
+												btnimgC = "../../img/bushiyong-1.png"
 											}
 											// 检查描述
 											if (orders[j].troubleDescribe != null && orders[j].troubleDescribe != '') {
@@ -527,7 +530,7 @@
 									'></span></div><div style="text-align: center;"><span class="imgitemtime" >' + '<img id="btnimgB' + valueList[num].id +
 									'" onClick="anniellidae(' + valueList[num].id + ',3)" class="btnimgB imgitemtimeimg' + valueList[num].id +'" src=' + btnimgB +
 									'></span><span class="imgitemtime" ><img style="margin-top:6px;" class="btnimgC" id="btnimgC' + valueList[num].id +'" onClick="anniellidae(' + valueList[num].id + 
-									',4)" src="../../img/bushiyong-2.png" /></span></div></div><div style="display:'
+									',4)" src='+btnimgC+' /></span></div></div><div style="display:'
 									 + zhankaiOne + '" class="zhankaiOne" id="zhankaiOne' + valueList[num].id +
 									'"><div style="display:' + zhankai + '" class="zhankai" id="zhankai' + valueList[num].id +
 									'">  <div class="photoFather"><span class="photoText">现场照片<span class="examineItemItm">*</span></span>' +
@@ -648,7 +651,7 @@
 		}
 
 		function anniellidae(num, j) {
-			// console.log(j)
+		
 			if (j == '1') {
 				if ($('#btnimg' + num).attr('src') == '../../img/sdfsdf.png') {
 					tinct(num)
@@ -714,7 +717,7 @@
 		}
 
 		function tinct(num) {
-			// console.log(num)
+			
 			$('#btnimg' + num).attr('src', '../../img/dfdf.png')
 			$('#btnimgA' + num).attr('src', '../../img/DCJZ.png')
 			$('#btnimgB' + num).attr('src', '../../img/XQZG.png')
@@ -740,7 +743,7 @@
 			}
 
 			$('#onfocusItemName' + num).attr('rows', row)
-			// console.log(row)
+			
 		}
 		// 获取位置
 // 		function MapPoint(position) {
@@ -782,14 +785,14 @@
 		}
 		window.addEventListener('preserveItem', function(e) {
       var promise = new Promise(function(resove,reject){
-				for (var i = 0; i < itemId.length; i++) {
+				for (var i = 0; i < itemId.length; i++){
 					for (var indexname = 0; indexname < itemIdAll.length; indexname++) {
 						if (itemId[i] == itemIdAll[indexname]) {
 							itemIdAll.splice(indexname, 1);
 						}
 					}
 				}
-				// console.log(itemIdAll)
+				
 				for (var it = 0; it < itemId.length; it++) {
 					// var itemfalse =
 					if (!itemtd(itemId[it], 1)) {
@@ -831,11 +834,12 @@
 			// 			})
 		})
 
-		function itemtd(num, j) {
+		function itemtd(num, j){
 		// alert(j)
 			var imgitemone = $('#btnimg' + num).attr('src'),
 				imgitemtwo = $('#btnimgA' + num).attr('src'),
-				imgitemthree = $('#btnimgB' + num).attr('src');
+				imgitemthree = $('#btnimgB' + num).attr('src'),
+				imgitemfromna = $('#btnimgC' + num).attr('src');
 			if (imgitemone == '../../img/sdfsdf.png') {
 				// alert($('.photname' + num).length)
 				if($('.photname' + num).length == 0){
@@ -863,7 +867,7 @@
 					return false
 				}
 
-			} else if (imgitemthree == '../../img/XQZGIN.png') {
+			} else if (imgitemthree == '../../img/XQZGIN.png'){
 				if($('.photname' + num).length != 0){
 				if ($('#onfocusItem' + num).val().trim().length > 0) {
 					if ($('#onfocusItemName' + num).val().trim().length > 0) {
@@ -890,6 +894,10 @@
 					mui.toast(hrefnumId + '.照片未上传')
 					return false
 				}
+			}else if(imgitemfromna == '../../img/bushiyong-1.png'){
+				// alert('name')
+				initialItem = false;
+				return true
 			} else {
          if(j == 1){
 					  initialItem = false;
@@ -914,8 +922,7 @@
 		}
 
 		function submitpreserve(num, j) {
-			// 			console.log(num)
-						// console.log(j)
+
 			var imgattry = '';
 		
 			for (var test = 0; test < $('.photname' + num).length; test++) {
@@ -927,6 +934,7 @@
 			}
 			var imgitemone = $('#btnimg' + num).attr('src'),
 				imgitemtwo = $('#btnimgA' + num).attr('src'),
+				imgitemFrom = $('#btnimgC' + num).attr('src'),
 				imgitemthree = $('#btnimgB' + num).attr('src');
 			if (imgitemone == '../../img/sdfsdf.png') {
 				if(j == 1){
@@ -1016,11 +1024,32 @@
 
 				ajaxItem(present, j)
 
+			}else if(imgitemFrom== '../../img/bushiyong-1.png'){
+				if(j == 1){
+				var orderId =	$('.bodyCenter'+num).eq(0).attr('orderIditem')
+				var present = {
+					orderId: orderId,
+					detailId: detailId,
+					optionId: "4",
+					lng: Lon, // 经度
+					lat: Lat, //纬度
+					location: dingwei,
+				}
+				}else if(j == 2){
+				var present = {
+					itemId: num,
+					detailId: detailId,
+					optionId: "4",
+					lng: Lon, // 经度
+					lat: Lat, //纬度
+					location: dingwei,
+				}
+				}
+				ajaxItem(present, j)
+
 			}else{
 				if(j == 1){
-					
 					var orderId =	$('.bodyCenter'+num).eq(0).attr('orderIditem')
-					// console.log(orderId)
 					var present = {
 						orderId: orderId,
 					}
@@ -1030,8 +1059,7 @@
 		}
 
 		function ajaxItem(present, j){
-// 			console.log(JSON.stringify(present))
-// 			console.log(j)
+
 			if(j == 2){
 				var urlItem = '/checklist/insertOrder';
 				var typeItem = 'post'
@@ -1042,7 +1070,7 @@
 				var urlItem = '/checklist/removeOrder';
 				var typeItem = 'get'
 			}
-			// console.log(present) 
+		
 				mui.ajax({
 				type: typeItem,
 				url: localStorage.getItem("url") + urlItem,
@@ -1097,7 +1125,7 @@
 					$('#onfocusItemName'+id).val(textadd)
 
 				 }
-			 // console.log(textadd)
+			 
 	    }, function(e){
 		alert("语音识别失败："+e.message);
 	});
