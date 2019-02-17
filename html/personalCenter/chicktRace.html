@@ -52,6 +52,7 @@
 			.twoSmll {
 				margin-top: 20px;
 			}
+
 			.leftBody {
 				display: -webkit-flex;
 				/* Safari */
@@ -61,38 +62,59 @@
 				margin-left: 26px;
 				margin-right: 16px;
 			}
+
 			.leftBody>.leftChilA {
 				color: #999999;
 				font-size: 14px;
 				flex-shrink: 0;
-				width: 86px;
+				width: 95px;
+				display: inline-block;
 			}
+
 			.leftBody>.leftChilR {
 				color: #595959;
 				font-size: 14px;
 			}
+
 			.hrItemColoe {
 				border: none;
 				height: 1px;
 				background: #F2F2F2;
 				margin: 16px 0;
 			}
+
 			.leftBodyI {
 				margin-right: 18px;
 				margin-left: 10px;
 			}
+
 			.dispaluONeb {
+				margin-left: 8px;
 				background: #CCCCCC;
 				color: #FFFFFF;
+				font-size: 10px;
+				position: relative;
+				top: -4px;
 			}
+
 			.dispaluONe {
+				margin-left: 8px;
 				color: #F44444;
 				border: 1px solid #F44444;
+				font-size: 10px;
+				position: relative;
+				top: -4px;
 			}
+
 			.dispaluONea {
+				margin-left: 8px;
 				color: #F49C44;
 				border: 1px solid #F49C44;
+				font-size: 10px;
+				position: relative;
+				top: -4px;
 			}
+
 			.twoSmllTim>span {
 				font-size: 10px;
 				width: 40px;
@@ -102,17 +124,20 @@
 				text-align: center;
 				margin-left: 8px;
 			}
-			.imgSine{
+
+			.imgSine {
 				width: 12px;
 				height: 12px;
 				margin-right: 4px;
 			}
-			.imgSiztIten{
+
+			.imgSiztIten {
 				width: 70px;
 				height: 70px;
-				margin:3px;
+				margin: 3px;
 			}
-			.noneText{
+
+			.noneText {
 				color: #404040;
 				height: 100%;
 				text-align: center;
@@ -131,14 +156,14 @@
 		<div id="contion">
 			<div id="oneChile" style="margin: 0 10px;">
 				<div class="oneClas"></div>
-				<div class="oneClasa" style="margin-top: 8px;"></div>
+				<div class="oneClasa" style="margin-top: 8px;"><span id="hsdfbwode"></span><span id="tenngdjkn"></span></div>
 			</div>
 			<div id="twoChile"></div>
 		</div>
 		<script src="../../lib/js/jquery1.9.1.min.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../../js/index.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript" charset="utf-8">
-			var item = '',
+			var item = '',textabfjbtngn,
 				url = window.localStorage.getItem('url');
 			mui.plusReady(function() {
 				// 字体白色(light)的沉浸栏 
@@ -147,12 +172,21 @@
 				var self = plus.webview.currentWebview();
 				item = self.item
 				$('#oneChile').children('.oneClas').text(self.one);
-				$('#oneChile').children('.oneClasa').text(self.two)
+				$('#hsdfbwode').text(self.two)
+				$('#tenngdjkn').text(self.valeu)
+				if (self.valeu == '审核中') {
+					$('#tenngdjkn').attr('class', 'dispaluONea')
+				} else if (self.valeu == '未消除') {
+					$('#tenngdjkn').attr('class', 'dispaluONe')
+				} else if (self.valeu == '已消除') {
+					$('#tenngdjkn').attr('class', 'dispaluONeb')
+				}
+
 				name(item)
 			})
 
 			function name(item) {
-			
+				console.log(item)
 				mui.ajax({
 					type: 'get',
 					url: url + '/checklist/listReviewHistory',
@@ -161,71 +195,110 @@
 					},
 					timeout: 10000,
 					success: function(data) {
-						if (data.code == 200){
+						if (data.code == 200) {
 							var checklistDtos = data.data.response.checklistDtos
-							var string = '',passBy='none',reviewDescribeItem = 'block',weiTonghuo = 'block',weiTonghuoIn = 'block';
-							if(checklistDtos.length>0){
-							for (var index = 0; index < checklistDtos.length; index++) {
-								var dispalu, dispaluONeaBody,imgItemCOlo,optionId;
-								var createTime=timeTransitem(checklistDtos[index].createTime)
-							
-								if(checklistDtos[index].optionId == '1'){
-									optionId = '符合(隐患消除)'
-									passBy = "block"
-									reviewDescribeItem = 'none'
-								}else if(checklistDtos[index].optionId == '3'){
-									optionId = '不符合(限期整改)'
-								}else if(checklistDtos[index].optionId == '4'){
-									optionId = '不符合(继续整改)'
-								} 
-								if (checklistDtos[index].isPass == '1') {
-										dispalu = '待审核',
-										dispaluONeaBody = 'dispaluONea'
-										imgItemCOlo = 	'../../img/tuoyuan1.png'
-										passBy = "none"
-								} else if (checklistDtos[index].isPass == '2') {
-									dispalu = '未消除'
-									dispaluONeaBody = 'dispaluONe'
-									imgItemCOlo = 	'../../img/tuoyuan1.png'
-								} else if (checklistDtos[index].isPass == '3') {
-									dispaluONeaBody = 'dispaluONeb'
-									dispalu = '已消除'
-									imgItemCOlo = 	'../../img/tuoyuan9.png'
-									weiTonghuo = 'none'
+							var string = '';
+
+								if (checklistDtos.length > 0) {
+									for (var index = 0; index < checklistDtos.length; index++) {
+										var dispalu, dispaluONeaBody, imgItemCOlo, optionId;
+										var createTime = timeTransitem(checklistDtos[index].createTime)
+										var passBy = 'none',
+											reviewDescribeItem = 'block',
+											passne = 'block',
+											weiTonghuo = 'block',
+											weiTonghuoIn = 'block';
+										if (checklistDtos[index].optionId == '1') {
+											optionId = '符合(隐患消除)'
+											passBy = "block"
+											reviewDescribeItem = 'none'
+										} else if (checklistDtos[index].optionId == '3') {
+											optionId = '不符合(限期整改)'
+											reviewDescribeItem = 'block'
+										} else if (checklistDtos[index].optionId == '4') {
+											optionId = '不符合(继续整改)'
+											reviewDescribeItem = 'block'
+										}
+										if (checklistDtos[index].isPass == '1') {
+											dispalu = '待审核',
+											dispaluONeaBody = 'dispaluONea'
+											imgItemCOlo = '../../img/tuoyuan1.png'
+											weiTonghuo = 'none'
+											 passne = 'none'
+										} else if (checklistDtos[index].isPass == '2') {
+											dispalu = '未通过'
+											dispaluONeaBody = 'dispaluONe'
+											imgItemCOlo = '../../img/tuoyuan1.png'
+										} else if (checklistDtos[index].isPass == '3') {
+											dispaluONeaBody = 'dispaluONeb'
+											dispalu = '通过'
+											imgItemCOlo = '../../img/tuoyuan9.png'
+											weiTonghuo = 'none'
+										} else if (checklistDtos[index].isPass == '0') {
+											dispaluONeaBody = 'dispaluONeb'
+											dispalu = '----'
+											imgItemCOlo = '../../img/tuoyuan9.png'
+											
+										}
+										var imgString = '';
+										 textabfjbtngn = checklistDtos[index].url.split(',')
+										for (var j = 0; j < textabfjbtngn.length; j++) {
+											imgString += '<img onclick="onImgItem('+j+')" class="imgSiztIten" src= ' + textabfjbtngn[j] + ' />'
+										}
+
+										string +=
+											'<div class="twoSmll"><div><span class="leftBodyI"><img class="imgSine" src="../../img/tuoyuan9.png" />检查时间:</span><span class="twoSmllTim">' +
+											createTime + '</span><div>' +
+											'<div class="leftBody"><span class="leftChilA">检查结果:</span><span class="leftChilR">' + optionId +
+											'</span></div>' +
+											'<div class="leftBody"><span class="leftChilA">检查人:</span><span class="leftChilR">' + checklistDtos[index]
+											.createBy +
+											'</span></div>' +
+											'<div class="leftBody"><span class="leftChilA">检查人手机:</span><span class="leftChilR">' + checklistDtos[
+												index].operatorPhone + '</span></div>' +
+											'<div class="leftBody"><span class="leftChilA">现场照片:</span><span class="leftChilR">' + imgString +
+											'</span></div>' +
+											'<div style="display:' + reviewDescribeItem +
+											'"><div class="leftBody"><span class="leftChilA">问题描述:</span><span class="leftChilR">' +
+											checklistDtos[index].reviewDescribe + '</span></div>' +
+											'<div class="leftBody"><span class="leftChilA">整改要求:</span><span class="leftChilR">' + checklistDtos[
+												index]
+											.reviewRequire + '</span></div>' +
+											'<div class="leftBody"><span class="leftChilA">复查时间:</span><span class="leftChilR">' + checklistDtos[
+												index]
+											.reviewTime + '</span></div></div>' +
+											'<div class="leftBody"><span class="leftChilA">定&#x3000;&#x3000;位:</span><span class="leftChilR">' +
+											checklistDtos[index].location +
+											'</span></div>' +
+											'<div style="display:' + passBy +
+											'"><div class="leftBody" style="display:' + passne +'"><span class="leftChilA">审核人:</span> <span class="leftChilR">' +
+											checklistDtos[index].passNameAndPhone + '</span></div><div class="leftBody"><span class="leftChilA">审核结果:</span><span class="leftChilR">' +
+											dispalu + '</span></div>' +
+
+											'<div style="display:' + weiTonghuo +
+											'"><div class="leftBody"><span class="leftChilA">退回原因:</span><span class="leftChilR">' +
+											checklistDtos[index].noPassCause + '</span></div>' +
+											'<div class="leftBody"><span class="leftChilA">再次提交时间:</span><span class="leftChilR">' + checklistDtos[
+												index].reviewTime + '</span></div>' +
+											'</div></div></div> <hr class="hrItemColoe"/>'
+									}
+									$('#twoChile').html(string)
+								} else {
+									$('#twoChile').html('<div class="noneText">暂无复查数据</div>')
 								}
-								var imgString = '';
-								var text = checklistDtos[index].url.split(',')
-								for(var j = 0 ;j<text.length;j++ ){
-									imgString += '<img class="imgSiztIten" src= '+text[j]+' />'
-								}
-								string +=
-									'<div class="twoSmll"><div><span class="leftBodyI"><img class="imgSine" src='+imgItemCOlo+' />检查时间:</span><span class="twoSmllTim">' +
-									createTime + '<span class=' + dispaluONeaBody + '>' + dispalu + '</span></span><div>' +
-									'<div class="leftBody"><span class="leftChilA">检查结果:</span><span class="leftChilR">'+optionId+'</span></div>' +
-									'<div class="leftBody"><span class="leftChilA">检查人:</span><span class="leftChilR">'+checklistDtos[index].optionId+'</span></div>' +
-									'<div class="leftBody"><span class="leftChilA">检查人手机:</span><span class="leftChilR">'+checklistDtos[index].operatorPhone+'</span></div>' +
-									'<div class="leftBody"><span class="leftChilA">现场照片:</span><span class="leftChilR">'+imgString+'</span></div>' +
-									'<div style="display:'+reviewDescribeItem+'"><div class="leftBody"><span class="leftChilA">问题描述:</span><span class="leftChilR">'
-									+checklistDtos[index].reviewDescribe+'</span></div>' +
-									'<div class="leftBody"><span class="leftChilA">整改要求:</span><span class="leftChilR">'+checklistDtos[index].reviewRequire+'</span></div>' +
-									'<div class="leftBody"><span class="leftChilA">复查时间:</span><span class="leftChilR">'+checklistDtos[index].reviewTime+'</span></div></div>' +
-									'<div class="leftBody"><span class="leftChilA">定&#x3000;&#x3000;位:</span><span class="leftChilR">'+checklistDtos[index].location+
-									'</span></div>'+
-									'<div style="display:'+passBy+'"><div class="leftBody"><span class="leftChilA">审核人:</span><span class="leftChilR">'+
-									checklistDtos[index].passBy+'</span></div>' +
-									'<div style="display:'+weiTonghuo+'"><div class="leftBody"><span class="leftChilA">退回原因:</span><span class="leftChilR">'+
-									checklistDtos[index].noPassCause+'</span></div>' +
-									'<div class="leftBody"><span class="leftChilA">再次提交时间:</span><span class="leftChilR">'+checklistDtos[index].reviewTime+'</span></div>' +
-									'</div></div></div> <hr class="hrItemColoe"/>'
-							}
-							$('#twoChile').html(string)
-							}else{
-								$('#twoChile').html('<div class="noneText">暂无复查数据</div>')
-							}
 						}
 					},
 					error: function(err) {
 						console.log(err)
+					}
+				})
+			}
+			function onImgItem(index){
+				mui.openWindow({
+					url: "../../js/img.html",
+					id: "img",
+					extras: {
+						img:textabfjbtngn[index],
 					}
 				})
 			}

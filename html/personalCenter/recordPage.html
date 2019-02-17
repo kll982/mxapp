@@ -9,9 +9,10 @@
 		<link rel="stylesheet" type="text/css" href="../../css/index.css" />
 		<link rel="stylesheet" type="text/css" href="../../lib/css/reset.css" />
 		<style type="text/css">
-			body{
+			body {
 				background: #FFFFFF;
 			}
+
 			#header {
 				padding: 0;
 				margin: 0;
@@ -19,20 +20,23 @@
 				color: #FFFFFF;
 				font-size: 18px;
 			}
+
 			#headerItem {
 				height: 53px;
 				background: linear-gradient(to right, #48A9F6, #2985E8);
 				background-size: 100% 100%;
 			}
+
 			#headerItem>h1 {
 				color: #FFFFFF;
 				font-size: 18px;
 				line-height: 53px;
 			}
+
 			.mui-icon-left-nav {
 				top: 5px;
+			
 			}
-
 		</style>
 	</head>
 	<body>
@@ -42,28 +46,36 @@
 				<h1 class="mui-title">发布记录</h1>
 			</div>
 		</header>
-		<div class="mui-content"></div>
 		<script src="../../lib/js/jquery1.9.1.min.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript" charset="utf-8">
 			var detailId = 1;
 			mui.plusReady(function() {
 				// 字体白色(light)的沉浸栏 
-// 				plus.navigator.setStatusBarStyle("light"); //dark 字体为黑色的沉浸栏
-// 				plus.navigator.setStatusBarBackground('#000000'); //改变沉浸栏背景颜色的 
+				// 				plus.navigator.setStatusBarStyle("light"); //dark 字体为黑色的沉浸栏
+				// 				plus.navigator.setStatusBarBackground('#000000'); //改变沉浸栏背景颜色的 
 				var self = plus.webview.currentWebview();
 				name()
 			})
 			function name() {
-               mui.init({
-               	subpages:[{
-               		url:'recordPageChild.html',
-               		id:'recordPageChild.html',
-               		styles:{
-               			top: '53px',
-               		}
-               	}]
-               });    
+				mui.init({
+					subpages: [{
+						url: 'recordPageChild.html',
+						id: 'recordPageChild.html',
+						styles: {
+							top: '53px',
+							bottom:'20px'
+						}
+					}]
+				});
 			}
-		
+			window.addEventListener("changeCityitemghb", function(e) {
+			var mask = mui.createMask(function(){
+				return false
+			});//callback为用户点击蒙版时自动执行的回调；
+			mask.show();//显示遮罩
+					})
+					window.addEventListener("changeCityitemghbnaemg", function(e) {
+				$('.mui-backdrop').css('display','none')
+							})
 		</script>
 </html>

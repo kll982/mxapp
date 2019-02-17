@@ -57,11 +57,7 @@
 				padding: 14px;
 			}
 
-			.mui-content {
-				margin-top: 50px;
-				background: linear-gradient(to right, #48A9F6, #2985E8) no-repeat;
-				background-size: 100% 50px;
-			}
+			.mui-scroll-wrapper {}
 
 			.oneDiv>.heightItemon {
 				color: #404040;
@@ -78,7 +74,8 @@
 				height: 21px;
 				margin-right: 7px;
 			}
-            .oneDiv{
+
+			.oneDiv {
 				margin-bottom: 18px;
 			}
 			.otherItem {
@@ -92,7 +89,7 @@
 		</style>
 	</head>
 	<body>
-		<div style="background: linear-gradient(to right, #48A9F6, #2985E8);height: 50px;" id="wrapperXItem" class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
+		<div style="background: linear-gradient(to right, #48A9F6, #2985E8);position: fixed" id="wrapperXItem" class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
 			<div class="mui-scroll">
 				<a class="mui-control-item mui-active">
 					全部
@@ -104,25 +101,22 @@
 					游览活动
 				</a>
 			</div>
-
 		</div>
-		<div id="pullrefresh" class="mui-content mui-scroll-wrapper mui-slider-item" style="margin-bottom: 50px;">
-			<div class="mui-scroll">
+		<div id="pullrefresh"  class="mui-content mui-scroll-wrapper mui-slider-item " style="padding-top: 40px;background: linear-gradient(to right, #48A9F6, #2985E8);background-size: 100%  90px ;background-repeat: no-repeat;">
+			<div class="mui-scroll" >
 				<!--数据列表-->
 				<ul class="mui-table-view mui-table-view-chevron">
-
 				</ul>
 			</div>
-
 		</div>
-
 	</body>
 	<script src="../../lib/js/jquery1.9.1.min.js" type="text/javascript" charset="utf-8"></script>
 	<script src="../../js/index.js" type="text/javascript" charset="utf-8"></script>
 	<script type="text/javascript" charset="utf-8">
 		var url = window.localStorage.getItem('url'),
-			pageNum = 1,pages ;
-			checkSortId = '';
+			pageNum = 1,
+			pages;
+		checkSortId = '';
 		mui.plusReady(function() {
 			// 字体白色(light)的沉浸栏 
 			// 				plus.navigator.setStatusBarStyle("light"); //dark 字体为黑色的沉浸栏
@@ -132,21 +126,34 @@
 		mui.init({
 			pullRefresh: {
 				container: '#pullrefresh',
-				down: {
-					auto: true, //可选,默认false.自动上拉加载一次
-					callback: pulldownRefresh
-				},
+// 				down: {
+// 					height: 0, //可选,默认50.触发下拉刷新拖动距离,
+// 					range: 0,
+// 					// auto: true, //可选,默认false.自动上拉加载一次
+// 					contentdown: "", //可选，在下拉可刷新状态时，下拉刷新控件上显示的标题内容
+// 					contentover: "", //可选，在释放可刷新状态时，下拉刷新控件上显示的标题内容
+// 					contentrefresh: "", //可选，正在刷新状态时，下拉刷新控件上显示的标题内容
+// 					// callback: pulldownRefresh
+// 				},
 				up: {
+					auto: true,
 					contentrefresh: "正在加载...", //可选，正在加载状态时，上拉加载控件上显示的标题内容
 					contentnomore: '没有更多数据了', //可选，请求完毕若没有更多数据时显示的提醒内容；
 					callback: pullupRefresh
 				}
 			}
 		});
-
-		function pulldownRefresh() {
+		function pulldownRefresh(){
+// 			var mask = mui.createMask(function(){
+// 				return false
+// 			});//callback为用户点击蒙版时自动执行的回调；
+//             mask.show();//显示遮罩
+// 			var main = plus.webview.getWebviewById("recordPage.html");
+// 			mui.fire(main, 'changeCityitemghb', {
+// 				// cityName: twoArr
+// 			})
 			pageNum = 1;
-			setTimeout(function(){
+			setTimeout(function() {
 				mui.ajax({
 					type: 'get',
 					url: url + '/checklist/listCheckHistoryByUser',
@@ -160,46 +167,54 @@
 							var string = ''
 							var list = data.data.response.list;
 							pages = data.data.response.pageInfo.pages
-						
 							for (var index = 0; index < list.length; index++) {
 								var accordCount = list[index].accordCount,
 									correctCount = list[index].correctCount,
-									reviewCount = list[index].reviewCount;
+									notApplicableCount = list[index].notApplicableCount
+								reviewCount = list[index].reviewCount;
 								var uploadTime = timeTransIyrm(list[index].uploadTime)
 								string +=
-									'<li class="mui-table-view-cell" id='+list[index].id+
+									'<li class="mui-table-view-cell" id=' + list[index].id +
 									'><div class="oneDiv"><span><img src="../../img/xunricha-1.png"/></span><span class="heightItemon">' +
 									list[index].companyName + '</span></div><div class="otherItem"><span>检查单位：</span><span>' + list[index].createMsaName +
 									'</span></div><div class="otherItem"><span>检查人员：</span><span>' + list[index].createBy +
-									'</span></div><div class="otherItem"><span>检查结果：</span><span>符合 ' + accordCount +
-									' &#x3000;</span><span>当场纠正 ' + correctCount + ' &#x3000;</span><span>隐患整改 ' + reviewCount +
-									'</span></div><div class="otherItem"><span>发布时间：</span><span>' + uploadTime +
+									'</span></div><div class="otherItem"><span style="position: relative;top:-12px;">检查结果：</span><span style="display: inline-block;"><span >符合 ' +
+									accordCount +
+									' &#x3000;</span><span>当场纠正 ' + correctCount + ' &#x3000;</span><br><span>隐患整改 ' + reviewCount +
+									'</span>&#x3000;<span>不适用 ' + notApplicableCount +
+									' &#x3000;</span></span></div><div class="otherItem"><span>发布时间：</span><span>' + uploadTime +
 									'</span></div></li>'
 							}
 							$('.mui-table-view-chevron').html(string)
 							mui('#pullrefresh').pullRefresh().endPulldownToRefresh(); //refresh completed
-							// mui('#pullrefresh').pullRefresh().disablePullupToRefresh(); // 关闭显示更多的提示 
-							setTimeout(function () {
-								mui('#pullrefresh').pullRefresh().enablePullupToRefresh(); 
+							mui('#pullrefresh').pullRefresh().disablePullupToRefresh(); // 关闭显示更多的提示 
+							setTimeout(function() {
+								mui('#pullrefresh').pullRefresh().enablePullupToRefresh();
 								mui('#pullrefresh').pullRefresh().endPullupToRefresh();
-								 }, 1000)
-
+// 								$('.mui-backdrop').css('display','none')
+// 								var main = plus.webview.getWebviewById("recordPage.html");
+// 								mui.fire(main, 'changeCityitemghbnaemg', {
+// 									// cityName: twoArr
+// 								})
+							}, )
+							
+	
 						}
 					},
 					error: function(err) {
 						console.log(err)
 					}
 				})
-			}, 1000);
+			}, );
 		}
 		/**
 		 * 上拉加载具体业务实现
 		 */
 		function pullupRefresh(){
 			pageNum++
-			if(pages < pageNum){
+			if (pages < pageNum) {
 				mui('#pullrefresh').pullRefresh().endPullupToRefresh(true); //参数为true代表没有更多数据了。
-			}else{
+			} else {
 				setTimeout(function() {
 					mui.ajax({
 						type: 'get',
@@ -212,14 +227,15 @@
 						success: function(data) {
 							if (data.code == 200) {
 								var string = ''
-								var list = data.data.response.list;		
+								var list = data.data.response.list;
+								pages = data.data.response.pageInfo.pages
 								for (var index = 0; index < list.length; index++) {
 									var accordCount = list[index].accordCount,
 										correctCount = list[index].correctCount,
 										reviewCount = list[index].reviewCount;
 									var uploadTime = timeTransIyrm(list[index].uploadTime)
 									string +=
-										'<li class="mui-table-view-cell" id='+list[index].id+
+										'<li class="mui-table-view-cell" id=' + list[index].id +
 										'"><div class="oneDiv"><span><img src="../../img/xunricha-1.png"/></span><span class="heightItemon">' +
 										list[index].companyName + '</span></div><div class="otherItem"><span>检查单位：</span><span>' + list[index].createMsaName +
 										'</span></div><div class="otherItem"><span>检查人员：</span><span>' + list[index].createBy +
@@ -230,7 +246,6 @@
 								}
 								$('.mui-table-view-chevron').append(string)
 								mui('#pullrefresh').pullRefresh().endPullupToRefresh(false); //参数为true代表没有更多数据了。
-								
 							}
 						},
 						error: function(err) {
@@ -239,7 +254,6 @@
 					})
 				}, 1500);
 			}
-		
 		}
 		var btn = $('.mui-control-item')
 		for (var item = 0; item < btn.length; item++) {
@@ -249,25 +263,28 @@
 					var text = $('.mui-active').eq(0).text().trim()
 					if (text == '全部') {
 						checkSortId = ''
-						mui('#pullrefresh').pullRefresh().pulldownLoading();
+						pulldownRefresh()
+						// mui('#pullrefresh').pullRefresh().pulldownLoading(true);
 					} else if (text == '渡口渡船') {
 						checkSortId = '1'
-						mui('#pullrefresh').pullRefresh().pulldownLoading();
+						pulldownRefresh()
+						// mui('#pullrefresh').pullRefresh().pulldownLoading(true);
 					} else if (text == '游览活动') {
 						checkSortId = '2'
-						mui('#pullrefresh').pullRefresh().pulldownLoading();
+						pulldownRefresh()
+						// mui('#pullrefresh').pullRefresh().pulldownLoading(true);
 					}
 				}, 300)
 			})
 		}
-		mui('.mui-table-view-chevron').on('tap','.mui-table-view-cell',function(){
+		mui('.mui-table-view-chevron').on('tap', '.mui-table-view-cell', function() {
 			var id = this.getAttribute("id");
-			
+
 			mui.openWindow({
-				id:'ChecklistRecord.html',
-				url:'ChecklistRecord.html',
+				id: 'ChecklistRecord.html',
+				url: 'ChecklistRecord.html',
 				extras: {
-					detailId:id
+					detailId: id
 				}
 			})
 		})

@@ -84,15 +84,15 @@
 				box-shadow: 1px 2px 12px 2px #ebeff1;
 				background: #FFFFFF;
 				margin-bottom: 12px;
-        padding-bottom: 15px;
+				padding-bottom: 15px;
 			}
 
 			/* title */
 			.checklistTitle {
 				font-size: 18px;
 				color: #404040;
-				padding-left:19px;
-				padding-right:17px;
+				padding-left: 19px;
+				padding-right: 17px;
 				box-sizing: border-box;
 				text-align: justify;
 
@@ -101,12 +101,7 @@
 
 			}
 
-			.checklistTitleAllitem {
-				font-size: 15px;
-				/* margin-bottom: 5px; */
-				padding-left: 5px;
-				padding-right: 10px;
-			}
+
 
 			/* title wrap */
 			.checklistTitleAll {
@@ -130,7 +125,7 @@
 				padding: 0 5px;
 				border-radius: 4px;
 				float: right;
-/* font-size: 14px; */
+				/* font-size: 14px; */
 				box-sizing: border-box;
 			}
 
@@ -143,7 +138,7 @@
 				display: inline-block;
 				float: right;
 				font-size: 15px;
-				width:calc(100% - 14px);
+				width: calc(100% - 14px);
 				box-sizing: border-box;
 				text-align: justify;
 			}
@@ -157,13 +152,30 @@
 				text-align: center;
 			}
 
+			.checklistTitleAllitem {
+				font-size: 15px;
+				/* margin-bottom: 5px; */
+				padding-left: 5px;
+				padding-right: 10px;
+				/* background: red; */
+				display: -webkit-flex;
+				/* Safari */
+				display: flex;
+				flex-direction: row;
+				justify-content: flex-start 
+			}
+
 			.msaName,
 			.uploadTime {
 				color: #999999;
 				font-size: 12px;
 			}
-			.msaName{
-				margin-left:15px;
+
+			.msaName {
+				flex-shrink :0;
+				/* width: 100px; */
+				margin-left: 15px;
+				/* background: yellow; */
 			}
 
 			.reviewDescribe {
@@ -177,8 +189,8 @@
 				word-wrap: break-word;
 				/* letter-spacing: 2px; */
 				text-align: justify;
-				
-				
+
+
 
 			}
 
@@ -255,7 +267,7 @@
 				padding-top: 6px;
 				padding-bottom: 10px;
 				display: none;
-				
+
 			}
 
 			.setting {
@@ -291,7 +303,7 @@
 				height: 16px;
 				margin-right: 6px;
 				margin-top: 2px;
-				margin-left:-8px;
+				margin-left: -8px;
 				float: left;
 			}
 
@@ -321,7 +333,7 @@
 			.mui-table-view-cell.mui-active {
 				background: #FFFFFF;
 			}
-			.disUrgency{
+			.disUrgency {
 				color: #F44444;
 				border: 1px solid #F35C51;
 				font-size: 10px;
@@ -330,28 +342,37 @@
 				line-height: 14px;
 				padding: 0 2px;
 				letter-spacing: 2px;
-				
 			}
-			.itemItemName{
+			.itemItemName {
 				margin-top: 6px;
 				display: inline-block;
 			}
-			/* 	body{
-				background: url(../../img/ui-sousuoyeme_10.jpg) no-repeat;
-				background-size: 100% ;
-				background-position:100% 190px ;
-			} */
+			.disimgItemna>img{
+				width: 14px;
+				height: 14px;
+			}
+			.disimgItemna>span{
+				position: relative;
+				top: -3px;
+				font-size: 10px;
+				color: #2E8BEB;
+			}
+			.disimgItemna{
+				position: absolute;
+				right: 20px;
+				bottom: 7px;
+			}
 		</style>
 	</head>
 	<body>
 		<header id="header" class="mui-bar mui-bar-nav">
 			<a class="mui-icon mui-icon-left-nav mui-pull-left" id="mui-action-back" style="color: #FFFFFF;"></a>
-			<h1 class="mui-title">隐患整改</h1>
+			<h1 class="mui-title">隐患复查</h1>
 			<span id="cityitemselect" class=" mui-pull-right"><span id="city"></span><img id="imgsize" src="../../img/ui-qiyesousuoxia_03.png"></span>
 		</header>
 		<div class="mui-content">
 			<div style="padding: 10px 10px;" id="segmentedControlFather">
-	<!-- 			<div id="segmentedControl" class="mui-segmented-control  mui-segmented-control-inverted ">
+				<!-- 			<div id="segmentedControl" class="mui-segmented-control  mui-segmented-control-inverted ">
 					<a id="mui-activecome" class="mui-control-item mui-active" href="#item1">全部隐患<span class="underline" style="height:2px;width:40px;background: #FFFFFF;display:block;margin: 0 auto;"></span></a>
 					<a class="mui-control-item" href="#item2">逾期未查隐患<span class="underline" style="height:2px;width:40px;background: #FFFFFF;display:block;margin: 0 auto;display: none;"></a>
 					<a class="mui-control-item" href="#item3">未到期隐患<span class="underline" style="height:2px;width:40px;background: #FFFFFF;display:block;margin: 0 auto; display: none;"></a>
@@ -388,11 +409,11 @@
 	<script type="text/javascript" charset="utf-8">
 		var url = window.localStorage.getItem('url')
 		var level,
-		    levelindex,
+			levelindex,
 			namevalue,
 			checkSortId,
 			parId,
-			list=[],
+			list = [],
 			jnum = -1,
 			htmltext = 0,
 			isOverdue = '';
@@ -412,14 +433,14 @@
 			$('#city').text(self.namevalue)
 			firstDom(0)
 		})
-				mui.init({
-							beforeback: function() {
+		mui.init({
+			beforeback: function() {
 				var main = plus.webview.getWebviewById(window.localStorage.getItem('index.html'));
-						mui.fire(main, 'changeCityIndex', {
-			
-						})
-		},
-				});
+				mui.fire(main, 'changeCityIndex', {
+
+				})
+			},
+		});
 		// 				font-size: 18px;
 		// 				color: #FFFFFF;
 		// 				border-bottom: none;
@@ -514,7 +535,7 @@
 						'display': 'block'
 					})
 			}
-		
+
 			var array = [{
 				msaId: level
 			}, {
@@ -531,61 +552,71 @@
 				data: array[indexnumget],
 				timeout: 10000,
 				success: function(data) {
-					
 					if (data.code == 200) {
-						 list = data.data.response.list
-						var stringAll = '' ,arrayItem = [],arrayItemSend = []
-						   
+						list = data.data.response.list
+						var stringAll = '',
+							arrayItem = [],
+							arrayItemSend = []
 						for (var index = 0; index < list.length; index++) {
-							if(list[index].isPass=='0'){
+							if (list[index].isPass == '0') {
 								arrayItem.push(list[index].companyId)
-							}else if(list[index].isPass=='2'){
+							} else if (list[index].isPass == '2') {
 								arrayItemSend.push(list[index].reviewId)
 							}
 						}
-						arrayItem = unique1(arrayItem) 
+						arrayItem = unique1(arrayItem)
 						// console.log(arrayItemSend)
-					 if(arrayItemSend.length>0){
-						 for(var n=0;n<arrayItemSend.length;n++){
-							 for(var na=0;na<list.length;na++){
-								 if (arrayItemSend[n] == list[na].reviewId){
-									 stringAll = stringAll + '<li onClick="reviewIdItem('+list[na].reviewId+')" class="mui-table-view-cell">'
-									 +'<div class="checklistTitleAll"><span></span><span class="checklistTitle">' +
-									 list[na].checklistTitle+'<span class="disUrgency" style="display:'+disItem+
-									 '" >退回</span><br/><span class="itemItemName">'+list[na].item+'<span> </div> <div class="checklistTitleAllitem"><span class="msaName">退回人: </span><span class="uploadTime">' +list[na].passByName 
-									 +'</span><span></div> <div class="checklistTitleAllitem"><span class="msaName">退回原因: </span><span class="uploadTime">'
-									 +list[na].noPassCause +'</span><span></div> <div class="checklistTitleAllitem"><span class="msaName">再次提交时间: </span><span class="uploadTime">'+list[na].reviewTime +'</span><span></div> </li>'
-								 }
-							 }
-						 }
-					 }
+						if (arrayItemSend.length > 0) {
+							for (var n = 0; n < arrayItemSend.length; n++) {
+								for (var na = 0; na < list.length; na++) {
+									if (arrayItemSend[n] == list[na].reviewId) {
+										stringAll = stringAll + '<li onClick="reviewIdItem(' + list[na].reviewId +
+											')" class="mui-table-view-cell">' +
+											'<div class="checklistTitleAll"><span></span><span class="checklistTitle">' +
+											list[na].checklistTitle + '<span class="disUrgency" style="display:' + disItem +
+											'" >复查退回</span><br/><span class="itemItemName">' + list[na].item +
+											'<span> </div> <div class="checklistTitleAllitem"><span class="msaName">退回人: </span><span class="uploadTime">' +
+											list[na].passByName +
+											'</span><span></div> <div class="checklistTitleAllitem"><span class="msaName">退回原因: </span><span class="uploadTime">' +
+											list[na].noPassCause +
+											'</span><span></div> <div class="checklistTitleAllitem"><span class="msaName">再次提交时间: </span><span class="uploadTime">' +
+											list[na].reviewTime + '</span><span> <div class="disimgItemna" style="display:'+disItem+'"> <img src="../../img/asfsdfwogg15.png" /><span>重新复查</span><div></div> </li>'
+									}
+								}
+							}
+						}
 						for (var j = 0; j < arrayItem.length; j++) {
-						  var originalItem = false;
+							var originalItem = false;
 							var addition = 0;
 							var checkType;
-							var checklistTitle = '',msaName = '',indexi;
+							var checklistTitle = '',
+								msaName = '',
+								indexi;
 							var disItem = 'none'
-							for (var i = 0; i < list.length; i++){
-									if (arrayItem[j] == list[i].companyId){
-										if(list[i].isPass=='0'){
-											 addition++
-                     checklistTitle =  list[i].checklistTitle;
-										 msaName = list[i].companyMsaName;
-										 indexi = i;
-										 if(list[i].isArrive == '2'){
-										 	disItem = 'inline-block'
-										 }
+							for (var i = 0; i < list.length; i++) {
+								if (arrayItem[j] == list[i].companyId) {
+									if (list[i].isPass == '0') {
+										addition++
+										checklistTitle = list[i].checklistTitle;
+										msaName = list[i].companyMsaName;
+										indexi = i;
+										if (list[i].isArrive == '2') {
+											disItem = 'inline-block'
 										}
 									}
+								}
 							}
-							stringAll = stringAll + '<li onClick="reviewpage('+arrayItem[j]+','+indexi+')" class="mui-table-view-cell">'
-							+'<div class="checklistTitleAll"><span></span><span class="checklistTitle">' +
-              checklistTitle+'<span class="disUrgency" style="display:'+disItem+
-							'" >紧急</span> </div> <div class="checklistTitleAllitem"><span class="msaName">所在辖区: </span><span class="uploadTime">'+msaName +
-							'</span><span></div> <div class="checklistTitleAllitem"><span class="msaName">隐患: </span><span class="uploadTime">'+addition +'</span><span></div> </li>'
+							stringAll = stringAll + '<li onClick="reviewpage(' + arrayItem[j] + ',' + indexi +
+								')" class="mui-table-view-cell">' +
+								'<div class="checklistTitleAll"><span></span><span class="checklistTitle">' +
+								checklistTitle + '<span class="disUrgency" style="display:' + disItem +
+								'" >紧急</span> </div> <div class="checklistTitleAllitem"><span class="msaName">所在辖区: </span><span class="uploadTime">' +
+								msaName +
+								'</span><span></div> <div class="checklistTitleAllitem"><span class="msaName">隐患: </span><span class="uploadTime">' +
+								addition + '</span><span></div> </li>'
 						}
-                  
-						if (stringAll != ''){
+
+						if (stringAll != '') {
 							$('body').css({
 								'background': '#FFFFFF'
 							})
@@ -605,18 +636,19 @@
 				error: function() {}
 			})
 		}
-  function reviewpage(index,i){
-		var companyName = list[i].companyName
-		mui.openWindow({
-			id: 'dangerspageattr.html',
-			url: 'dangerspageattr.html',
-			extras: {
-				companyId: index,
-				levelindex: levelindex,
-				companyName:companyName
-			}
-		})
-	}
+
+		function reviewpage(index, i) {
+			var companyName = list[i].companyName
+			mui.openWindow({
+				id: 'dangerspageattr.html',
+				url: 'dangerspageattr.html',
+				extras: {
+					companyId: index,
+					levelindex: levelindex,
+					companyName: companyName
+				}
+			})
+		}
 		// 去重
 		function unique1(arr) {
 			var newArr = []; //新建一个数组
@@ -626,16 +658,16 @@
 				}
 			}
 			// newArr.sort(function(a,b){return b-a});
-           
+
 			return newArr;
 		}
 		// 时间的转化
 		function doumentitem() {
 			for (var index = 0; index < $('.imgtime').length; index++) {
-			
+
 				var date = new Date($('.imgtime').eq(index).text())
 				var datanow = Date.parse(new Date());
-				var time3 = Date.parse(date)-8*60*60*1000 ;
+				var time3 = Date.parse(date) - 8 * 60 * 60 * 1000;
 				if (datanow < time3) {
 					// 灰的
 					$('.imgtime').eq(index).parent('.reviewTime').css({
@@ -670,7 +702,7 @@
 				})
 			}
 			checkSortId = index
-			
+
 			firstDom(2)
 		}
 
@@ -688,15 +720,15 @@
 		// 城市的选择
 		$('#cityitemselect').click(function() {
 
-		
+
 			linkage()
 		})
 
 		function dispalyItem(event) {
-		
+
 			var id = '#jnum' + event;
 			var idimg = '#img' + event;
-		
+
 			// $('.grayItem').eq(event).css('background','red')
 			if ($(id).css('display') == 'none') {
 				$(id).css('display', 'block')
@@ -706,20 +738,21 @@
 				$(idimg).attr('src', '../../img/ui-qiyesousuoxia_03.png')
 			}
 		}
-window.addEventListener('changeCity',function(){
-	firstDom(0)
-})
-		function subpage(event, index, companyId,i) {		
+		window.addEventListener('changeCity', function() {
+			firstDom(0)
+		})
+
+		function subpage(event, index, companyId, i) {
 			event.stopPropagation()
 			var index = index;
-			var two = list[i].companyName 
+			var two = list[i].companyName
 			mui.openWindow({
 				id: 'dangerspage.html',
 				url: 'dangerspage.html',
 				extras: {
 					detailId: index,
 					companyId: companyId,
-					two:companyName
+					two: companyName
 				}
 			})
 		}
@@ -751,7 +784,7 @@ window.addEventListener('changeCity',function(){
 		// 				"color": '#1B66B7'
 		// 			})
 		// 		function pageitem(index) {
-			
+
 		// 			// 			mui.ajax({
 		// 			// 				type: 'get',
 		// 			// 				url: url + '/checklist/listOrder',
@@ -772,25 +805,25 @@ window.addEventListener('changeCity',function(){
 		// 			// 				error: function() {}
 		// 			// 			})
 		// 		}
-		
-		
-		$('#mui-action-back').click(function(){
-		var main = plus.webview.getWebviewById(window.localStorage.getItem('index.html'));
-		mui.fire(main, 'changeCityIndex', {
-			
-		})
-		mui.back()
-		})
-		function reviewIdItem(index){
-					mui.openWindow({
-						id:'returnPage.html',
-						url:'returnPage.html',
-						extras: {
-							level: level,
-							reviewId: index,
-						}
-					})
-			}
 
+
+		$('#mui-action-back').click(function() {
+			var main = plus.webview.getWebviewById(window.localStorage.getItem('index.html'));
+			mui.fire(main, 'changeCityIndex', {
+
+			})
+			mui.back()
+		})
+
+		function reviewIdItem(index) {
+			mui.openWindow({
+				id: 'returnPage.html',
+				url: 'returnPage.html',
+				extras: {
+					level: level,
+					reviewId: index,
+				}
+			})
+		}
 	</script>
 </html>

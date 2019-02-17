@@ -141,7 +141,7 @@
 		})
 
 		function initial(companyId, index) {
-			
+		
 			mui.ajax({
 				type: 'get',
 				url: url + '/checklist/listReviewByConditional',
@@ -155,14 +155,21 @@
 						list = data.data.response.list
 						for (var indexa = 0; indexa < list.length; indexa++) {
 							if (companyId == list[indexa].companyId) {
-								var disItem = 'none'
+								var disItem = 'none',isPass  = 'block';
 								if(list[indexa].isArrive=='1'){
 									 disItem = 'none'
 								}else if(list[indexa].isArrive=='2'){
 									 disItem = 'inline-block'
 								}
-								var string = '<li onClick="reviewIdItem(' + list[indexa].reviewId + ')"><p class="titleItem">' + list[indexa].three +
-									'<span class="disUrgency" style="display:'+disItem+'" >紧急</span></p> <div class="boryItem"><p class="titletext">问题描述：'
+								if(list[indexa].isPass == '2'){
+								isPass = 'none'
+								}else{
+								isPass = 'block'
+								}
+								var string = '<li style="display:'+isPass+'" onClick="reviewIdItem(' + list[indexa].reviewId + ')"><p class="titleItem">'
+								 + list[indexa].three +
+									'<span class="disUrgency" style="display:'+disItem+'" >紧急</span></p> <div class="boryItem"><p class="titletext">来&#x3000;&#x3000;源：'
+									 +list[indexa].checklistCode + '</p><p class="titletext">问题描述：'
 									 +list[indexa].reviewDescribe + '</p><p class="titletext">整改要求：' + list[indexa].reviewRequire + 
 									 '</p><p  class="titletime"><span>复查时间: <span><span>' + list[indexa].reviewTime +
 									'</span></p></div></li>'

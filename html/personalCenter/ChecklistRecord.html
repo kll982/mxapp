@@ -110,6 +110,7 @@
 			.oneMameTw{
 				color: #474747;
 				font-size: 16px;
+				margin-bottom: 20px;
 			}
 			.oneMameTw .borderItewam{
 				font-size: 10px;
@@ -160,6 +161,11 @@
 				color: #44A5F4;
 				
 			}
+			.hrDvia{
+				background:  #F2F2F2 ;
+				height: 1px;
+				margin: 20px 0;
+			}
 		</style>
 	</head>
 	<body>
@@ -172,8 +178,8 @@
 		</header>
 		<div style="height: 53px;"></div>
 		<div id="bodyCenter">
-			<div id="honeItem"><span>dfsfsd</span></div>
-			<div id="serialNum"><span>检查单编号：</span><span>---</span></div>
+			<div id="honeItem"><span></span></div>
+			<div id="serialNum"><span>检查单编号：</span><span id="checklistCode"></span></div>
 			<div id="leftFlex">
 				<div><span class="leftItemOne thress">发布时间：</span><span id="righta" class="rightItem"></span></div>
 				<div><span class="leftItemOne thress">被检单位：</span><span id="rightb" class="rightItem"></span></div>
@@ -190,7 +196,7 @@
 		<script src="../../lib/js/jquery1.9.1.min.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../../js/index.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript" charset="utf-8">
-			var detailId ,list,
+			var detailId ,list,textabfjbtngn,
 				url = window.localStorage.getItem('url');
 			mui.plusReady(function() {
 				// 字体白色(light)的沉浸栏 
@@ -202,24 +208,25 @@
 			})
 
 			function name(detailId) {
+				console.log(detailId)
 				mui.ajax({
 					type: 'get',
 					url: url + '/checklist/listAllOrderByDetailId',
 					data: {
-						detailId: detailId,
+						detailId: detailId
 					},
 					timeout: 10000,
 					success: function(data) {
 						if (data.code == 200) {
 							     var response = data.data.response,string='',optionId='';
 								 list=data.data.response.list;
-								 var disappear = 'block',disappearO = 'block',disappearA ='block',srcimg='',borderItewam='',classItemSize='';
 								$('#righta').text(timeTransIyrm(response.uploadTime))
 								$('#rightb').text(response.companyName)
 								$('#rightc').text(response.msaName)
-								// $('#rightd').text(response.name)
+								$('#checklistCode').text(response.checklistCode)
 								$('#righte').text(response.name)
 								$('#rightf').text(response.allCount)
+								$('#honeItem').children('span').html(response.checkName.replace('--', '<br><br>'));
 								$('#rightg').html('<span>符合：'+response.accord+'&#x3000;</span><span>限期整改：'+response.reviewCount+
 								'&#x3000;</span><span>当场纠正：'+response.correctCount+'&#x3000;</span><br/><span>不适用：'
 								+response.notApplicableCount+'</span>')
@@ -231,47 +238,57 @@
 								}else if(response.isSolve=='2'){
 									$('#HiddenRrou').text('无隐患')
 								}
-								
-                                for(var index=0;index<list.length;index++){
+                                for(var index = 0;index < list.length;index++){
+									var disappear = 'block',disappearO = 'block',disappearA ='block',srcimg='',borderItewam='',classItemSize='';
 									var imgString = '';
-									var text = list[index].picUrl.split(',')
-									
-									for(var j = 0 ;j<text.length;j++ ){
-										imgString += '<img class="imgSiztIten" src= '+text[j]+' />'
+									var disappearAangkguj = ' inline-block'
+									if(list[index].picUrl != null){
+										 textabfjbtngn = list[index].picUrl.split(',')
+										 for(var j = 0 ;j<textabfjbtngn.length;j++ ){
+										 	imgString += '<img onclick="onImgItem('+j+')" class="imgSiztIten" src= '+textabfjbtngn[j]+' />'
+										 }
 									}
+									
 									if(list[index].optionId == '1'){
+										var disappearAangkguj = 'none'
+										var zhuZong = 'none'
 										optionId = '符合'// 符合 
 										disappearA  = 'none';
 										srcimg ="../../img/tuoyuan9.png"
 									}else if(list[index].optionId == '2'){
+										var disappearAangkguj = 'none'
 										optionId = '不符合(当场纠正)'// 当场纠正
 										disappearO = 'none'
+										disappearA  = 'block';
+										var zhuZong = 'none'
 										srcimg ="../../img/tuoyuan10.png"
 									}else if(list[index].optionId == '3'){
 										optionId = '不符合(限期整改)'// 限期整改
 										srcimg = "../../img/tuoyuan1.png"
+										var zhuZong = 'block'
 									}else if(list[index].optionId == '4'){
+										var disappearAangkguj = 'none'
 										optionId = '不适用'// 不适用
 										disappear = 'none'
 										srcimg ="../../img/tuoyuan11.png"
+										var zhuZong = 'none'
 									} 
 									if(list[index].status=='1'){
 										borderItewam ='审核中' 
 									    classItemSize ='assItemSizColorA'
-										var zhuZong = 'none'
+										
 									}else if(list[index].status=='2'){
 										borderItewam = '未消除'
 										classItemSize ='assItemSizColorB'
-										var zhuZong = 'block'
+										
 									}else if(list[index].status=='3'){
 										borderItewam = '已消除'
 										classItemSize ='assItemSizColorC'
-										var zhuZong = 'none'
+										
 									}
 									string +='<div class="footName"><div class="oneMameTw"><span><img class="borderImgsize " src='+srcimg+
-									' />'+list[index].item+'</span><span class="borderItewam '+classItemSize+'">'+borderItewam+
-									'<span></div><div style="display:'+ disappear +
-									'"><div class="ftItemOn"><span class="leftItemOne">检查结果：</span><span class="rigptItem">'+optionId+'</span></div>'+
+									' />'+list[index].item+'</span><span style="display:'+ disappearAangkguj +'" class="borderItewam '+classItemSize+'">'+borderItewam+
+									'<span></div><div class="ftItemOn"><span class="leftItemOne">检查结果：</span><span class="rigptItem">'+optionId+'</span></div><div style="display:'+ disappear +'">'+
 									'<div class="ftItemOn"><span class="leftItemOne">现场照片：</span><span class="rigptItem">'+imgString+'</span></div>'+
 									'<div style="display:'+ disappearA +'"> <div class="ftItemOn"><span class="leftItemOne">问题描述：</span><span class="rigptItem">'
 									+list[index].troubleDescribe+'</span></div>'+
@@ -280,8 +297,8 @@
 									'<div class="ftItemOn"><span class="leftItemOne">复查时间：</span><span class="rigptItem">'
 									+list[index].reviewTime+'</span></div></div></div></div>'+
 									'<div class="ftItemOn"><span class="leftItemOne">定&#x3000;&#x3000;位：</span><span class="rigptItem">'+list[index].location+
-									'</span></div><div style="display:'+ zhuZong+';text-align: right;margin-right: 10px;"><span onclick="chicktRace('
-									+list[index].reviewId+','+ index +')" class="andehuashieeNa">隐患追踪<img class="huandehuashieeName" src="../../img/huandehuashi_03.png" /><span></div></div>'
+									'</span></div><div style="display:'+ zhuZong+';text-align: right;margin-right: 10px;margin-top:20px"><span onclick="chicktRace('
+									+list[index].reviewId+','+ index +','+ list[index].status +')" class="andehuashieeNa">隐患追踪<img class="huandehuashieeName" src="../../img/huandehuashi_03.png" /><span></div></div><div class="hrDvia"></div>'
 								}
 								$('#fottItemti').html(string)
 						} 
@@ -291,14 +308,32 @@
 					}
 				})
 			}
-			function chicktRace(index,num){
+			
+			function chicktRace(index,num,classItemSize){
+				if(classItemSize=='1'){
+					var valeu = '审核中'
+				}else if(classItemSize=='2'){
+					var valeu = '未消除'
+				}else if(classItemSize=='3'){
+					var valeu = '已消除'
+				}
 				mui.openWindow({
 					id:'chicktRace.html',
 					url:'chicktRace.html',
 					extras: {
 						item:index,
 						one:$('#rightb').text(),
-						two:list[num].item
+						two:list[num].item,
+						valeu:valeu
+					}
+				})
+			}
+			function onImgItem(index){
+				mui.openWindow({
+					url: "../../js/img.html",
+					id: "img",
+					extras: {
+						img:textabfjbtngn[index],
 					}
 				})
 			}

@@ -154,6 +154,8 @@
 				margin-left: 4px;
 				margin-top: 4px;
 				text-align: center;
+				border: 1px dashed #CCCCCC;
+				background: #FFFFFF;
 			}
 
 			#photoone>img {
@@ -452,7 +454,7 @@
 								$('#itemE').text(list[index].reviewDescribe)
 								$('#itemR').text(list[index].reviewRequire)
 								for (var j = 0; j < list[index].picUrl.length; j++) {
-									imgUrl = imgUrl + '<img class="imgItemSize" src=' + list[index].picUrl[j] + ' />'
+									imgUrl = imgUrl + '<img onclick="onImgItem('+j+')" id='+list[index].picUrl[j]+' class="imgItemSize" src=' + list[index].picUrl[j] + ' />'
 								}
 								$('#itemW').html(imgUrl)
 								for (var timeitem = 0; timeitem < texthtmlinne.length; timeitem++) {
@@ -460,13 +462,22 @@
 								}
 								$('#headtext').html(stringimgA)
 							}
+							
 						}
 					}
 				},
 				error: function() {}
 			})
 		}
-	
+			function onImgItem(index){
+				mui.openWindow({
+					url: "../../js/img.html",
+					id: "img",
+					extras: {
+						img:$('.imgItemSize').eq(index).attr('id'),
+					}
+				})
+			}
 		$('#headtextdis').click(function() {
 			if (headtextdis) {
 				$('#headtext').css('display', 'none')
@@ -579,6 +590,7 @@
 						var main = plus.webview.getWebviewById('dangerspageattr.html');
 						mui.fire(main, 'changeCityrspagea', {
 						})
+						mui.toast('复查成功')
 						mui.back()
 					}
 				},

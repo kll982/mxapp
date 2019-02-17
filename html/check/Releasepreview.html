@@ -76,7 +76,7 @@
 				width: 90px;
 				/* background: red; */
 			}
-          
+
 			.colorItemTexeg {
 				color: #000000;
 				font-size: 14px;
@@ -179,8 +179,9 @@
 				height: 11px;
 				margin-left: 5px;
 			}
-			#headrChildtext>div>.colorItemTextIgeg{
-			   width:104px;	
+
+			#headrChildtext>div>.colorItemTextIgeg {
+				width: 104px;
 			}
 		</style>
 	</head>
@@ -232,7 +233,7 @@
 	<script src="../../lib/js/jquery1.9.1.min.js" type="text/javascript" charset="utf-8"></script>
 	<script type="text/javascript" charset="utf-8">
 		var detailId, remarks;
-		var trueItej = false,
+		var trueItej = false, pictures,
 			trueItejIte = 0;
 		var url = window.localStorage.getItem('url')
 		mui.plusReady(function() {
@@ -257,7 +258,8 @@
 				$('#fontsitItem').css('color', '#44A5F4')
 			}
 		}
-		function name(detailId){
+
+		function name(detailId) {
 			mui.ajax({
 				type: 'get',
 				url: url + '/checklist/releasePreview',
@@ -286,7 +288,7 @@
 							}
 						}
 						for (var num = 0; num < arrayname.length; num++) {
-							var number = 0; 
+							var number = 0;
 							var valut = arrayname[num]
 							var stringItem = '';
 							var arraynameityem = '';
@@ -296,16 +298,16 @@
 									var accordNamef = 'block';
 									var accord = 'block';
 									var accordItem = 'block';
-									var pictures = list[j].pictures
+									 pictures = list[j].pictures
 									var imgSring = '';
 									var valuerTextI = '',
 										srcimgname = '';
-									if(pictures != '' && pictures !=null){
+									if (pictures != '' && pictures != null) {
 										for (var pic = 0; pic < pictures.length; pic++) {
-											imgSring += '<img class="imgSizeItem" src=' + pictures[pic] + ' />'
+											imgSring += '<img class="imgSizeItem" onclick="onImgItem('+pic+')" src=' + pictures[pic] + ' />'
 										}
 									}
-									if (list[j].optionId == '1'){
+									if (list[j].optionId == '1') {
 										accord = 'none';
 										valuerTextI = '符合'
 										srcimgname = '../../img/tuoyuan9.png'
@@ -317,17 +319,19 @@
 										valuerTextI = '不符合(限期整改)'
 										srcimgname = '../../img/tuoyuan1.png'
 										trueItej = true;
-									}else if(list[j].optionId == '4'){
+									} else if (list[j].optionId == '4') {
 										accordNamef = 'none';
 										valuerTextI = '不适用'
 										srcimgname = '../../img/tuoyuan11.png'
 									}
+								
 									stringItem = stringItem +
 										'<div  class="threeText"><img style="position: relative;width:12px;height:12px;" src=' + srcimgname +
 										'/> ' + list[j].item +
 										'</div> <div class="flexItem"><span class="colorItemTextIgeg">检查结果</span><span  class="colorItemTexeg">' +
 										valuerTextI +
-										'</span></div><div style="display:' + accordNamef +'"><div class="flexItem"><span class="colorItemTextIgeg">现场照片</span><span  class="colorItemTexeg">' +
+										'</span></div><div style="display:' + accordNamef +
+										'"><div class="flexItem"><span class="colorItemTextIgeg">现场照片</span><span  class="colorItemTexeg">' +
 										imgSring +
 										'</span></div><div style="display:' + accord +
 										'"><div class="flexItem"><span class="colorItemTextIgeg">问题描述</span><span  class="colorItemTexeg">' +
@@ -336,7 +340,10 @@
 											j].reviewRequire +
 										'</span></div><div class="flexItem"><span class="colorItemTextIgeg">复查时间</span><span  class="colorItemTexeg">' +
 										list[j].reviewTime +
-										'</span></div></div></div></div><hr class="hritemnWid">'
+										'</span></div></div></div><div class="flexItem"><span class="colorItemTextIgeg">定&#x3000;&#x3000;位</span><span  class="colorItemTexeg">' +
+										list[
+											j].location +
+										'</span></div></div><hr class="hritemnWid">'
 
 								}
 							}
@@ -363,6 +370,18 @@
 				}
 			})
 		}
+			
+		function onImgItem(index){
+			
+			mui.openWindow({
+				url: "../../js/img.html",
+				id: "img",
+				extras: {
+					img: pictures[index],
+				}
+			})
+		}
+
 
 		function dfhgdkftwo(num) {
 			var imgItem = $('#arrayname' + num).children('img').attr('src')
@@ -386,7 +405,7 @@
 				jsonp: "jsoncallback",
 				timeout: 5000,
 				success: function(data) {
-					console.log(JSON.stringify(data))
+				
 					var res = JSON.parse(data)
 					var string = ''
 					if (res.code == 200) {
@@ -461,6 +480,7 @@
 			// 			error: function() {}
 			// 		})
 		}
+
 		// 		$('#buttonItem').click(function(){
 		// 		 var result = plus.bridge.execSync("customPlugin", "print", ['模板编号',{参数obj}]);
 		// 		    alert(result);

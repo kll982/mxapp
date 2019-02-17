@@ -74,14 +74,14 @@
 				border: none;
 			}
 
-			.buttonITemcalssItem{
+			.buttonITemcalssItem {
 				width: 136px;
 				height: 36px;
 				position: absolute;
 				top: 490px;
 				margin-left: calc(50% - 68px);
 				display: block;
-				color:#48A9F6;
+				color: #48A9F6;
 				font-size: 15px;
 				letter-spacing: 5px;
 				border: none;
@@ -154,7 +154,7 @@
 	<body>
 		<header id="header" class="mui-bar mui-bar-nav">
 			<div id="headerItem">
-				<!-- <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a> -->
+				<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" style="color: #007AFF;"></a>
 				<h1 class="mui-title">水上安全隐患治理通知单打印</h1>
 			</div>
 		</header>
@@ -214,6 +214,7 @@
 						if (res.code == 200) {
 							var response = res.data.response
 							arrayItem = response
+							console.log(JSON.stringify(arrayItem))
 							// tiaName()
 						} else {
 							mui.toast(res.message);
@@ -224,9 +225,9 @@
 			}
 			//同步调用原生方法添加打印机 
 			function print() {
-								var result = plus.bridge.execSync("customPlugin", "print", ['2', {
-									arrayItem
-								}]);
+				var result = plus.bridge.execSync("customPlugin", "print", ['2', {
+					arrayItem
+				}]);
 				if (result == 1) {
 					scanPrinterItem()
 				} else if (result == 0) {
@@ -279,7 +280,7 @@
 				$('#buttodiv').find('img').attr('src', '../../img/zujian154.png')
 				$('#Release').text('正在搜索设备')
 				$('#buttonITemFitr').text('')
-				$('#footItem').css('display','none')
+				$('#footItem').css('display', 'none')
 
 			}
 			//接收蓝牙设备
