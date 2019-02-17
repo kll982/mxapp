@@ -154,7 +154,7 @@
 	<body>
 		<header id="header" class="mui-bar mui-bar-nav">
 			<div id="headerItem">
-				<!-- <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a> -->
+				<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
 				<h1 class="mui-title">水上安全隐患治理通知单打印</h1>
 			</div>
 		</header>
@@ -172,24 +172,25 @@
 		<script src="../../lib/js/jquery1.9.1.min.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript" charset="utf-8">
 			var detailId;
+			var indexitenFtnae;
 			var acceptPrintArray = [];
 			var arrayItem;
 			mui.init({
 				beforeback: function() {
 					plus.navigator.setStatusBarStyle("dark"); //dark 字体为黑色的沉浸栏
 					plus.navigator.setStatusBarBackground('#FFFFFF'); //改变沉浸栏背景颜色的
-					var mainitemname = plus.webview.getWebviewById('../check/check.html');
-					mui.fire(mainitemname, 'changeCitytimeoneitemd', {})
-					var mainitem = plus.webview.getWebviewById('browseChild.html');
+// 					var mainitemname = plus.webview.getWebviewById('../check/check.html');
+// 					mui.fire(mainitemname, 'changeCitytimeoneitemd', {})
+// 					var mainitem = plus.webview.getWebviewById('browseChild.html');
 					setTimeout(function() {
 						mui.back()
 					}, 200)
-					mui.fire(mainitem, 'changeC', {})
-					mui.openWindow({
-						url: '../browse/browse.html',
-						id: 'html/browse/browse.html',
-
-					})
+// 					mui.fire(mainitem, 'changeC', {})
+// 					mui.openWindow({
+// 						url: '../browse/browse.html',
+// 						id: 'html/browse/browse.html',
+// 
+// 					})
 
 				}
 			});
@@ -214,6 +215,11 @@
 						if (res.code == 200) {
 							var response = res.data.response
 							arrayItem = response
+							if(arrayItem.list.length>0){
+								indexitenFtnae = '2'
+							}else{
+								indexitenFtnae = '3'
+							}
 							// tiaName()
 						} else {
 							mui.toast(res.message);
@@ -224,9 +230,9 @@
 			}
 			//同步调用原生方法添加打印机 
 			function print() {
-								var result = plus.bridge.execSync("customPlugin", "print", ['2', {
-									arrayItem
-								}]);
+				var result = plus.bridge.execSync("customPlugin", "print", [ indexitenFtnae , {
+					arrayItem
+					}]);
 				if (result == 1) {
 					scanPrinterItem()
 				} else if (result == 0) {
