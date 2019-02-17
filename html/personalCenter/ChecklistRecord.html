@@ -217,6 +217,7 @@
 					},
 					timeout: 10000,
 					success: function(data) {
+						console.log(JSON.stringify(data))
 						if (data.code == 200) {
 							     var response = data.data.response,string='',optionId='';
 								 list=data.data.response.list;
@@ -248,7 +249,6 @@
 										 	imgString += '<img onclick="onImgItem('+j+')" class="imgSiztIten" src= '+textabfjbtngn[j]+' />'
 										 }
 									}
-									
 									if(list[index].optionId == '1'){
 										var disappearAangkguj = 'none'
 										var zhuZong = 'none'

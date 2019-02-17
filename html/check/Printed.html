@@ -188,9 +188,7 @@
 					mui.openWindow({
 						url: '../browse/browse.html',
 						id: 'html/browse/browse.html',
-
 					})
-
 				}
 			});
 			mui.plusReady(function() {
@@ -200,9 +198,9 @@
 				var self = plus.webview.currentWebview();
 				detailId = self.detailId;
 				name(detailId)
+				console.log(detailId)
 			})
-
-			function name(detailId) {
+			function name(detailId){
 				mui.ajax({
 					type: 'get',
 					url: localStorage.getItem("url") + '/checklistPrint/troubleJobOrder',
@@ -224,7 +222,7 @@
 				})
 			}
 			//同步调用原生方法添加打印机 
-			function print() {
+			function print(){
 				var result = plus.bridge.execSync("customPlugin", "print", ['2', {
 					arrayItem
 				}]);
@@ -363,7 +361,6 @@
 
 				})
 			}
-
 			// 未检测到打印机
 			function scanPrinterItem() {
 				$('#buttodiv').find('img').attr('src', '../../img/zujiande155.png')

@@ -294,7 +294,7 @@
 		<div id="bodyHeader">
 			<div id="titleIte"><span></span></div>
 			<div id="HeaderBody">
-				<div class="flexItem"><span class="leftItem">来&#x3000;&#x3000;源：</span><span class="rightItem">---</span></div>
+				<div class="flexItem"><span class="leftItem">来&#x3000;&#x3000;源：</span><span class="rightItem" id="itemQaddd">---</span></div>
 				<div class="flexItem"><span class="leftItem">时&#x3000;&#x3000;间：</span><span class="rightItem" id="itemQ"></span></div>
 				<div class="flexItem"><span class="leftItem">现场照片：</span><span class="rightItem" id="itemW"></span></div>
 				<div class="flexItem"><span class="leftItem">问题描述：</span><span class="rightItem" id="itemE"></span></div>
@@ -345,6 +345,11 @@
 			</div>
 		</div>
 		<nav id="submitFather" class="mui-bar mui-bar-tab" id='navbarA'>
+			<div style="height: 28px;line-height: 28px;position: relative;top: 2px;" id="imgTrueItem">
+				<span style="width:30px;display:inline-block;height: 30px;line-height: 30px;text-align: right;" onclick="imgFuntion()">
+					<img id="imgFun" src="../../img/raido142.png" style="position: relative;top: 3px;"></span>
+				<span style="font-size: 12px;color: #44A5F4;" id="fontsitItem">打印水水上安全隐患治理通知单</span>
+			</div>
 			<button id="name">提交复查结果</button>
 		</nav>
 	</body>
@@ -366,6 +371,7 @@
 				mui.toast("error:" + e.message);
 			})
 			initial(level, reviewId)
+			console.log(reviewId)
 		})
 		mui.init({
 
@@ -380,7 +386,16 @@
 			$('#geographic').html(address)
 
 		}
-
+	function imgFuntion() {
+			var imgItem = $('#imgFun').attr('src')
+			if (imgItem.indexOf('radio26') == -1) {
+				$('#imgFun').attr('src', '../../img/radio26.png')
+				$('#fontsitItem').css('color', '#999999')
+			} else {
+				$('#imgFun').attr('src', '../../img/raido142.png')
+				$('#fontsitItem').css('color', '#44A5F4')
+			}
+		}
 		function textTime() {
 			// 获取当前的时间
 			var result = $('#TimeIem');
@@ -436,6 +451,7 @@
 		}
 
 		function initial(level, reviewId) {
+			
 			mui.ajax({
 				type: 'get',
 				url: urlTnd + '/checklist/listReviewByConditional',
@@ -453,6 +469,7 @@
 								$('#itemQ').text(list[index].reviewTime)
 								$('#itemE').text(list[index].reviewDescribe)
 								$('#itemR').text(list[index].reviewRequire)
+								$('#itemQaddd').text(list[index].checklistCode)
 								for (var j = 0; j < list[index].picUrl.length; j++) {
 									imgUrl = imgUrl + '<img onclick="onImgItem('+j+')" id='+list[index].picUrl[j]+' class="imgItemSize" src=' + list[index].picUrl[j] + ' />'
 								}
@@ -584,14 +601,19 @@
 				timeout: 10000,
 				success: function(data) {
 					if (data.code == 200) {
-						var main = plus.webview.getWebviewById('html/dangers/dangersFather.html');
-						mui.fire(main, 'changeCity', {
-						})
-						var main = plus.webview.getWebviewById('dangerspageattr.html');
-						mui.fire(main, 'changeCityrspagea', {
-						})
-						mui.toast('复查成功')
-						mui.back()
+						var imgItem = $('#imgFun').attr('src')
+						if (imgItem.indexOf('radio26') == -1){
+						      Printed()
+						}else{
+							var main = plus.webview.getWebviewById('html/dangers/dangersFather.html');
+							mui.fire(main, 'changeCity', {
+							})
+							var main = plus.webview.getWebviewById('dangerspageattr.html');
+							mui.fire(main, 'changeCityrspagea', {
+							})
+							mui.toast('复查成功')
+							mui.back()
+						}
 					}
 				},
 				error: function(err) {
@@ -599,7 +621,17 @@
 				}
 			})
 		}
+		// 打印传递的数据
+		function Printed(){
+			mui.openWindow({
+				id: 'printItem.html',
+				url: 'printItem.html',
+				extras: {
+					detailId: reviewId
+				}
+			})
 
+		}
 
 	</script>
 </html>

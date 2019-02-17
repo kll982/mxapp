@@ -236,7 +236,7 @@
 									var uploadTime = timeTransIyrm(list[index].uploadTime)
 									string +=
 										'<li class="mui-table-view-cell" id=' + list[index].id +
-										'"><div class="oneDiv"><span><img src="../../img/xunricha-1.png"/></span><span class="heightItemon">' +
+										'><div class="oneDiv"><span><img src="../../img/xunricha-1.png"/></span><span class="heightItemon">' +
 										list[index].companyName + '</span></div><div class="otherItem"><span>检查单位：</span><span>' + list[index].createMsaName +
 										'</span></div><div class="otherItem"><span>检查人员：</span><span>' + list[index].createBy +
 										'</span></div><div class="otherItem"><span>检查结果：</span><span>符合 ' + accordCount +
@@ -279,7 +279,6 @@
 		}
 		mui('.mui-table-view-chevron').on('tap', '.mui-table-view-cell', function() {
 			var id = this.getAttribute("id");
-
 			mui.openWindow({
 				id: 'ChecklistRecord.html',
 				url: 'ChecklistRecord.html',

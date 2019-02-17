@@ -182,6 +182,7 @@
 				var self = plus.webview.currentWebview();
 				detailId = self.detailId;
 				name(detailId)
+				// console.log(detailId)
 			})
 			mui.init({
 				beforeback: function(){
@@ -195,6 +196,7 @@
 				}
 			});
 			function name(detailId){
+				console.log(detailId)
 				mui.ajax({
 					type: 'get',
 					url: localStorage.getItem("url") + '/checklistPrint/solveTheProblem',
@@ -203,11 +205,12 @@
 					},
 					timeout: 10000,
 					success: function(res){
+						console.log(JSON.stringify(res))
+						console.log(JSON.stringify(res))
 						if (res.code == 200) {
 							var response = res.data.response
 							arrayItem = response
 							// tiaName()
-							
 						} else {
 							mui.toast(res.message);
 						}

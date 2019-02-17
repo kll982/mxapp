@@ -131,17 +131,14 @@
 			levelindex = self.levelindex
 			$('#itemchild').text(self.companyName)
 			initial(self.companyId, self.levelindex)
+			
 		})
 		mui.init({
-
 		})
 		window.addEventListener('changeCity', function() {
-		
 			initial(companyId, levelindex)
 		})
-
 		function initial(companyId, index) {
-		
 			mui.ajax({
 				type: 'get',
 				url: url + '/checklist/listReviewByConditional',
@@ -155,6 +152,7 @@
 						list = data.data.response.list
 						for (var indexa = 0; indexa < list.length; indexa++) {
 							if (companyId == list[indexa].companyId) {
+								console.log(JSON.stringify( list[indexa].reviewId))
 								var disItem = 'none',isPass  = 'block';
 								if(list[indexa].isArrive=='1'){
 									 disItem = 'none'
@@ -166,6 +164,7 @@
 								}else{
 								isPass = 'block'
 								}
+								console.log(JSON.stringify(list[indexa]))
 								var string = '<li style="display:'+isPass+'" onClick="reviewIdItem(' + list[indexa].reviewId + ')"><p class="titleItem">'
 								 + list[indexa].three +
 									'<span class="disUrgency" style="display:'+disItem+'" >紧急</span></p> <div class="boryItem"><p class="titletext">来&#x3000;&#x3000;源：'
