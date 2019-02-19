@@ -67,10 +67,12 @@
 				background: #FFFFFF;
 				color: #318EEB;
 			}
-			.mui-icon{
+
+			.mui-icon {
 				color: #FFFFFF;
 			}
-			.tableTd>a>img{
+
+			.tableTd>a>img {
 				width: 10px;
 				height: 10px;
 			}
@@ -79,7 +81,7 @@
 
 	<body>
 		<header id="header" class="mui-bar mui-bar-nav">
-			<a class=" mui-icon mui-icon-left-nav mui-pull-left" onClick="preserve()" >
+			<a class=" mui-icon mui-icon-left-nav mui-pull-left" onClick="preserve()">
 				<span style="font-size: 14px;position: relative;top: -1px;left: -7px;">保存</span></a>
 			<h1 class="mui-title"></h1>
 			<span style="height: 53px;display: block;"></span>
@@ -94,6 +96,7 @@
 		<script src="../../lib/js/jquery1.9.1.min.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript" charset="utf-8">
 			var detailId;
+			var firstOne = 1;
 			var url = window.localStorage.getItem('url')
 			var index;
 			mui.plusReady(function() {
@@ -108,7 +111,7 @@
 				}
 				pageitem(self.one, self.detailId, self.two)
 			})
-              
+
 			function pageitem(one, detailId, two) {
 				mui.ajax({
 					type: 'get',
@@ -127,7 +130,7 @@
 									++index
 								}
 							}
-						
+
 							if (index <= 5) {
 								for (var numitem = 1; numitem < index + 1; numitem++) {
 									string = string + '<td class="tableTd"><a  id="item' + numitem + '"  onClick="hrefItem(' + numitem + ')">' +
@@ -163,7 +166,8 @@
 							two: two
 						}, //额外扩展参数
 
-					}]
+					}],
+
 				});
 
 			}
@@ -189,13 +193,14 @@
 				var value = Number($('#item' + num).parent().prev().children('a').text())
 				var string = '';
 
-				if (index - value > 5){
+				if (index - value > 5) {
 					for (var numitem = value + 1; numitem < value + 7; numitem++) {
-					if (numitem == value + 1) {
-						string = string + '<td class="tableTd"><a  onClick="leftItem(' + numitem +
-							')"><img src="../../img/shilaignagjsdg - ertrre.png"/></a></td><td class="tableTd"><a  id="item' + numitem + '"  onClick="hrefItem(' + numitem + ')">' +
+						if (numitem == value + 1) {
+							string = string + '<td class="tableTd"><a  onClick="leftItem(' + numitem +
+								')"><img src="../../img/shilaignagjsdg - ertrre.png"/></a></td><td class="tableTd"><a  id="item' + numitem +
+								'"  onClick="hrefItem(' + numitem + ')">' +
 								numitem + '</a></td>'
-					} else if (numitem == value + 6){
+						} else if (numitem == value + 6) {
 							string = string + '<td class="tableTd"><a id="item' + numitem + '" onClick="rightNum(' + numitem +
 								')"><img src="../../img/shilaignagjsdg.png"/></a></td>'
 						} else {
@@ -204,30 +209,31 @@
 						}
 					}
 				} else if (index - value <= 5) {
-					for (var numitem = value + 1; numitem < index+1; numitem++) {
-					if (numitem == value + 1) {
-						string = string + '<td class="tableTd"><a  onClick="leftItem(' + numitem +
-							')"><img src="../../img/shilaignagjsdg - ertrre.png"/></a></td><td class="tableTd"><a  id="item' + numitem + '"  onClick="hrefItem(' + numitem + ')">' +
+					for (var numitem = value + 1; numitem < index + 1; numitem++) {
+						if (numitem == value + 1) {
+							string = string + '<td class="tableTd"><a  onClick="leftItem(' + numitem +
+								')"><img src="../../img/shilaignagjsdg - ertrre.png"/></a></td><td class="tableTd"><a  id="item' + numitem +
+								'"  onClick="hrefItem(' + numitem + ')">' +
 								numitem + '</a></td>'
-					} else {
-						string = string + '<td class="tableTd"><a id="item' + numitem + '" onClick="hrefItem(' + numitem + ')"  >' +
-							numitem + '</a></td>'
+						} else {
+							string = string + '<td class="tableTd"><a id="item' + numitem + '" onClick="hrefItem(' + numitem + ')"  >' +
+								numitem + '</a></td>'
+						}
 					}
 				}
-				}
 				$('#tableHeaderTr').html(string)
-			    $('.tableTd').children('a').css({
-			    	'background': 'none',
-			    	'color': '#FFFFFF'
-			    })
+				$('.tableTd').children('a').css({
+					'background': 'none',
+					'color': '#FFFFFF'
+				})
 			}
-			
-			
-			function leftItem(num) {
-			var value = Number($('#item' + num).text())
 
-			var string = '';
-			if (value - 5 <= 5) {
+
+			function leftItem(num) {
+				var value = Number($('#item' + num).text())
+
+				var string = '';
+				if (value - 5 <= 5) {
 					for (var numitem = 1; numitem < 7; numitem++) {
 						if (numitem == 6) {
 							string = string + '<td class="tableTd"><a id="item' + numitem + '" onClick="rightNum(' + numitem +
@@ -237,32 +243,41 @@
 								numitem + '</a></td>'
 						}
 					}
-			}else if(value - 5 > 5){
-				for (var numitem =value - 5 ; numitem < value + 1 ; numitem++) {
-					if (numitem == value - 5) {
-						string = string + '<td class="tableTd"><a  onClick="leftItem(' + numitem +
-							')"><img src="../../img/shilaignagjsdg - ertrre.png"/></a></td><td class="tableTd"><a  id="item' + numitem + '"  onClick="hrefItem(' + numitem + ')">' +
+				} else if (value - 5 > 5) {
+					for (var numitem = value - 5; numitem < value + 1; numitem++) {
+						if (numitem == value - 5) {
+							string = string + '<td class="tableTd"><a  onClick="leftItem(' + numitem +
+								')"><img src="../../img/shilaignagjsdg - ertrre.png"/></a></td><td class="tableTd"><a  id="item' + numitem +
+								'"  onClick="hrefItem(' + numitem + ')">' +
 								numitem + '</a></td>'
-					}else if (numitem == value   ) {
-						string = string +  '<td class="tableTd"><a id="item' + numitem + '" onClick="rightNum(' + numitem +
-							')"><img src="../../img/shilaignagjsdg.png"/></a></td>'
-					}  else {
-						string = string + '<td class="tableTd"><a id="item' + numitem + '" onClick="hrefItem(' + numitem + ')"  >' +
-							numitem + '</a></td>'
+						} else if (numitem == value) {
+							string = string + '<td class="tableTd"><a id="item' + numitem + '" onClick="rightNum(' + numitem +
+								')"><img src="../../img/shilaignagjsdg.png"/></a></td>'
+						} else {
+							string = string + '<td class="tableTd"><a id="item' + numitem + '" onClick="hrefItem(' + numitem + ')"  >' +
+								numitem + '</a></td>'
+						}
 					}
 				}
-			}
-			$('#tableHeaderTr').html(string)
-			$('.tableTd').children('a').css({
-				'background': 'none',
-				'color': '#FFFFFF'
-			})
-			}
-			function preserve(){
-				var main = plus.webview.getWebviewById("checkPage.html");
-				mui.fire(main, 'preserveItem', {
-					
+				$('#tableHeaderTr').html(string)
+				$('.tableTd').children('a').css({
+					'background': 'none',
+					'color': '#FFFFFF'
 				})
 			}
+
+			function preserve() {
+				if (firstOne == 1) {
+					var main = plus.webview.getWebviewById("checkPage.html");
+					mui.fire(main, 'preserveItem', {})
+				} else if (firstOne = 'wode') {
+					mui.back()
+				}
+			}
+
+			window.addEventListener('preserveItemchildIrwm', function(e) {
+				firstOne = 'wode'
+			})
+		
 		</script>
 </html>

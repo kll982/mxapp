@@ -196,7 +196,7 @@
 		<script src="../../lib/js/jquery1.9.1.min.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../../js/index.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript" charset="utf-8">
-			var detailId ,list,textabfjbtngn,
+			var detailId ,list,textabfjbtngn,haveYinhuan = true,
 				url = window.localStorage.getItem('url');
 			mui.plusReady(function() {
 				// 字体白色(light)的沉浸栏 
@@ -208,7 +208,7 @@
 			})
 
 			function name(detailId) {
-				console.log(detailId)
+				
 				mui.ajax({
 					type: 'get',
 					url: url + '/checklist/listAllOrderByDetailId',
@@ -217,7 +217,6 @@
 					},
 					timeout: 10000,
 					success: function(data) {
-						console.log(JSON.stringify(data))
 						if (data.code == 200) {
 							     var response = data.data.response,string='',optionId='';
 								 list=data.data.response.list;
@@ -238,6 +237,12 @@
 									$('#HiddenRrou').text('未解决')
 								}else if(response.isSolve=='2'){
 									$('#HiddenRrou').text('无隐患')
+								}
+								
+								if(response.reviewCount>0){
+									haveYinhuan = true
+								}else{
+									haveYinhuan = false
 								}
                                 for(var index = 0;index < list.length;index++){
 									var disappear = 'block',disappearO = 'block',disappearA ='block',srcimg='',borderItewam='',classItemSize='';
@@ -342,7 +347,8 @@
 					id:'PrintedName.html',
 					url:'PrintedName.html',
 					extras: {
-						detailId:detailId
+						detailId:detailId,
+						haveYinhuan:haveYinhuan
 					}
 				})
 			}

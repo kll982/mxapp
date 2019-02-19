@@ -655,8 +655,6 @@
 						valueList = data.data.response.list;
 						for (var num = 0; num < valueList.length; num++) {
 							if (valueList[num].reviewId == index) {
-
-
 								var texthtmlinne = valueList[num].stipulate.split(/\n/)
 								var texthtmlinnethree = valueList[num].three.split(/\n/)
 								var stringimgA = '';
@@ -923,7 +921,7 @@
 				timeout: 10000,
 				success: function(res) {
 					if (res.code == 200) {
-						console.log('33444')
+						
 						var imgItem = $('#imgFun').attr('src')
 							// mui.toast("复查成功");
 						var main = plus.webview.getWebviewById("checkChild.html");

@@ -6,17 +6,16 @@
 		<title></title>
 		<script src="../../lib/js/mui.js"></script>
 		<script src="../../lib/js/jquery1.9.1.min.js"></script>
-
 		<link href="../../lib/css/mui.min.css" rel="stylesheet" />
 		<link rel="stylesheet" type="text/css" href="../../css/index.css" />
 		<link rel="stylesheet" type="text/css" href="public.css" />
 		<style type="text/css">
 		</style>
 	</head>
-	<body class="login">
+	<body class="login" style="height:100%;width:100%;margin: 0;padding: 0;" >
 		<div class="mui-content background-transparent">
 			<i id="indexHome" class=" mui-icon mui-icon-left-nav color-fff back"></i>
-			<p class="title font-size26 color-fff mui-text-center" id="header">水路双重预防</p>
+			<p class="font-size26 color-fff mui-text-center" id="header" style="padding-top: 140px;padding-bottom: 40px;">水路双重预防</p>
 			<div class="loginGroup hidden full">
 				<input type="text" placeholder="请输入手机号/用户名" id="tel" class="resetInput background-transparent color-fff placeholder-color-fff full"
 				 style="width:100%;" maxlength="15" oninput="if(value.length>16)value=value.slice(0,15)" />
@@ -33,6 +32,7 @@
 		</div>
 	</body>
 	<script type="text/javascript" charset="utf-8">
+		$('body').height($('html').height())
 		
 		mui.init({
 

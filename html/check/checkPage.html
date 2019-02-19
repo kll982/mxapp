@@ -382,19 +382,6 @@
 			})
 		})
 		mui.init({
-			// 				subpages: [{
-			// 					url: 'checkPageChild.html', //子页面HTML地址，支持本地地址和网络地址
-			// 					id: 'checkPageChild.html', //子页面标志
-			// 					styles: {
-			// 						top: '53px', //子页面顶部位置
-			// 						bottom: '0', //子页面底部位置
-			// 					},
-			// 					extras: {
-			// 						one:one,
-			// 						detailId:detailId,
-			// 						two:two
-			// 					} //额外扩展参数
-			// 				}]
 		beforeback: function(){
 		mui.toast('保存成功');
 		var main = plus.webview.getWebviewById("../check/check.html");
@@ -421,13 +408,11 @@
 						var string = '';
 						var arrayItem = []
 						if (orders.length == 0) {
-							
 						} else {
 							for (var ordersNum = 0; ordersNum < orders.length; ordersNum++) {
 								arrayItem.push(orders[ordersNum].itemId)
 							}
 						}
-					
 						for (var num = 0; num < valueList.length; num++) {
 							var jiancha = '',
 								miaoshu = '',
@@ -451,9 +436,7 @@
 									for (var j = 0; j < orders.length; j++) {
 										if (valueList[num].id == orders[j].itemId) {
 											var orderIditem = orders[j].id 
-											itemId.push(valueList[num].id)
-										
-											 
+											itemId.push(valueList[num].id)		 
 											if(orders[j].picUrl== null||orders[j].picUrl== ''){
 												 picUrlimg = '';
 											}else {
@@ -792,7 +775,6 @@
 						}
 					}
 				}
-				
 				for (var it = 0; it < itemId.length; it++) {
 					// var itemfalse =
 					if (!itemtd(itemId[it], 1)) {
@@ -819,7 +801,9 @@
 			})
 
  promise.then(function(value){
-	
+	var main = plus.webview.getWebviewById("checkPageFather.html");
+	mui.fire(main, 'preserveItemchildIrwm', {
+	})
 	 if(value){
 		 setTimeout(function(){
 			 mui.back();
@@ -922,9 +906,7 @@
 		}
 
 		function submitpreserve(num, j) {
-
 			var imgattry = '';
-		
 			for (var test = 0; test < $('.photname' + num).length; test++) {
 				if(imgattry == ''){
 					imgattry = $('.photname' + num).eq(test).attr('src')
@@ -1046,7 +1028,6 @@
 				}
 				}
 				ajaxItem(present, j)
-
 			}else{
 				if(j == 1){
 					var orderId =	$('.bodyCenter'+num).eq(0).attr('orderIditem')
@@ -1059,7 +1040,7 @@
 		}
 
 		function ajaxItem(present, j){
-
+// console.log(JSON.stringify(present))
 			if(j == 2){
 				var urlItem = '/checklist/insertOrder';
 				var typeItem = 'post'

@@ -173,7 +173,6 @@
 			$('.mui-backdrop').css('display', 'none')
 			plus.nativeUI.toast("正在准备环境，请稍后！");
 			sleep(1000);
-			console.log(downloadUrl)
 			var path = downloadUrl; //下载apk
 			plus.runtime.install(path)
 		}

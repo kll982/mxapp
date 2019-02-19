@@ -169,7 +169,6 @@
 			<div>长时间无反应，请先关闭打印机，重新连接打印机</div>
 			<div onclick="scanPrinter()"><span id="againConnect"><img src="../../img/wgfagsag158.png">重新连接打印机</span></div>
 		</div>
-
 		<script src="../../lib/js/jquery1.9.1.min.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript" charset="utf-8">
 			var detailId;
@@ -296,7 +295,6 @@
 			}
 			//本次扫描打印机结束事件
 			function scanPrinterEnd(result){	
-				alert(JSON.stringify(acceptPrintArray))
 				var string = '';
 				for (var index = 0; index < acceptPrintArray.length; index++) {
 					var valueItemger='';
@@ -328,9 +326,7 @@
 
 					}
 				})
-
 			}
-
 			//异步调用原生方法
 			function nativeAsync() {
 				var bridge = plus.bridge;
@@ -357,8 +353,12 @@
 			function bnITem() {
 				plus.navigator.setStatusBarStyle("dark"); //dark 字体为黑色的沉浸栏
 				plus.navigator.setStatusBarBackground('#FFFFFF'); //改变沉浸栏背景颜色的
-				var main = plus.webview.getWebviewById("dangerspagechilde.html");
+				var main = plus.webview.getWebviewById("returnPage.html");
 				mui.fire(main, 'changeCitynamegk', {
+					// cityName: twoArr
+				})
+				var main = plus.webview.getWebviewById("dangerspageattr.html");
+				mui.fire(main, 'changeCity', {
 					// cityName: twoArr
 				})
 				mui.back()

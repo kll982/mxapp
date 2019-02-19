@@ -428,9 +428,9 @@
 			var mainitemname = plus.webview.getWebviewById('../check/check.html');
 			mui.fire(mainitemname, 'changeCitytimeoneitemd', {})
 			var mainitem = plus.webview.getWebviewById('browseChild.html');
-			setTimeout(function() {
+			setTimeout(function(){
 				mui.back()
-			}, 200)
+			}, 20)
 			mui.fire(mainitem, 'changeC', {})
 			mui.openWindow({
 				url: '../browse/browse.html',

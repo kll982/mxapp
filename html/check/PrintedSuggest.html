@@ -204,16 +204,18 @@
 				detailId = self.detailId;
 				name(detailId)
 			})
-
+			
 			function name(detailId) {
+				console.log(detailId)
 				mui.ajax({
 					type: 'get',
-					url: localStorage.getItem("url") + '/checklistPrint/troubleJobOrder',
+					url: localStorage.getItem("url") + '/checklistPrint/noTroubleJobOrder',
 					data: {
 						detailId: detailId
 					},
 					timeout: 10000,
 					success: function(res) {
+						console.log(JSON.stringify(res))
 						if (res.code == 200) {
 							var response = res.data.response
 							arrayItem = response

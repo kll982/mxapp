@@ -114,7 +114,7 @@
 	<script src="../../js/index.js" type="text/javascript" charset="utf-8"></script>
 	<script type="text/javascript" charset="utf-8">
 		var url = window.localStorage.getItem('url'),
-			pageNum = 1,
+			pageNum = 0,
 			pages;
 		checkSortId = '';
 		mui.plusReady(function() {
@@ -233,15 +233,17 @@
 									var accordCount = list[index].accordCount,
 										correctCount = list[index].correctCount,
 										reviewCount = list[index].reviewCount;
+										notApplicableCount = list[index].notApplicableCount
 									var uploadTime = timeTransIyrm(list[index].uploadTime)
 									string +=
 										'<li class="mui-table-view-cell" id=' + list[index].id +
 										'><div class="oneDiv"><span><img src="../../img/xunricha-1.png"/></span><span class="heightItemon">' +
 										list[index].companyName + '</span></div><div class="otherItem"><span>检查单位：</span><span>' + list[index].createMsaName +
 										'</span></div><div class="otherItem"><span>检查人员：</span><span>' + list[index].createBy +
-										'</span></div><div class="otherItem"><span>检查结果：</span><span>符合 ' + accordCount +
-										' &#x3000;</span><span>当场纠正 ' + correctCount + ' &#x3000;</span><span>隐患整改 ' + reviewCount +
-										'</span></div><div class="otherItem"><span>发布时间：</span><span>' + uploadTime +
+										'</span></div><div class="otherItem"><span style="position: relative;top:-12px;">检查结果：</span><span style="display: inline-block;"><span>符合 ' + accordCount +
+										' &#x3000;</span><span>当场纠正 ' + correctCount + ' &#x3000;</span><br><span>隐患整改 ' + reviewCount +
+										'</span>&#x3000;<span>不适用 ' + notApplicableCount +
+									' &#x3000;</span></span></div><div class="otherItem"><span>发布时间：</span><span>' + uploadTime +
 										'</span></div></li>'
 								}
 								$('.mui-table-view-chevron').append(string)

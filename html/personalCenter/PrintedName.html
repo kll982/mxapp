@@ -154,7 +154,7 @@
 	<body>
 		<header id="header" class="mui-bar mui-bar-nav">
 			<div id="headerItem">
-				<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+				<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" style="color: #007AFF;"></a>
 				<h1 class="mui-title">水上安全隐患治理通知单打印</h1>
 			</div>
 		</header>
@@ -172,6 +172,7 @@
 		<script src="../../lib/js/jquery1.9.1.min.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript" charset="utf-8">
 			var detailId;
+			var haveYinhuan;
 			var indexitenFtnae;
 			var acceptPrintArray = [];
 			var arrayItem;
@@ -182,7 +183,7 @@
 // 					var mainitemname = plus.webview.getWebviewById('../check/check.html');
 // 					mui.fire(mainitemname, 'changeCitytimeoneitemd', {})
 // 					var mainitem = plus.webview.getWebviewById('browseChild.html');
-					setTimeout(function() {
+					setTimeout(function(){
 						mui.back()
 					}, 200)
 // 					mui.fire(mainitem, 'changeC', {})
@@ -200,13 +201,20 @@
 				plus.navigator.setStatusBarBackground('#F7F7F7'); //改变沉浸栏背景颜色的 
 				var self = plus.webview.currentWebview();
 				detailId = self.detailId;
+				haveYinhuan = self.haveYinhuan
 				name(detailId)
 			})
-
 			function name(detailId) {
+				if(haveYinhuan){
+					var urlItemoft = '/checklistPrint/troubleJobOrder'
+					indexitenFtnae = '2'
+				}else{
+					var urlItemoft = '/checklistPrint/noTroubleJobOrder'
+					indexitenFtnae = '3'
+				}
 				mui.ajax({
 					type: 'get',
-					url: localStorage.getItem("url") + '/checklistPrint/troubleJobOrder',
+					url: localStorage.getItem("url") + urlItemoft,
 					data: {
 						detailId: detailId
 					},
@@ -215,11 +223,6 @@
 						if (res.code == 200) {
 							var response = res.data.response
 							arrayItem = response
-							if(arrayItem.list.length>0){
-								indexitenFtnae = '2'
-							}else{
-								indexitenFtnae = '3'
-							}
 							// tiaName()
 						} else {
 							mui.toast(res.message);
@@ -297,7 +300,8 @@
 				acceptPrintArray.push(rejectItem)
 			}
 			//本次扫描打印机结束事件
-			function scanPrinterEnd(result) {
+			function scanPrinterEnd(result){
+				alert(result)
 				var string = '';
 				for (var index = 0; index < acceptPrintArray.length; index++) {
 					var valueItemger = '';
@@ -316,7 +320,7 @@
 			function addPrinter(id) {
 				var arrauItem = []
 				arrauItem.push(acceptPrintArray[id].macaddr)
-				mui.confirm('是否连接此设备', ['确认', '取消'], function(value) {
+				mui.confirm('是否连接此设备', ['确认', '取消'], function(value){
 					if (value.index == '0') {
 						//调用customPlugin插件的testFunctionSync方法，传递了两个参数，分别是James和Tracy
 						var result = plus.bridge.execSync("customPlugin", "addPrinter", arrauItem);
