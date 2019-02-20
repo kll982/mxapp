@@ -185,17 +185,20 @@
 			})
 			mui.init({
 				beforeback: function(){
-					plus.navigator.setStatusBarStyle("dark"); //dark 字体为黑色的沉浸栏
-					plus.navigator.setStatusBarBackground('#FFFFFF'); //改变沉浸栏背景颜色的
-					var main = plus.webview.getWebviewById("dangerspagechilde.html");
-					mui.fire(main, 'changeCitynamegk', {
-						// cityName: twoArr
-					})
-					
+				plus.navigator.setStatusBarStyle("dark"); //dark 字体为黑色的沉浸栏
+				plus.navigator.setStatusBarBackground('#FFFFFF'); //改变沉浸栏背景颜色的
+				var main = plus.webview.getWebviewById("returnPage.html");
+				mui.fire(main, 'changeCitynamegk', {
+					// cityName: twoArr
+				})
+				var main = plus.webview.getWebviewById("dangerspageattr.html");
+				mui.fire(main, 'changeCity', {
+					// cityName: twoArr
+				})
 				}
 			});
 			function name(detailId){
-				console.log(detailId)
+				// console.log(detailId)
 				mui.ajax({
 					type: 'get',
 					url: localStorage.getItem("url") + '/checklistPrint/solveTheProblem',
@@ -204,8 +207,8 @@
 					},
 					timeout: 10000,
 					success: function(res){
-						console.log(JSON.stringify(res))
-						console.log(JSON.stringify(res))
+// 						console.log(JSON.stringify(res))
+// 						console.log(JSON.stringify(res))
 						if (res.code == 200) {
 							var response = res.data.response
 							arrayItem = response
@@ -231,7 +234,7 @@
 				}
 			}
 			//接收打印结果
-			function getPrintResult(result) {
+			function getPrintResult(result){
 				//result:0:成功  1:缺纸 2:打印头过热 
 				if (result == 0) {
 					succse()
@@ -244,7 +247,7 @@
 					})
 				} else {
 					$('#buttodiv').find('img').attr('src', '../../img/zujiande155.png')
-					$('#Release').html('打印错误')
+					$('#Release').html('打印头过热')
 					$('#buttonITemFitr').text('')
 					$('#footItem').css({
 						'display': 'block'
@@ -331,10 +334,10 @@
 			function nativeAsync() {
 				var bridge = plus.bridge;
 				var success = function(msg) {
-					alert("onSuccess,msg = " + msg);
+					// alert("onSuccess,msg = " + msg);
 				};
 				var failed = function(msg) {
-					alert("onFailed,msg = " + msg);
+					// alert("onFailed,msg = " + msg);
 				}
 				//获取回调的id
 				var callbackId = bridge.callbackId(success, failed);
@@ -351,16 +354,16 @@
 			}
 
 			function bnITem() {
-				plus.navigator.setStatusBarStyle("dark"); //dark 字体为黑色的沉浸栏
-				plus.navigator.setStatusBarBackground('#FFFFFF'); //改变沉浸栏背景颜色的
-				var main = plus.webview.getWebviewById("returnPage.html");
-				mui.fire(main, 'changeCitynamegk', {
-					// cityName: twoArr
-				})
-				var main = plus.webview.getWebviewById("dangerspageattr.html");
-				mui.fire(main, 'changeCity', {
-					// cityName: twoArr
-				})
+// 				plus.navigator.setStatusBarStyle("dark"); //dark 字体为黑色的沉浸栏
+// 				plus.navigator.setStatusBarBackground('#FFFFFF'); //改变沉浸栏背景颜色的
+// 				var main = plus.webview.getWebviewById("returnPage.html");
+// 				mui.fire(main, 'changeCitynamegk', {
+// 					// cityName: twoArr
+// 				})
+// 				var main = plus.webview.getWebviewById("dangerspageattr.html");
+// 				mui.fire(main, 'changeCity', {
+// 					// cityName: twoArr
+// 				})
 				mui.back()
 			}
 			// 未检测到打印机

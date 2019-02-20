@@ -354,8 +354,9 @@
 		//             t++;
 		//         }
 		//     }
-		// }
+		// }	
 		mui.plusReady(function() {
+			var result = plus.bridge.execSync("customPlugin", "registerReceiver",[]);
 			plus.navigator.setStatusBarStyle("dark"); //dark 字体为黑色的沉浸栏
 			plus.navigator.setStatusBarBackground('#FFFFFF'); //改变沉浸栏背景颜色的
 			var self = plus.webview.currentWebview();
@@ -643,6 +644,7 @@
 				if (numuser) {
 					var valueOne = localStorage.getItem("userName")
 					var valueTwo = localStorage.getItem("password")
+					
 					mui.ajax({
 						type: 'get',
 						url: login + '/login',
@@ -656,6 +658,7 @@
 						timeout: 10000,
 						success: function(data) {
 							if (data.code == 200) {
+								isValidObjectitem(clientInfo)
 								$('#tologo').css('display', 'none')
 								firstEvent()
 								echart()
@@ -667,12 +670,13 @@
 						error: function() {}
 					})
 				} else {
+					// console.log('2')
 					$('#tologo').css('display', 'block')
 					$('#informationall').css('display', 'none')
 				}
 				resolve()
 			});
-			isValidObjectitem(clientInfo)
+			
 			// 			_promise.then(function() {
 			// 				if (numuser) {
 			// 					console.log(clientInfo)
@@ -738,21 +742,22 @@
 			// 			})
 		})
 		$('#itemclickone').click(function() {
-			estimate()
-			if (numuser) {
-				mui.openWindow({
-					id: '.html/special/special',
-					url: 'html/special/special.html',
-					extras: {
-						level: nameId,
-					} //额外扩展参数
-				})
-			} else {
-				mui.openWindow({
-					id: 'html/home/home.html',
-					url: 'html/home/home.html',
-				})
-			}
+			mui.toast("暂未开通")
+// 			estimate()
+// 			if (numuser) {
+// 				mui.openWindow({
+// 					id: '.html/special/special',
+// 					url: 'html/special/special.html',
+// 					extras: {
+// 						level: nameId,
+// 					} //额外扩展参数
+// 				})
+// 			} else {
+// 				mui.openWindow({
+// 					id: 'html/home/home.html',
+// 					url: 'html/home/home.html',
+// 				})
+// 			}
 		})
 		$('#itemclicktwo').click(function() {
 			estimate()
@@ -895,6 +900,7 @@
 			modelWrap.style.display = "none";
 			modelWrap.style.visibility = "hidden";
 		}
+		
 	</script>
 
 </html>

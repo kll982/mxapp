@@ -53,6 +53,9 @@
 				background-repeat: no-repeat;
 				background-size: 100% 113px;
 			}
+			#downloadItem {
+				color: #4D4D4D !important;
+			}
 		</style>
 	</head>
 	<body class="background-F3F3F3">
@@ -126,7 +129,7 @@
 				<div>
 					<span class="buttonName" style="left: 0;" onclick="trueNameFor()">暂不升级</span>
 					<span style="width: 1px;background: #CCCCCC;height: 45px;display: inline-block;"></span>
-					<span class="buttonName" style="right: 0;" onclick="trueNameTo()">立即升级</span>
+					<span class="buttonName" style="right: 0;" onclick="trueNameTo()"><a href="" id="downloadItem" download="true">立即升级</a></span>
 				</div>
 			</div>
 		</div>
@@ -196,10 +199,10 @@
 			$('.buttonName').eq(0).css('color', '#4D4D4D')
 		})
 		$('.buttonName')[1].addEventListener("hold", function() {
-			$('.buttonName').eq(1).css('color', '#44A5F4')
+			$('#downloadItem').css('color', '#44A5F4')
 		})
 		$('.buttonName')[1].addEventListener("release", function() {
-			$('.buttonName').eq(1).css('color', '#4D4D4D')
+			$('#downloadItem').css('color', '#44A5F4')
 		})
 	</script>
 </html>

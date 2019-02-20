@@ -155,12 +155,12 @@
 		<header id="header" class="mui-bar mui-bar-nav">
 			<div id="headerItem">
 				<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" style="color: #007AFF;"></a>
-				<h1 class="mui-title">水上安全隐患治理通知单打印</h1>
+				<h1 class="mui-title">水上安全隐患治理解除审批单</h1>
 			</div>
 		</header>
 		<div id="buttodiv" class="buttodivname">
 			<div class="Releaseitemg"><img src="../../img/lujing33.png"></div>
-			<div class="Releaseitemg" id="Release">发布记录打印</div>
+			<div class="Releaseitemg" id="Release">请点击打印按钮</div>
 		</div>
 		<div id="buttonITemFitr">
 			<button type="button" id="buttonITem" class="buttonITemcalss" onclick="print()">打印</button>
@@ -172,54 +172,40 @@
 		<script src="../../lib/js/jquery1.9.1.min.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript" charset="utf-8">
 			var detailId;
-			var haveYinhuan;
-			var indexitenFtnae;
-			var acceptPrintArray = [];
 			var arrayItem;
-			mui.init({
-				beforeback: function() {
-					plus.navigator.setStatusBarStyle("dark"); //dark 字体为黑色的沉浸栏
-					plus.navigator.setStatusBarBackground('#FFFFFF'); //改变沉浸栏背景颜色的
-// 					var mainitemname = plus.webview.getWebviewById('../check/check.html');
-// 					mui.fire(mainitemname, 'changeCitytimeoneitemd', {})
-// 					var mainitem = plus.webview.getWebviewById('browseChild.html');
-					setTimeout(function(){
-						mui.back()
-					}, 200)
-// 					mui.fire(mainitem, 'changeC', {})
-// 					mui.openWindow({
-// 						url: '../browse/browse.html',
-// 						id: 'html/browse/browse.html',
-// 
-// 					})
-
-				}
-			});
-			mui.plusReady(function() {
+			var acceptPrintArray = [];
+			mui.plusReady(function() { 
 				// 字体白色(light)的沉浸栏 
 				plus.navigator.setStatusBarStyle("dark"); //dark 字体为黑色的沉浸栏
 				plus.navigator.setStatusBarBackground('#F7F7F7'); //改变沉浸栏背景颜色的 
 				var self = plus.webview.currentWebview();
-				detailId = self.detailId;
-				haveYinhuan = self.haveYinhuan
+				detailId = self.item;
 				name(detailId)
+				// console.log(detailId)
 			})
-			function name(detailId) {
-				if(haveYinhuan){
-					var urlItemoft = '/checklistPrint/troubleJobOrder'
-					indexitenFtnae = '2'
-				}else{
-					var urlItemoft = '/checklistPrint/noTroubleJobOrder'
-					indexitenFtnae = '3'
+			mui.init({
+				beforeback: function(){
+					plus.navigator.setStatusBarStyle("dark"); //dark 字体为黑色的沉浸栏
+					plus.navigator.setStatusBarBackground('#FFFFFF'); //改变沉浸栏背景颜色的
+					var main = plus.webview.getWebviewById("dangerspagechilde.html");
+					mui.fire(main, 'changeCitynamegk', {
+						// cityName: twoArr
+					})
+					
 				}
+			});
+			function name(detailId){
+				// console.log(detailId)
 				mui.ajax({
 					type: 'get',
-					url: localStorage.getItem("url") + urlItemoft,
+					url: localStorage.getItem("url") + '/checklistPrint/solveTheProblem',
 					data: {
-						detailId: detailId
+						reviewId: detailId
 					},
 					timeout: 10000,
 					success: function(res){
+						// console.log(JSON.stringify(res))
+// 						console.log(JSON.stringify(res))
 						if (res.code == 200) {
 							var response = res.data.response
 							arrayItem = response
@@ -228,14 +214,14 @@
 							mui.toast(res.message);
 						}
 					},
-					error: function() {}
+					error: function(){}
 				})
 			}
 			//同步调用原生方法添加打印机 
-			function print() {
-				var result = plus.bridge.execSync("customPlugin", "print", [ indexitenFtnae , {
+			function print(){
+				var result = plus.bridge.execSync("customPlugin", "print", ['1', {
 					arrayItem
-					}]);
+				}]);
 				if (result == 1) {
 					scanPrinterItem()
 				} else if (result == 0) {
@@ -249,7 +235,7 @@
 				//result:0:成功  1:缺纸 2:打印头过热 
 				if (result == 0) {
 					succse()
-				} else if(result == 2) {
+				} else if (result == 2) {
 					$('#buttodiv').find('img').attr('src', '../../img/zujiande155.png')
 					$('#Release').html('打印机请无纸<br>请装纸')
 					$('#buttonITemFitr').text('')
@@ -264,6 +250,14 @@
 						'display': 'block'
 					})
 				}
+				// 			if (result == 2) {
+				// 				$('#buttodiv').find('img').attr('src', '../../img/zujiande155.png')
+				// 				$('#Release').html('打印机请状纸<br>请装纸')
+				// 				$('#buttonITemFitr').text('')
+				// 				$('#footItem').css({
+				// 					'display': 'block'
+				// 				})
+				// 			}
 				// 			if (result == 3) {
 				// 				$('#buttodiv').find('img').attr('src', '../../img/zujiande155.png')
 				// 				$('#Release').html('打印机纸舱盖打开')
@@ -292,7 +286,7 @@
 
 			}
 			//接收蓝牙设备
-			function acceptPrint(name, macaddr) {
+			function acceptPrint(name, macaddr){
 				var rejectItem = {
 					name: name,
 					macaddr: macaddr
@@ -300,18 +294,18 @@
 				acceptPrintArray.push(rejectItem)
 			}
 			//本次扫描打印机结束事件
-			function scanPrinterEnd(result){
+			function scanPrinterEnd(result){	
 				var string = '';
 				for (var index = 0; index < acceptPrintArray.length; index++) {
-					var valueItemger = '';
-					if (acceptPrintArray[index].name.length > 6) {
-						valueItemger = acceptPrintArray[index].name.substring(0, 6) + '...'
-					} else {
+					var valueItemger='';
+					if(acceptPrintArray[index].name.length > 6){
+						valueItemger = acceptPrintArray[index].name.substring(0,6)+'...'
+					}else{
 						valueItemger = acceptPrintArray[index].name
 					}
 					string += '<li class="mui-table-view-cell" onClick="addPrinter(' + index +
-						')"><a class="mui-navigate-right"><img src="../../img/lantinsdgsagd161.png">' + valueItemger + '  ' +
-						acceptPrintArray[index].macaddr + '</a> </li>'
+						')"><a class="mui-navigate-right"><img src="../../img/lantinsdgsagd161.png">'+ valueItemger + '  '  + acceptPrintArray[index].macaddr +
+						'</a> </li>'
 				}
 				$('#buttodiv').html('<ul class="mui-table-view">' + string + '</ul>')
 			}
@@ -319,7 +313,7 @@
 			function addPrinter(id) {
 				var arrauItem = []
 				arrauItem.push(acceptPrintArray[id].macaddr)
-				mui.confirm('是否连接此设备', ['确认', '取消'], function(value){
+				mui.confirm('是否连接此设备', ['确认', '取消'], function(value) {
 					if (value.index == '0') {
 						//调用customPlugin插件的testFunctionSync方法，传递了两个参数，分别是James和Tracy
 						var result = plus.bridge.execSync("customPlugin", "addPrinter", arrauItem);
@@ -328,9 +322,10 @@
 						)
 						$('#buttonITemFitr').html(
 							'<button type="button" id="buttonITem" class="buttonITemcalss" onclick="print()">打印</button>')
-					} else if (value.index == '1') {}
-				})
+					} else if (value.index == '1') {
 
+					}
+				})
 			}
 			//异步调用原生方法
 			function nativeAsync() {
@@ -358,20 +353,16 @@
 			function bnITem() {
 				plus.navigator.setStatusBarStyle("dark"); //dark 字体为黑色的沉浸栏
 				plus.navigator.setStatusBarBackground('#FFFFFF'); //改变沉浸栏背景颜色的
-				var mainitemname = plus.webview.getWebviewById('../check/check.html');
-				mui.fire(mainitemname, 'changeCitytimeoneitemd', {})
-				var mainitem = plus.webview.getWebviewById('browseChild.html');
-				setTimeout(function() {
-					mui.back()
-				}, 200)
-				mui.fire(mainitem, 'changeC', {})
-				mui.openWindow({
-					url: '../browse/browse.html',
-					id: 'html/browse/browse.html',
-
+				var main = plus.webview.getWebviewById("returnPage.html");
+				mui.fire(main, 'changeCitynamegk', {
+					// cityName: twoArr
 				})
+				var main = plus.webview.getWebviewById("dangerspageattr.html");
+				mui.fire(main, 'changeCity', {
+					// cityName: twoArr
+				})
+				mui.back()
 			}
-
 			// 未检测到打印机
 			function scanPrinterItem() {
 				$('#buttodiv').find('img').attr('src', '../../img/zujiande155.png')

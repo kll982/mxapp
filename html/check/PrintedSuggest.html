@@ -255,7 +255,7 @@
 					})
 				} else {
 					$('#buttodiv').find('img').attr('src', '../../img/zujiande155.png')
-					$('#Release').html('打印错误')
+					$('#Release').html('打印头过热 ')
 					$('#buttonITemFitr').text('')
 					$('#footItem').css({
 						'display': 'block'
@@ -334,10 +334,10 @@
 			function nativeAsync() {
 				var bridge = plus.bridge;
 				var success = function(msg) {
-					alert("onSuccess,msg = " + msg);
+					// alert("onSuccess,msg = " + msg);
 				};
 				var failed = function(msg) {
-					alert("onFailed,msg = " + msg);
+					// alert("onFailed,msg = " + msg);
 				}
 				//获取回调的id
 				var callbackId = bridge.callbackId(success, failed);

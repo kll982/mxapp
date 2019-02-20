@@ -53,7 +53,7 @@
 			.imgItemSize {
 				width: 75px;
 				height: 75px;
-				border-radius: 6px;
+				/* border-radius: 6px; */
 			}
 
 			.hrItem {
@@ -79,7 +79,7 @@
 				text-align: justify;
 				padding: 0 30px;
 				color: #808080;
-				background: #fdfdfd;
+			   background: rgb(250,250,250);
 				padding-top: 10px;
 				font-size: 16px;
 				padding-bottom: 10px;
@@ -325,12 +325,13 @@
 			<div id="bodySisplay" style="display: none;">
 				<div class="flexBody">
 					<span class="leftItem flexItemFome">检查描述<span class="signal">*</span>
-					</span><span class="rightBody"><img src="../../img/photeItem.png"></span>
+					</span>
+					<!-- <span class="rightBody"><img src="../../img/photeItem.png"></span> -->
 				</div>
 				<textarea rows="1" cols="" id="textareaone" oninput="onfocusItem(1)"></textarea>
 				<div class="flexBody">
 					<span class="leftItem flexItemFome">整改要求<span class="signal">*</span></span>
-					<span class="rightBody"><img src="../../img/photeItem.png"></span>
+					<!-- <span class="rightBody"><img src="../../img/photeItem.png"></span> -->
 				</div>
 				<textarea rows="1" cols="" id="textareatwo" oninput="onfocusItem(2)"></textarea>
 				<div class="flexBody">
@@ -339,7 +340,7 @@
 				<textarea rows="1" cols="" id="TimeIem" onClick="textTime()" data-options={"type":"date","beginYear":2018,"endYear":2024}
 				 readonly="readonly" class="btn"></textarea>
 			</div>
-			<div id="inputfontD">
+			<div id="inputfontD" style="margin-bottom:96px;">
 				<span id="geographictext" class="xinhaoitem">定&#x3000;&#x3000;位</span><br>
 				<div id="">
 					<span id="imgtextiteslitwmmg" style="display: inline"><img id="geographicimgitwm" src="../../img/diliweizhi.png"></span>
@@ -374,7 +375,7 @@
 				mui.toast("error:" + e.message);
 			})
 			initial(level, reviewId)
-			console.log(reviewId)
+			// console.log(reviewId)
 		})
 		mui.init({
 
@@ -453,8 +454,7 @@
 
 		}
 
-		function initial(level, reviewId) {
-			
+		function initial(level, reviewId){
 			mui.ajax({
 				type: 'get',
 				url: urlTnd + '/checklist/listReviewByConditional',

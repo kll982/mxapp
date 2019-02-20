@@ -39,7 +39,7 @@
 
 			#oneChile>.oneClas {
 				color: #404040;
-				font-size: 16px;
+				font-size: 20px;
 				font-weight: bold;
 			}
 
@@ -95,6 +95,8 @@
 				font-size: 10px;
 				position: relative;
 				top: -4px;
+				font-weight: normal;
+				padding-top: 2px;
 			}
 
 			.dispaluONe {
@@ -104,6 +106,9 @@
 				font-size: 10px;
 				position: relative;
 				top: -4px;
+				font-weight: normal;
+				padding-top: 2px;
+
 			}
 
 			.dispaluONea {
@@ -113,6 +118,9 @@
 				font-size: 10px;
 				position: relative;
 				top: -4px;
+				font-weight: normal;
+				padding-top: 2px;
+
 			}
 
 			.twoSmllTim>span {
@@ -143,6 +151,13 @@
 				text-align: center;
 				margin-top: 200px;
 			}
+			.printCss{
+				text-align: center;
+				color: #5eb2f5;
+				margin-top: 16px;
+				text-decoration: underline;
+				font-size: 14px;
+			}
 		</style>
 	</head>
 	<body>
@@ -150,20 +165,22 @@
 			<div id="headerItem">
 				<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
 				<h1 class="mui-title">隐患追踪</h1>
+				<!-- <a  class="mui-pull-right" style="line-height: 53px;color: #FFFFFF;margin-right: 10px;font-size: 16px;display: none;" onclick="PrintedChildal()">打印</a> -->
+
 			</div>
 		</header>
 		<div style="height:70px;"></div>
 		<div id="contion">
 			<div id="oneChile" style="margin: 0 10px;">
 				<div class="oneClas"></div>
-				<div class="oneClasa" style="margin-top: 8px;"><span id="hsdfbwode"></span><span id="tenngdjkn"></span></div>
+				<div class="oneClasa" style="margin-top: 8px;"><span id="hsdfbwode"></span><span  id="tenngdjkn"></span></div>
 			</div>
 			<div id="twoChile"></div>
 		</div>
 		<script src="../../lib/js/jquery1.9.1.min.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../../js/index.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript" charset="utf-8">
-			var item = '',textabfjbtngn,
+			var item = '',textabfjbtngn,imgArrayNum = [];
 				url = window.localStorage.getItem('url');
 			mui.plusReady(function() {
 				// 字体白色(light)的沉浸栏 
@@ -186,7 +203,7 @@
 			})
 
 			function name(item) {
-				console.log(item)
+				// console.log(item)
 				mui.ajax({
 					type: 'get',
 					url: url + '/checklist/listReviewHistory',
@@ -195,13 +212,13 @@
 					},
 					timeout: 10000,
 					success: function(data) {
+						
 						if (data.code == 200) {
 							var checklistDtos = data.data.response.checklistDtos
 							var string = '';
-
 								if (checklistDtos.length > 0) {
 									for (var index = 0; index < checklistDtos.length; index++) {
-										var dispalu, dispaluONeaBody, imgItemCOlo, optionId;
+										var dispalu, dispaluONeaBody, imgItemCOlo, optionId,checstDs ;
 										var createTime = timeTransitem(checklistDtos[index].createTime)
 										var passBy = 'none',
 											reviewDescribeItem = 'block',
@@ -215,6 +232,7 @@
 										} else if (checklistDtos[index].optionId == '3') {
 											optionId = '不符合(限期整改)'
 											reviewDescribeItem = 'block'
+											
 										} else if (checklistDtos[index].optionId == '4') {
 											optionId = '不符合(继续整改)'
 											reviewDescribeItem = 'block'
@@ -240,10 +258,16 @@
 											imgItemCOlo = '../../img/tuoyuan9.png'
 											
 										}
+										if (checklistDtos[index].isPrint == '1') {
+											checstDs = 'block'
+										}else {
+											checstDs = 'none'
+										}
 										var imgString = '';
 										 textabfjbtngn = checklistDtos[index].url.split(',')
 										for (var j = 0; j < textabfjbtngn.length; j++) {
-											imgString += '<img onclick="onImgItem('+j+')" class="imgSiztIten" src= ' + textabfjbtngn[j] + ' />'
+											imgArrayNum.push(textabfjbtngn[j])
+											imgString += '<img onclick="onImgItem('+imgArrayNum.length+')" class="imgSiztIten" src= ' + textabfjbtngn[j] + ' />'
 										}
 
 										string +=
@@ -280,7 +304,7 @@
 											checklistDtos[index].noPassCause + '</span></div>' +
 											'<div class="leftBody"><span class="leftChilA">再次提交时间:</span><span class="leftChilR">' + checklistDtos[
 												index].reviewTime + '</span></div>' +
-											'</div></div></div> <hr class="hrItemColoe"/>'
+											'</div></div></div><div class="printCss" style="margin-right: 10px;font-size: 16px;display:'+ checstDs +'; " onclick="PrintedChildal('+checklistDtos[index].id+')">打印隐患解除审批单</div> <hr class="hrItemColoe"/>'
 									}
 									$('#twoChile').html(string)
 								} else {
@@ -294,11 +318,21 @@
 				})
 			}
 			function onImgItem(index){
+				// console.log(imgArrayNum[index-1])
 				mui.openWindow({
 					url: "../../js/img.html",
 					id: "img",
 					extras: {
-						img:textabfjbtngn[index],
+						img:imgArrayNum[index-1],
+					}
+				})
+			}
+			function PrintedChildal(id){
+				mui.openWindow({
+					url: "PrintedChildal.html",
+					id: "PrintedChildal.html",
+					extras: {
+						item:id
 					}
 				})
 			}

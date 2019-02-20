@@ -599,15 +599,8 @@ button.border0:hover {
 .placeholder-color-fff::-ms-input-placeholder {
 	color: #fff;
 }
-/* login */
-.login {
-	/* 必须分开写 */
-	background: url(../../img/login4.jpg) no-repeat;
-	background-size: 100% 100%;
-}
-html{
-	height: 100%;
-}
+
+
 
 .loginGroup {
 	width: 100%;

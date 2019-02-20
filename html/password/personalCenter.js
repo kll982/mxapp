@@ -82,6 +82,7 @@ function PersonalCenter() {
 					maskItemTive = mui.createMask(function(){
 						return false;
 					})
+					$('#downloadItem').attr('href', downloadUrl)
 					maskItemTive.show()
 					$('.buttonName').css('color', '#4D4D4D')
 					$('#ItreProme').css('display', 'block')
