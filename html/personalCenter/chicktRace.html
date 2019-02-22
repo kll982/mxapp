@@ -304,7 +304,7 @@
 											checklistDtos[index].noPassCause + '</span></div>' +
 											'<div class="leftBody"><span class="leftChilA">再次提交时间:</span><span class="leftChilR">' + checklistDtos[
 												index].reviewTime + '</span></div>' +
-											'</div></div></div><div class="printCss" style="margin-right: 10px;font-size: 16px;display:'+ checstDs +'; " onclick="PrintedChildal('+checklistDtos[index].id+')">打印隐患解除审批单</div> <hr class="hrItemColoe"/>'
+											'</div></div></div><div class="printCss" style="margin-right: 10px;font-size: 16px;display:'+ checstDs +'; " onclick="PrintedChildal('+checklistDtos[index].lastReviewId+')">打印隐患解除审批单</div> <hr class="hrItemColoe"/>'
 									}
 									$('#twoChile').html(string)
 								} else {
@@ -328,6 +328,7 @@
 				})
 			}
 			function PrintedChildal(id){
+			
 				mui.openWindow({
 					url: "PrintedChildal.html",
 					id: "PrintedChildal.html",

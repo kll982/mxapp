@@ -198,7 +198,13 @@
 				var self = plus.webview.currentWebview();
 				detailId = self.detailId;
 				name(detailId)
-				console.log(detailId)
+				plus.geolocation.getCurrentPosition(function(p){
+					if( p.address.province  != undefined){
+						// alert(p.address.province)
+					}
+					}, function(e){
+				alert('Geolocation error: ' + e.message);
+				})
 			})
 			function name(detailId){
 				mui.ajax({
@@ -212,7 +218,7 @@
 						if (res.code == 200) {
 							var response = res.data.response
 							arrayItem = response
-							console.log(JSON.stringify(arrayItem))
+							// console.log(JSON.stringify(arrayItem))
 							// tiaName()
 						} else {
 							mui.toast(res.message);
@@ -223,16 +229,32 @@
 			}
 			//同步调用原生方法添加打印机 
 			function print(){
-				var result = plus.bridge.execSync("customPlugin", "print", ['2', {
-					arrayItem
-				}]);
-				if (result == 1) {
+				if(plus.bridge.execSync("customPlugin", "checkPrintLink", []) == '1'){
+					alert('设备不支持蓝牙')
+				}else if(plus.bridge.execSync("customPlugin", "checkPrintLink", []) == '2'){
+					alert('蓝牙未开启 ')
+				}else if(plus.bridge.execSync("customPlugin", "checkPrintLink", []) == '3'){
+					alert('未连接设备 请尝试打开手机“设置-蓝牙”，手动连接打印机设备（打印机名称请查看打印机显示屏）')
 					scanPrinterItem()
-				} else if (result == 0) {
-					$('#buttodiv').find('img').attr('src', '../../img/zujian154.png')
-					$('#Release').text('正在打印请等待')
-					$('#buttonITemFitr').text('')
+				}else if(plus.bridge.execSync("customPlugin", "checkPrintLink", []) == '4'){
+					alert('未成功连接打印机 请尝试打开手机“设置-蓝牙”，手动连接打印机设备（打印机名称请查看打印机显示屏） ')
+					scanPrinterItem()
+				}else if(plus.bridge.execSync("customPlugin", "checkPrintLink", []) == '0'){
+					var result = plus.bridge.execSync("customPlugin", "print", ['2' , {
+						arrayItem
+						}]);
+					if (result == 1) {
+						scanPrinterItem()
+					} else if (result == 0){
+						$('#buttodiv').find('img').attr('src', '../../img/zujian154.png')
+						$('#Release').text('正在打印请等待')
+						$('#buttonITemFitr').text('')
+					}else if(result =='2'){
+						alert('与蓝牙打印机连接失败')
+						scanPrinterItem()
+					}
 				}
+
 			}
 			//接收打印结果
 			function getPrintResult(result) {
@@ -247,12 +269,13 @@
 						'display': 'block'
 					})
 				} else {
-					$('#buttodiv').find('img').attr('src', '../../img/zujiande155.png')
-					$('#Release').html('打印头过热 ')
-					$('#buttonITemFitr').text('')
-					$('#footItem').css({
-						'display': 'block'
-					})
+					succse()
+// 					$('#buttodiv').find('img').attr('src', '../../img/zujiande155.png')
+// 					$('#Release').html('打印头过热 ')
+// 					$('#buttonITemFitr').text('')
+// 					$('#footItem').css({
+// 						'display': 'block'
+// 					})
 				}
 				// 			if (result == 3) {
 				// 				$('#buttodiv').find('img').attr('src', '../../img/zujiande155.png')
@@ -314,7 +337,7 @@
 						//调用customPlugin插件的testFunctionSync方法，传递了两个参数，分别是James和Tracy
 						var result = plus.bridge.execSync("customPlugin", "addPrinter", arrauItem);
 						$('#buttodiv').html(
-							'<div class="Releaseitemg"><img src="../../img/lujing33.png"></div><div class="Releaseitemg" id="Release">连接成功</div>'
+							'<div class="Releaseitemg"><img src="../../img/lujing33.png"></div><div class="Releaseitemg" id="Release">发布记录打印</div>'
 						)
 						$('#buttonITemFitr').html(
 							'<button type="button" id="buttonITem" class="buttonITemcalss" onclick="print()">打印</button>')

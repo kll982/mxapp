@@ -159,7 +159,6 @@ function uploadimg(imgArray, ext, indexnum) {
 				// alert(JSON.stringify(res))
 				if (res.code == 200) {
 					url = res.data.url;
-				
 					var string = '<span id="'+ numbir +'photoImg'+ indexnum +'" class="photoImgBig"><img id="'+ numbir +
 					'photoImgname'+ indexnum +  '" class="photname'+ indexnum +'" onClick="zudexiaochu('+ indexnum +','+ numbir +
 					')" src="' + res.data.url +'"/><span class="zudexiaochu" id="zudexiaochu' + indexnum + 

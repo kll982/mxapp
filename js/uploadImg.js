@@ -135,8 +135,6 @@ function uploadimg(imgArray, ext) {
 	})
 
 	function ajaxfuntion(len) {
-		
-
 		mui.ajax(localStorage.getItem("url") + "/oss/uploadTroublePic", {
 			type: "post",
 			data: {
@@ -190,7 +188,6 @@ function uploadimg(imgArray, ext) {
 						e.stopPropagation();
 					}
 					imgWrap.onclick = function(e) {
-					
 						mui.openWindow({
 							url: "../../js/img.html",
 							id: "img",

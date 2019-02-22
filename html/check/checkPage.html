@@ -365,17 +365,19 @@
 			detailId = self.detailId;
 			var promise = new Promise(function(resolve, reject) {
 		  plus.geolocation.getCurrentPosition(function(p){
-			var	address = p.address.province + "," + p.address.city + "," +p.address.district + "," +p.address.street
-		      // alert(p.address.province + p.address.city + p.address.district + p.address.street)
-		 			Lon =  p.coords.longitude; //获取经度
-		 			Lat = p.coords.latitude; //获取纬度
-					dingwei = address;
-					resolve(dingwei)
-					// alert(dingwei)
+				if( p.address.province  != undefined){
+					var	address = p.address.province + "," + p.address.city + "," + p.address.district + "," +p.address.street
+							// alert(p.address.province + p.address.city + p.address.district + p.address.street)
+							Lon =  p.coords.longitude; //获取经度
+							Lat = p.coords.latitude; //获取纬度
+							dingwei = address;
+							resolve(dingwei)
+							// alert(dingwei)
+				}
 	     }, function(e){
 		  alert('Geolocation error: ' + e.message);
 	   });
-			
+
 			})
 			promise.then(function(item){
 					pageitem(self.one, self.detailId, self.two,item)
