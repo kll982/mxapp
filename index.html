@@ -86,12 +86,12 @@
 				/* display: none; */
 				border-radius: 6px;
 				overflow: hidden;
-				height: 330px;
+				height: 260px;
 				background: #FFFFFF;
 				z-index: 1200;
 				width: 70%;
 				position: fixed;
-				top: 20%;
+				top: 26%;
 				margin-left: 15%;
 			}
 
@@ -255,15 +255,15 @@
 		<div id="ItreProme" style="display: none;">
 			<div id="ItrePromeOne">
 				<div style="color:#FFFFFF;padding-top: 50px;padding-left: 24px;height: 80px;"><span id="mustVersion"></span></div>
-				<div style="height: 180px;font-size: 12px;padding: 0 10px;padding-top: 20px;">
+				<div style="height: 180px;font-size: 12px;padding: 0 10px;padding-top: 40px;">
 					【优化】<br />
-					1.隐患列表、隐患复查等UI界面优化<br />
-					2.修复了检查页面保存失败bug<br />
-					【新增】<br />
+					1.修复了打印闪退的问题<br />
+					2.新增“协同检查人<br />
+					<!-- 【新增】<br />
 					1.新增查看检查历史和隐患追踪的功能<br />
 					2.新增无隐患状况下“水上安全隐患治理建议”打印<br />
-					3.检查单发布前新增“备注/安全建议”填写<br />
-					</span></div>
+					3.检查单发布前新增“备注/安全建议”填写<br /> -->
+					</div>
 			</div>
 			<div id="abolishTrue">
 				<div style="height: 1px;background: #CCCCCC;margin: 0;padding: 0;"></div>
@@ -392,7 +392,7 @@
 				logoutPushMsg(msg);
 			}, false);
 			plus.runtime.getProperty(plus.runtime.appid, function(inf) {
-				var appVersion = "2.1.1";
+				var appVersion = "2.1.2";
 				mui.ajax(url + '/system/clientVersion', {
 					data: {
 						appVersion: appVersion

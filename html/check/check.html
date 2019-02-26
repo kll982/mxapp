@@ -197,7 +197,7 @@
 				/* display: none; */
 				border-radius: 6px;
 				overflow: hidden;
-				height: 266px;
+				height: 326px;
 				background: #FFFFFF;
 				z-index: 1200;
 				width: 70%;
@@ -261,7 +261,10 @@
 		</nav>
 		<!-- 弹框 -->
 		<div id="ItreProme" style="display: none;">
-			<div style="margin-top: 16px;"><span style="color: #999999;font-size: 14px;margin: 0 20px;">备注/建议(非必填)</span></div>
+			<div id="" style="color: #999999;font-size: 14px;margin: 0 20px;margin-top: 16px;">协同检查人<span style="color: red;">*</span></div>
+			<div  style="color:  #4D4D4D;margin: 0 20px;margin-top: 4px;">
+			<input style="margin: 0;padding-left:4px;height: 30px;" type="text" name="" id="nameXietong" value="" /></div>
+			<div style="margin-top: 8px;"><span style="color: #999999;font-size: 14px;margin: 0 20px;">备注/建议(非必填)</span></div>
 			<div style="margin: 0 20px;"><textarea rows="7" cols="" id="textareaItem" style="color: #4D4D4D;"></textarea></div>
 			<div id="abolishTrue">
 				<div style="height: 1px;background: #CCCCCC;margin: 0;padding: 0;"></div>
@@ -351,7 +354,6 @@
 		})
 
 		function onepage(valueId) {
-
 			$('#mobile').html('')
 			mui.ajax(url + '/checklist/listOrder', {
 				data: {
@@ -658,7 +660,6 @@
 		// window.addEventListener("swiperight", closeMenu);
 		//menu页面向右滑动，关闭菜单；
 		// window.addEventListener("menu:swiperight", closeMenu);
-
 		//重写mui.menu方法，Android版本menu按键按下可自动打开、关闭侧滑菜单；
 		mui.menu = function() {
 			if (showMenu) {
@@ -715,19 +716,25 @@
 			$('.buttonName').eq(1).css('color', '#4D4D4D')
 		})
 
-		function trueNameTo() {
-			$('#ItreProme').css('display', 'none')
-			$('.mui-backdrop').css('display', 'none')
-			var stringItemite = main.towanitemnameitem + $('#itemNameitemchuo').text()
-			mui.openWindow({
-				url: 'Releasepreview.html',
-				id: 'Releasepreview.html',
-				extras: {
-					detailId: detailIdA,
-					string: stringItemite,
-					remarks: $('#textareaItem').val()
-				}
-			})
+		function trueNameTo(){
+			if($('#nameXietong').val().trim() == ''){
+				mui.toast('协同检查人是必填的')
+			}else{
+				$('#ItreProme').css('display', 'none')
+				$('.mui-backdrop').css('display', 'none')
+				var stringItemite = main.towanitemnameitem + $('#itemNameitemchuo').text()
+				mui.openWindow({
+					url: 'Releasepreview.html',
+					id: 'Releasepreview.html',
+					extras: {
+						detailId: detailIdA,
+						string: stringItemite,
+						remarks: $('#textareaItem').val(),
+						synergyPerson :$('#nameXietong').val()
+					}
+				})
+			}
+			
 		}
 
 		function trueNameFor() {

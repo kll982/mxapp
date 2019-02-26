@@ -232,7 +232,7 @@
 	</body>
 	<script src="../../lib/js/jquery1.9.1.min.js" type="text/javascript" charset="utf-8"></script>
 	<script type="text/javascript" charset="utf-8">
-		var detailId, remarks;
+		var detailId, remarks,synergyPerson;
 		var trueItej = false, pictures,
 			trueItejIte = 0;
 		var url = window.localStorage.getItem('url')
@@ -240,6 +240,7 @@
 			var self = plus.webview.currentWebview();
 			detailId = self.detailId;
 			remarks = self.remarks;
+			synergyPerson = self.synergyPerson;
 			var string = self.string;
 			$('#headrChild').text(string)
 			name(detailId)
@@ -276,7 +277,7 @@
 						var list = res.data.response.list;
 						var string = '';
 						var arrayname = [];
-						$('#one').text(response.name)
+						$('#one').text(response.name+" "+synergyPerson)
 						$('#onea').text(response.phone)
 						$('#oneb').text(response.msaName)
 						$('#onec').text(response.allCount)
@@ -399,13 +400,13 @@
 				url: url + '/checklist/reportedOrder',
 				data: {
 					detailId: detailId,
-					remarks: remarks
+					remarks: remarks,
+					synergyPerson:synergyPerson
 				},
 				dataType: "jsonp",
 				jsonp: "jsoncallback",
 				timeout: 5000,
 				success: function(data) {
-				
 					var res = JSON.parse(data)
 					var string = ''
 					if (res.code == 200) {

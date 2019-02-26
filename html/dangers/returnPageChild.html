@@ -177,7 +177,6 @@
 			.mui-dtpicker-header button {
 				font-size: 16px;
 			}
-
 			/* 取消 */
 			.mui-btn,
 			button,
@@ -290,6 +289,9 @@
 			.childitem{
 				font-size: 14px;
 			}
+			.mui-popup-input input{
+				height: 36px;
+			}
 		</style>
 	</head>
 
@@ -362,7 +364,7 @@
 	<script src="../../lib/js/mui.picker.min.js"></script>
 	<script type="text/javascript" charset="utf-8">
 		var urlTnd = window.localStorage.getItem('url');
-		var headtextdis = false,
+		var headtextdis = false,xitongVext='',
 			reviewId, Lon, Lat, address;
 		mui.plusReady(function() {
 			// 字体白色(light)的沉浸栏 
@@ -551,51 +553,68 @@
 			}
 		}
 		$('#name').click(function(){
-			var srcOne = $('.buttonSizeIten').eq(0).attr('src')
-			var srcTwo = $('.buttonSizeIten').eq(1).attr('src')
-			if (urls.length > 0) {
-				if (srcOne == '../../img/return-1.png') {
-					data = {
-						reviewId: String(reviewId),
-						lng: String(Lon),
-						lat: String(Lat),
-						picUrl: urls.join(","),
-						location: address,
-						optionId: '1',
-					}
-					ajaxSubmititem(data)
-				} else if (srcTwo == '../../img/return-4.png') {
-					if ($('#textareaone').val().trim().length > 0) {
-						if ($('#textareatwo').val().trim().length > 0) {
-							if ($('#TimeIem').val().trim().length > 0) {
-								data = {
-									reviewId: String(reviewId),
-									lng: String(Lon),
-									lat: String(Lat),
-									picUrl: urls.join(","),
-									location: address,
-									optionId: '3',
-									describe: $('#textareaone').val().trim(),
-									reviewRequire: $('#textareatwo').val().trim(),
-									reviewTime: $('#TimeIem').val(),
-								}
-								ajaxSubmititem(data)
-							} else {
-								mui.toast('复查时间未填写')
+			if(xitongVext == ''){
+				mui.prompt(' ','  ','协同检查人',['确定','取消'],function(e){
+						if (e.index == 1) {
+											} else {
+													if(e.value.trim() == ''){
+														mui.toast('请填写协同检查人')
+													}else{
+														naegItembug(e.value)
+													}
+											}
+				},'div')
+			}else{
+	       naegItembug(synergyPerson)
+			}
+		})
+  function naegItembug(synergyPerson){
+					var srcOne = $('.buttonSizeIten').eq(0).attr('src')
+					var srcTwo = $('.buttonSizeIten').eq(1).attr('src')
+					if (urls.length > 0) {
+						if (srcOne == '../../img/return-1.png') {
+							data = {
+								synergyPerson:synergyPerson,
+								reviewId: String(reviewId),
+								lng: String(Lon),
+								lat: String(Lat),
+								picUrl: urls.join(","),
+								location: address,
+								optionId: '1',
 							}
-						} else {
-							mui.toast('整改要求未填写')
+							ajaxSubmititem(data)
+						} else if (srcTwo == '../../img/return-4.png') {
+							if ($('#textareaone').val().trim().length > 0) {
+								if ($('#textareatwo').val().trim().length > 0) {
+									if ($('#TimeIem').val().trim().length > 0) {
+										data = {
+											synergyPerson:synergyPerson,
+											reviewId: String(reviewId),
+											lng: String(Lon),
+											lat: String(Lat),
+											picUrl: urls.join(","),
+											location: address,
+											optionId: '3',
+											describe: $('#textareaone').val().trim(),
+											reviewRequire: $('#textareatwo').val().trim(),
+											reviewTime: $('#TimeIem').val(),
+										}
+										ajaxSubmititem(data)
+									} else {
+										mui.toast('复查时间未填写')
+									}
+								} else {
+									mui.toast('整改要求未填写')
+								}
+							} else {
+								mui.toast('检查描述未填写')
+							}
 						}
 					} else {
-						mui.toast('检查描述未填写')
+						mui.toast('照片未上传')
 					}
-				}
-			} else {
-				mui.toast('照片未上传')
-			}
-
-		})
-
+		
+	}
 		function ajaxSubmititem(data){
 			mui.ajax({
 				type: 'post',
@@ -604,6 +623,7 @@
 				timeout: 10000,
 				success: function(data) {
 					if (data.code == 200) {
+						console.log(JSON.stringify(data))
 						var imgItem = $('#imgFun').attr('src')
 						if (imgItem.indexOf('radio26') == -1){
 						      Printed()

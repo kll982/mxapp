@@ -276,10 +276,8 @@
 											'<div class="leftBody"><span class="leftChilA">检查结果:</span><span class="leftChilR">' + optionId +
 											'</span></div>' +
 											'<div class="leftBody"><span class="leftChilA">检查人:</span><span class="leftChilR">' + checklistDtos[index]
-											.createBy +
-											'</span></div>' +
-											'<div class="leftBody"><span class="leftChilA">检查人手机:</span><span class="leftChilR">' + checklistDtos[
-												index].operatorPhone + '</span></div>' +
+											.createBy +"("+checklistDtos[index].operatorPhone +")、"+checklistDtos[index].synergyPerson+
+											'</span></div>'+
 											'<div class="leftBody"><span class="leftChilA">现场照片:</span><span class="leftChilR">' + imgString +
 											'</span></div>' +
 											'<div style="display:' + reviewDescribeItem +

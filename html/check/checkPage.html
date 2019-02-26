@@ -424,7 +424,7 @@
 							var btnimgA = "../../img/DCJZ.png"
 							var btnimgB = "../../img/XQZG.png"
 							var btnimgC = "../../img/bushiyong-2.png"
-							var row = 1;
+							var row1 = 1,row2 = 1;
 							var zhanText = '展开';
 							var displaytext = 'block',
 								zhankai = 'none',
@@ -472,12 +472,12 @@
 											if (orders[j].troubleDescribe != null && orders[j].troubleDescribe != '') {
 												jiancha = orders[j].troubleDescribe
 												
-												row = Math.ceil(jiancha.length / 22);
+												row1 = Math.ceil(jiancha.length / 22);
 											}
 											// 整改要求
 											if (orders[j].reviewRequire != null && orders[j].reviewRequire != '') {
 												miaoshu = orders[j].reviewRequire
-												row = Math.ceil(miaoshu.length / 22);
+												row2 = Math.ceil(miaoshu.length / 22);
 											}
 											// 复查时间
 											if (orders[j].reviewTime != null && orders[j].reviewTime != '') {
@@ -495,7 +495,7 @@
 									var orderIditem ='';
 									// alert(dingwei)
 									miaoshu = valueList[num].stipulate
-									row = Math.ceil(miaoshu.length / 22);
+									row2 = Math.ceil(miaoshu.length / 22);
 									// console.log( valueList[num].stipulate)
 									dingweiA = '<span class="oneOnly">'+dingwei+'</span>'
 								}
@@ -530,14 +530,14 @@
 									'"> <div><p class="examine"><span>检查描述<span class="examineItem">*</span></span>' +
 									'<span class="speechFather" onClick="speechFatherOne('+valueList[num].id+',1)"></span></p></div>' +
 									'<div class="positionTop"><textarea id="onfocusItem' + valueList[num].id + '" oninput="onfocusItem(' +
-									valueList[num].id + ')"  rows="' + row + '" cols="">' + jiancha +
+									valueList[num].id + ')"  rows="' + row1 + '" cols="">' + jiancha +
 									'</textarea><hr class="hrItem"/></div><div style="display:' + zhankaiA + '" class="zhankaiA" id="zhankaiA' +
 									valueList[num].id + '"><div><p class="examine">' +
 									'<span>整改要求<span class="examineItem">*</span></span>' +
 									'<span class="speechFather" onClick="speechFatherOne('+valueList[num].id+',2)"></span></p></div>' +
 									'<div class="positionTop"><textarea id="onfocusItemName' + valueList[num].id +
 									'" oninput="onfocusItemName(' + valueList[num].id +
-									')" rows="' + row + '" cols="">' + miaoshu + '</textarea><hr class="hrItem"/></div>' +
+									')" rows="' + row2 + '" cols="">' + miaoshu + '</textarea><hr class="hrItem"/></div>' +
 									'<div><p class="examine"><span>复查时间<span class="examineItem">*</span></span></p></div>' +
 									'<div class="positionTop"><textarea data-options={"type":"date","beginYear":2018,"endYear":2024} class="btn' +
 									valueList[num].id + '"  id="textTime' + valueList[num].id + '" onClick="textTime(' + valueList[num].id +
