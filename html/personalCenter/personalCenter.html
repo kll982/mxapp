@@ -111,17 +111,13 @@
 		<button type="button" class="mui-btn mui-btn-block color-f00 border-e6e6e6" onclick="personalCenter.logout()">退出登录</button>
 
 		<!-- 弹框 -->
-		<div id="ItreProme" style="display: none;">
+<!-- 		<div id="ItreProme" style="display: none;">
 			<div id="ItrePromeOne">
 				<div style="color:#FFFFFF;padding-top: 50px;padding-left: 24px;height: 80px;"><span id="mustVersion"></span></div>
 				<div style="height: 180px;font-size: 12px;padding: 0 10px;padding-top: 40px;">
 					【优化】<br />
 					1.修复了打印闪退的问题<br />
 					2.新增“协同检查人<br />
-					<!-- 【新增】<br />
-					1.新增查看检查历史和隐患追踪的功能<br />
-					2.新增无隐患状况下“水上安全隐患治理建议”打印<br />
-					3.检查单发布前新增“备注/安全建议”填写<br /> -->
 					</div>
 			</div>
 			<div id="abolishTrue">
@@ -132,7 +128,7 @@
 					<span class="buttonName" style="right: 0;" onclick="trueNameTo()"><a href="" id="downloadItem" download="true">立即升级</a></span>
 				</div>
 			</div>
-		</div>
+		</div> -->
 
 	</body>
 	<script type="text/javascript" src="../password/personalCenter.js"></script>
@@ -188,21 +184,21 @@
 					return;
 			}
 		}
-		function trueNameFor() {
-			$('#ItreProme').css('display', 'none')
-			$('.mui-backdrop').css('display', 'none')
-		}
-		$('.buttonName')[0].addEventListener("hold", function() {
-			$('.buttonName').eq(0).css('color', '#44A5F4')
-		})
-		$('.buttonName')[0].addEventListener("release", function() {
-			$('.buttonName').eq(0).css('color', '#4D4D4D')
-		})
-		$('.buttonName')[1].addEventListener("hold", function() {
-			$('#downloadItem').css('color', '#44A5F4')
-		})
-		$('.buttonName')[1].addEventListener("release", function() {
-			$('#downloadItem').css('color', '#44A5F4')
-		})
+// 		function trueNameFor() {
+// 			$('#ItreProme').css('display', 'none')
+// 			$('.mui-backdrop').css('display', 'none')
+// 		}
+// 		$('.buttonName')[0].addEventListener("hold", function() {
+// 			$('.buttonName').eq(0).css('color', '#44A5F4')
+// 		})
+// 		$('.buttonName')[0].addEventListener("release", function() {
+// 			$('.buttonName').eq(0).css('color', '#4D4D4D')
+// 		})
+// 		$('.buttonName')[1].addEventListener("hold", function() {
+// 			$('#downloadItem').css('color', '#44A5F4')
+// 		})
+// 		$('.buttonName')[1].addEventListener("release", function() {
+// 			$('#downloadItem').css('color', '#44A5F4')
+// 		})
 	</script>
 </html>

@@ -264,11 +264,16 @@
 											checstDs = 'none'
 										}
 										var imgString = '';
-										 textabfjbtngn = checklistDtos[index].url.split(',')
-										for (var j = 0; j < textabfjbtngn.length; j++) {
-											imgArrayNum.push(textabfjbtngn[j])
-											imgString += '<img onclick="onImgItem('+imgArrayNum.length+')" class="imgSiztIten" src= ' + textabfjbtngn[j] + ' />'
+										if(checklistDtos[index].url != null && checklistDtos[index].url !=''){
+											 textabfjbtngn = checklistDtos[index].url.split(',')
+											for (var j = 0; j < textabfjbtngn.length; j++) {
+												imgArrayNum.push(textabfjbtngn[j])
+												imgString += '<img onclick="onImgItem('+imgArrayNum.length+')" class="imgSiztIten" src= ' + textabfjbtngn[j] + ' />'
+											}
+										}else{
+											imgString = '------';
 										}
+										
 
 										string +=
 											'<div class="twoSmll"><div><span class="leftBodyI"><img class="imgSine" src="../../img/tuoyuan9.png" />检查时间:</span><span class="twoSmllTim">' +

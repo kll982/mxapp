@@ -1,4 +1,3 @@
-
 window.login = localStorage.getItem("login");
 window.url = localStorage.getItem("url");
 
@@ -12,7 +11,7 @@ function PersonalCenter() {
 		modelTitle = document.getElementById("model-title"),
 		modelCenter = document.getElementById("model-center"),
 		modelClose = document.getElementById("model-close"),
-		
+
 		telValue = document.getElementById("tel"),
 		loginPassword = document.getElementById("loginPassword"),
 		registerPassword = document.getElementById("registerPassword"),
@@ -21,10 +20,10 @@ function PersonalCenter() {
 
 	// 跳转 个人中心
 	this.GoTOPersonal = function() {
-		mui.ajax(localStorage.getItem("login")+"/checkSSO",{
-			success:function(res){
-				
-				if(res.code == 600 || res.data.response.ok == false){
+		mui.ajax(localStorage.getItem("login") + "/checkSSO", {
+			success: function(res) {
+
+				if (res.code == 600 || res.data.response.ok == false) {
 					mui.openWindow({
 						url: "./html/login/login.html",
 						id: "./html/login/login",
@@ -34,7 +33,7 @@ function PersonalCenter() {
 						},
 					});
 					mui.toast("请登录");
-				}else{
+				} else {
 					mui.openWindow({
 						url: 'html/personalCenter/personalCenter.html',
 						id: "html/personalCenter/personalCenter",
@@ -65,38 +64,47 @@ function PersonalCenter() {
 
 	// 检查更新
 	this.checkNew = function() {
-		var appVersion = "2.1.2";
-		mui.ajax(url + '/system/clientVersion', {
-			data: {
-				appVersion: appVersion
-			},
-			type: 'get',
-			dataType: "jsonp",
-			// jsonp: "jsoncallback",
-			timeout: 10000,
-			success: function(res) {
-				var data = JSON.parse(res).data.response;
-				if (appVersion < data.mustVersion) {
-					downloadUrl = data.downloadUrl
-					$('#mustVersion').text('V' + data.clientVersion)
-					maskItemTive = mui.createMask(function(){
-						return false;
-					})
-					$('#downloadItem').attr('href', downloadUrl)
-					maskItemTive.show()
-					$('.buttonName').css('color', '#4D4D4D')
-					$('#ItreProme').css('display', 'block')
-				} else {
-					mui.toast("当前版本已是最新版")
-				}
-			},
-			error: function() {}
-		})
+		var Intent = plus.android.importClass("android.content.Intent");
+		// 获取主Activity对象的实例  
+		var main = plus.android.runtimeMainActivity();
+		// 创建Intent  
+		var naviIntent = new Intent();
+		var ComponentName = plus.android.importClass("android.content.ComponentName");
+		naviIntent.setComponent(new ComponentName(main, "com.moxiang.com.safecheck.appupdate.MainActivity"));
+		main.startActivity(naviIntent);
+		// 		var appVersion = "2.1.2";
+		// 		mui.ajax(url + '/system/clientVersion', {
+		// 			data: {
+		// 				appVersion: appVersion
+		// 			},
+		// 			type: 'get',
+		// 			dataType: "jsonp",
+		// 			// jsonp: "jsoncallback",
+		// 			timeout: 10000,
+		// 			success: function(res) {
+		// 				var data = JSON.parse(res).data.response;
+		// 				if (appVersion < data.mustVersion) {
+		// 					
+		// 					downloadUrl = data.downloadUrl
+		// 					$('#mustVersion').text('V' + data.clientVersion)
+		// 					maskItemTive = mui.createMask(function(){
+		// 						return false;
+		// 					})
+		// // 					$('#downloadItem').attr('href', downloadUrl)
+		// // 					maskItemTive.show()
+		// // 					$('.buttonName').css('color', '#4D4D4D')
+		// // 					$('#ItreProme').css('display', 'block')
+		// 				} else {
+		// 					mui.toast("当前版本已是最新版")
+		// 				}
+		// 			},
+		// 			error: function() {}
+		// 		})
 	}
 
 	// 登出
 	this.logout = function() {
-		mui.confirm("确认退出登录？", "", function(e){
+		mui.confirm("确认退出登录？", "", function(e) {
 			if (e.index == 1) {
 				mui.ajax(window.localStorage.getItem('logout'), {
 					data: {
@@ -110,9 +118,8 @@ function PersonalCenter() {
 							window.localStorage.setItem('userName', "");
 							window.localStorage.setItem('level', "");
 							var main = plus.webview.getWebviewById(window.localStorage.getItem('index.html'));
-							mui.fire(main, 'changeCity', {
-							})
-							  mui.back()
+							mui.fire(main, 'changeCity', {})
+							mui.back()
 						}
 					}
 				})
@@ -131,17 +138,17 @@ function PersonalCenter() {
 		// 判断是否需要验证码
 		mui.ajax(localStorage.getItem("login") + '/isVerifyCode', {
 			data: {
-				formatType:"json"
+				formatType: "json"
 			},
 			type: 'get',
 			dataType: "jsonp",
 			jsonp: "jsoncallback",
 			timeout: 10000,
-			header:{
-				"Content-Type":"x-www-form-urlencoded",
+			header: {
+				"Content-Type": "x-www-form-urlencoded",
 			},
 			success: function(res) {
-				
+
 				var data = JSON.parse(res).data.response;
 				if (data.isVerifyCode == true) {
 					var regisTertoken = data.token; // 判断是否需要验证码
@@ -210,7 +217,7 @@ function PersonalCenter() {
 								}
 							}
 						} else {
-						
+
 						}
 					}
 					xhr.send();
@@ -239,7 +246,7 @@ function PersonalCenter() {
 			},
 			timeout: 10000,
 			success: function(res) {
-			
+
 				if (res.code == 200) {
 					mui.openWindow({
 						url: 'nextResetPassword.html',
@@ -260,7 +267,7 @@ function PersonalCenter() {
 			},
 		})
 	}
-	
+
 	// 密码长度
 	this.PasswordLength = function() {
 		if (loginPassword && loginPassword.value.length > 16) {

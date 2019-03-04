@@ -249,11 +249,13 @@
 									var disappear = 'block',disappearO = 'block',disappearA ='block',srcimg='',borderItewam='',classItemSize='';
 									var imgString = '';
 									var disappearAangkguj = ' inline-block'
-									if(list[index].picUrl != null){
+									if(list[index].picUrl != null && list[index].picUrl != ''){
 										 textabfjbtngn = list[index].picUrl.split(',')
 										 for(var j = 0 ;j<textabfjbtngn.length;j++ ){
 										 	imgString += '<img onclick="onImgItem('+j+')" class="imgSiztIten" src= '+textabfjbtngn[j]+' />'
 										 }
+									}else{
+										imgString = '------';
 									}
 									if(list[index].optionId == '1'){
 										var disappearAangkguj = 'none'

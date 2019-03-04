@@ -14,13 +14,11 @@
 				margin: 0;
 				background: #FFFFFF;
 			}
-
 			#titleIte {
 				font-weight: bold;
 				font-size: 18px;
 				color: #474747;
 			}
-
 			#bodyHeader {
 				margin: 0 10px;
 				margin-top: 20px;
@@ -241,6 +239,7 @@
 				color: #404040;
 				font-size: 15px;
 				display: inline-block;
+				line-height: 24px;
 			}
 
 			#submitFather {
@@ -373,25 +372,16 @@
 			var self = plus.webview.currentWebview();
 			reviewId = self.reviewId; //扩展参数
 			var level = self.level;
-			plus.geolocation.getCurrentPosition(MapPoint, function(e) {
-				mui.toast("error:" + e.message);
-			})
+			addressFuntiong()
+			
 			initial(level, reviewId)
 			// console.log(reviewId)
 		})
 		mui.init({
 
 		});
-		// 获取当前的位置信息
-		function MapPoint(position) {
-			Lon = position.coords.longitude; //获取经度
-			Lat = position.coords.latitude; //获取纬度
-			address = position.address.province + "," + position.address.city + "," + position.address.district + "," + position
-				.address.street
-			// + "," + position.address.streetNum;
-			$('#geographic').html(address)
-
-		}
+		
+		
 	function imgFuntion() {
 			var imgItem = $('#imgFun').attr('src')
 			if (imgItem.indexOf('radio26') == -1) {
@@ -455,7 +445,23 @@
 			});
 
 		}
-
+		 // 获取当前的位置信息
+     function addressFuntiong(){
+		 plus.geolocation.getCurrentPosition(function(p){
+			 if(p.addresses != '' || p.addresses != null && p.addresses != undefined){
+			 Lon = p.coords.longitude; //获取经度
+			 Lat = p.coords.latitude; //获取纬度
+			 var address = p.addresses
+			 // + "," + position.address.streetNum;
+			 $('#geographic').html(address)
+			 }else{
+				 addressFuntiong()
+			 }
+		 }, function(e) {
+		 	mui.toast("error:" + e.message);
+		 })
+	 }
+	
 		function initial(level, reviewId){
 			mui.ajax({
 				type: 'get',
@@ -475,9 +481,14 @@
 								$('#itemE').text(list[index].reviewDescribe)
 								$('#itemR').text(list[index].reviewRequire)
 								$('#itemQaddd').text(list[index].checklistCode)
-								for (var j = 0; j < list[index].picUrl.length; j++) {
-									imgUrl = imgUrl + '<img onclick="onImgItem('+j+')" id='+list[index].picUrl[j]+' class="imgItemSize" src=' + list[index].picUrl[j] + ' />'
+								if(list[index].picUrl != '' && list[index].picUrl !=null){
+									for (var j = 0; j < list[index].picUrl.length; j++) {
+										imgUrl = imgUrl + '<img onclick="onImgItem('+j+')" id='+list[index].picUrl[j]+' class="imgItemSize" src=' + list[index].picUrl[j] + ' />'
+									}
+								}else{
+									imgUrl = '---'
 								}
+								
 								$('#itemW').html(imgUrl)
 								for (var timeitem = 0; timeitem < texthtmlinne.length; timeitem++) {
 									stringimgA = stringimgA + '<span class="childitem">' + texthtmlinne[timeitem] + '</span><br>'
@@ -571,7 +582,7 @@
   function naegItembug(synergyPerson){
 					var srcOne = $('.buttonSizeIten').eq(0).attr('src')
 					var srcTwo = $('.buttonSizeIten').eq(1).attr('src')
-					if (urls.length > 0) {
+					// if (urls.length > 0) {
 						if (srcOne == '../../img/return-1.png') {
 							data = {
 								synergyPerson:synergyPerson,
@@ -610,9 +621,9 @@
 								mui.toast('检查描述未填写')
 							}
 						}
-					} else {
-						mui.toast('照片未上传')
-					}
+// 					} else {
+// 						mui.toast('照片未上传')
+// 					}
 		
 	}
 		function ajaxSubmititem(data){

@@ -15,6 +15,7 @@
 			body {
 				background: #F3F3F3;
 			}
+
 			#header {
 				height: 53px;
 				background: url(img/navheaer.png) no-repeat;
@@ -252,18 +253,14 @@
 			</div>
 		</div>
 		<!-- 弹框 -->
-		<div id="ItreProme" style="display: none;">
+<!-- 		<div id="ItreProme" style="display: none;">
 			<div id="ItrePromeOne">
 				<div style="color:#FFFFFF;padding-top: 50px;padding-left: 24px;height: 80px;"><span id="mustVersion"></span></div>
 				<div style="height: 180px;font-size: 12px;padding: 0 10px;padding-top: 40px;">
 					【优化】<br />
 					1.修复了打印闪退的问题<br />
 					2.新增“协同检查人<br />
-					<!-- 【新增】<br />
-					1.新增查看检查历史和隐患追踪的功能<br />
-					2.新增无隐患状况下“水上安全隐患治理建议”打印<br />
-					3.检查单发布前新增“备注/安全建议”填写<br /> -->
-					</div>
+				</div>
 			</div>
 			<div id="abolishTrue">
 				<div style="height: 1px;background: #CCCCCC;margin: 0;padding: 0;"></div>
@@ -273,14 +270,13 @@
 					<span class="buttonName" style="right: 0;" onclick="trueNameTo()"><a href="" id="downloadItem" download="true">立即升级</a></span>
 				</div>
 			</div>
-		</div>
-
+		</div> -->
 	</body>
 	<script src="js/echart.js"></script>
 	<script type="text/javascript" charset="utf-8">
-		window.localStorage.setItem('logout', 'http://passport.moxiang1.com/logout');
-		window.localStorage.setItem('url', 'http://api.moxiang1.com');
-		window.localStorage.setItem("login", "http://passport.moxiang1.com");
+		window.localStorage.setItem('logout', 'http://passport.jsmsa.com/logout');
+		window.localStorage.setItem('url', 'http://api.jsmsa.com');
+		window.localStorage.setItem("login", "http://passport.jsmsa.com");
 		var url = window.localStorage.getItem('url')
 		var login = window.localStorage.getItem('login')
 		var userName = '';
@@ -302,18 +298,20 @@
 			}
 		})
 		var msg = 'wodegfklasgj';
-		function trueNameTo() {
-			$('#ItreProme').css('display', 'none')
-			$('.mui-backdrop').css('display', 'none')
-			// 			sleep(1000);
-			// 			var path = downloadUrl; //下载apk
-			// 			console.log(path)
-			// 			$('#downloadItem').attr('src','path')
-			// 			$('#downloadItem').click(function(){
-			// 				console.log('33')
-			// 			})
-			// plus.runtime.install(path,3,function(jnf){console.log(JSON.stringify(jnf))},function(err){console.log(JSON.stringify(err))})
-		}
+
+// 		function trueNameTo() {
+// 			$('#ItreProme').css('display', 'none')
+// 			$('.mui-backdrop').css('display', 'none')
+// 			// 			sleep(1000);
+// 			// 			var path = downloadUrl; //下载apk
+// 			// 			console.log(path)
+// 			// 			$('#downloadItem').attr('src','path')
+// 			// 			$('#downloadItem').click(function(){
+// 			// 				console.log('33')
+// 			// 			})
+// 			// plus.runtime.install(path,3,function(jnf){console.log(JSON.stringify(jnf))},function(err){console.log(JSON.stringify(err))})
+// 		}
+
 		function sleep(numberMillis) {
 			var now = new Date();
 			var exitTime = now.getTime() + numberMillis;
@@ -323,22 +321,23 @@
 					return;
 			}
 		}
-		function trueNameFor() {
-			$('#ItreProme').css('display', 'none')
-			$('.mui-backdrop').css('display', 'none')
-		}
-		$('.buttonName')[0].addEventListener("hold", function() {
-			$('.buttonName').eq(0).css('color', '#44A5F4')
-		})
-		$('.buttonName')[0].addEventListener("release", function() {
-			$('.buttonName').eq(0).css('color', '#4D4D4D')
-		})
-		$('.buttonName')[1].addEventListener("hold", function() {
-			$('#downloadItem').css('color', '#44A5F4')
-		})
-		$('.buttonName')[1].addEventListener("release", function() {
-			$('#downloadItem').css('color', '#4D4D4D')
-		})
+
+// 		function trueNameFor() {
+// 			$('#ItreProme').css('display', 'none')
+// 			$('.mui-backdrop').css('display', 'none')
+// 		}
+// 		$('.buttonName')[0].addEventListener("hold", function() {
+// 			$('.buttonName').eq(0).css('color', '#44A5F4')
+// 		})
+// 		$('.buttonName')[0].addEventListener("release", function() {
+// 			$('.buttonName').eq(0).css('color', '#4D4D4D')
+// 		})
+// 		$('.buttonName')[1].addEventListener("hold", function() {
+// 			$('#downloadItem').css('color', '#44A5F4')
+// 		})
+// 		$('.buttonName')[1].addEventListener("release", function() {
+// 			$('#downloadItem').css('color', '#4D4D4D')
+// 		})
 		// var t = 0;
 		// var getuiCliendInfo = function(){
 		//      clientInfo = plus.push.getClientInfo();//获取clientinfo
@@ -355,8 +354,9 @@
 		//         }
 		//     }
 		// }	
+
 		mui.plusReady(function() {
-			var result = plus.bridge.execSync("customPlugin", "registerReceiver",[]);
+			var result = plus.bridge.execSync("customPlugin", "registerReceiver", []);
 			plus.navigator.setStatusBarStyle("dark"); //dark 字体为黑色的沉浸栏
 			plus.navigator.setStatusBarBackground('#FFFFFF'); //改变沉浸栏背景颜色的
 			var self = plus.webview.currentWebview();
@@ -402,19 +402,18 @@
 					timeout: 10000,
 					success: function(res) {
 						var data = JSON.parse(res).data.response;
+						// console.log(JSON.stringify(res))
 						if (appVersion < data.mustVersion) {
 							downloadUrl = data.downloadUrl
-							// console.log(downloadUrl)
 							var path = downloadUrl; //下载apk
-							// console.log(path)
 							$('#downloadItem').attr('href', path)
 							$('#mustVersion').text('V' + data.clientVersion)
-							maskItemTive = mui.createMask(function() {
-								return false;
-							})
-							maskItemTive.show()
+// 							maskItemTive = mui.createMask(function() {
+// 								return false;
+// 							})
+							// maskItemTive.show()
 							$('.buttonName').css('color', '#4D4D4D')
-							$('#ItreProme').css('display', 'block')
+							// $('#ItreProme').css('display', 'block')
 						} else {
 							// mui.toast("当前版本已是最新版")
 						}
@@ -422,7 +421,31 @@
 					error: function() {}
 				})
 			});
+			fsajkldfgsajklgdnsdnkfgk()
 		})
+		function fsajkldfgsajklgdnsdnkfgk(){
+			var result = plus.bridge.execSync("customPlugin", "getVersion", [])
+			mui.ajax('https://haishi-nanjing.oss-cn-shanghai.aliyuncs.com/app/android/update.json', {
+				data: {},
+				type: 'get',
+				dataType: "jsonp",
+				timeout: 10000,
+				success: function(res) {
+					var res = JSON.parse(res)
+					if (res.data.serverVersion > result) {
+						var Intent = plus.android.importClass("android.content.Intent");
+						// 获取主Activity对象的实例  
+						var main = plus.android.runtimeMainActivity();
+						// 创建Intent  
+						var naviIntent = new Intent();
+						var ComponentName = plus.android.importClass("android.content.ComponentName");
+						naviIntent.setComponent(new ComponentName(main, "com.moxiang.com.safecheck.appupdate.MainActivity"));
+						main.startActivity(naviIntent);
+					}
+				},
+				error: function() {}
+			})
+		}
 
 		function isValidObjectitem(clientInfo) {
 			// console.log(clientInfo)
@@ -644,7 +667,7 @@
 				if (numuser) {
 					var valueOne = localStorage.getItem("userName")
 					var valueTwo = localStorage.getItem("password")
-					
+
 					mui.ajax({
 						type: 'get',
 						url: login + '/login',
@@ -676,7 +699,7 @@
 				}
 				resolve()
 			});
-			
+
 			// 			_promise.then(function() {
 			// 				if (numuser) {
 			// 					console.log(clientInfo)
@@ -743,21 +766,21 @@
 		})
 		$('#itemclickone').click(function() {
 			mui.toast("暂未开通")
-// 			estimate()
-// 			if (numuser) {
-// 				mui.openWindow({
-// 					id: '.html/special/special',
-// 					url: 'html/special/special.html',
-// 					extras: {
-// 						level: nameId,
-// 					} //额外扩展参数
-// 				})
-// 			} else {
-// 				mui.openWindow({
-// 					id: 'html/home/home.html',
-// 					url: 'html/home/home.html',
-// 				})
-// 			}
+			// 			estimate()
+			// 			if (numuser) {
+			// 				mui.openWindow({
+			// 					id: '.html/special/special',
+			// 					url: 'html/special/special.html',
+			// 					extras: {
+			// 						level: nameId,
+			// 					} //额外扩展参数
+			// 				})
+			// 			} else {
+			// 				mui.openWindow({
+			// 					id: 'html/home/home.html',
+			// 					url: 'html/home/home.html',
+			// 				})
+			// 			}
 		})
 		$('#itemclicktwo').click(function() {
 			estimate()
@@ -900,7 +923,6 @@
 			modelWrap.style.display = "none";
 			modelWrap.style.visibility = "hidden";
 		}
-		
 	</script>
 
 </html>

@@ -63,7 +63,7 @@
 			}
 
 			.regulations {
-				background: rgb(250,250,250);
+				background: rgb(250, 250, 250);
 				/* border-radius: 16px; */
 				padding: 12px 20px;
 				/* box-shadow: 0px 2px 3px 2px #E6E6E6; */
@@ -89,7 +89,7 @@
 				/* background: red; */
 			}
 
-		/* 	.imgitemtimeimg {
+			/* 	.imgitemtimeimg {
 				background: red;
 			} */
 
@@ -332,11 +332,11 @@
 				position: relative;
 				display: inline-block;
 			}
-			.examineItemItm{
+
+			.examineItemItm {
 				color: red;
-				
+
 			}
-		
 		</style>
 	</head>
 	<body>
@@ -351,9 +351,9 @@
 	<script type="text/javascript" charset="utf-8">
 		var url = window.localStorage.getItem('url')
 		var dingwei = '',
-		 	  Lon = '',
-			  lat = '',
-			 detailId;
+			Lon = '',
+			lat = '',
+			detailId;
 		var initialItem = true;
 		var itemId = [];
 		var itemIdAll = [];
@@ -363,38 +363,22 @@
 			// 		 plus.navigator.setStatusBarBackground('#000000'); //改变沉浸栏背景颜色的 
 			var self = plus.webview.currentWebview();
 			detailId = self.detailId;
-			var promise = new Promise(function(resolve, reject) {
-		  plus.geolocation.getCurrentPosition(function(p){
-				if( p.address.province  != undefined){
-					var	address = p.address.province + "," + p.address.city + "," + p.address.district + "," +p.address.street
-							// alert(p.address.province + p.address.city + p.address.district + p.address.street)
-							Lon =  p.coords.longitude; //获取经度
-							Lat = p.coords.latitude; //获取纬度
-							dingwei = address;
-							resolve(dingwei)
-							// alert(dingwei)
-				}
-	     }, function(e){
-		  alert('Geolocation error: ' + e.message);
-	   });
+			addressFuntiong(self.one, self.detailId, self.two)
 
-			})
-			promise.then(function(item){
-					pageitem(self.one, self.detailId, self.two,item)
-			})
 		})
 		mui.init({
-		beforeback: function(){
-		mui.toast('保存成功');
-		var main = plus.webview.getWebviewById("../check/check.html");
-		mui.fire(main, 'changeCitytimeone', {
-			// cityName: twoArr
-		})
-	},
+			beforeback: function() {
+				mui.toast('保存成功');
+				var main = plus.webview.getWebviewById("../check/check.html");
+				mui.fire(main, 'changeCitytimeone', {
+					// cityName: twoArr
+				})
+			},
 		});
-		function pageitem(one, detailId, two,dingwei) {
+
+		function pageitem(one, detailId, two, dingwei) {
 			dingwei = dingwei
-		
+
 			mui.ajax({
 				type: 'get',
 				url: url + '/checklist/listOrder',
@@ -409,8 +393,7 @@
 						var index = 0;
 						var string = '';
 						var arrayItem = []
-						if (orders.length == 0) {
-						} else {
+						if (orders.length == 0) {} else {
 							for (var ordersNum = 0; ordersNum < orders.length; ordersNum++) {
 								arrayItem.push(orders[ordersNum].itemId)
 							}
@@ -424,7 +407,8 @@
 							var btnimgA = "../../img/DCJZ.png"
 							var btnimgB = "../../img/XQZG.png"
 							var btnimgC = "../../img/bushiyong-2.png"
-							var row1 = 1,row2 = 1;
+							var row1 = 1,
+								row2 = 1;
 							var zhanText = '展开';
 							var displaytext = 'block',
 								zhankai = 'none',
@@ -437,19 +421,23 @@
 								if (arrayItem.indexOf(valueList[num].id) != -1) {
 									for (var j = 0; j < orders.length; j++) {
 										if (valueList[num].id == orders[j].itemId) {
-											var orderIditem = orders[j].id 
-											itemId.push(valueList[num].id)		 
-											if(orders[j].picUrl== null||orders[j].picUrl== ''){
-												 picUrlimg = '';
-											}else {
-												var numbir=0
+											var orderIditem = orders[j].id
+											itemId.push(valueList[num].id)
+											if (orders[j].picUrl == null || orders[j].picUrl == '') {
+												picUrlimg = '';
+											} else {
+												var numbir = 0
 												var asdfasggsdfg = orders[j].picUrl.split(',')
-												for(var pic= 0 ;pic < asdfasggsdfg.length;pic++){
-												 numbir++
-												 picUrlimg = picUrlimg + '<span id="'+ numbir +'photoImgA'+ valueList[num].id +'" class="photoImgBig"><img id="'+ numbir +
-												'photoImgname'+ valueList[num].id +  '" class="photname'+ valueList[num].id +'" onClick="zudexiaochuA('+ valueList[num].id +
-												','+ numbir +')" src="' + asdfasggsdfg[pic] +'"/><span class="zudexiaochu" id="zudexiaochu' + valueList[num].id + 
-												'" ><img onClick="deleteItemB('+ valueList[num].id +','+numbir +',event)" src="../../img/zudexiaochu13.png"/></span></span>'	
+												for (var pic = 0; pic < asdfasggsdfg.length; pic++) {
+													numbir++
+													picUrlimg = picUrlimg + '<span id="' + numbir + 'photoImgA' + valueList[num].id +
+														'" class="photoImgBig"><img id="' + numbir +
+														'photoImgname' + valueList[num].id + '" class="photname' + valueList[num].id +
+														'" onClick="zudexiaochuA(' + valueList[num].id +
+														',' + numbir + ')" src="' + asdfasggsdfg[pic] + '"/><span class="zudexiaochu" id="zudexiaochu' +
+														valueList[num].id +
+														'" ><img onClick="deleteItemB(' + valueList[num].id + ',' + numbir +
+														',event)" src="../../img/zudexiaochu13.png"/></span></span>'
 												}
 											}
 											if (orders[j].optionId == 1) {
@@ -465,13 +453,13 @@
 											} else if (orders[j].optionId == 3) {
 												btnimgB = "../../img/XQZGIN.png"
 												zhankaiOne = 'block';
-											}else if(orders[j].optionId == 4){
+											} else if (orders[j].optionId == 4) {
 												btnimgC = "../../img/bushiyong-1.png"
 											}
 											// 检查描述
 											if (orders[j].troubleDescribe != null && orders[j].troubleDescribe != '') {
 												jiancha = orders[j].troubleDescribe
-												
+
 												row1 = Math.ceil(jiancha.length / 22);
 											}
 											// 整改要求
@@ -492,49 +480,56 @@
 								} else {
 									// <img class="speech" src="../../img/photeItem.png"/>
 									// 获取当前的位置信息
-									var orderIditem ='';
+									var orderIditem = '';
 									// alert(dingwei)
 									miaoshu = valueList[num].stipulate
 									row2 = Math.ceil(miaoshu.length / 22);
 									// console.log( valueList[num].stipulate)
-									dingweiA = '<span class="oneOnly">'+dingwei+'</span>'
+									dingweiA = '<span class="oneOnly">' + dingwei + '</span>'
 								}
 								var texthtmlinne = valueList[num].stipulate.split(/\n/)
 								var stringimg = '';
 								for (var time = 0; time < texthtmlinne.length; time++) {
 									stringimg = stringimg + '<span class="childitem">' + texthtmlinne[time] + '</span><br>'
 								}
-								string = string + '<div orderIditem="'+orderIditem+'" name="href' + valueList[num].id + '" id="href' + index +
+								string = string + '<div orderIditem="' + orderIditem + '" name="href' + valueList[num].id + '" id="href' +
+									index +
 									'" class="bodyCenter bodyCenter' + valueList[num].id + '"><div class="htmlHeader"><span class="htmlNum">' +
 									index + '.' +
 									'</span> <span class="htmlText">' + valueList[num].three +
 									'</span></div><p class="imgFather"><img class="imgSize" id="imgSize' +
 									valueList[num].id + '" onClick="imgSizeClick(' + valueList[num].id +
-									')" src="../../img/nobufuhe.png"></p><div class="regulations" id="regulations' +valueList[num].id + '"><span>' 
-									+ stringimg + '</span></div><div class="btn" ><div style="text-align: center;"><span class="imgitemtime">' +
+									')" src="../../img/nobufuhe.png"></p><div class="regulations" id="regulations' + valueList[num].id +
+									'"><span>' +
+									stringimg + '</span></div><div class="btn" ><div style="text-align: center;"><span class="imgitemtime">' +
 									'<img id="btnimg' + valueList[num].id + '" onClick="anniellidae(' + valueList[num].id +
-									',1)" class="btnimg imgitemtimeimg' + valueList[num].id + '" src=' + btnimg +'></span><span class="imgitemtime" >' +
-									'<img style="margin-top:6px;" id="btnimgA' + valueList[num].id + '" onClick="anniellidae(' + valueList[num].id +
+									',1)" class="btnimg imgitemtimeimg' + valueList[num].id + '" src=' + btnimg +
+									'></span><span class="imgitemtime" >' +
+									'<img style="margin-top:6px;" id="btnimgA' + valueList[num].id + '" onClick="anniellidae(' + valueList[num]
+									.id +
 									',2)" class="btnimgA imgitemtimeimg' + valueList[num].id + '" src=' + btnimgA +
-									'></span></div><div style="text-align: center;"><span class="imgitemtime" >' + '<img id="btnimgB' + valueList[num].id +
-									'" onClick="anniellidae(' + valueList[num].id + ',3)" class="btnimgB imgitemtimeimg' + valueList[num].id +'" src=' + btnimgB +
-									'></span><span class="imgitemtime" ><img style="margin-top:6px;" class="btnimgC" id="btnimgC' + valueList[num].id +'" onClick="anniellidae(' + valueList[num].id + 
-									',4)" src='+btnimgC+' /></span></div></div><div style="display:'
-									 + zhankaiOne + '" class="zhankaiOne" id="zhankaiOne' + valueList[num].id +
+									'></span></div><div style="text-align: center;"><span class="imgitemtime" >' + '<img id="btnimgB' +
+									valueList[num].id +
+									'" onClick="anniellidae(' + valueList[num].id + ',3)" class="btnimgB imgitemtimeimg' + valueList[num].id +
+									'" src=' + btnimgB +
+									'></span><span class="imgitemtime" ><img style="margin-top:6px;" class="btnimgC" id="btnimgC' + valueList[
+										num].id + '" onClick="anniellidae(' + valueList[num].id +
+									',4)" src=' + btnimgC + ' /></span></div></div><div style="display:' +
+									zhankaiOne + '" class="zhankaiOne" id="zhankaiOne' + valueList[num].id +
 									'"><div style="display:' + zhankai + '" class="zhankai" id="zhankai' + valueList[num].id +
-									'">  <div class="photoFather"><span class="photoText">现场照片<span class="examineItemItm">*</span></span>' +
+									'">  <div class="photoFather"><span class="photoText">现场照片<span class="examineItemItm"></span></span>' +
 									'<span class="photoCenter" id="photoCenter' + valueList[num].id +
 									'"><span  onClick="photoCenter(' + valueList[num].id +
 									')" class="photoImg"><img src="../../img/pfotoname.png"/></span>' + picUrlimg +
 									'</span></div>  <div style="display:' + displaytext + '" class="fuhe" id="fuhe' + valueList[num].id +
 									'"> <div><p class="examine"><span>检查描述<span class="examineItem">*</span></span>' +
-									'<span class="speechFather" onClick="speechFatherOne('+valueList[num].id+',1)"></span></p></div>' +
+									'<span class="speechFather" onClick="speechFatherOne(' + valueList[num].id + ',1)"></span></p></div>' +
 									'<div class="positionTop"><textarea id="onfocusItem' + valueList[num].id + '" oninput="onfocusItem(' +
 									valueList[num].id + ')"  rows="' + row1 + '" cols="">' + jiancha +
 									'</textarea><hr class="hrItem"/></div><div style="display:' + zhankaiA + '" class="zhankaiA" id="zhankaiA' +
 									valueList[num].id + '"><div><p class="examine">' +
 									'<span>整改要求<span class="examineItem">*</span></span>' +
-									'<span class="speechFather" onClick="speechFatherOne('+valueList[num].id+',2)"></span></p></div>' +
+									'<span class="speechFather" onClick="speechFatherOne(' + valueList[num].id + ',2)"></span></p></div>' +
 									'<div class="positionTop"><textarea id="onfocusItemName' + valueList[num].id +
 									'" oninput="onfocusItemName(' + valueList[num].id +
 									')" rows="' + row2 + '" cols="">' + miaoshu + '</textarea><hr class="hrItem"/></div>' +
@@ -640,7 +635,7 @@
 		}
 
 		function anniellidae(num, j) {
-		
+
 			if (j == '1') {
 				if ($('#btnimg' + num).attr('src') == '../../img/sdfsdf.png') {
 					tinct(num)
@@ -654,8 +649,8 @@
 					$('#zhankaiA' + num).css('display', 'block') // 一级的
 					$('#fuhe' + num).css('display', 'none') // 一级的
 					$('#unfold' + num).children('span').text('收起')
-					$('#unfold' + num).children('img').attr('src','../../img/youbianone - fuben.png')
-				
+					$('#unfold' + num).children('img').attr('src', '../../img/youbianone - fuben.png')
+
 				}
 			} else if (j == '2') {
 				if ($('#btnimgA' + num).attr('src') == '../../img/DCJZIN.png') {
@@ -669,7 +664,7 @@
 					$('#fuhe' + num).css('display', 'block') // 一级的
 					$('#zhankaiA' + num).css('display', 'none') // 一级的
 					$('#unfold' + num).children('span').text('收起')
-					$('#unfold' + num).children('img').attr('src','../../img/youbianone - fuben.png')
+					$('#unfold' + num).children('img').attr('src', '../../img/youbianone - fuben.png')
 				}
 			} else if (j == '3') {
 				if ($('#btnimgB' + num).attr('src') == '../../img/XQZGIN.png') {
@@ -683,18 +678,18 @@
 					$('#zhankaiA' + num).css('display', 'block') // 一级的
 					$('#zhankai' + num).css('display', 'block') // 三级的
 					$('#unfold' + num).children('span').text('收起')
-					$('#unfold' + num).children('img').attr('src','../../img/youbianone - fuben.png')
+					$('#unfold' + num).children('img').attr('src', '../../img/youbianone - fuben.png')
 				}
-			}else if( j =='4'){
-				if($('#btnimgC' + num).attr('src') == '../../img/bushiyong-1.png'){
+			} else if (j == '4') {
+				if ($('#btnimgC' + num).attr('src') == '../../img/bushiyong-1.png') {
 					tinct(num)
 					zhankaiinte(num)
-				}else{
+				} else {
 					tinct(num)
 					zhankaiinte(num)
 					$('#btnimgC' + num).attr('src', '../../img/bushiyong-1.png')
 				}
-			
+
 			}
 		}
 
@@ -706,7 +701,7 @@
 		}
 
 		function tinct(num) {
-			
+
 			$('#btnimg' + num).attr('src', '../../img/dfdf.png')
 			$('#btnimgA' + num).attr('src', '../../img/DCJZ.png')
 			$('#btnimgB' + num).attr('src', '../../img/XQZG.png')
@@ -732,17 +727,17 @@
 			}
 
 			$('#onfocusItemName' + num).attr('rows', row)
-			
+
 		}
 		// 获取位置
-// 		function MapPoint(position) {
-// 			console.log('打击')
+		// 		function MapPoint(position) {
+		// 			console.log('打击')
 
-// 			address = position.address.province + "," + position.address.city + "," + position.address.district + "," +
-// 				position.address.street
-// 			dingwei = address;
-// 			$('.oneOnly').text(dingwei)
-// 		}
+		// 			address = position.address.province + "," + position.address.city + "," + position.address.district + "," +
+		// 				position.address.street
+		// 			dingwei = address;
+		// 			$('.oneOnly').text(dingwei)
+		// 		}
 		// 清除信息
 		function clearText(num) {
 			$('#onfocusItem' + num).val('')
@@ -763,18 +758,18 @@
 			if (itemText == '展开') {
 				$('#zhankai' + num).css('display', 'block')
 				$('#unfold' + num).children('span').text('收起')
-				$('#unfold' + num).children('img').attr('src','../../img/youbianone - fuben.png')
+				$('#unfold' + num).children('img').attr('src', '../../img/youbianone - fuben.png')
 
 			} else if (itemText == '收起') {
 				$('#zhankai' + num).css('display', 'none')
 				$('#unfold' + num).children('span').text('展开')
-				$('#unfold' + num).children('img').attr('src','../../img/youbiantwo.png')
+				$('#unfold' + num).children('img').attr('src', '../../img/youbiantwo.png')
 
 			}
 		}
 		window.addEventListener('preserveItem', function(e) {
-      var promise = new Promise(function(resove,reject){
-				for (var i = 0; i < itemId.length; i++){
+			var promise = new Promise(function(resove, reject) {
+				for (var i = 0; i < itemId.length; i++) {
 					for (var indexname = 0; indexname < itemIdAll.length; indexname++) {
 						if (itemId[i] == itemIdAll[indexname]) {
 							itemIdAll.splice(indexname, 1);
@@ -789,13 +784,13 @@
 				}
 				for (var itm = 0; itm < itemIdAll.length; itm++) {
 					// var itemfalse =
-					if (!itemtd(itemIdAll[itm], 2)){
+					if (!itemtd(itemIdAll[itm], 2)) {
 						return false
 					}
 				}
-				if(initialItem){
+				if (initialItem) {
 					mui.back()
-				}else{
+				} else {
 					for (var it = 0; it < itemId.length; it++) {
 						submitpreserve(itemId[it], 1)
 					}
@@ -803,20 +798,19 @@
 						submitpreserve(itemIdAll[itm], 2)
 					}
 				}
-			resove(true)	
+				resove(true)
 			})
 
- promise.then(function(value){
-	var main = plus.webview.getWebviewById("checkPageFather.html");
-	mui.fire(main, 'preserveItemchildIrwm', {
-	})
-	 if(value){
-		 setTimeout(function(){
-			 mui.back();
-		 },1000)
-		 
-	 }
- })
+			promise.then(function(value) {
+				var main = plus.webview.getWebviewById("checkPageFather.html");
+				mui.fire(main, 'preserveItemchildIrwm', {})
+				if (value) {
+					setTimeout(function() {
+						mui.back();
+					}, 1000)
+
+				}
+			})
 			// 			mui.confirm('  ','是否保存',['取消','保存'],function(e){
 			// 				if(e.index == 1){
 			// 					  
@@ -824,41 +818,41 @@
 			// 			})
 		})
 
-		function itemtd(num, j){
-		// alert(j)
+		function itemtd(num, j) {
+			// alert(j)
 			var imgitemone = $('#btnimg' + num).attr('src'),
 				imgitemtwo = $('#btnimgA' + num).attr('src'),
 				imgitemthree = $('#btnimgB' + num).attr('src'),
 				imgitemfromna = $('#btnimgC' + num).attr('src');
 			if (imgitemone == '../../img/sdfsdf.png') {
 				// alert($('.photname' + num).length)
-				if($('.photname' + num).length == 0){
-					var hrefnumId = heightItem(num)
-					mui.toast(hrefnumId + '.照片未上传')
-					return false
-				}else{
+				// 				if($('.photname' + num).length == 0){
+				// 					var hrefnumId = heightItem(num)
+				// 					mui.toast(hrefnumId + '.照片未上传')
+				// 					return false
+				// 				}else{
+				initialItem = false;
+				return true
+				// }
+
+			} else if (imgitemtwo == '../../img/DCJZIN.png') {
+				// if($('.photname' + num).length != 0){
+				if ($('#onfocusItem' + num).val().trim().length > 0) {
 					initialItem = false;
 					return true
-				}
-			
-			} else if (imgitemtwo == '../../img/DCJZIN.png') {
-				if($('.photname' + num).length != 0){
-					if ($('#onfocusItem' + num).val().trim().length > 0) {
-						initialItem = false;
-						return true
-					} else {
-						var hrefnumId = heightItem(num)
-						mui.toast(hrefnumId + '.检查描述未填写')
-						return false
-					}
-				}else{
+				} else {
 					var hrefnumId = heightItem(num)
-					mui.toast(hrefnumId + '.照片未上传')
+					mui.toast(hrefnumId + '.检查描述未填写')
 					return false
 				}
+				// 				}else{
+				// 					var hrefnumId = heightItem(num)
+				// 					mui.toast(hrefnumId + '.照片未上传')
+				// 					return false
+				// 				}
 
-			} else if (imgitemthree == '../../img/XQZGIN.png'){
-				if($('.photname' + num).length != 0){
+			} else if (imgitemthree == '../../img/XQZGIN.png') {
+				// if($('.photname' + num).length != 0){
 				if ($('#onfocusItem' + num).val().trim().length > 0) {
 					if ($('#onfocusItemName' + num).val().trim().length > 0) {
 						if ($('#textTime' + num).val().trim().length > 0) {
@@ -879,23 +873,23 @@
 					mui.toast(hrefnumId + '.检查描述未填写')
 					return false
 				}
-				}else{
-					var hrefnumId = heightItem(num)
-					mui.toast(hrefnumId + '.照片未上传')
-					return false
-				}
-			}else if(imgitemfromna == '../../img/bushiyong-1.png'){
+				// 				}else{
+				// 					var hrefnumId = heightItem(num)
+				// 					mui.toast(hrefnumId + '.照片未上传')
+				// 					return false
+				// 				}
+			} else if (imgitemfromna == '../../img/bushiyong-1.png') {
 				// alert('name')
 				initialItem = false;
 				return true
 			} else {
-         if(j == 1){
-					  initialItem = false;
-					  return true
-         }else{
-					 	return true
-				 }
-			
+				if (j == 1) {
+					initialItem = false;
+					return true
+				} else {
+					return true
+				}
+
 			}
 		}
 
@@ -914,10 +908,10 @@
 		function submitpreserve(num, j) {
 			var imgattry = '';
 			for (var test = 0; test < $('.photname' + num).length; test++) {
-				if(imgattry == ''){
+				if (imgattry == '') {
 					imgattry = $('.photname' + num).eq(test).attr('src')
-				}else{
-					imgattry = imgattry + ','+ $('.photname' + num).eq(test).attr('src') 
+				} else {
+					imgattry = imgattry + ',' + $('.photname' + num).eq(test).attr('src')
 				}
 			}
 			var imgitemone = $('#btnimg' + num).attr('src'),
@@ -925,18 +919,18 @@
 				imgitemFrom = $('#btnimgC' + num).attr('src'),
 				imgitemthree = $('#btnimgB' + num).attr('src');
 			if (imgitemone == '../../img/sdfsdf.png') {
-				if(j == 1){
-				var orderId =	$('.bodyCenter'+num).eq(0).attr('orderIditem')
-				var present = {
-					orderId: orderId,
-					detailId: detailId,
-					optionId: "1",
-					lng: Lon, // 经度
-					lat: Lat, //纬度
-					location: dingwei,
-					picUrl: imgattry
-				}
-				}else if(j == 2){
+				if (j == 1) {
+					var orderId = $('.bodyCenter' + num).eq(0).attr('orderIditem')
+					var present = {
+						orderId: orderId,
+						detailId: detailId,
+						optionId: "1",
+						lng: Lon, // 经度
+						lat: Lat, //纬度
+						location: dingwei,
+						picUrl: imgattry
+					}
+				} else if (j == 2) {
 					var present = {
 						itemId: num,
 						detailId: detailId,
@@ -947,33 +941,33 @@
 						picUrl: imgattry
 					}
 				}
-			
+
 				ajaxItem(present, j)
 			} else if (imgitemtwo == '../../img/DCJZIN.png') {
 				var describe = $('#onfocusItem' + num).val();
-				if(j == 1){
-				var orderId =	$('.bodyCenter'+num).eq(0).attr('orderIditem')
-				var present = {
-					orderId: orderId,
-					detailId: detailId,
-					optionId: "2",
-					picUrl: imgattry,
-					describe: describe,
-					lng: Lon, // 经度
-					lat: Lat, //纬度
-					location: dingwei
-				}
-				}else if(j == 2){
-				var present = {
-					itemId: num,
-					detailId: detailId,
-					optionId: "2",
-					picUrl: imgattry,
-					describe: describe,
-					lng: Lon, // 经度
-					lat: Lat, //纬度
-					location: dingwei
-				}
+				if (j == 1) {
+					var orderId = $('.bodyCenter' + num).eq(0).attr('orderIditem')
+					var present = {
+						orderId: orderId,
+						detailId: detailId,
+						optionId: "2",
+						picUrl: imgattry,
+						describe: describe,
+						lng: Lon, // 经度
+						lat: Lat, //纬度
+						location: dingwei
+					}
+				} else if (j == 2) {
+					var present = {
+						itemId: num,
+						detailId: detailId,
+						optionId: "2",
+						picUrl: imgattry,
+						describe: describe,
+						lng: Lon, // 经度
+						lat: Lat, //纬度
+						location: dingwei
+					}
 				}
 				ajaxItem(present, j)
 
@@ -981,8 +975,8 @@
 				var describe = $('#onfocusItem' + num).val(),
 					reviewRequire = $('#onfocusItemName' + num).val(),
 					reviewTime = $('#textTime' + num).val();
-					if(j == 1){
-					var orderId =	$('.bodyCenter'+num).eq(0).attr('orderIditem')
+				if (j == 1) {
+					var orderId = $('.bodyCenter' + num).eq(0).attr('orderIditem')
 					var present = {
 						orderId: orderId,
 						detailId: detailId,
@@ -995,7 +989,7 @@
 						reviewRequire: $('#onfocusItemName' + num).val(),
 						reviewTime: $('#textTime' + num).val(),
 					}
-					}else if(j == 2){
+				} else if (j == 2) {
 					var present = {
 						itemId: num,
 						detailId: detailId,
@@ -1008,35 +1002,35 @@
 						reviewRequire: $('#onfocusItemName' + num).val(),
 						reviewTime: $('#textTime' + num).val(),
 					}
+				}
+
+				ajaxItem(present, j)
+
+			} else if (imgitemFrom == '../../img/bushiyong-1.png') {
+				if (j == 1) {
+					var orderId = $('.bodyCenter' + num).eq(0).attr('orderIditem')
+					var present = {
+						orderId: orderId,
+						detailId: detailId,
+						optionId: "4",
+						lng: Lon, // 经度
+						lat: Lat, //纬度
+						location: dingwei,
 					}
-
-				ajaxItem(present, j)
-
-			}else if(imgitemFrom== '../../img/bushiyong-1.png'){
-				if(j == 1){
-				var orderId =	$('.bodyCenter'+num).eq(0).attr('orderIditem')
-				var present = {
-					orderId: orderId,
-					detailId: detailId,
-					optionId: "4",
-					lng: Lon, // 经度
-					lat: Lat, //纬度
-					location: dingwei,
-				}
-				}else if(j == 2){
-				var present = {
-					itemId: num,
-					detailId: detailId,
-					optionId: "4",
-					lng: Lon, // 经度
-					lat: Lat, //纬度
-					location: dingwei,
-				}
+				} else if (j == 2) {
+					var present = {
+						itemId: num,
+						detailId: detailId,
+						optionId: "4",
+						lng: Lon, // 经度
+						lat: Lat, //纬度
+						location: dingwei,
+					}
 				}
 				ajaxItem(present, j)
-			}else{
-				if(j == 1){
-					var orderId =	$('.bodyCenter'+num).eq(0).attr('orderIditem')
+			} else {
+				if (j == 1) {
+					var orderId = $('.bodyCenter' + num).eq(0).attr('orderIditem')
 					var present = {
 						orderId: orderId,
 					}
@@ -1045,27 +1039,27 @@
 			}
 		}
 
-		function ajaxItem(present, j){
-// console.log(JSON.stringify(present))
-			if(j == 2){
+		function ajaxItem(present, j) {
+			// console.log(JSON.stringify(present))
+			if (j == 2) {
 				var urlItem = '/checklist/insertOrder';
 				var typeItem = 'post'
-			}else if(j ==1){
+			} else if (j == 1) {
 				var urlItem = '/checklist/updateOrder';
 				var typeItem = 'post'
-			}else if(j == 3){
+			} else if (j == 3) {
 				var urlItem = '/checklist/removeOrder';
 				var typeItem = 'get'
 			}
-		
-				mui.ajax({
+
+			mui.ajax({
 				type: typeItem,
 				url: localStorage.getItem("url") + urlItem,
 				data: present,
 				timeout: 10000,
 				success: function(res) {
-					if (res.code == 200){
-					
+					if (res.code == 200) {
+
 					} else {
 						mui.toast(res.message);
 					}
@@ -1073,8 +1067,9 @@
 				error: function() {}
 			})
 		}
-		function zudexiaochuA(num,numbir) {
-			var img = $('#'+numbir +'photoImgname' + num).attr('src')
+
+		function zudexiaochuA(num, numbir) {
+			var img = $('#' + numbir + 'photoImgname' + num).attr('src')
 			mui.openWindow({
 				url: "../../js/img.html",
 				id: "img",
@@ -1083,39 +1078,57 @@
 				}
 			})
 		}
-		function deleteItemB(num,numbir,event){
-			event.stopPropagation();
-			$('#'+numbir +'photoImgA' + num).html('')
-			$('#'+numbir +'photoImgA' + num).css('display','none')
-		}
-		function speechFatherOne(id,num){
-			var options = {};
-	        options.engine = 'iFly';
-	    var textadd = "";
-      	// alert("开始语音识别：");
-	     plus.speech.startRecognize(options, function(s){
-				 textadd += s;
-				 if(num=='1'){ 
-					var row = Math.ceil(textadd.length / 22);
-					 if (row == 0) {
-					 	row = 1
-					 	}				 
-				$('#onfocusItem' + id).attr('rows', row)
-					$('#onfocusItem'+id).val(textadd)
-				 }else if(num == '2'){
-					 	var row = Math.ceil(textadd.length / 22);
-					 	if (row == 0) {
-					 		row = 1
-					 		}
-					 	
-					 $('#onfocusItemName' + id).attr('rows', row)
-					$('#onfocusItemName'+id).val(textadd)
 
-				 }
-			 
-	    }, function(e){
-		alert("语音识别失败："+e.message);
-	});
+		function deleteItemB(num, numbir, event) {
+			event.stopPropagation();
+			$('#' + numbir + 'photoImgA' + num).html('')
+			$('#' + numbir + 'photoImgA' + num).css('display', 'none')
+		}
+
+		function speechFatherOne(id, num) {
+			var options = {};
+			options.engine = 'iFly';
+			var textadd = "";
+			// alert("开始语音识别：");
+			plus.speech.startRecognize(options, function(s) {
+				textadd += s;
+				if (num == '1') {
+					var row = Math.ceil(textadd.length / 22);
+					if (row == 0) {
+						row = 1
+					}
+					$('#onfocusItem' + id).attr('rows', row)
+					$('#onfocusItem' + id).val(textadd)
+				} else if (num == '2') {
+					var row = Math.ceil(textadd.length / 22);
+					if (row == 0) {
+						row = 1
+					}
+
+					$('#onfocusItemName' + id).attr('rows', row)
+					$('#onfocusItemName' + id).val(textadd)
+
+				}
+
+			}, function(e) {
+				alert("语音识别失败：" + e.message);
+			});
+		}
+		
+		function addressFuntiong(one,detailId,two){
+			plus.geolocation.getCurrentPosition(function(p) {
+				if(p.addresses != '' || p.addresses != null && p.addresses != undefined){
+					var address = p.addresses
+					Lon = p.coords.longitude; //获取经度
+					Lat = p.coords.latitude; //获取纬度
+					dingwei = address;
+					pageitem(one,detailId,two, dingwei)
+				}else{
+					addressFuntiong()
+				}
+			}, function(e) {
+				alert('Geolocation error: ' + e.message);
+			});
 		}
 	</script>
 </html>
